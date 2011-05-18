@@ -34,6 +34,9 @@
     <Compile Include="Equipment.cs" />
     <Compile Include="EquipmentDetail.cs" />
     <Compile Include="Exp.cs" />
+    <Compile Include="ExpCategory.cs" />
+    <Compile Include="ExpData.cs" />
+    <Compile Include="ExpTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specialty.cs" />
   </ItemGroup>
