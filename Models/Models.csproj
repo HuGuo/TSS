@@ -31,14 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Credential.cs" />
+    <Compile Include="Employee.cs" />
     <Compile Include="Equipment.cs" />
+    <Compile Include="EquipmentCategory.cs" />
     <Compile Include="EquipmentDetail.cs" />
-    <Compile Include="Experiment.cs" />
-    <Compile Include="ExpAttachment.cs" />
-    <Compile Include="ExpCategory.cs" />
-    <Compile Include="ExpData.cs" />
-    <Compile Include="ExpTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specialty.cs" />
   </ItemGroup>
