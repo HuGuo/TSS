@@ -11,7 +11,7 @@ namespace TSS.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.ComplexType<Specialty>;
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
