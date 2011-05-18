@@ -12,9 +12,7 @@ namespace TSS.Models
         [MaxLength(250)]
         public string Name { get; set; }
 
-        [ForeignKey("specialty")]
         public string SP_Code { get; set; }
-        public virtual Specialty specialty { get; set; }
 
         [Column("PID")]
         public int ParentId { get; set; }

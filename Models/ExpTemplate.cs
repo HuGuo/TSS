@@ -13,8 +13,7 @@ namespace TSS.Models
 
         public string Title { get; set; }
         public string HTML { get; set; }
-        [Column("SP_CODE")]
-        public string SpecialID { get; set; }
+        public string SP_CODE { get; set; }
 
         public int IsDEL { get; set; }
 
