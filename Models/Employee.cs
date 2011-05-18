@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TSS.Models
 {
-    class Employee
+    public class Employee
     {
         [Key]
         public Guid Id { get; set; }

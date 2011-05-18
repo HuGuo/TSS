@@ -2,7 +2,7 @@
 
 namespace TSS.Models
 {
-    class EquipmentDetail
+    public class EquipmentDetail
     {
         public Guid EquipmentDetailId { get; set; }
 

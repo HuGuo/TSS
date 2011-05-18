@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TSS.Models
 {
-    class EquipmentCategory
+    public class EquipmentCategory
     {
         [Key]
         public Guid Id { get; set; }
