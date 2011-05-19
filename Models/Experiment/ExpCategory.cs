@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 namespace TSS.Models
 {
     public class ExpCategory
@@ -14,11 +14,13 @@ namespace TSS.Models
 
         public string SP_Code { get; set; }
 
-        [Column("PID")]
-        public int ParentId { get; set; }
+        [Column("PID")]        
+        public int? ParentId { get; set; }
+                
+        public virtual ICollection<ExpCategory> Childs { get; set; }
 
-        [NotMapped]
-        public Lazy<ICollection<ExpCategory>> ChildLazyLoad { get; private set; }
+        [ForeignKey("ParentId")]
+        public  virtual ExpCategory Parent { get; set; }
 
         public virtual ICollection<ExpTemplate> TemplateList { get; set; }
     }
