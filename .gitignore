@@ -1,5 +1,8 @@
-bin/
-obj/
+[Bb]in/
+[Oo]bj/
+*.sdf
 *.sln.docstates
 *.suo
 *.cache
+*.user
+*.orig
