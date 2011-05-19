@@ -13,13 +13,12 @@ public partial class SystemManagement_Equipment_Add : System.Web.UI.Page
     }
     protected void addButton_Click(object sender, EventArgs e)
     {
-        using (var content = new TSSModel.TSSEntities())
+        using (var content = new TSS.Models.Context())
         {
-            content.AddToEQUIPMENT(new TSSModel.EQUIPMENT
-            {
-                ID = Guid.NewGuid().ToString(),
-                NAME = TextBox1.Text,
-                SP_CODE = "GHY-DC"
+            content.Equipments.Add(new TSS.Models.Equipment {
+                Id = Guid.NewGuid(),
+                Name = TextBox1.Text,
+                SpecialtyId = DropDownList1.SelectedValue
             });
 
             content.SaveChanges();
