@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TSS.Models</RootNamespace>
-    <AssemblyName>TTS.Models</AssemblyName>
+    <AssemblyName>TSS.Models</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
-    <Compile Include="Credential.cs" />
+    <Compile Include="Certificate.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="Equipment.cs" />
     <Compile Include="EquipmentCategory.cs" />

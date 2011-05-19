@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace TSS.Models
 {
-    [Table("EQUIPMENT")]
     public class Equipment
     {
         public Guid Id { get; set; }
@@ -12,7 +10,11 @@ namespace TSS.Models
         public string Name { get; set; }
         public string Code { get; set; }
 
-        public Specialty Specialty { get; set; }
+        public string SpecialtyId { get; set; }
+        public virtual Specialty Specialty { get; set; }
+
+        public Guid EquipmentCategoryId { get; set; }
+        public virtual EquipmentCategory EquipmentCategory { get; set; }
 
         public virtual ICollection<EquipmentDetail> EquipmentDetails { get; set; }
     }

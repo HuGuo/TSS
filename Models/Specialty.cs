@@ -1,13 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+
 namespace TSS.Models
 {
-    [Table("SPECIALTY")]
     public class Specialty
     {
-        [Key,DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.None)]
-        public string Code { get; set; }
-
-        [MaxLength(250)]
+        public string Id { get; set; }
         public string Name { get; set; }
+
+        public virtual ICollection<Equipment> Equipments { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 }
