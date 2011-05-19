@@ -34,14 +34,14 @@
     <Compile Include="Context.cs" />
     <Compile Include="Certificate.cs" />
     <Compile Include="Employee.cs" />
-    <Compile Include="Equipment.cs" />
-    <Compile Include="EquipmentCategory.cs" />
-    <Compile Include="EquipmentDetail.cs" />
-    <Compile Include="ExpAttachment.cs" />
-    <Compile Include="ExpCategory.cs" />
-    <Compile Include="ExpData.cs" />
-    <Compile Include="Experiment.cs" />
-    <Compile Include="ExpTemplate.cs" />
+    <Compile Include="Equipment\Equipment.cs" />
+    <Compile Include="Equipment\EquipmentCategory.cs" />
+    <Compile Include="Equipment\EquipmentDetail.cs" />
+    <Compile Include="Experiment\ExpAttachment.cs" />
+    <Compile Include="Experiment\ExpCategory.cs" />
+    <Compile Include="Experiment\ExpData.cs" />
+    <Compile Include="Experiment\Experiment.cs" />
+    <Compile Include="Experiment\ExpTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specialty.cs" />
   </ItemGroup>
