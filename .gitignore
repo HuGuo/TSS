@@ -1,10 +1,10 @@
+
 [Bb]in/
 [Oo]bj/
 /packages/
 packages.config
-web.config
 *.sdf
-*.sln.docstates
+*.docstates
 *.suo
 *.cache
 *.user

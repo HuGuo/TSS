@@ -9,10 +9,17 @@ namespace TSS.BLL
     {
         public static IList<TSS.Models.Equipment> GetAll()
         {
-            using (var content = new TSS.Models.Context()) {
-                return (from p in content.Equipments
-                       select p)
-                       .ToList();
+            using (var context = new TSS.Models.Context()) {
+                return context.Equipments.ToList();
+            }
+        }
+
+        public static IList<TSS.Models.Equipment> GetAll(string category, string specialty)
+        {
+            using (var context = new TSS.Models.Context()) {
+                return context.Equipments.Where(e =>
+                    e.EquipmentCategoryId.Equals(new Guid(category)) &&
+                    e.SpecialtyId.Equals(specialty)).ToList();
             }
         }
 

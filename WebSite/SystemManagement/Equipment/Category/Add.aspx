@@ -9,8 +9,12 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:TreeView ID="TreeView1" runat="server">
+        <asp:TreeView ID="TreeView1" runat="server" DataSourceID="XmlDataSource1">
+        <DataBindings>
+        <asp:TreeNodeBinding DataMember="Category" TextField="Name" ValueField="Id" />
+        </DataBindings>
         </asp:TreeView>
+        <asp:XmlDataSource ID="XmlDataSource1" runat="server" EnableCaching="false"></asp:XmlDataSource>
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" onclick="Button1_Click" Text="Button" />
     </div>
