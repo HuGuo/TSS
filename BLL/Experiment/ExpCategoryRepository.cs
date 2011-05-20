@@ -14,7 +14,7 @@ namespace TSS.BLL
         {
             using (Context db = new Context()) {
 
-                var query = db.Expcategory.AsNoTracking().Where(p => p.SP_Code == specialtyID).ToList();
+                var query = db.ExpCategories.AsNoTracking().Where(p => p.SP_Code == specialtyID).ToList();
                 ExpCategory root = query.FirstOrDefault(p => p.ParentId == null);
                 if (null != root) {
                     BindChilds(root, query);

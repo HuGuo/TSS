@@ -6,9 +6,15 @@ namespace TSS.Models
     public class Context : DbContext
     {
         public IDbSet<Equipment> Equipments { get; set; }
-        public IDbSet<Specialty> Specitalties { get; set; }
-        public IDbSet<ExpData> Expdatas { get; set; }
-        public IDbSet<ExpAttachment> Expattachment { get; set; }
+        public IDbSet<EquipmentCategory> EquipmentCategories { get; set; }
+        public IDbSet<Specialty> Specialties { get; set; }
+
+        public IDbSet<Experiment> Experiments { get; set; }
+        public IDbSet<ExpData> ExpData { get; set; }
+        public IDbSet<ExpAttachment> ExpAttachments { get; set; }
+        public IDbSet<ExpTemplate> ExpTemplates { get; set; }
+        public IDbSet<ExpCategory> ExpCategories { get; set; }
+
         public IDbSet<Certificate> Certificates { get; set; }
 
         public Context()
@@ -34,7 +40,7 @@ namespace TSS.Models
                 new Specialty { Id = "GHY-JY", Name = "绝缘" },
                 new Specialty { Id = "GHY-LC", Name = "励磁" },
                 new Specialty { Id = "GHY-RG", Name = "热工" }
-            }.ForEach(s => context.Specitalties.Add(s));
+            }.ForEach(s => context.Specialties.Add(s));
 
             context.SaveChanges();
         }

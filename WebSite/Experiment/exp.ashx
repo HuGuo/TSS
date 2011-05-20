@@ -84,7 +84,7 @@ public class exp : IHttpHandler
                 ExpDate = DateTime.Parse(date),
                 TemplateID = templateID,
                 HTML = html,
-                EquipmentID=string.Empty,
+                // EquipmentID=string.Empty,
                 Expdatas = (from p in arry1
                             let s = p.Split(new string[] { "<=>"}, StringSplitOptions.None)
                             select new ExpData {

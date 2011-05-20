@@ -10,16 +10,22 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:DropDownList ID="DropDownList1" runat="server" 
-            DataSourceID="LinqDataSource1" DataTextField="Name" DataValueField="Id">
+        设备目录<asp:DropDownList ID="DropDownList2" runat="server" 
+            DataSourceID="ObjectDataSource2" DataTextField="Name" DataValueField="Id">
         </asp:DropDownList>
-        <asp:LinqDataSource ID="LinqDataSource1" runat="server" 
-            ContextTypeName="TSS.Models.Context" EntityTypeName="" Select="new (Id, Name)" 
-            TableName="Specitalties">
-        </asp:LinqDataSource>
+        <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" 
+            SelectMethod="GetAll" TypeName="TSS.BLL.EquipmentCategory">
+        </asp:ObjectDataSource>
+        专业<asp:DropDownList ID="DropDownList1" runat="server" 
+            DataSourceID="ObjectDataSource1" DataTextField="Name" DataValueField="Id">
+        </asp:DropDownList>
     
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         <asp:Button ID="addButton" runat="server" onclick="addButton_Click" Text="添加" />
+    
+        <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" 
+            SelectMethod="GetAll" TypeName="TSS.BLL.SpecialtyRepository">
+        </asp:ObjectDataSource>
     
     </div>
     </form>

@@ -11,7 +11,7 @@ namespace TSS.BLL
         public override void Delete(int id)
         {
             using (Context db = new Context()) {
-                ExpTemplate entity = db.Exptemplates.Find(id);
+                ExpTemplate entity = db.ExpTemplates.Find(id);
                 if (null != entity) {
                     entity.IsDEL = 1;
                     db.SaveChanges();

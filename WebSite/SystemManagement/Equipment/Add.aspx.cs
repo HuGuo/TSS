@@ -11,17 +11,9 @@ public partial class SystemManagement_Equipment_Add : System.Web.UI.Page
     {
 
     }
+
     protected void addButton_Click(object sender, EventArgs e)
     {
-        using (var content = new TSS.Models.Context())
-        {
-            content.Equipments.Add(new TSS.Models.Equipment {
-                Id = Guid.NewGuid(),
-                Name = TextBox1.Text,
-                SpecialtyId = DropDownList1.SelectedValue
-            });
-
-            content.SaveChanges();
-        }
+        TSS.BLL.Equipment.Add(TextBox1.Text, DropDownList2.SelectedValue, DropDownList1.SelectedValue);
     }
 }

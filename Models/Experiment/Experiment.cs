@@ -13,7 +13,7 @@ namespace TSS.Models
         [DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.None)]
         public string Id { get; set; }
 
-        [Column("EXP_DATE", TypeName = "smalldatetime")]
+        [Column("EXP_DATE")]
         public DateTime ExpDate { get; set; }
 
         [ForeignKey("Template"), Column("TMP_ID")]

@@ -9,6 +9,8 @@ namespace TSS.Models
 
         public String Name { get; set; }
 
+        public Guid? ParentId { get; set; }
+
         public virtual ICollection<Equipment> Equipments { get; set; }
     }
 }
