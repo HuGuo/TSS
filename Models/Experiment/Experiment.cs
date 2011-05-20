@@ -21,7 +21,7 @@ namespace TSS.Models
         public virtual ExpTemplate Template { get; set; }
 
         [Column("EM_ID")]
-        public string EquipmentID { get; set; }
+        public Guid EquipmentID { get; set; }
 
         public int IsDEL { get; set; }
 

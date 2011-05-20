@@ -7,8 +7,8 @@ namespace TSS.Models
     {
         public IDbSet<Equipment> Equipments { get; set; }
         public IDbSet<Specialty> Specitalties { get; set; }
-        // public IDbSet<ExpData> Expdatas { get; set; }
-        // public IDbSet<ExpAttachment> Expattachment { get; set; }
+        public IDbSet<ExpData> Expdatas { get; set; }
+        public IDbSet<ExpAttachment> Expattachment { get; set; }
         public IDbSet<Certificate> Certificates { get; set; }
 
         public Context()

@@ -1,5 +1,8 @@
+
 [Bb]in/
 [Oo]bj/
+/packages/
+packages.config
 *.sdf
 *.sln.docstates
 *.suo
