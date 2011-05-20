@@ -6,7 +6,7 @@ EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "WebSite\", "{949F4799-3A2D-4CA2-92B2-1B8415A7215D}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{58DF235E-C529-4255-8469-5C54F32C40F1}|TSS.Models.dll;"
+		ProjectReferences = "{2F43509D-6C34-40D8-BFED-F09ED941E6A8}|BLL.dll;{58DF235E-C529-4255-8469-5C54F32C40F1}|TTS.Models.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/WebSite"
 		Debug.AspNetCompiler.PhysicalPath = "WebSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WebSite\"

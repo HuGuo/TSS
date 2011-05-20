@@ -13,7 +13,7 @@ namespace TSS.Models
         public string Value { get; set; }
 
         [ForeignKey("experiment"), Column("EXP_ID")]
-        public int EXPId { get; set; }
+        public string EXPId { get; set; }
         public virtual Experiment experiment { get; set; }
     }
 }
