@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+
 namespace TSS.Models
 {
     [Table("EXP_VIEWDATA")]

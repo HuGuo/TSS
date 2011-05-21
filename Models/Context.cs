@@ -1,23 +1,42 @@
-﻿using System.Data.Entity;
+using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace TSS.Models
 {
     public class Context : DbContext
     {
-        public Context() : base("TSS") {}
+        public IDbSet<Equipment> Equipments { get; set; }
+        public IDbSet<Specialty> Specitalties { get; set; }
+        // public IDbSet<ExpData> Expdatas { get; set; }
+        // public IDbSet<ExpAttachment> Expattachment { get; set; }
+        public IDbSet<Certificate> Certificates { get; set; }
 
-        public DbSet<Equipment> Equipments { get; set; }
-        public DbSet<Specialty> Specialties { get; set; }
-        public IDbSet<ExpCategory> Expcategory { get; set; }
-        public IDbSet<ExpTemplate> Exptemplates { get; set; }
-        public IDbSet<Experiment> Experiments { get; set; }
-        public IDbSet<ExpData> Expdatas { get; set; }
-        public IDbSet<ExpAttachment> Expattachment { get; set; }
-        public IDbSet<Credential> Credentials { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public Context()
+            : base("TSS")
         {
-            base.OnModelCreating(modelBuilder);
+             Database.SetInitializer<Context>(new DatabaseInitializer());        
+        }
+    }
+
+    class DatabaseInitializer : DropCreateDatabaseIfModelChanges<Context>
+    {
+        protected override void Seed(Context context)
+        {
+            base.Seed(context);
+
+            new List<Specialty> {
+                new Specialty { Id = "GHY-DC", Name = "电测计量" },
+                new Specialty { Id = "GHY-DN", Name = "电能" },
+                new Specialty { Id = "GHY-HX", Name = "化学" },
+                new Specialty { Id = "GHY-JDBH", Name = "继电保护" },
+                new Specialty { Id = "GHY-JN", Name = "节能" },
+                new Specialty { Id = "GHY-JS", Name = "金属" },
+                new Specialty { Id = "GHY-JY", Name = "绝缘" },
+                new Specialty { Id = "GHY-LC", Name = "励磁" },
+                new Specialty { Id = "GHY-RG", Name = "热工" }
+            }.ForEach(s => context.Specitalties.Add(s));
+
+            context.SaveChanges();
         }
     }
 }

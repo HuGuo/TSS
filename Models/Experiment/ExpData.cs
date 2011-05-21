@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace TSS.Models
 {
     [Table("EXP_DATA")]

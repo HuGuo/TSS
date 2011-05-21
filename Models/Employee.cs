@@ -1,15 +1,18 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace TSS.Models
 {
     public class Employee
     {
-        [Key]
         public Guid Id { get; set; }
 
-        public string LoginName { get; set; }
+        public string Name { get; set; }
+        public string Sex { get; set; }
 
+        public string SpecialtyId { get; set; }
         public virtual Specialty Specialty { get; set; }
+
+        public virtual ICollection<Certificate> Certificates { get; set; }
     }
 }
