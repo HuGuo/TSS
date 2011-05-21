@@ -32,7 +32,7 @@ namespace TSS.BLL
 
         public virtual bool Exists(KeyType id) 
         {
-            return null == Get(id);
+            return null != Get(id);
         }
 
         public virtual TEntity Get(KeyType id) 
@@ -47,9 +47,10 @@ namespace TSS.BLL
         {
             using (Context db=new Context()) {
                 IDbSet<TEntity> dbSet = db.Set<TEntity>();
-                dbSet.Attach(entity);
+                //dbSet.Attach(entity);
                 db.Entry<TEntity>(entity).State = EntityState.Modified;
                 db.SaveChanges();
+                
             }
         }
 

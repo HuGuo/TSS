@@ -9,8 +9,8 @@ namespace TSS.Models
         public Experiment() { }
 
         [Key]
-        [DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.None)]
+        public string Id { get; set; }
 
         [Column("EXP_DATE", TypeName = "smalldatetime")]
         public DateTime ExpDate { get; set; }
@@ -22,7 +22,9 @@ namespace TSS.Models
         [Column("EM_ID")]
         public string EquipmentID { get; set; }
 
+        public string HTML { get; set; }
         public int IsDEL { get; set; }
+        public string Title { get; set; }
 
         public virtual ICollection<ExpData> Expdatas { get; set; }
         public virtual ICollection<ExpAttachment> Attachments { get; set; }

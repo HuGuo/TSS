@@ -15,7 +15,7 @@ namespace TSS.Models
         public string FielName { get; set; }
 
         [ForeignKey("experiment")]
-        public int ExpID { get; set; }
+        public string ExpID { get; set; }
         public virtual Experiment experiment { get; set; }
     }
 }
