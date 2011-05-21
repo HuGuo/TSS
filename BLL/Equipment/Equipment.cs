@@ -36,5 +36,18 @@ namespace TSS.BLL
                 content.SaveChanges();
             }
         }
+
+        public static void Update(TSS.Models.Equipment equipment)
+        {
+            using (var content = new TSS.Models.Context()) {
+                var e = content.Equipments.Find(equipment.Id);
+                if (e != null) {
+                    e.Name = equipment.Name;
+                    e.SpecialtyId = equipment.SpecialtyId;
+
+                    content.SaveChanges();
+                }
+            }
+        }
     }
 }

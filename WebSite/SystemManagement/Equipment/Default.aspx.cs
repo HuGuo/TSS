@@ -11,8 +11,6 @@ public partial class SystemManagement_Equipment_Default : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            GridView1.DataSource = TSS.BLL.Equipment.GetAll();
-            GridView1.DataBind();
         }
     }
 }

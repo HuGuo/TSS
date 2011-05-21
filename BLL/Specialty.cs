@@ -12,5 +12,13 @@ namespace TSS.BLL
                 return context.Specialties.ToList();
             }
         }
+
+        public static TSS.Models.Specialty Get(string id)
+        {
+            using (var context = new Context()) {
+                return context.Specialties.First(s =>
+                    s.Id.Equals(id));
+            }
+        }
     }
 }
