@@ -114,22 +114,22 @@ public class Exp : IHttpHandler
     void DeleteTemplate(HttpContext context) {
         ExpTemplateRepository repository = new ExpTemplateRepository();
         try {
-            Guid id = new Guid(context.Request["tid"]);
-            repository.Delete(id);
-            context.Response.End();
+            Guid id = new Guid(context.Request["id"]);
+            repository.Delete(id);            
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }
+        context.Response.End();
     }
     void DeleteExperiment(HttpContext context) {
         ExperimentRepository repository = new ExperimentRepository();
         try {
             Guid id = new Guid(context.Request["id"]);
             repository.Delete(id);
-            context.Response.End();
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }
+        context.Response.End();
     }
 
     #endregion

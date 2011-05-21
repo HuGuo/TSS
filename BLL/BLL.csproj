@@ -44,7 +44,7 @@
   <ItemGroup>
     <Compile Include="Employees.cs" />
     <Compile Include="Equipment\Equipments.cs" />
-    <Compile Include="FolderRepository.cs" />
+    <Compile Include="DocumentRepository.cs" />
     <Compile Include="Equipment\EquipmentCategories.cs" />
     <Compile Include="Experiment\Repository.cs" />
     <Compile Include="Experiment\ExperimentRepository.cs" />

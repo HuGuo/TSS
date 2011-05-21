@@ -17,7 +17,7 @@
         min-width: 150px;">
         <div id="menu_accordion" class="easyui-accordion" fit="true" border="false" style="background-color:#e6e6e6">        
             <div title="专业监督" selected="true" style="overflow: auto;">
-                <ul id="tt1" class="easyui-tree" id="specialtyTree">
+                <ul class="easyui-tree" id="specialtyTree">
                     <li  state="open"><span>绝缘监督</span>
                         <ul>
                             <li><span><a href="javascript:void(0);" target="frm_main">设备台帐</a></span></li>
@@ -42,8 +42,16 @@
                     </li>
                 </ul>
             </div>
-            <div title="系统管理" iconCls="icon-tools"  style="overflow: auto;">
-            系统管理
+            <div title="系统管理" iconcls="icon-tools" style="overflow: auto;">
+                <ul class="easyui-tree" id="sysTree">
+                    <li><span>系统管理</span>
+                        <ul>
+                            <li><span><a href="SystemManagement/Experiment/Default.aspx" target="frm_main">实验报告模板</a></span></li>
+                            <li><span>设备管理</span></li>
+                            <li><span><a href="SystemManagement/Workflow/Default.aspx" target="frm_main">流程设置</a></span></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
             <div title="连接" iconCls="icon-tools"  style="overflow: auto;">
             模板下载

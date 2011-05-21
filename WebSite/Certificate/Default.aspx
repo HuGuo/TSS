@@ -6,8 +6,11 @@
     <title>持证管理</title>
 </head>
 <body>
+    
     <form id="form1" runat="server">
     <a href="Add.aspx?s=<%=Request.QueryString["s"] %>">添加持证信息</a>
+<asp:TextBox ID="txtKey" runat="server">姓名或证书编号</asp:TextBox>
+    <asp:Button ID="btnSearch" runat="server" onclick="btnSearch_Click" Text="搜索" />
     <table>
         <tr>
             <td>
@@ -40,10 +43,11 @@
             <td>
                 备注
             </td>
+            <td></td>
         </tr>
         <asp:Repeater ID="rptList" runat="server" DataSourceID="CeretificateDataSources">
             <ItemTemplate>
-                <tr>
+                <tr id="tr_<%#Eval("id") %>">
                     <td>
                         <%# Container.ItemIndex+1 %>
                     </td>
@@ -63,16 +67,19 @@
                         <%# Eval("CretificationAuthority")%>
                     </td>
                     <td>
-                        <%# Eval("ReceiveDateTime")%>
+                        <%# Eval("ReceiveDateTime", "{0:yyyy-MM-dd}")%>
                     </td>
                     <td>
-                        <%# Eval("ExpireDateTime")%>
+                        <%# Eval("ExpireDateTime", "{0:yyyy-MM-dd}")%>
                     </td>
                     <td>
                         <%# Eval("Number")%>
                     </td>
                     <td>
                         <%# Eval("Remark")%>
+                    </td>
+                    <td><a href="Add.aspx?id=<%#Eval("id") %>&s=<%#Eval("SpecialtyId") %>" target="_blank">编辑</a>
+                    <a href="javascript:void(0);" class="delete" key="<%#Eval("id") %>">删除</a>
                     </td>
                 </tr>
             </ItemTemplate>
@@ -87,3 +94,12 @@
     </form>
 </body>
 </html>
+<script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
+<script src="../scripts/jquery.delete.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $("a.delete").bindDelete({
+        handler: "../delete.ashx",
+        op: "del-certificate",
+        onSuccess: function (k) { $("#tr_" + k).remove(); }
+    });
+</script>
