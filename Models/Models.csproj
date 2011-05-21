@@ -38,7 +38,6 @@
     <Compile Include="Equipment\EquipmentCategory.cs" />
     <Compile Include="Equipment\EquipmentDetail.cs" />
     <Compile Include="Experiment\ExpAttachment.cs" />
-    <Compile Include="Experiment\ExpCategory.cs" />
     <Compile Include="Experiment\ExpData.cs" />
     <Compile Include="Experiment\Experiment.cs" />
     <Compile Include="Experiment\ExpTemplate.cs" />

@@ -46,7 +46,6 @@
     <Compile Include="FolderRepository.cs" />
     <Compile Include="Equipment\EquipmentCategory.cs" />
     <Compile Include="Experiment\Repository.cs" />
-    <Compile Include="Experiment\ExpCategoryRepository.cs" />
     <Compile Include="Experiment\ExperimentRepository.cs" />
     <Compile Include="Experiment\ExpTemplateRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

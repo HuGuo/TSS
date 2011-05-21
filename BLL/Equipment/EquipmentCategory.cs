@@ -23,7 +23,7 @@ namespace TSS.BLL
                 context.EquipmentCategories.Add(new TSS.Models.EquipmentCategory {
                     Id = Guid.NewGuid(),
                     Name = name,
-                    ParentId = new Guid(parentId)
+                    ParentId = string.IsNullOrEmpty(parentId) ? (Guid?)null : new Guid(parentId)
                 });
 
                 context.SaveChanges();

@@ -1,8 +1,9 @@
+
 [Bb]in/
 [Oo]bj/
 /packages/
 packages.config
-web.config
+[Ww]eb.config
 *.sdf
 *.docstates
 *.suo
