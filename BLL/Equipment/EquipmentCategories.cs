@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TSS.Models;
 using System.Text;
+using TSS.Models;
 
 namespace TSS.BLL
 {
-    public static class EquipmentCategory
+    public static class EquipmentCategories
     {
-        public static IList<TSS.Models.EquipmentCategory> GetAll()
+        public static IList<EquipmentCategory> GetAll()
         {
             using (var context = new Context()) {
-                return (from c in context.EquipmentCategories
-                        select c)
-                        .ToList();
+                return context.EquipmentCategories.ToList();
             }
         }
 
@@ -23,11 +21,29 @@ namespace TSS.BLL
                 context.EquipmentCategories.Add(new TSS.Models.EquipmentCategory {
                     Id = Guid.NewGuid(),
                     Name = name,
-                    ParentId = string.IsNullOrEmpty(parentId) ? (Guid?)null : new Guid(parentId)
+                    ParentId = string.IsNullOrEmpty(parentId) ? (Guid?)null : Guid.Parse(parentId)
                 });
 
                 context.SaveChanges();
             }
+        }
+
+        public static void Update(EquipmentCategory equipmentCategory)
+        {
+            using (var context = new Context()) {
+                var o = context.EquipmentCategories.Find(equipmentCategory.Id);
+                if (o != null) {
+                    o.Name = equipmentCategory.Name;
+                    o.ParentId = equipmentCategory.ParentId;
+
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public static void Delete(EquipmentCategory equipmentCategory)
+        {
+            throw new NotImplementedException();
         }
 
         public static StringBuilder GetXml()
@@ -43,7 +59,7 @@ namespace TSS.BLL
             return result;
         }
 
-        private static StringBuilder Walking(IList<TSS.Models.EquipmentCategory> categories, Guid? id)
+        private static StringBuilder Walking(IList<EquipmentCategory> categories, Guid? id)
         {
             StringBuilder result = new StringBuilder();
 

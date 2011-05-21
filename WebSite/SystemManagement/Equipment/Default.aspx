@@ -19,7 +19,7 @@
                     <asp:LinkButton ID="edit" runat="server" CommandName="Edit" Text='<%# Eval("Name") %>'></asp:LinkButton>
                 </li>
                 <li>
-                    <%# TSS.BLL.Specialty.Get(Eval("SpecialtyId").ToString()).Name %>
+                    <%# TSS.BLL.Specialties.Get(Eval("SpecialtyId").ToString()).Name %>
                 </li>
             </ItemTemplate>
             <EditItemTemplate>

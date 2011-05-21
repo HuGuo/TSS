@@ -10,7 +10,7 @@ public partial class SystemManagement_Equipment_Category_Add : System.Web.UI.Pag
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
-            XmlDataSource1.Data = TSS.BLL.EquipmentCategory.GetXml().ToString();
+            XmlDataSource1.Data = TSS.BLL.EquipmentCategories.GetXml().ToString();
         }
 
     }
@@ -18,6 +18,6 @@ public partial class SystemManagement_Equipment_Category_Add : System.Web.UI.Pag
     protected void Button1_Click(object sender, EventArgs e)
     {
 
-        TSS.BLL.EquipmentCategory.Add(TextBox1.Text, TreeView1.SelectedValue);
+        TSS.BLL.EquipmentCategories.Add(TextBox1.Text, TreeView1.SelectedValue);
     }
 }
