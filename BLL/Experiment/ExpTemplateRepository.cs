@@ -14,15 +14,32 @@ namespace TSS.BLL
             using (Context db = new Context()) {
                 ExpTemplate entity = db.ExpTemplates.Find(id);
                 if (null != entity) {
-                    entity.IsDEL = 1;
+                    int exps = db.Experiments.Count(p => p.ExpTemplateID == entity.Id);
+                    if (exps > 0) {
+                        entity.IsDEL = 1;
+                    } else {
+                        db.ExpTemplates.Remove(entity);
+                    }
                     db.SaveChanges();
                 }
             }
         }
 
+        public override IList<ExpTemplate> GetAll()
+        {
+            using (Context db=new Context()) {
+                return db.ExpTemplates.Where(p => p.IsDEL == 0)
+                    .OrderBy(p=>p.SpecialtyId)
+                    .ToList();
+            }
+        }
+
         public IList<ExpTemplate> GetBySpecialty(string specialtyID) 
         {
-            return null;
+            using (Context db = new Context()) {
+                return db.ExpTemplates.Where(p => p.SpecialtyId==specialtyID)
+                    .ToList();
+            }
         }
     }
 }
