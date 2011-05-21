@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+
 namespace TSS.Models
 {
     public class Context : DbContext
