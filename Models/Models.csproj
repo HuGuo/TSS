@@ -42,6 +42,8 @@
     <Compile Include="Experiment\ExpData.cs" />
     <Compile Include="Experiment\Experiment.cs" />
     <Compile Include="Experiment\ExpTemplate.cs" />
+    <Compile Include="MaintenanceCycle\EquipmentCalss.cs" />
+    <Compile Include="MaintenanceCycle\MaintenanceCycle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specialty.cs" />
   </ItemGroup>
