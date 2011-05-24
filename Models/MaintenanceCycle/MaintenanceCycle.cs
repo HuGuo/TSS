@@ -7,7 +7,6 @@ namespace TSS.Models
     class MaintenanceCycle
     {
         public int Id { get; set; }
-        public string EquipmentCode { get; set; }
         public string EquipmentName { get; set; }
         public string EquipmentModel { get; set; }
         public string MaintenanceType { get; set; }
@@ -16,6 +15,9 @@ namespace TSS.Models
 
         public int EquipmentClassId { get; set; }
         public virtual EquipmentCalss EquipmentClass { get; set; }
+
+        public Guid EquipmentId { get; set; }
+        public virtual Equipment Equipment { get; set; }
 
         public virtual MaintenanceExperiment MaintenanceExperiment { get; set; }
     }

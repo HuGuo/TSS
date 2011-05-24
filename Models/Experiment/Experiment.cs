@@ -29,5 +29,6 @@ namespace TSS.Models
 
         public virtual ICollection<ExpData> Expdatas { get; set; }
         public virtual ICollection<ExpAttachment> Attachments { get; set; }
+        public virtual MaintenanceCycle MaintenanceCycle { get; set; }
     }
 }

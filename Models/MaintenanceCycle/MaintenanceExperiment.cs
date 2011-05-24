@@ -8,9 +8,9 @@ namespace TSS.Models
         public int id { get; set; }
         public string MaintenanceCycle { get; set; }
         public DateTime ExperimentTime { get; set; }
-        
-        public string EquipmentId { get; set; }
-        public virtual Equipment Equipment { get; set; }
+
+        public string MaintenanceCycleId { get; set; }
+        public virtual MaintenanceCycle MaintenanceCycle { get; set; }
 
         public string ExperimentId { get; set; }
         public virtual Experiment Experiment { get; set; }

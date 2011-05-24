@@ -3,6 +3,7 @@
 [Oo]bj/
 /packages/
 packages.config
+[Ww]eb.config
 *.sdf
 *.docstates
 *.suo
