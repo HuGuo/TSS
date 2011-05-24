@@ -1,4 +1,4 @@
-ï»¿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="SystemManagement_Equipment_Default" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="SystemManagement_Equipment_Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -25,7 +25,7 @@
             <EditItemTemplate>
                 <li>
                     <asp:TextBox ID="txt" runat="server" Text='<%# Bind("Name") %>'></asp:TextBox>
-                    <asp:Button ID="update" runat="server" CommandName="Update" Text="ä¿å­˜" />
+                    <asp:Button ID="update" runat="server" CommandName="Update" Text="±£´æ" />
                 </li>
                 <li>
                 <asp:DropDownList ID="ddl" runat="server" DataSourceId="ddlo" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("SpecialtyId") %>'></asp:DropDownList>

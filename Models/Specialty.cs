@@ -9,6 +9,8 @@ namespace TSS.Models
 
         public virtual ICollection<Equipment> Equipments { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
-        public virtual ICollection<EquipmentCalss> EquipmentClasses { get; set; }
+        public virtual ICollection<ExpTemplate> ExpTemlates { get; set; }
+        public virtual ICollection<Certificate> Certificates { get; set; }
+        public virtual  ICollection<Folder> Folders { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using TSS.Models;
 using System.Data;
 namespace TSS.BLL
 {
-    public class Repository<TEntity,KeyType> where TEntity:class
+    public abstract class Repository<TEntity,KeyType> where TEntity:class
     {
         public Repository() { }
         public virtual void Add(TEntity entity) 
@@ -46,7 +46,7 @@ namespace TSS.BLL
         public virtual void Update(TEntity entity) 
         {
             using (Context db=new Context()) {
-                IDbSet<TEntity> dbSet = db.Set<TEntity>();
+                //IDbSet<TEntity> dbSet = db.Set<TEntity>();
                 //dbSet.Attach(entity);
                 db.Entry<TEntity>(entity).State = EntityState.Modified;
                 db.SaveChanges();

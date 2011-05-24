@@ -14,7 +14,7 @@
         <asp:TreeNodeBinding DataMember="Category" TextField="Name" ValueField="Id" />
         </DataBindings>
         </asp:TreeView>
-        <asp:XmlDataSource ID="XmlDataSource1" runat="server" EnableCaching="false"></asp:XmlDataSource>
+        <asp:XmlDataSource ID="XmlDataSource1" runat="server" EnableCaching="false" XPath="/*/*"></asp:XmlDataSource>
         <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
         <asp:Button ID="Button1" runat="server" onclick="Button1_Click" Text="Button" />
     </div>

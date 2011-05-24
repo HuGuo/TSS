@@ -52,7 +52,6 @@
                     $this.attr("value", $this.val());
                     return $this.attr("pid") + "<=>" + $this.val();
                 } else {
-
                     return $this.attr("pid") + "<=>" + $this.text();
                 }
             }).get().join("<|>");

@@ -21,7 +21,7 @@
         模板名称<input type="text" id="txt_tmpName" runat="server" />
         <input type="button" id="btnSave" value="保存模板" />
     </div>
-    <div id="dtb"><asp:Literal ID="ltHTML" runat="server"></asp:Literal></div>
+    <div id="dtb" style=" margin-top:31px;"><asp:Literal ID="ltHTML" runat="server"></asp:Literal></div>
         <input id="txt_hidden_cid" type="hidden" value="<%=Request.QueryString["cid"] %>" />
         <input id="txt_hidden_sp" type="hidden" value="<%=Request.QueryString["sp"] %>" />
     

@@ -13,13 +13,14 @@ public partial class Experiment_SetTemplate : System.Web.UI.Page
     {
         if (!IsPostBack) {
             //
+            return;
             string categoryID = Request.QueryString["cid"];
             if (!string.IsNullOrWhiteSpace(categoryID)) {
-                int id = 0;
-                if (int.TryParse(categoryID, out id)) {
+                Guid guid ;
+                if (Guid.TryParse(categoryID, out guid)) {
                     //ExpCategoryRepository repository = new ExpCategoryRepository();
                     ExpTemplateRepository repository = new ExpTemplateRepository();
-                    ExpTemplate template = repository.Get(id);
+                    ExpTemplate template = repository.Get(guid);
                     if (null!=template) {
                         txt_tmpName.Value = template.Title;
                         ltHTML.Text = template.HTML;

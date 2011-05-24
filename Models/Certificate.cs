@@ -14,7 +14,11 @@ namespace TSS.Models
         public string ScanFilePath { get; set; }
         public string Remark { get; set; }
 
-        public Guid EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+        public string EmployeeId { get; set; }
+        public string EpmloyeeName { get; set; }
+        public string Gender { get; set; }
+
+        public string SpecialtyId { get; set; }
+        public virtual Specialty Specialty { get; set; }
     }
 }

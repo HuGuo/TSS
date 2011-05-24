@@ -70,7 +70,7 @@
                 if ($this.find("textarea").size() > 0) {
                     return false;
                 }
-                var _textArea = $(String.format('<textarea style="width:{0}px;height:{1}px">{2}</textarea>', ($this.width() - 3), ($this.height() - 3), $this.text()));
+                var _textArea = $(String.format('<textarea style="width:{0}px;height:{1}px">{2}</textarea>', ($this.width() - 5), ($this.height() - 5), $this.text()));
                 $this.empty().append(_textArea);
                 _textArea.focus().bind("blur", function () {
                     $this.html(_textArea.text());
