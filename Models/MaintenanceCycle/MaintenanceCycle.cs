@@ -12,8 +12,8 @@ namespace TSS.Models
         public DateTime InstallTime { get; set; }
         public string Cycle { get; set; }
 
-        public int EquipmentClassId { get; set; }
-        public virtual EquipmentCalss EquipmentClass { get; set; }
+        public int MaintenanceCalssId { get; set; }
+        public virtual MaintenanceCalss MaintenanceCalss { get; set; }
 
         public Guid EquipmentId { get; set; }
         public virtual Equipment Equipment { get; set; }
