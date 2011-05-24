@@ -12,5 +12,6 @@ namespace TSS.Models
         public virtual ICollection<ExpTemplate> ExpTemlates { get; set; }
         public virtual ICollection<Certificate> Certificates { get; set; }
         public virtual  ICollection<Folder> Folders { get; set; }
+        public virtual ICollection<EquipmentCalss> EquipmentClasses { get; set; }
     }
 }
