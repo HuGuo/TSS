@@ -17,7 +17,7 @@ namespace TSS.BLL
                 if (null !=experiment) {
                     int c = experiment.Expdatas.Count-1;
                     for (int i = c; i >=0; i--) {
-                        db.Expdatas.Remove(experiment.Expdatas.ElementAt(i));
+                        db.ExpData.Remove(experiment.Expdatas.ElementAt(i));
                     }
                     experiment.Expdatas.Clear();
                     experiment.Expdatas = entity.Expdatas;

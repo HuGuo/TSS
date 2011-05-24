@@ -11,11 +11,6 @@ public partial class SystemManagement_Equipment_Default : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            using (var context = new TSS.Models.Context())
-            {
-                GridView1.DataSource = (from p in context.Equipments
-                                        select new { Name = p.Name, SpecialtyName = p.Specialty.Name }).ToList();
-            }
         }
     }
 }

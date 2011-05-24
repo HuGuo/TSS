@@ -4,7 +4,7 @@
 /packages/
 packages.config
 *.sdf
-*.sln.docstates
+*.docstates
 *.suo
 *.cache
 *.user

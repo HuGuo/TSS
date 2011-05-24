@@ -9,8 +9,12 @@ namespace TSS.Models
         public IDbSet<Specialty> Specialties { get; set; }
         public IDbSet<ExpTemplate> ExpTemplates { get; set; }
         public IDbSet<Experiment> Experiments { get; set; }
-        public IDbSet<ExpData> Expdatas { get; set; }
-        public IDbSet<ExpAttachment> Expattachment { get; set; }
+        public IDbSet<Experiment> Experiments { get; set; }
+        public IDbSet<ExpData> ExpData { get; set; }
+        public IDbSet<ExpAttachment> ExpAttachments { get; set; }
+        public IDbSet<ExpTemplate> ExpTemplates { get; set; }
+        public IDbSet<ExpCategory> ExpCategories { get; set; }
+
         public IDbSet<Certificate> Certificates { get; set; }
 
         public IDbSet<Folder> Folders { get; set; }
