@@ -1,8 +1,8 @@
-
 [Bb]in/
 [Oo]bj/
 /packages/
 packages.config
+web.config
 *.sdf
 *.docstates
 *.suo
