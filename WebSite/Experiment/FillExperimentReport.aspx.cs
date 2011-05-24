@@ -17,18 +17,19 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
             if (!string.IsNullOrWhiteSpace(id)) {
                 //edit model ,load data
                 ExperimentRepository repository = new ExperimentRepository();
-                Experiment experiment = repository.Get(id);
+                Experiment experiment = repository.Get(System.Guid.Parse(id));
                 if (null !=experiment) {
                     txt_tmpName.Value = experiment.Title;
                     ltHTML.Text = experiment.HTML;
                 }
             }
             if (!string.IsNullOrWhiteSpace(templateID)) {
-                int _id = 0;
-                if (int.TryParse(templateID, out _id)) {
+                System.Guid guid;
+
+                if (Guid.TryParse(templateID, out guid)) {
                     //ExpCategoryRepository repository = new ExpCategoryRepository();
                     ExpTemplateRepository repository = new ExpTemplateRepository();
-                    ExpTemplate template = repository.Get(_id);
+                    ExpTemplate template = repository.Get(guid);
                     if (null != template) {
                         txt_tmpName.Value = template.Title;
                         ltHTML.Text = template.HTML;

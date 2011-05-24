@@ -17,5 +17,6 @@ namespace TSS.Models
         public virtual EquipmentCategory EquipmentCategory { get; set; }
 
         public virtual ICollection<EquipmentDetail> EquipmentDetails { get; set; }
+        public virtual ICollection<ExpTemplate> ExpTemplates { get; set; }
     }
 }

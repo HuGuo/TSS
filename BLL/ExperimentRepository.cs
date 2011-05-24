@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TSS.Models;
+
 namespace TSS.BLL
 {
-    public class ExperimentRepository:Repository<Experiment,string>
+    public class ExperimentRepository:Repository<Experiment,Guid>
     {
         public ExperimentRepository() { }
 
@@ -14,9 +15,6 @@ namespace TSS.BLL
             using (Context db = new Context()) {
                 Experiment experiment = db.Experiments.Find(entity.Id);
                 if (null !=experiment) {
-                    //foreach (ExpData item in experiment.Expdatas) {
-                    //    db.Expdatas.Remove(item);
-                    //}
                     int c = experiment.Expdatas.Count-1;
                     for (int i = c; i >=0; i--) {
                         db.Expdatas.Remove(experiment.Expdatas.ElementAt(i));
@@ -33,7 +31,7 @@ namespace TSS.BLL
             }
         }
 
-        public override void Delete(string id)
+        public override void Delete(Guid id)
         {
             using (Context db = new Context()) {
                 Experiment entity = db.Experiments.Find(id);
@@ -42,6 +40,26 @@ namespace TSS.BLL
                     db.SaveChanges();
                 }
             }
+        }
+
+        public IList<Experiment> GetMuch(Guid equipmentID) {
+            return null;
+        }
+
+        public IList<Experiment> PageOf(int pageIndex, int pageSize,Guid equipmentID, out int rowCount) {
+            rowCount = 0;
+            return null;
+        }
+
+        public IList<Experiment> GetMuch(Guid equipmentID,Guid exptemplateID) 
+        {
+            return null;
+        }
+
+        public IList<Experiment> PageOf(int pageIndex, int pageSize, Guid equipmentID, Guid exptemplateID, out int rowCount)
+        {
+            rowCount = 0;
+            return null;
         }
     }
 }

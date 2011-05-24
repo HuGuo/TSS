@@ -11,33 +11,33 @@
             //string sp_code = Request.QueryString["sp"];
             string sp_code = "GHY-JY";
             if (!string.IsNullOrWhiteSpace(sp_code)) {
-                ExpCategoryRepository repository = new ExpCategoryRepository();
-                ExpCategory root = repository.GetRoot(sp_code);
-                System.Text.StringBuilder build = new StringBuilder();
-                build.AppendFormat("<li><span>{0}</span>",root.Name);
-                ICollection<ExpCategory> childs = root.Childs;
-                if (childs.Count>0) {
-                    BuildTree(root.Childs, build);
-                }
-                build.Append("</li>");
-                ltLi.Text = build.ToString();
+                //ExpCategoryRepository repository = new ExpCategoryRepository();
+                //ExpCategory root = repository.GetRoot(sp_code);
+                //System.Text.StringBuilder build = new StringBuilder();
+                //build.AppendFormat("<li><span>{0}</span>",root.Name);
+                //ICollection<ExpCategory> childs = root.Childs;
+                //if (childs.Count>0) {
+                //    BuildTree(root.Childs, build);
+                //}
+                //build.Append("</li>");
+                //ltLi.Text = build.ToString();
             }
         }
     }
 
-    void BuildTree(ICollection<ExpCategory> childs,System.Text.StringBuilder build) 
-    {
-        build.Append("<ul>");
-        foreach (ExpCategory item in childs) {
-            build.AppendFormat("<li><span><a href='explist.aspx?cid={1}&sp={2}' target='frm_explist'>{0}</a></span>", item.Name, item.Id, item.SP_Code);
-            ICollection<ExpCategory> child = item.Childs;
-            if (null!=child) {
-                BuildTree(child, build);
-            }
-            build.Append("</li>");
-        }
-        build.Append("</ul>");
-    }
+    //void BuildTree(ICollection<ExpCategory> childs,System.Text.StringBuilder build) 
+    //{
+    //    build.Append("<ul>");
+    //    foreach (ExpCategory item in childs) {
+    //        build.AppendFormat("<li><span><a href='explist.aspx?cid={1}&sp={2}' target='frm_explist'>{0}</a></span>", item.Name, item.Id, item.SP_Code);
+    //        ICollection<ExpCategory> child = item.Childs;
+    //        if (null!=child) {
+    //            BuildTree(child, build);
+    //        }
+    //        build.Append("</li>");
+    //    }
+    //    build.Append("</ul>");
+    //}
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">

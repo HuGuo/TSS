@@ -1,20 +1,36 @@
 using System.Collections.Generic;
 using System.Data.Entity;
-
+using System.ComponentModel.DataAnnotations;
 namespace TSS.Models
 {
     public class Context : DbContext
     {
         public IDbSet<Equipment> Equipments { get; set; }
-        public IDbSet<Specialty> Specitalties { get; set; }
+        public IDbSet<Specialty> Specialties { get; set; }
+        public IDbSet<ExpTemplate> ExpTemplates { get; set; }
+        public IDbSet<Experiment> Experiments { get; set; }
         public IDbSet<ExpData> Expdatas { get; set; }
         public IDbSet<ExpAttachment> Expattachment { get; set; }
         public IDbSet<Certificate> Certificates { get; set; }
+
+        public IDbSet<Folder> Folders { get; set; }
+        public IDbSet<File> Files { get; set; }
 
         public Context()
             : base("TSS")
         {
              Database.SetInitializer<Context>(new DatabaseInitializer());        
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<ExpData>()
+                .HasKey<int>(p=>p.Id)
+                .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
+
+            modelBuilder.Entity<Folder>().Ignore(p => p.Childs);
+            
         }
     }
 
@@ -34,7 +50,7 @@ namespace TSS.Models
                 new Specialty { Id = "GHY-JY", Name = "绝缘" },
                 new Specialty { Id = "GHY-LC", Name = "励磁" },
                 new Specialty { Id = "GHY-RG", Name = "热工" }
-            }.ForEach(s => context.Specitalties.Add(s));
+            }.ForEach(s => context.Specialties.Add(s));
 
             context.SaveChanges();
         }

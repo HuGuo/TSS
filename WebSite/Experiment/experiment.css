@@ -36,8 +36,10 @@
 {
     border: solid 1px #ccccd4;
     height: 30px;
-    width: 99%;
+    width: 100%;
     line-height: 130%;
     background-color: rgb(221, 220, 228);
-    top: 0p;
+    top: 0;
+    float:left;
+    position:fixed;
 }

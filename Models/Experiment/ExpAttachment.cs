@@ -1,22 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TSS.Models
 {
-    [Table("EXP_ATTACHMENT")]
     public class ExpAttachment
     {
         public ExpAttachment() { }
 
-        [Key]
-        [DatabaseGenerated(System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        [MaxLength(250)]
+        public Guid Id { get; set; }
         public string FielName { get; set; }
 
-        [ForeignKey("experiment")]
-        public string ExpID { get; set; }
-        public virtual Experiment experiment { get; set; }
+        public Guid ExperimentID { get; set; }
+        public virtual Experiment Experiment { get; set; }
     }
 }
 

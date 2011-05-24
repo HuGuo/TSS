@@ -11,8 +11,7 @@ namespace TSS.BLL
         public IList<Specialty> GetAll() 
         {
             using (Context db=new Context()) {
-                var query = db.Specialties.Where(p=>1==1);
-                return query.ToList();
+                return db.Specialties.ToList();
             }
         }
 
