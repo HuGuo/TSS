@@ -10,7 +10,7 @@ namespace TSS.Models
         public IDbSet<Specialty> Specialties { get; set; }
         public IDbSet<ExpTemplate> ExpTemplates { get; set; }
         public IDbSet<Experiment> Experiments { get; set; }
-        
+
         public IDbSet<ExpData> ExpData { get; set; }
         public IDbSet<ExpAttachment> ExpAttachments { get; set; }
 
@@ -19,21 +19,25 @@ namespace TSS.Models
         public IDbSet<Folder> Folders { get; set; }
         public IDbSet<File> Files { get; set; }
 
+        public IDbSet<MaintenanceCalss> MaintenanceClasses { get; set; }
+        public IDbSet<MaintenanceCycle> MaintenanceCycle { get; set; }
+        public IDbSet<MaintenanceExperiment> MaintenanceExperiment { get; set; }
+
         public Context()
             : base("TSS")
         {
-             Database.SetInitializer<Context>(new DatabaseInitializer());        
+            Database.SetInitializer<Context>(new DatabaseInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ExpData>()
-                .HasKey<int>(p=>p.Id)
+                .HasKey<int>(p => p.Id)
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
             modelBuilder.Entity<Folder>().Ignore(p => p.Childs);
-            
+
         }
     }
 
