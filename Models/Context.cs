@@ -13,8 +13,6 @@ namespace TSS.Models
         
         public IDbSet<ExpData> ExpData { get; set; }
         public IDbSet<ExpAttachment> ExpAttachments { get; set; }
-        
-        public IDbSet<ExpCategory> ExpCategories { get; set; }
 
         public IDbSet<Certificate> Certificates { get; set; }
 
@@ -39,7 +37,7 @@ namespace TSS.Models
         }
     }
 
-    class DatabaseInitializer : DropCreateDatabaseIfModelChanges<Context>
+    class DatabaseInitializer : CreateDatabaseIfNotExists<Context>
     {
         protected override void Seed(Context context)
         {
