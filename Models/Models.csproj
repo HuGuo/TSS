@@ -38,10 +38,10 @@
     <Compile Include="Equipment\EquipmentCategory.cs" />
     <Compile Include="Equipment\EquipmentDetail.cs" />
     <Compile Include="Experiment\ExpAttachment.cs" />
-    <Compile Include="Experiment\ExpCategory.cs" />
     <Compile Include="Experiment\ExpData.cs" />
     <Compile Include="Experiment\Experiment.cs" />
     <Compile Include="Experiment\ExpTemplate.cs" />
+    <Compile Include="Folder.cs" />
     <Compile Include="MaintenanceCycle\EquipmentCalss.cs" />
     <Compile Include="MaintenanceCycle\MaintenanceCycle.cs" />
     <Compile Include="MaintenanceCycle\MaintenanceExperiment.cs" />
@@ -57,9 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
