@@ -61,5 +61,14 @@ namespace TSS.BLL
             rowCount = 0;
             return null;
         }
+
+        public IList<Experiment> GetByEquipmentCategory (Guid equipmentCategoryId){
+            using (Context db=new Context()) {
+                return db.Experiments
+                    .Where(p => p.Equipment.EquipmentCategoryId == equipmentCategoryId)
+                    .OrderBy(p=>p.ExpDate)
+                    .ToList();                
+            }
+        }
     }
 }

@@ -36,5 +36,10 @@ namespace TSS.BLL
     public class FileRepository:Repository<File,Guid>
     {
         public FileRepository() { }
+
+        public IList<File> Search(string key,string specialty="") {
+            
+            return null;
+        }
     }
 }

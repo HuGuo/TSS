@@ -14,7 +14,7 @@ namespace TSS.Models
         public Guid ExpTemplateID { get; set; }
         public virtual ExpTemplate Exptemplate { get; set; }
 
-        public Guid EquipmentID { get; set; }
+        public Guid? EquipmentID { get; set; }
         public virtual Equipment Equipment { get; set; }
 
         public string HTML { get; set; }

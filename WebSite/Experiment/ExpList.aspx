@@ -8,8 +8,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <asp:HyperLink ID="hlSetTmp" runat="server" Target="_blank">设置模版</asp:HyperLink>
-    <asp:HyperLink ID="hlFillIn" runat="server" Target="_blank">填写实验报告</asp:HyperLink>
+    
     </form>
 </body>
 </html>
