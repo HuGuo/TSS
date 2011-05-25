@@ -13,7 +13,7 @@ namespace TSS.Models
         public string Cycle { get; set; }
 
         public int MaintenanceCalssId { get; set; }
-        public virtual MaintenanceCalss MaintenanceCalss { get; set; }
+        public virtual MaintenanceClass MaintenanceCalss { get; set; }
 
         public Guid EquipmentId { get; set; }
         public virtual Equipment Equipment { get; set; }

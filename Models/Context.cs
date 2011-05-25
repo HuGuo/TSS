@@ -19,9 +19,9 @@ namespace TSS.Models
         public IDbSet<Folder> Folders { get; set; }
         public IDbSet<File> Files { get; set; }
 
-        public IDbSet<MaintenanceCalss> MaintenanceClasses { get; set; }
-        public IDbSet<MaintenanceCycle> MaintenanceCycle { get; set; }
-        public IDbSet<MaintenanceExperiment> MaintenanceExperiment { get; set; }
+        public IDbSet<MaintenanceClass> MaintenanceClasses { get; set; }
+        public IDbSet<MaintenanceCycle> MaintenanceCycles { get; set; }
+        public IDbSet<MaintenanceExperiment> MaintenanceExperiments { get; set; }
 
         public Context()
             : base("TSS")
