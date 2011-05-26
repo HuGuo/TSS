@@ -7,23 +7,23 @@ using System.Data;
 using System.Data.EntityModel;
 using Tm = TSS.Models;
 
-namespace TSS.BLL.MaintenanceCycle
+namespace TSS.BLL
 {
     public class MaintenanceClass
     {
-        public IList<Tm.MaintenanceClass> GetAll()
+        public static IList<Tm.MaintenanceClass> GetAll()
         {
             using (var dbContext = new Tm.Context())
                 return dbContext.MaintenanceClasses.ToList();
         }
 
-        public Tm.MaintenanceClass Get(int maintenanceClassId)
+        public static Tm.MaintenanceClass Get(int maintenanceClassId)
         {
             using (var dbContext = new Tm.Context())
                 return dbContext.MaintenanceClasses.Find(maintenanceClassId);
         }
 
-        public bool Add(Tm.MaintenanceClass maintenanceClass)
+        public static bool Add(Tm.MaintenanceClass maintenanceClass)
         {
             using (var dbContext = new Tm.Context())
             {
@@ -32,7 +32,7 @@ namespace TSS.BLL.MaintenanceCycle
             }
         }
 
-        public bool Update(Tm.MaintenanceClass maintenanceClass)
+        public static bool Update(Tm.MaintenanceClass maintenanceClass)
         {
             using (var dbContext = new Tm.Context())
             {
@@ -41,7 +41,7 @@ namespace TSS.BLL.MaintenanceCycle
             }
         }
 
-        public bool Delete(int maintenanceClassId)
+        public static bool Delete(int maintenanceClassId)
         {
             using (var dbContext = new Tm.Context())
             {

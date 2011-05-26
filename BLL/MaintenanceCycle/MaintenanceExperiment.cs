@@ -7,23 +7,23 @@ using System.Data;
 using System.Data.EntityModel;
 using Tm = TSS.Models;
 
-namespace TSS.BLL.MaintenanceExperiment
+namespace TSS.BLL
 {
     public class MaintenanceExperiment
     {
-        public IList<Tm.MaintenanceExperiment> GetAll()
+        public static IList<Tm.MaintenanceExperiment> GetAll()
         {
             using (var dbContext = new Tm.Context())
                 return dbContext.MaintenanceExperiments.ToList();
         }
 
-        public Tm.MaintenanceExperiment Get(int maintenanceExperimentId)
+        public static Tm.MaintenanceExperiment Get(int maintenanceExperimentId)
         {
             using (var dbContext = new Tm.Context())
                 return dbContext.MaintenanceExperiments.Find(maintenanceExperimentId);
         }
 
-        public bool Add(Tm.MaintenanceExperiment maintenanceExperiment)
+        public static bool Add(Tm.MaintenanceExperiment maintenanceExperiment)
         {
             using (var dbContext = new Tm.Context())
             {
@@ -32,7 +32,7 @@ namespace TSS.BLL.MaintenanceExperiment
             }
         }
 
-        public bool Update(Tm.MaintenanceExperiment maintenanceExperiment)
+        public static bool Update(Tm.MaintenanceExperiment maintenanceExperiment)
         {
             using (var dbContext = new Tm.Context())
             {
@@ -41,7 +41,7 @@ namespace TSS.BLL.MaintenanceExperiment
             }
         }
 
-        public bool Delete(Tm.MaintenanceExperiment maintenanceExperiment)
+        public static bool Delete(Tm.MaintenanceExperiment maintenanceExperiment)
         {
             using (var dbContex = new Tm.Context())
             {
