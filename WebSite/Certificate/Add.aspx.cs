@@ -10,6 +10,30 @@ public partial class Certificate_Add : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack) {
+            string id = Request.QueryString["id"];
+            if (!string.IsNullOrWhiteSpace(id)) {
+                CertificateRepository repository = new CertificateRepository();
+                Certificate entity = repository.Get(new Guid(id));
+                if (null != entity) {
+                    Bind(entity);
+                }
+            }
+        }
+    }
+
+    void Bind(Certificate obj) 
+    {
+        txtNumber.Text = obj.Number;
+        txtName.Text = obj.EpmloyeeName;
+        ddlGender.SelectedValue = obj.Gender;
+        txtAuthor.Text = obj.CretificationAuthority;
+        txtExpireDate.Text = obj.ExpireDateTime.ToString("yyyy-MM-dd");
+        txtProject.Text = obj.Project;
+        txtReceiveDate.Text = obj.ReceiveDateTime.ToString("yyyy-MM-dd");
+        txtRemark.Text = obj.Remark;
+        txtType.Text = obj.Type;
+        
 
     }
     protected void btnSave_Click(object sender, EventArgs e)
@@ -23,6 +47,27 @@ public partial class Certificate_Add : System.Web.UI.Page
         certificate.Project = txtProject.Text;
         certificate.ReceiveDateTime = DateTime.Parse(txtReceiveDate.Text);
         certificate.Remark = txtRemark.Text;
-        //certificate.SpecialtyId
+        certificate.Type = txtType.Text;
+        certificate.SpecialtyId = Request.QueryString["s"];
+        string id = Request.QueryString["id"];
+        if (!string.IsNullOrWhiteSpace(id)) {
+            certificate.Id = new Guid(id);
+        } else {
+            certificate.Id = System.Guid.NewGuid();
+        }
+        if (fileUp.HasFile) {
+            string path = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["CertificateScan"]) + "\\";
+            string extension= System.IO.Path.GetExtension(fileUp.FileName);
+            string savePath = path + certificate.Id + extension;
+            fileUp.SaveAs(savePath);
+            certificate.ScanFilePath = certificate.Id + extension;
+        }
+        CertificateRepository repository = new CertificateRepository();
+        if (string.IsNullOrWhiteSpace(id)) {
+            repository.Add(certificate);
+        } else {
+            repository.Update(certificate);
+        }
+        Response.Write("保存成功");
     }
 }

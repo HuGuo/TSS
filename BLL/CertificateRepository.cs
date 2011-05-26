@@ -29,9 +29,11 @@ namespace TSS.BLL
 
         public IList<Certificate> Serach(string userNameOrNO,string specialty="") {
             using (Context db=new Context()) {
-                return db.Certificates
-                    .Where(p => (p.EpmloyeeName == userNameOrNO || p.Number == userNameOrNO) && (specialty==""?true:p.SpecialtyId==specialty))
-                    .ToList();
+                var query = db.Certificates.Where(p => p.EpmloyeeName.Contains(userNameOrNO) || p.Number==userNameOrNO);
+                if (!string.IsNullOrWhiteSpace(specialty)) {
+                    query.Where(p => p.SpecialtyId == specialty);
+                }
+                return query.ToList();
             }
         }
     }

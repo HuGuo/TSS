@@ -30,7 +30,7 @@
                     </td>
                     <td>
                         <a href="setTemplate.aspx?tid=<%#Eval("id") %>" target="_blank">编辑</a>
-                        <a href="javascript:void(0);" class="delete" tid="<%#Eval("id") %>">删除</a>
+                        <a href="javascript:void(0);" class="delete" key="<%#Eval("id") %>">删除</a>
                     </td>
                 </tr>
             </ItemTemplate>
@@ -43,19 +43,14 @@
 </body>
 </html>
 <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
+<script src="../../scripts/jquery.delete.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function () {
-        $("a.delete").click(function () {
-            if (confirm("确定删除")) {
-                var query = { op: "del-t", tid: "" };
-                query.tid = $(this).attr("tid");
-                $.get("../../exp.ashx", query, function (data) {
-                    if (data != "") {
-                        $("#tr_" + query.tid).remove();
-                    } else {
-                        alert(data);
-                    }
-                });
+        $("a.delete").bindDelete({
+            handler: "../../exp.ashx",
+            op: "del-t",
+            onSuccess: function (k) {
+                $("#tr_" + k).remove();
             }
         });
     });

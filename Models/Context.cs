@@ -16,8 +16,7 @@ namespace TSS.Models
 
         public IDbSet<Certificate> Certificates { get; set; }
 
-        public IDbSet<Folder> Folders { get; set; }
-        public IDbSet<File> Files { get; set; }
+        public IDbSet<Document> Documents { get; set; }
 
         public Context()
             : base("TSS")
@@ -32,7 +31,7 @@ namespace TSS.Models
                 .HasKey<int>(p=>p.Id)
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            modelBuilder.Entity<Folder>().Ignore(p => p.Childs);
+            modelBuilder.Entity<Document>().Ignore(p => p.Childs);
             
         }
     }
