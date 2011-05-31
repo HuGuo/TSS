@@ -15,13 +15,20 @@ namespace TSS.BLL
         {
             using (var dbContext = new Tm.Context())
                 return dbContext.MaintenanceCycles.ToList();
-
         }
 
         public static Tm.MaintenanceCycle Get(int maintenanceCycleId)
         {
             using (var dbContext = new Tm.Context())
                 return dbContext.MaintenanceCycles.Find(maintenanceCycleId);
+        }
+
+        public static Tm.MaintenanceCycle GetByEquipment(Guid equipmentId)
+        {
+            using (var dbContext = new Tm.Context())
+                return dbContext.MaintenanceCycles
+                    .Where(maintenanceCycle => maintenanceCycle.EquipmentId == equipmentId)
+                    .SingleOrDefault();
         }
 
         public static bool Add(Tm.MaintenanceCycle maintenanceCycle)

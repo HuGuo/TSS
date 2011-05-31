@@ -41,15 +41,14 @@ namespace TSS.BLL
             }
         }
 
-        public static bool Delete(Tm.MaintenanceExperiment maintenanceExperiment)
+        public static bool Delete(string  maintenanceExperimentId)
         {
             using (var dbContex = new Tm.Context())
             {
-                dbContex.MaintenanceExperiments.Remove(maintenanceExperiment);
+                dbContex.MaintenanceExperiments.Remove(dbContex.MaintenanceExperiments
+                    .Find(int.Parse(maintenanceExperimentId)));
                 return dbContex.SaveChanges() > 0;
             }
         }
-
-
     }
 }
