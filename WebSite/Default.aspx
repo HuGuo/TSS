@@ -22,7 +22,7 @@
                         <ul>
                             <li><span><a href="javascript:void(0);" target="frm_main">设备台帐</a></span></li>
                             <li><span><a href="javascript:void(0);" target="frm_main">人员资质</a></span></li>
-                            <li><span><a href="javascript:void(0);" target="frm_main">设备预试周期</a></span></li>
+                            <li><span><a href="MaintenanceCycle/MaintenanceCycle.aspx?specialty=GHY-JY" target="frm_main">设备预试周期</a></span></li>
                             <li><span><a href="javascript:void(0);" target="frm_main">实验报告</a></span></li>
                             <li><span><a href="javascript:void(0);" target="frm_main">实验台帐</a></span></li>
                             <li><span><a href="javascript:void(0);" target="frm_main">监督月报</a></span></li>
@@ -33,7 +33,7 @@
                         <ul>
                             <li><span><a href="javascript:void(0);" target="frm_main">设备台帐</a></span></li>
                             <li><span><a href="javascript:void(0);" target="frm_main">人员资质</a></span></li>
-                            <li><span><a href="javascript:void(0);" target="frm_main">设备预试周期</a></span></li>
+                            <li><span><a href="MaintenanceCycle/MaintenanceCycle.aspx?specialty=GHY-JY" target="frm_main">设备预试周期</a></span></li>
                             <li><span><a href="javascript:void(0);" target="frm_main">实验报告</a></span></li>
                             <li><span><a href="javascript:void(0);" target="frm_main">实验台帐</a></span></li>
                             <li><span><a href="javascript:void(0);" target="frm_main">监督月报</a></span></li>
