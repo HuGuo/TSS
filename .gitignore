@@ -2,7 +2,8 @@
 [Bb]in/
 [Oo]bj/
 /packages/
-attachment/
+TestResults/
+TssTest/
 packages.config
 [Ww]eb.config
 *.sdf
@@ -11,3 +12,8 @@ packages.config
 *.cache
 *.user
 *.orig
+.gitconfig
+*.vsmdi
+*.vsp
+*.psess
+*.testsettings

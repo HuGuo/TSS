@@ -7,6 +7,12 @@ namespace TSS.BLL
 {
     public static class Equipment
     {
+        public static TSS.Models.Equipment Get(Guid equipmentId)
+        {
+            using (var dbContext = new TSS.Models.Context())
+                return dbContext.Equipments.Find(equipmentId);
+        }
+
         public static IList<TSS.Models.Equipment> GetAll()
         {
             using (var context = new TSS.Models.Context()) {

@@ -43,6 +43,9 @@
     <Compile Include="Experiment\Experiment.cs" />
     <Compile Include="Experiment\ExpTemplate.cs" />
     <Compile Include="Document.cs" />
+    <Compile Include="MaintenanceCycle\MaintenanceClass.cs" />
+    <Compile Include="MaintenanceCycle\MaintenanceCycle.cs" />
+    <Compile Include="MaintenanceCycle\MaintenanceExperiment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specialty.cs" />
   </ItemGroup>
