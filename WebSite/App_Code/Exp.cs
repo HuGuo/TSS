@@ -1,14 +1,18 @@
-﻿<%@ WebHandler Language="C#" Class="exp" %>
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Web;
 using System.Linq;
+using System.Web;
 using TSS.Models;
 using TSS.BLL;
 
-public class exp : IHttpHandler
+public class Exp : IHttpHandler
 {
+    #region IHttpHandler Members
+
+    public bool IsReusable
+    {
+        get { return false; }
+    }
 
     public void ProcessRequest(HttpContext context)
     {
@@ -21,6 +25,12 @@ public class exp : IHttpHandler
                 case "savedata":
                     SaveData(context);
                     break;
+                case "del-t":
+                    DeleteTemplate(context);
+                    break;
+                case "del-d":
+                    DeleteExperiment(context);
+                    break;
                 default:
                     break;
             }
@@ -29,23 +39,19 @@ public class exp : IHttpHandler
         }
     }
 
-    public bool IsReusable
-    {
-        get
-        {
-            return false;
-        }
-    }
-
     void SaveTemplate(HttpContext context)
     {
         try {
-            string _cid = context.Request["cid"];
+            string _cid = context.Request["tid"];
             string _title = context.Server.UrlDecode(context.Request["title"]);
             string _html = context.Server.UrlDecode(context.Request["html"]);
             string sp = context.Request["sp"];
             Guid guid;
-            Guid.TryParse(_cid, out guid);
+            if (!string.IsNullOrWhiteSpace(_cid)) {
+                guid= new Guid(_cid);
+            } else {
+                guid = System.Guid.NewGuid();
+            }
             ExpTemplate template = new ExpTemplate {
                 Id = guid,
                 SpecialtyId = sp,
@@ -65,34 +71,41 @@ public class exp : IHttpHandler
         }
     }
 
-    void SaveData(HttpContext context) 
+    void SaveData(HttpContext context)
     {
         try {
             string _id = context.Request["id"];
             string _tid = context.Request["tid"];
             string date = context.Request["date"];
-            string emID = context.Request["eqmID"];
+            string emID = context.Request["eqmId"];
+            string result = context.Request["result"];
             string title = context.Server.UrlDecode(context.Request["title"]);
             string html = context.Server.UrlDecode(context.Request["html"]);
             string data = context.Server.UrlDecode(context.Request["data"]);
-            string [] arry1= data.Split(new string []{"<|>"}, StringSplitOptions.None);
-            Guid templateID ;            
-            Guid.TryParse(_tid, out templateID);
-            Guid newID = string.IsNullOrWhiteSpace(_id) ? System.Guid.NewGuid() : System.Guid.Parse(_id);
+            Guid templateID = new Guid(_tid);
+            Guid newID = string.IsNullOrWhiteSpace(_id) ? System.Guid.NewGuid() : new Guid(_id);
+
+            ICollection<ExpData> datas = null;
+            if (!string.IsNullOrWhiteSpace(data)) {
+                string[] arry1 = data.Split(new string[] { "<|>" }, StringSplitOptions.None);
+                datas = (from p in arry1
+                         let s = p.Split(new string[] { "<=>" }, StringSplitOptions.None)
+                         select new ExpData {
+                             GUID = s[0],
+                             Value = s[1] == "" ? null : (decimal?)decimal.Parse(s[1]),
+                             ExperimentId = newID
+                         }).ToList();
+            }
+
             Experiment experiment = new Experiment {
                 Id = newID,
                 Title = title,
+                Result=int.Parse(result),
                 ExpDate = DateTime.Parse(date),
                 ExpTemplateID = templateID,
                 HTML = html,
-                EquipmentID=Guid.Parse(emID),
-                Expdatas = (from p in arry1
-                            let s = p.Split(new string[] { "<=>"}, StringSplitOptions.None)
-                            select new ExpData {
-                                GUID = s[0],
-                                Value = s[1],
-                                ExperimentId = newID
-                            }).ToList()
+                EquipmentID = Guid.Parse(emID),
+                Expdatas = datas
             };
             ExperimentRepository repository = new ExperimentRepository();
             if (!string.IsNullOrWhiteSpace(_id)) {
@@ -102,8 +115,30 @@ public class exp : IHttpHandler
             }
             context.Response.Write(experiment.Id);
         } catch (Exception ex) {
-            context.Response.Write("错误："+ex.Message);
+            context.Response.Write("错误：" + ex.Message);
         }
     }
 
+    void DeleteTemplate(HttpContext context) {
+        ExpTemplateRepository repository = new ExpTemplateRepository();
+        try {
+            Guid id = new Guid(context.Request["id"]);
+            repository.Delete(id);            
+        } catch (Exception ex) {
+            context.Response.Write(ex.Message);
+        }
+        context.Response.End();
+    }
+    void DeleteExperiment(HttpContext context) {
+        ExperimentRepository repository = new ExperimentRepository();
+        try {
+            Guid id = new Guid(context.Request["id"]);
+            repository.Delete(id);
+        } catch (Exception ex) {
+            context.Response.Write(ex.Message);
+        }
+        context.Response.End();
+    }
+
+    #endregion
 }

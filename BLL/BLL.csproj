@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CertificateRepository.cs" />
+    <Compile Include="EmployeeRepository.cs" />
     <Compile Include="Equipment\Equipment.cs" />
-    <Compile Include="FolderRepository.cs" />
+    <Compile Include="DocumentRepository.cs" />
     <Compile Include="Equipment\EquipmentCategory.cs" />
     <Compile Include="Experiment\Repository.cs" />
     <Compile Include="Experiment\ExperimentRepository.cs" />

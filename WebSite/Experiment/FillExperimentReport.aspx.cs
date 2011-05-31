@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TSS.BLL;
 using TSS.Models;
+using System.Text.RegularExpressions;
 
 public partial class Experiment_FillExperimentReport : System.Web.UI.Page
 {
@@ -21,21 +22,28 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
                 if (null !=experiment) {
                     txt_tmpName.Value = experiment.Title;
                     ltHTML.Text = experiment.HTML;
+                    txt_expdate.Text = experiment.ExpDate.ToString("yyyy-MM-dd");
                 }
             }
-            if (!string.IsNullOrWhiteSpace(templateID)) {
+            else if (!string.IsNullOrWhiteSpace(templateID)) {
                 System.Guid guid;
 
                 if (Guid.TryParse(templateID, out guid)) {
-                    //ExpCategoryRepository repository = new ExpCategoryRepository();
+                    string input = "<input type=\"text\" style=\"width:0;height:0;\" class=\"{0}\" {1} />";
+                    string textarea = "<textarea style=\"width:0;height:0;\" class=\"text\"></textarea>";
                     ExpTemplateRepository repository = new ExpTemplateRepository();
                     ExpTemplate template = repository.Get(guid);
                     if (null != template) {
                         txt_tmpName.Value = template.Title;
-                        ltHTML.Text = template.HTML;
+                        ltHTML.Text = template.HTML.Replace("{d}", string.Format(input, "number", ""))
+                            .Replace("{time}", string.Format(input, "time", "onClick=\"WdatePicker()\""))
+                            .Replace("{#}",string.Format(input,"text",""))
+                            .Replace("{##}",textarea); 
                     }
                 }
             }
         }
     }
+
+   
 }

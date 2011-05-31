@@ -12,9 +12,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    
-    </div>
+    <a href="SetWorkflow.aspx">新建流程</a>
     </form>
 </body>
 </html>

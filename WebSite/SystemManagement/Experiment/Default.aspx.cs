@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Experiment_uploadfyDemo : System.Web.UI.Page
+using TSS.BLL;
+public partial class SystemManagement_Experiment_Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {

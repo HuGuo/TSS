@@ -18,9 +18,13 @@ namespace TSS.Models
         public virtual Equipment Equipment { get; set; }
 
         public string HTML { get; set; }
-        public int IsDEL { get; set; }
         public string Title { get; set; }
-
+        /// <summary>
+        /// 实验结果 
+        /// 0 不合格
+        /// 1 合格
+        /// </summary>
+        public int Result { get; set; }
         public virtual ICollection<ExpData> Expdatas { get; set; }
         public virtual ICollection<ExpAttachment> Attachments { get; set; }
     }

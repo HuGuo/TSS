@@ -37,11 +37,12 @@
     <Compile Include="Equipment\Equipment.cs" />
     <Compile Include="Equipment\EquipmentCategory.cs" />
     <Compile Include="Equipment\EquipmentDetail.cs" />
+    <Compile Include="Experiment\ChartData.cs" />
     <Compile Include="Experiment\ExpAttachment.cs" />
     <Compile Include="Experiment\ExpData.cs" />
     <Compile Include="Experiment\Experiment.cs" />
     <Compile Include="Experiment\ExpTemplate.cs" />
-    <Compile Include="Folder.cs" />
+    <Compile Include="Document.cs" />
     <Compile Include="MaintenanceCycle\MaintenanceClass.cs" />
     <Compile Include="MaintenanceCycle\MaintenanceCycle.cs" />
     <Compile Include="MaintenanceCycle\MaintenanceExperiment.cs" />
