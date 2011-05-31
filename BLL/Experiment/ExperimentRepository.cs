@@ -22,7 +22,6 @@ namespace TSS.BLL
                     experiment.Expdatas.Clear();
                     experiment.Expdatas = entity.Expdatas;
                     experiment.HTML = entity.HTML;
-                    experiment.IsDEL = entity.IsDEL;
                     experiment.EquipmentID = entity.EquipmentID;
                     experiment.ExpDate = entity.ExpDate;
                     experiment.Title = entity.Title;
@@ -30,44 +29,85 @@ namespace TSS.BLL
                 }
             }
         }
-
-        public override void Delete(Guid id)
-        {
-            using (Context db = new Context()) {
-                Experiment entity = db.Experiments.Find(id);
-                if (null != entity) {
-                    entity.IsDEL = 1;
-                    db.SaveChanges();
-                }
+        
+        public IList<Experiment> GetMuch(Guid equipmentID) {
+            using (Context db=new Context()) {
+                return db.Experiments.Where(p => p.EquipmentID == equipmentID)
+                    .OrderByDescending(p => p.ExpDate).ToList();
             }
         }
 
-        public IList<Experiment> GetMuch(Guid equipmentID) {
-            return null;
-        }
-
-        public IList<Experiment> PageOf(int pageIndex, int pageSize,Guid equipmentID, out int rowCount) {
-            rowCount = 0;
-            return null;
+        public IList<Experiment> PageOf(int pageIndex, int pageSize,Guid equipmentID, out int rowCount) {            
+            using (Context db=new Context()) {
+                int skip = pageSize * (pageIndex - 1);
+                rowCount = db.Experiments.Count(p => p.EquipmentID == equipmentID);
+                var query = db.Experiments.Where(p => p.EquipmentID == equipmentID)
+                    .OrderByDescending(p => p.ExpDate)
+                    .Skip(skip)
+                    .Take(pageSize);
+                return query.ToList();
+            }
         }
 
         public IList<Experiment> GetMuch(Guid equipmentID,Guid exptemplateID) 
         {
-            return null;
+            using (Context db = new Context()) {
+                return db.Experiments.Where(p => p.EquipmentID == equipmentID && p.ExpTemplateID==exptemplateID)
+                    .OrderByDescending(p => p.ExpDate).ToList();
+            }
         }
 
         public IList<Experiment> PageOf(int pageIndex, int pageSize, Guid equipmentID, Guid exptemplateID, out int rowCount)
         {
-            rowCount = 0;
-            return null;
+            using (Context db = new Context()) {
+                int skip = pageSize * (pageIndex - 1);
+                rowCount = db.Experiments.Count(p => p.EquipmentID == equipmentID && p.ExpTemplateID == exptemplateID);
+                return db.Experiments.Where(p => p.EquipmentID == equipmentID && p.ExpTemplateID==exptemplateID)
+                    .OrderByDescending(p => p.ExpDate)
+                    .Skip(skip)
+                    .Take(pageSize)
+                    .ToList();
+            }
         }
 
-        public IList<Experiment> GetByEquipmentCategory (Guid equipmentCategoryId){
+        public IList<Experiment> GetByEquipmentCategory (Guid equipmentCategoryId,string specialtyId){
             using (Context db=new Context()) {
                 return db.Experiments
-                    .Where(p => p.Equipment.EquipmentCategoryId == equipmentCategoryId)
-                    .OrderBy(p=>p.ExpDate)
-                    .ToList();                
+                    .Where(p => p.Equipment.SpecialtyId == specialtyId && p.Equipment.EquipmentCategoryId == equipmentCategoryId)
+                    .OrderBy(p => p.ExpDate)
+                    .ToList();
+            }
+        }
+
+        public IList<ChartData> GetChartData(string expTtemplateId,string coord,DateTime? startTime,DateTime? endTime,params string[] equipmentId) {
+            Guid tmpId = new Guid(expTtemplateId);
+            List<Guid> equipments = (from v in equipmentId
+                                     select new Guid(v)).ToList();
+            using (Context db=new Context()) {
+                var query = db.ExpData.Where(p => p.GUID == coord && p.Experiment.ExpTemplateID==tmpId &&p.Value.HasValue);
+
+                if (equipments.Count>0) {
+                    query = query.Where(p => equipments.Contains(p.Experiment.EquipmentID));
+                }
+
+                if (startTime.HasValue && endTime.HasValue) {
+                    query = query.Where(p => p.Experiment.ExpDate >= startTime && p.Experiment.ExpDate <= endTime);
+                } else if (startTime.HasValue) {
+                    query = query.Where(p => p.Experiment.ExpDate >= startTime);
+                } else if (endTime.HasValue) {
+                    query = query.Where(p => p.Experiment.ExpDate <= endTime);
+                }
+
+                var result = from p in query
+                             select new ChartData { 
+                                 Coord=p.GUID,
+                                 CoordValue=p.Value.Value,
+                                 EquipmentId=p.Experiment.EquipmentID,
+                                 ExpDate=p.Experiment.ExpDate,
+                                 ExperimentId=p.Experiment.Id,
+                                 ExpResult=p.Experiment.Result
+                             };
+                return result.OrderBy(p=>p.ExpDate).ToList();
             }
         }
     }

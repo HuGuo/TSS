@@ -5,6 +5,7 @@ namespace TSS.Models
 {
     public class Context : DbContext
     {
+        public IDbSet<Employee> Employees { get; set; }
         public IDbSet<Equipment> Equipments { get; set; }
         public IDbSet<EquipmentCategory> EquipmentCategories { get; set; }
         public IDbSet<Specialty> Specialties { get; set; }
@@ -31,8 +32,7 @@ namespace TSS.Models
                 .HasKey<int>(p=>p.Id)
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            modelBuilder.Entity<Document>().Ignore(p => p.Childs);
-            
+            modelBuilder.Entity<Document>().Ignore(p => p.Childs);            
         }
     }
 
@@ -53,7 +53,7 @@ namespace TSS.Models
                 new Specialty { Id = "GHY-LC", Name = "励磁" },
                 new Specialty { Id = "GHY-RG", Name = "热工" }
             }.ForEach(s => context.Specialties.Add(s));
-
+            
             context.SaveChanges();
         }
     }

@@ -31,7 +31,7 @@ namespace TSS.BLL
             using (Context db=new Context()) {
                 var query = db.Certificates.Where(p => p.EpmloyeeName.Contains(userNameOrNO) || p.Number==userNameOrNO);
                 if (!string.IsNullOrWhiteSpace(specialty)) {
-                    query.Where(p => p.SpecialtyId == specialty);
+                   query= query.Where(p => p.SpecialtyId == specialty);
                 }
                 return query.ToList();
             }

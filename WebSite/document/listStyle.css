@@ -1,0 +1,62 @@
+﻿body
+{
+	margin: 0;
+	font-size: 12px;
+	font-family: "微软雅黑" , "宋体" ,Consolas,Verdana;
+	padding: 0;
+}
+a
+{
+	text-decoration: none;
+}
+a img
+{
+	border: none;
+}
+#mylist
+{
+	margin: 0;
+	padding: 0;
+}
+#mylist li
+{
+	float: left;
+	width: 80px;
+	height: 84px;
+	list-style: none;
+	margin: 5px;
+	border-width: 1px;
+}
+
+#mylist li div.ico
+{
+	width: 100%;
+	height: 40px;
+}
+#mylist li a
+{
+	display: block;
+	position: relative;
+}
+
+#mylist li a:hover
+{
+	background-color: #efefef;
+	border: solid 1px #dddddd;
+}
+#mylist li a.selected
+{
+	background-color: #ecf4fd;
+	border: solid 1px #b8d6fb;
+}
+
+#mylist li div.filename
+{
+	color: Black;
+	text-align: center;
+	max-height: 38px;
+	overflow: hidden;
+	font: 12px verdana;
+	padding: 3px 3px 6px 3px;
+}
+

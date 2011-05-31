@@ -146,7 +146,7 @@ _1c();
 };
 _1e();
 };
-easyloader={modules:_1,locales:_2,base:".",theme:"default",css:true,locale:null,timeout:2000,load:function(_1f,_20){
+easyloader={modules:_1,locales:_2,base:".",theme:"gray",css:true,locale:null,timeout:2000,load:function(_1f,_20){
 if(/\.css$/i.test(_1f)){
 if(/^http/i.test(_1f)){
 _c(_1f,_20);

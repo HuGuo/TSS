@@ -26,7 +26,7 @@
                             <li><span><a href="Experiment/Default.aspx?s=GHY-JY" target="frm_main">实验报告</a></span></li>
                             <li><span><a href="javascript:void(0);" target="frm_main">实验台帐</a></span></li>
                             <li><span><a href="javascript:void(0);" target="frm_main">监督月报</a></span></li>
-                            <li><span><a href="javascript:void(0);" target="frm_main">档案资料</a></span></li>
+                            <li><span><a href="document/Default.aspx?s=GHY-JY" target="frm_main">档案资料</a></span></li>
                         </ul>
                     </li>
                     <li state="closed"><span>化学监督</span>
@@ -47,7 +47,7 @@
                     <li><span>系统管理</span>
                         <ul>
                             <li><span><a href="SystemManagement/Experiment/Default.aspx" target="frm_main">实验报告模板</a></span></li>
-                            <li><span>设备管理</span></li>
+                            <li><span><a href="SystemManagement/Equipment/Default.aspx" target="frm_main">设备管理</a></span></li>
                             <li><span><a href="SystemManagement/Workflow/Default.aspx" target="frm_main">流程设置</a></span></li>
                         </ul>
                     </li>
@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div region="center" style="margin:0; padding:0;">
+    <div region="center">
         <iframe name="frm_main" scrolling="auto" frameborder="0" src="about:blank" style="width: 100%;
             height: 99%;"></iframe>
     </div>
