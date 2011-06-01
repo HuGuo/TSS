@@ -38,8 +38,9 @@ namespace TSS.Models
                 .HasKey<int>(p => p.Id)
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            modelBuilder.Entity<Document>().Ignore(p => p.Childs);            
-
+            modelBuilder.Entity<Document>().Ignore(p => p.Childs);
+            modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
+            modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
         }
     }
 

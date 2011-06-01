@@ -19,8 +19,8 @@ public partial class SystemManagement_Experiment_setTemplate : System.Web.UI.Pag
 
             string tid = Request.QueryString["tid"];
             if (!string.IsNullOrWhiteSpace(tid)) {
-                ExpTemplateRepository repository = new ExpTemplateRepository();
-                ExpTemplate template= repository.Get(new Guid(tid));
+
+                ExpTemplate template = ExpTemplateRepository.Repository.Get(new Guid(tid));
                 if (null !=template) {
                     ltHTML.Text = template.HTML;
                     txt_tmpName.Value = template.Title;

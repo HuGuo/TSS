@@ -8,7 +8,8 @@ namespace TSS.BLL
 {
     public class ExperimentRepository:Repository<Experiment,Guid>
     {
-        public ExperimentRepository() { }
+        public static readonly ExperimentRepository Repository = new ExperimentRepository();
+        private ExperimentRepository() { }
 
         public override void Update(Experiment entity)
         {
@@ -79,14 +80,13 @@ namespace TSS.BLL
             }
         }
 
-        public IList<ChartData> GetChartData(string expTtemplateId,string coord,DateTime? startTime,DateTime? endTime,params string[] equipmentId) {
-            Guid tmpId = new Guid(expTtemplateId);
+        public IList<ChartData> GetChartData(string coord,DateTime? startTime,DateTime? endTime,params string[] equipmentId) {
             List<Guid> equipments = (from v in equipmentId
                                      select new Guid(v)).ToList();
             using (Context db=new Context()) {
-                var query = db.ExpData.Where(p => p.GUID == coord && p.Experiment.ExpTemplateID==tmpId &&p.Value.HasValue);
+                var query = db.ExpData.Where(p => p.GUID == coord);
 
-                if (equipments.Count>0) {
+                if (equipments.Count > 0) {
                     query = query.Where(p => equipments.Contains(p.Experiment.EquipmentID));
                 }
 
@@ -99,15 +99,29 @@ namespace TSS.BLL
                 }
 
                 var result = from p in query
-                             select new ChartData { 
-                                 Coord=p.GUID,
-                                 CoordValue=p.Value.Value,
-                                 EquipmentId=p.Experiment.EquipmentID,
-                                 ExpDate=p.Experiment.ExpDate,
-                                 ExperimentId=p.Experiment.Id,
-                                 ExpResult=p.Experiment.Result
+                             select new ChartData {
+                                 Coord = p.GUID,
+                                 CoordValue = p.Value,
+                                 EquipmentId = p.Experiment.EquipmentID,
+                                 ExpDate = p.Experiment.ExpDate,
+                                 ExperimentId = p.Experiment.Id,
+                                 ExpResult = p.Experiment.Result
                              };
-                return result.OrderBy(p=>p.ExpDate).ToList();
+                return result.OrderBy(p => p.ExpDate).ToList();
+                //IQueryable<Experiment> KT = db.Experiments.Where(p => p.ExpTemplateID == tmpId);
+                //IQueryable<ExpData> FT = db.ExpData.Where(m => m.GUID == coord && m.Value.HasValue);
+                //var query = KT.Join(FT,
+                //    p => p,
+                //    v => v.Experiment,
+                //    (p, v) => new ChartData {
+                //        ExperimentId = p.Id,
+                //        ExpResult = p.Result,
+                //        ExpDate = p.ExpDate,
+                //        EquipmentId = p.EquipmentID,
+                //        Coord = v.GUID,
+                //        CoordValue = v.Value.Value
+                //    });
+                //return query.OrderBy(p=>p.ExpDate).ToList();
             }
         }
     }

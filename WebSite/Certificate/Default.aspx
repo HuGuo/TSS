@@ -45,7 +45,7 @@
             </td>
             <td></td>
         </tr>
-        <asp:Repeater ID="rptList" runat="server" DataSourceID="CeretificateDataSources">
+        <asp:Repeater ID="rptList" runat="server">
             <ItemTemplate>
                 <tr id="tr_<%#Eval("id") %>">
                     <td>
@@ -85,12 +85,6 @@
             </ItemTemplate>
         </asp:Repeater>
     </table>
-    <asp:ObjectDataSource ID="CeretificateDataSources" runat="server" DataObjectTypeName="System.Guid"
-        DeleteMethod="Delete" SelectMethod="GetBySpecialty" TypeName="TSS.BLL.CertificateRepository">
-        <SelectParameters>
-            <asp:QueryStringParameter Name="id" QueryStringField="s" Type="String" />
-        </SelectParameters>
-    </asp:ObjectDataSource>
     </form>
 </body>
 </html>

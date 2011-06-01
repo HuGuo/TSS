@@ -13,8 +13,7 @@ public partial class Certificate_Add : System.Web.UI.Page
         if (!IsPostBack) {
             string id = Request.QueryString["id"];
             if (!string.IsNullOrWhiteSpace(id)) {
-                CertificateRepository repository = new CertificateRepository();
-                Certificate entity = repository.Get(new Guid(id));
+                Certificate entity = CertificateRepository.Repository.Get(new Guid(id));
                 if (null != entity) {
                     Bind(entity);
                 }
@@ -61,12 +60,11 @@ public partial class Certificate_Add : System.Web.UI.Page
             string savePath = path + certificate.Id + extension;
             fileUp.SaveAs(savePath);
             certificate.ScanFilePath = certificate.Id + extension;
-        }
-        CertificateRepository repository = new CertificateRepository();
+        }        
         if (string.IsNullOrWhiteSpace(id)) {
-            repository.Add(certificate);
+            CertificateRepository.Repository.Add(certificate);
         } else {
-            repository.Update(certificate);
+            CertificateRepository.Repository.Update(certificate);
         }
         Response.Write("保存成功");
     }

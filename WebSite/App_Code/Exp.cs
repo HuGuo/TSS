@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using TSS.Models;
 using TSS.BLL;
+using TSS.Models;
 
 public class Exp : IHttpHandler
 {
@@ -58,12 +58,11 @@ public class Exp : IHttpHandler
                 HTML = _html,
                 Title = _title
             };
-            ExpTemplateRepository repository = new ExpTemplateRepository();
-            bool exists = repository.IsExists(guid);
+            bool exists = ExpTemplateRepository.Repository.Exists(guid);
             if (exists) {
-                repository.Update(template);
+                ExpTemplateRepository.Repository.Update(template);
             } else {
-                repository.Add(template);
+                ExpTemplateRepository.Repository.Add(template);
             }
             context.Response.Write("1");
         } catch (Exception ex) {
@@ -106,12 +105,11 @@ public class Exp : IHttpHandler
                 HTML = html,
                 EquipmentID = Guid.Parse(emID),
                 Expdatas = datas
-            };
-            ExperimentRepository repository = new ExperimentRepository();
+            };            
             if (!string.IsNullOrWhiteSpace(_id)) {
-                repository.Update(experiment);
+                ExperimentRepository.Repository.Update(experiment);
             } else {
-                repository.Add(experiment);
+                ExperimentRepository.Repository.Add(experiment);
             }
             context.Response.Write(experiment.Id);
         } catch (Exception ex) {
@@ -119,21 +117,19 @@ public class Exp : IHttpHandler
         }
     }
 
-    void DeleteTemplate(HttpContext context) {
-        ExpTemplateRepository repository = new ExpTemplateRepository();
+    void DeleteTemplate(HttpContext context) {        
         try {
             Guid id = new Guid(context.Request["id"]);
-            repository.Delete(id);            
+            ExpTemplateRepository.Repository.Delete(id);            
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }
         context.Response.End();
     }
-    void DeleteExperiment(HttpContext context) {
-        ExperimentRepository repository = new ExperimentRepository();
+    void DeleteExperiment(HttpContext context) {        
         try {
             Guid id = new Guid(context.Request["id"]);
-            repository.Delete(id);
+            ExperimentRepository.Repository.Delete(id);
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }

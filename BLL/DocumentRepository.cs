@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using TSS.Models;
-using System.Data.Objects;
 namespace TSS.BLL
 {
     public class DocumentRepository:Repository<Document,Guid>
     {
-        public DocumentRepository() { }
+        public static readonly DocumentRepository Repository = new DocumentRepository();
+        private DocumentRepository() { }
 
         public void Delete(Guid id, Action<string> onDeleted) {
             using (Context db=new Context()) {
