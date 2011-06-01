@@ -28,7 +28,7 @@
         <ul id="expTree"></ul>
     </div>
 	<div region="center" style="padding:0">
-    <iframe name="frm_explist" scrolling="auto" frameborder="0"  src="explist.aspx" style="width:100%;height:100%;"></iframe>
+    <iframe name="frm_explist" scrolling="auto" frameborder="0"  src="" style="width:100%;height:100%;"></iframe>
     </div>
 </body>
 </html>

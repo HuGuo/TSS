@@ -9,11 +9,14 @@
 </head>
 <body>
     <form id="form1" runat="server">
+    <div style=" height:80px; border-bottom:1px solid gray;">
+    流程名称：-提交时间：
+    </div>
     <ul id="mainNav" class="fourStep">
-		<li class="done"><em>Step 1: 设置下一步</em></li>
-		<li class="done"><em>Step 2: 设置下一步</em><a title=""><span>Et nequ a quam turpis duisi</span></a></li>
-		<li class="done"><em>Step 3: 设置下一步</em><a title=""><span>Et nequ a quam turpis duisi</span></a></li>		
-		<li class="mainNavNoBg current"><em>Step 4: 设置下一步</em><a title=""> <span>Et nequ a quam turpis duisi</span></a></li>
+		<li class="done"><em>Step 1: </em></li>
+		<li class="done"><em>Step 2: </em><a title=""><span>Et nequ a quam turpis duisi</span></a></li>
+		<li class="done"><em>Step 3: </em><a title=""><span>Et nequ a quam turpis duisi</span></a></li>		
+		<li class="mainNavNoBg current"><em>Step 4:</em><a title=""> <span>Et nequ a quam turpis duisi</span></a></li>
 	</ul>
     <div class="clearfloat">&nbsp;</div>
     </form>

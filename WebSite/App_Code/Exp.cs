@@ -77,27 +77,35 @@ public class Exp : IHttpHandler
             string _id = context.Request["id"];
             string _tid = context.Request["tid"];
             string date = context.Request["date"];
-            string emID = context.Request["eqmID"];
+            string emID = context.Request["eqmId"];
+            string result = context.Request["result"];
             string title = context.Server.UrlDecode(context.Request["title"]);
             string html = context.Server.UrlDecode(context.Request["html"]);
             string data = context.Server.UrlDecode(context.Request["data"]);
-            string[] arry1 = data.Split(new string[] { "<|>" }, StringSplitOptions.None);
             Guid templateID = new Guid(_tid);
             Guid newID = string.IsNullOrWhiteSpace(_id) ? System.Guid.NewGuid() : new Guid(_id);
+
+            ICollection<ExpData> datas = null;
+            if (!string.IsNullOrWhiteSpace(data)) {
+                string[] arry1 = data.Split(new string[] { "<|>" }, StringSplitOptions.None);
+                datas = (from p in arry1
+                         let s = p.Split(new string[] { "<=>" }, StringSplitOptions.None)
+                         select new ExpData {
+                             GUID = s[0],
+                             Value = s[1] == "" ? null : (decimal?)decimal.Parse(s[1]),
+                             ExperimentId = newID
+                         }).ToList();
+            }
+
             Experiment experiment = new Experiment {
                 Id = newID,
                 Title = title,
+                Result=int.Parse(result),
                 ExpDate = DateTime.Parse(date),
                 ExpTemplateID = templateID,
                 HTML = html,
                 EquipmentID = Guid.Parse(emID),
-                Expdatas = (from p in arry1
-                            let s = p.Split(new string[] { "<=>" }, StringSplitOptions.None)
-                            select new ExpData {
-                                GUID = s[0],
-                                Value = s[1],
-                                ExperimentId = newID
-                            }).ToList()
+                Expdatas = datas
             };
             ExperimentRepository repository = new ExperimentRepository();
             if (!string.IsNullOrWhiteSpace(_id)) {

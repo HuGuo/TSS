@@ -6,6 +6,7 @@ namespace TSS.Models
 {
     public class Context : DbContext
     {
+        public IDbSet<Employee> Employees { get; set; }
         public IDbSet<Equipment> Equipments { get; set; }
         public IDbSet<EquipmentCategory> EquipmentCategories { get; set; }
 
@@ -22,21 +23,25 @@ namespace TSS.Models
 
         public IDbSet<Employee> Employees { get; set; }
 
+        public IDbSet<MaintenanceClass> MaintenanceClasses { get; set; }
+        public IDbSet<MaintenanceCycle> MaintenanceCycles { get; set; }
+        public IDbSet<MaintenanceExperiment> MaintenanceExperiments { get; set; }
+
         public Context()
             : base("TSS")
         {
-             Database.SetInitializer<Context>(new DatabaseInitializer());        
+            Database.SetInitializer<Context>(new DatabaseInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ExpData>()
-                .HasKey<int>(p=>p.Id)
+                .HasKey<int>(p => p.Id)
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            modelBuilder.Entity<Document>().Ignore(p => p.Childs);
-            
+            modelBuilder.Entity<Document>().Ignore(p => p.Childs);            
+
         }
     }
 
@@ -57,7 +62,7 @@ namespace TSS.Models
                 new Specialty { Id = "GHY-LC", Name = "励磁" },
                 new Specialty { Id = "GHY-RG", Name = "热工" }
             }.ForEach(s => context.Specialties.Add(s));
-
+            
             context.SaveChanges();
         }
     }
