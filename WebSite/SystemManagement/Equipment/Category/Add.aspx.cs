@@ -4,22 +4,25 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TSS.BLL;
 
 public partial class SystemManagement_Equipment_Category_Add : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
-            XmlDataSource1.Data = (new TSS.BLL.EquipmentCategories()).GetXml().ToString();
+            XmlDataSource1.Data = RepositoryFactory<EquipmentCategories>.Get().GetXml().ToString();
         }
 
     }
 
     protected void Button1_Click(object sender, EventArgs e)
     {
-        var categories = new TSS.BLL.EquipmentCategories();
+        var categories = RepositoryFactory<EquipmentCategories>.Get();
         categories.Add(new TSS.Models.EquipmentCategory {
-            
+            Id = Guid.NewGuid(),
+            Name = TextBox1.Text,
+            ParentId = string.IsNullOrEmpty(TreeView1.SelectedValue) ? (Guid?)null : Guid.Parse(TreeView1.SelectedValue)
         });
     }
 }
