@@ -21,8 +21,6 @@ namespace TSS.Models
 
         public IDbSet<Document> Documents { get; set; }
 
-        public IDbSet<Employee> Employees { get; set; }
-
         public IDbSet<MaintenanceClass> MaintenanceClasses { get; set; }
         public IDbSet<MaintenanceCycle> MaintenanceCycles { get; set; }
         public IDbSet<MaintenanceExperiment> MaintenanceExperiments { get; set; }

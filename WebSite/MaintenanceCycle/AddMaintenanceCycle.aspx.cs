@@ -44,7 +44,7 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
 
     protected void BindEquipment()
     {
-        foreach (Tm.Equipment equipment in Equipment.GetAll())
+        foreach (Tm.Equipment equipment in (new Equipments()).GetAll())
         {
             ddlEquipment.Items.Add(new
                 ListItem(equipment.Id.ToString(), equipment.Name));

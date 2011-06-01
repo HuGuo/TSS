@@ -23,7 +23,7 @@ public partial class MaintenanceCycle_AddMaintenanceClass : System.Web.UI.Page
 
     protected void BindSpecialty()
     {
-        foreach (Tm.Specialty specialty in Specialty.GetAll())
+        foreach (Tm.Specialty specialty in (new Specialties()).GetAll())
             ddlSpecialty.Items.Add(new ListItem(specialty.Name, specialty.Id));
     }
 

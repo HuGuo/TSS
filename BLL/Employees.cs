@@ -15,5 +15,10 @@ namespace TSS.BLL
                 SpecialtyId = specialtyId
             });
         }
+
+        public bool ExistsCode(string p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
