@@ -7,13 +7,18 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public abstract class Repository<TEntity, TKey> where TEntity: class
+    public abstract class Repository<TEntity, TKey> where TEntity : class
     {
         protected Context Context { get; private set; }
 
-        public Repository()
+        protected Repository()
         {
             Context = new Context();
+        }
+
+        public void Dispose()
+        {
+            Context.Dispose();
         }
 
         public TEntity Get(TKey id) 
@@ -23,18 +28,19 @@ namespace TSS.BLL
 
         public virtual IList<TEntity> GetAll()
         {
-            return Context.Set<TEntity>().AsNoTracking().ToList();
+            return Context.Set<TEntity>().ToList();
         }
 
         public void Add(TEntity entity)
         {
-            Context.Entry<TEntity>(entity).State = EntityState.Added;
+            Context.Set<TEntity>().Add(entity);
 
             Context.SaveChanges();
         }
 
         public virtual void Update(TEntity entity)
         {
+            Context.Set<TEntity>().Attach(entity);
             Context.Entry<TEntity>(entity).State = EntityState.Modified;
 
             Context.SaveChanges();
@@ -43,10 +49,16 @@ namespace TSS.BLL
         public virtual void Delete(TKey id)
         {
             if (IsExists(id)) {
-                Context.Set<TEntity>().Remove(Get(id));
-
-                Context.SaveChanges();
+                Delete(Get(id));
             }
+        }
+
+        private void Delete(TEntity entity)
+        {
+            Context.Set<TEntity>().Attach(entity);
+            Context.Set<TEntity>().Remove(entity);
+
+            Context.SaveChanges();
         }
 
         public bool IsExists(TKey id) 
