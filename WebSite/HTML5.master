@@ -1,0 +1,75 @@
+﻿<%@ Master Language="C#" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+  <meta charset="utf-8" />
+  <title></title>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <script src="<%= Page.ResolveClientUrl("~/Scripts/jquery-1.6.1.min.js") %>"></script>
+  <script src="<%= Page.ResolveClientUrl("~/Scripts/jquery-easyui/jquery.easyui.min.js") %>"></script>
+  <link rel="stylesheet" href="<%= Page.ResolveClientUrl("~/Scripts/jquery-easyui/thems/gray/easyui.css") %>" />
+  <style type="text/css">
+    header {
+      clear: both;
+      width: 100%;
+      display: block;
+      background-color: Gray;
+    }
+    section#navbar {
+      width: 20%;
+      float: left;
+    }
+    footer {
+      clear: both;
+      width: 100%;
+      display: block;
+      text-align: center;
+      background-color: Gray;
+    }
+  </style>
+</head>
+<body>
+  <form id="form1" runat="server">
+  <header>
+    <h1>技术监督管理系统</h1>
+  </header>
+  <section id="navbar">
+    <section>
+      <h1>专业监督</h1>
+      <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1">
+        <ItemTemplate>
+          <nav>
+            <h1>
+              <%# Eval("Name") %></h1>
+            <ul>
+              <li><a href="#">设备台帐</a></li>
+              <li><a href="<%# Page.ResolveClientUrl("~/Certificate/?s=" + Eval("Id")) %>">人员资历</a></li>
+            </ul>
+          </nav>
+        </ItemTemplate>
+      </asp:ListView>
+      <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Specialties">
+      </asp:ObjectDataSource>
+    </section>
+    <nav>
+      <h1>系统管理</h1>
+      <ul>
+        <li><a href="<%= Page.ResolveClientUrl("~/SystemManagement/Equipment/") %>">设备</a></li>
+        <li><a href="<%= Page.ResolveClientUrl("~/SystemManagement/Experiment/") %>">实验报告</a></li>
+        <li><a href="<%= Page.ResolveClientUrl("~/SystemManagement/Workflow/") %>">工作流</a></li>
+      </ul>
+    </nav>
+  </section>
+  <section id="content">
+    <asp:ContentPlaceHolder ID="Main" runat="server">
+    </asp:ContentPlaceHolder>
+  </section>
+  <footer>
+    <p>&copy; 2011 深圳天道数字工程有限公司</p>
+  </footer>
+  </form>
+</body>
+</html>
