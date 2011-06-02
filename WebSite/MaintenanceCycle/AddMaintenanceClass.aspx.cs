@@ -29,15 +29,11 @@ public partial class MaintenanceCycle_AddMaintenanceClass : System.Web.UI.Page
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
+        //添加成功与否要有提示框
         MaintenanceClass.Add(new Tm.MaintenanceClass
         {
             equipmentClassName = tbClassNames.Text,
             SpecialtyId = ddlSpecialty.SelectedValue
         });
-    }
-
-    protected void btnCancle_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("MaintenanceClass.aspx");
     }
 }

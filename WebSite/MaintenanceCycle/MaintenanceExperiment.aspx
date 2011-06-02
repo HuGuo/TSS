@@ -43,7 +43,7 @@
                         <a href="EditMaintenanceExperiment.aspx?id=<%# ((TSS.Models.MaintenanceExperiment)Container.DataItem).Id%>">
                             修改</a>
                         <asp:LinkButton runat="server" ID="lbtnDel" CommandArgument="<%# ((TSS.Models.MaintenanceExperiment)Container.DataItem).Id%>"
-                            OnClick="lbtnDel_Click">删除</asp:LinkButton>
+                            OnClick="lbtnDel_Click" OnClientClick="confirm('是否删除？')">删除</asp:LinkButton>
                     </td>
                 </tr>
             </ItemTemplate>

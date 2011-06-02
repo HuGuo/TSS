@@ -15,17 +15,13 @@ public partial class MaintenanceCycle_AddMaintenanceExperiment : System.Web.UI.P
 
     }
 
-    protected void btnCancle_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("maintenanceCycle.aspx");
-    }
-
+    //提示是否添加成功
     protected void btnAdd_Click(object sender, EventArgs e)
     {
         Tm.MaintenanceExperiment maintenanceExperiment = new Tm.MaintenanceExperiment();
         maintenanceExperiment.ExperimentId = Guid.NewGuid();
         maintenanceExperiment.CurrentCycle = tbExperimentTime.Text;
-        maintenanceExperiment.MaintenanceCycleId = Request.QueryString["id"];
+        maintenanceExperiment.MaintenanceCycleId = int.Parse(Request.QueryString["id"]);
         maintenanceExperiment.ExperimentTime = DateTime.Parse(tbExperimentTime.Text);
         MaintenanceExperiment.Add(maintenanceExperiment);
     }

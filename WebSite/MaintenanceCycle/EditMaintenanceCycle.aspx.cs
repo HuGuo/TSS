@@ -48,6 +48,7 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : System.Web.UI.Page
         Response.Redirect("MaintenanceCycle.aspx");
     }
 
+    //编辑成功与否要有提示框
     protected void btnEdit_Click(object sender, EventArgs e)
     {
         Tm.MaintenanceCycle maintenanceCycle = new Tm.MaintenanceCycle();

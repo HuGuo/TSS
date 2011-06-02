@@ -17,6 +17,19 @@ namespace TSS.BLL
                 return dbContext.MaintenanceExperiments.ToList();
         }
 
+        public static IList<Tm.MaintenanceExperiment> GetByMaintenanceCycle(int maintenanceCycleId)
+        {
+            using (var dbContext = new Tm.Context())
+                return dbContext.MaintenanceExperiments
+                    .Where(o => o.MaintenanceCycleId == maintenanceCycleId)
+                    .ToList();
+        }
+
+        public static bool IsExistOnMaintenanceCycle(int maintenanceCycleId)
+        {
+            return GetByMaintenanceCycle(maintenanceCycleId).Count > 0;
+        }
+
         public static Tm.MaintenanceExperiment Get(int maintenanceExperimentId)
         {
             using (var dbContext = new Tm.Context())
@@ -41,7 +54,7 @@ namespace TSS.BLL
             }
         }
 
-        public static bool Delete(string  maintenanceExperimentId)
+        public static bool Delete(string maintenanceExperimentId)
         {
             using (var dbContex = new Tm.Context())
             {

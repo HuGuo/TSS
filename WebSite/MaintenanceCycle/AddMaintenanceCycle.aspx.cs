@@ -68,4 +68,5 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
         maintenanceCycle.MaintenanceClassId = int.Parse(ddlClass.SelectedValue);
         maintenanceCycle.EquipmentId = new Guid(ddlEquipment.SelectedValue);
     }
+
 }
