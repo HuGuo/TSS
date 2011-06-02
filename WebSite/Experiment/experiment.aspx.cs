@@ -14,8 +14,7 @@ public partial class Experiment_experiment : System.Web.UI.Page
         if (!IsPostBack) {
             string id = Request.QueryString["id"];
             if (!string.IsNullOrWhiteSpace(id)) {
-                ExperimentRepository repository = new ExperimentRepository();
-                Experiment obj= repository.Get(new Guid(id));
+                Experiment obj = ExperimentRepository.Repository.Get(new Guid(id));
                 if (null !=obj) {
                     ltHTML.Text = obj.HTML;
                     ltTitle.Text = obj.Title;

@@ -7,7 +7,8 @@ namespace TSS.BLL
 {
     public class CertificateRepository:Repository<Certificate,Guid>
     {
-        public CertificateRepository() { }
+        public static readonly CertificateRepository Repository = new CertificateRepository();
+        private CertificateRepository() { }
 
         public IList<Certificate> GetBySpecialty(string id) 
         {
