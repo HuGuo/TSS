@@ -25,6 +25,8 @@ namespace TSS.Models
         public IDbSet<MaintenanceCycle> MaintenanceCycles { get; set; }
         public IDbSet<MaintenanceExperiment> MaintenanceExperiments { get; set; }
 
+        public IDbSet<ReportDetail> RepostDetails { get; set; }
+
         public Context()
             : base("TSS")
         {
