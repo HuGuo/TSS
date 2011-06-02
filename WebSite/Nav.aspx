@@ -1,70 +1,73 @@
-ï»¿<%@ Page Language="C#" %>
+<%@ Page Language="C#" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-  <title></title>
-  <script type="text/javascript" src="Scripts/jquery-1.6.1.min.js"></script>
-  <script type="text/javascript">
-    $(function () {
-      $("a.expand").bind("click", function (e) {
-        $(e.target).parent().siblings().find("a.expand").each(function () {
-          if (this != e.target) {
-            $(this).next("ul").hide();
-          }
+  <head runat="server">
+    <title></title>
+    <script type="text/javascript" src="Scripts/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript">
+      $(function () {
+        $("a.expand").bind("click", function (e) {
+          $(e.target).parent().siblings().find("a.expand").each(function () {
+            if (this != e.target) {
+              $(this).next("ul").hide();
+            }
+          });
+
+          $(this).next("ul").toggle();
+
+          return false;
         });
-
-        $(this).next("ul").toggle();
-
-        return false;
       });
-    });
-  </script>
-  <base target="content" />
-</head>
-<body id="nav">
-  <form id="form1" runat="server">
-  <div id="nav_top_top">
-  </div>
-  <div id="nav_top_bottom">
-  </div>
-  <div id="nav_menu">
-    <ul>
-      <li><a href="#" class="expand">ç›‘ç£åŠ¨æ€</a></li>
-      <li><a href="#" class="expand">ç›‘ç£ä½“ç³»</a></li>
-      <li><a href="#" class="expand">ç›‘ç£ç®¡ç†</a></li>
-      <li><a href="#" class="expand">ä¸“ä¸šç›‘ç£</a>
-        <ul>
+    </script>
+    <base target="content" />
+  </head>
+  <body id="nav">
+    <form id="form1" runat="server">
+    <div id="nav_top_top">
+    </div>
+    <div id="nav_top_bottom">
+    </div>
+    <div id="nav_menu">
+      <ul>
+        <li><a href="#" class="expand">¼à¶½¶¯Ì¬</a></li>
+        <li><a href="#" class="expand">¼à¶½ÌåÏµ</a></li>
+        <li><a href="#" class="expand">¼à¶½¹ÜÀí</a></li>
+        <li><a href="#" class="expand">×¨Òµ¼à¶½</a>
           <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1">
+            <LayoutTemplate>
+              <ul>
+                <asp:PlaceHolder ID="itemPlaceholder" runat="server" />
+              </ul>
+            </LayoutTemplate>
             <ItemTemplate>
               <li><a href="#" class="expand">
                 <%# Eval("Name") %></a>
                 <ul>
-                  <li><a href="Equipment/?s=<%# Eval("Id") %>">è®¾å¤‡å°å¸</a></li>
-                  <li><a href="Certificate/?s=<%# Eval("Id") %>">äººå‘˜èµ„å†</a></li>
-                  <li><a href="MaintenanceCycle/?s=<%# Eval("Id") %>">è®¾å¤‡é¢„è¯•å‘¨æœŸ</a></li>
-                  <li><a href="Experiment/?s=<%# Eval("Id") %>">è¯•éªŒæŠ¥å‘Š</a></li>
-                  <li><a href="Certificate/?s=<%# Eval("Id") %>">è¯•éªŒå°å¸</a></li>
-                  <li><a href="about:blank">ç›‘ç£æœˆæŠ¥</a></li>
-                  <li><a href="document/?s=<%# Eval("Id") %>">æ¡£æ¡ˆèµ„æ–™</a></li>
+                  <li><a href="Equipment/?s=<%# Eval("Id") %>">Éè±¸Ì¨ÕÊ</a></li>
+                  <li><a href="Certificate/?s=<%# Eval("Id") %>">ÈËÔ±×ÊÀú</a></li>
+                  <li><a href="MaintenanceCycle/?s=<%# Eval("Id") %>">Éè±¸Ô¤ÊÔÖÜÆÚ</a></li>
+                  <li><a href="Experiment/?s=<%# Eval("Id") %>">ÊÔÑé±¨¸æ</a></li>
+                  <li><a href="Certificate/?s=<%# Eval("Id") %>">ÊÔÑéÌ¨ÕÊ</a></li>
+                  <li><a href="Report/?s=<%# Eval("Id") %>">¼à¶½ÔÂ±¨</a></li>
+                  <li><a href="Document/?s=<%# Eval("Id") %>">µµ°¸×ÊÁÏ</a></li>
                 </ul>
+              </li>
             </ItemTemplate>
           </asp:ListView>
-        </ul>
-      </li>
-      <li><a href="#" class="expand">ç³»ç»Ÿç®¡ç†</a>
-        <ul>
-          <li><a href="SystemManagement/Employee/">ç”¨æˆ·ç®¡ç†</a></li>
-          <li><a href="SystemManagement/Equipment/">è®¾å¤‡ç®¡ç†</a></li>
-          <li><a href="SystemManagement/Experiment/">è¯•éªŒç®¡ç†</a></li>
-          <li><a href="SystemManagement/Workflow/">å·¥ä½œæµç®¡ç†</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-  <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Specialties"></asp:ObjectDataSource>
-  </form>
-</body>
+        </li>
+        <li><a href="#" class="expand">ÏµÍ³¹ÜÀí</a>
+          <ul>
+            <li><a href="SystemManagement/Employee/">ÓÃ»§¹ÜÀí</a></li>
+            <li><a href="SystemManagement/Equipment/">Éè±¸¹ÜÀí</a></li>
+            <li><a href="SystemManagement/Experiment/">ÊÔÑé¹ÜÀí</a></li>
+            <li><a href="SystemManagement/Workflow/">¹¤×÷Á÷¹ÜÀí</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Specialties"></asp:ObjectDataSource>
+    </form>
+  </body>
 </html>
-

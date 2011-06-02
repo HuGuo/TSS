@@ -91,7 +91,7 @@ public class Exp : IHttpHandler
                          let s = p.Split(new string[] { "<=>" }, StringSplitOptions.None)
                          select new ExpData {
                              GUID = s[0],
-                             Value = s[1] == "" ? null : (decimal?)decimal.Parse(s[1]),
+                             Value = string.IsNullOrEmpty(s[1]) ? decimal.Parse(s[1]): (decimal?)null,
                              ExperimentId = newID
                          }).ToList();
             }
