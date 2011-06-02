@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+
 namespace TSS.Models
 {
     public class Context : DbContext
@@ -8,16 +9,19 @@ namespace TSS.Models
         public IDbSet<Employee> Employees { get; set; }
         public IDbSet<Equipment> Equipments { get; set; }
         public IDbSet<EquipmentCategory> EquipmentCategories { get; set; }
+
         public IDbSet<Specialty> Specialties { get; set; }
+
         public IDbSet<ExpTemplate> ExpTemplates { get; set; }
         public IDbSet<Experiment> Experiments { get; set; }
-
         public IDbSet<ExpData> ExpData { get; set; }
         public IDbSet<ExpAttachment> ExpAttachments { get; set; }
 
         public IDbSet<Certificate> Certificates { get; set; }
 
         public IDbSet<Document> Documents { get; set; }
+
+        public IDbSet<Employee> Employees { get; set; }
 
         public IDbSet<MaintenanceClass> MaintenanceClasses { get; set; }
         public IDbSet<MaintenanceCycle> MaintenanceCycles { get; set; }

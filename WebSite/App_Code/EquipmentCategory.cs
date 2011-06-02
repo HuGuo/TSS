@@ -20,7 +20,7 @@ public class EquipmentCategory : IHttpHandler
 
             context.Response.ContentType = "text/xml; charset=UTF-8";
 
-            context.Response.Write(TSS.BLL.EquipmentCategory.GetXml().ToString());
+            context.Response.Write((new TSS.BLL.EquipmentCategories()).GetXml().ToString());
             context.Response.End();
         } else {
             ResponseHtml(context);
@@ -40,7 +40,7 @@ public class EquipmentCategory : IHttpHandler
 
         args.AddParam("expendDeep", string.Empty, context.Request.QueryString["dp"] ?? "1");
 
-        XmlTextReader reader = new XmlTextReader(new StringReader(TSS.BLL.EquipmentCategory.GetXml().ToString()));
+        XmlTextReader reader = new XmlTextReader(new StringReader(new TSS.BLL.EquipmentCategories().GetXml().ToString()));
         xsl.Transform(reader, args, context.Response.OutputStream);
         context.Response.End();
     }
