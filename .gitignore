@@ -4,6 +4,8 @@
 /packages/
 TestResults/
 TssTest/
+NTest/
+[Aa]ttachment/
 packages.config
 [Ww]eb.config
 *.sdf

@@ -18,7 +18,7 @@ public partial class _Login : System.Web.UI.Page
             if (result==0) {
                 //检查是否第一次登陆系统
                 UserDetail user = server.GetUserDetail(name);
-                EmployeeRepository repository = new EmployeeRepository();
+                Employees repository = new Employees();
                 bool firstLogin=repository.ExistsCode(user.EmployeeCode);
                 Response.Write("-1");
             } else {
@@ -28,7 +28,7 @@ public partial class _Login : System.Web.UI.Page
             return;
         }
         if (!IsPostBack) {
-            IList<TSS.Models.Specialty> list = TSS.BLL.Specialty.GetAll();
+            IList<TSS.Models.Specialty> list = new TSS.BLL.Specialties().GetAll();
             foreach (var item in list) {
                 ddlSpecialty.Items.Add(new ListItem(item.Name, item.Id));
             }

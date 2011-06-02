@@ -16,5 +16,10 @@ namespace TSS.BLL
                 SpecialtyId = specialtyId
             });
         }
+
+        public object GetAll(string categoryId, string s)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

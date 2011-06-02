@@ -58,7 +58,7 @@ public class Exp : IHttpHandler
                 HTML = _html,
                 Title = _title
             };
-            bool exists = ExpTemplateRepository.Repository.Exists(guid);
+            bool exists = ExpTemplateRepository.Repository.IsExists(guid);
             if (exists) {
                 ExpTemplateRepository.Repository.Update(template);
             } else {

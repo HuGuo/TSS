@@ -21,7 +21,7 @@
       });
     });
   </script>
-  <base target="centent" />
+  <base target="content" />
 </head>
 <body id="nav">
   <form id="form1" runat="server">
@@ -46,8 +46,8 @@
                   <li><a href="MaintenanceCycle/?s=<%# Eval("Id") %>">设备预试周期</a></li>
                   <li><a href="Experiment/?s=<%# Eval("Id") %>">试验报告</a></li>
                   <li><a href="Certificate/?s=<%# Eval("Id") %>">试验台帐</a></li>
-                  <li><a href="Certificate/?s=<%# Eval("Id") %>">监督月报</a></li>
-                  <li><a href="Certificate/?s=<%# Eval("Id") %>">档案资料</a></li>
+                  <li><a href="about:blank">监督月报</a></li>
+                  <li><a href="document/?s=<%# Eval("Id") %>">档案资料</a></li>
                 </ul>
             </ItemTemplate>
           </asp:ListView>

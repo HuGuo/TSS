@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="SystemManagement_Equipment_Default" Title="设备管理" MasterPageFile="~/HTML5.master" %>
+<%@ Page Language="C#" AutoEventWireup="true" Title="设备管理" MasterPageFile="~/HTML5.master" %>
 
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 abc

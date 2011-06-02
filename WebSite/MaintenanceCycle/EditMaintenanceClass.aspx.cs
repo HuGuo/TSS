@@ -32,7 +32,7 @@ public partial class MaintenanceCycle_EditMaintenanceClass : System.Web.UI.Page
 
     protected void BindSpecalty()
     {
-        foreach (Tm.Specialty specialty in Specialty.GetAll())
+        foreach (Tm.Specialty specialty in new Specialties().GetAll())
         {
             ddlSpecialty.Items.Add(new ListItem(specialty.Name, specialty.Id));
         }

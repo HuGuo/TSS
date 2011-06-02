@@ -19,7 +19,7 @@
                     操作
                 </th>
         </tr>
-        <asp:Repeater ID="rptList" runat="server" DataSourceID="ExpTemplateDataSources">
+        <asp:Repeater ID="rptList" runat="server">
             <ItemTemplate>
                 <tr id="tr_<%#Eval("id") %>">
                     <td>
@@ -36,9 +36,6 @@
             </ItemTemplate>
         </asp:Repeater>
     </table>
-    <asp:ObjectDataSource ID="ExpTemplateDataSources" runat="server" SelectMethod="GetAll"
-        TypeName="TSS.BLL.ExpTemplateRepository" 
-        OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
     </form>
 </body>
 </html>

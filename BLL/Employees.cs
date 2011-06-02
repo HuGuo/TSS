@@ -15,5 +15,13 @@ namespace TSS.BLL
                 SpecialtyId = specialtyId
             });
         }
+
+        public bool ExistsCode(string code)
+        {
+            using (Context db = new Context()) {
+                int count = db.Employees.Count(p => p.Code == code);
+                return count > 0;
+            }
+        }
     }
 }
