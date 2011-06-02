@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using TSS.Models;
 using TSS.BLL;
 /// <summary>
 /// Summary description for deleteEntity
@@ -36,8 +33,8 @@ public class deleteEntity:IHttpHandler
     void DeleteCertificate(HttpContext context) {
         string id = context.Request.QueryString["id"];
         try {
-            CertificateRepository repository = new CertificateRepository();
-            repository.Delete(new Guid(id));
+
+            CertificateRepository.Repository.Delete(new Guid(id));
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }

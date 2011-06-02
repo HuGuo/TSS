@@ -14,6 +14,7 @@
 <body>
     <form id="form1" runat="server">
     <a id="openWin" href="javascript:void(0);">填写实验报告</a>
+    <a href="ChartStep1.aspx?tid=3a5f3007-3326-4dd7-934c-59a3aa040a8f" target="_blank">数据分析</a>
     <table>
         <thead>
             <tr>

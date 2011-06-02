@@ -12,15 +12,15 @@ public partial class SystemManagement_Experiment_setTemplate : System.Web.UI.Pag
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
-            IList<TSS.Models.Specialty> list = TSS.BLL.Specialty.GetAll();
+            IList<TSS.Models.Specialty> list = new TSS.BLL.Specialties().GetAll();
             foreach (TSS.Models.Specialty item in list) {
                 ddlSpecialty.Items.Add(new ListItem(item.Name, item.Id));
             }
 
             string tid = Request.QueryString["tid"];
             if (!string.IsNullOrWhiteSpace(tid)) {
-                ExpTemplateRepository repository = new ExpTemplateRepository();
-                ExpTemplate template= repository.Get(new Guid(tid));
+
+                ExpTemplate template = ExpTemplateRepository.Repository.Get(new Guid(tid));
                 if (null !=template) {
                     ltHTML.Text = template.HTML;
                     txt_tmpName.Value = template.Title;

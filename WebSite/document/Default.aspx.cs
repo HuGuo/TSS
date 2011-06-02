@@ -18,8 +18,7 @@ public partial class document_Default : System.Web.UI.Page
             if (!string.IsNullOrWhiteSpace(pid)) {
                 parentId = new Guid(pid);
             }
-            DocumentRepository reporsitory = new DocumentRepository();
-            IList<Document> list= reporsitory.GetChildItems(parentId, s);
+            IList<Document> list = DocumentRepository.Repository.GetChildItems(parentId, s);
             rptlist.DataSource = list;
             rptlist.DataBind();
         }

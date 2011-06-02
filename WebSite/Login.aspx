@@ -111,7 +111,7 @@
         });
 
         $("#btnSet").click(function () {
-            document.location.href = "default.aspx";
+            document.location.href = "default.htm";
         });
     });
 </script>

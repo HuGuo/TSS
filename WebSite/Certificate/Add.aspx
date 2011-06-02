@@ -75,7 +75,7 @@
     <tr>
     <td>&nbsp;</td>
     <td>
-        <asp:Button ID="btnSave" runat="server" Text="保存" onclick="btnSave_Click" />
+        <asp:Button ID="btnSave" runat="server" Text="保存" onclick="btnSave_Click" /><a href="Default.aspx?s=<%=Request.QueryString["s"] %>">返回列表</a>
         </td>
     </tr>
     </table>

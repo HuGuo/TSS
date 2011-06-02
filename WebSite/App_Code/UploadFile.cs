@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.Script.Serialization;
 using TSS.BLL;
 using TSS.Models;
 
@@ -47,7 +44,6 @@ public class UploadFile : IHttpHandler
         string res = "id:'{0}',name:'{1}',extension:'{2}',errorMsg:'{3}'";
         try {
             Document obj = Build(context);
-            DocumentRepository repository = new DocumentRepository();
             HttpFileCollection fileCollection = context.Request.Files;
             int count = fileCollection.Count;
             HttpPostedFile upload;
@@ -64,7 +60,7 @@ public class UploadFile : IHttpHandler
                 };
                 doc.Path = obj.Path+ doc.Id + fileExtension;
                 upload.SaveAs(configPath + doc.Path);
-                repository.Add(doc);
+                DocumentRepository.Repository.Add(doc);
                 context.Response.Write("{" + string.Format(res, doc.Id.ToString(), doc.Name, fileExtension, "") + "}");
             }
         } catch(Exception ex) {
@@ -84,8 +80,7 @@ public class UploadFile : IHttpHandler
             doc.Path = doc.Path + doc.Id;
             if (!System.IO.Directory.Exists(configPath+doc.Path)) {
                 System.IO.Directory.CreateDirectory(configPath + doc.Path);
-                DocumentRepository repository = new DocumentRepository();
-                repository.Add(doc);
+                DocumentRepository.Repository.Add(doc);
                 context.Response.Write("{" + string.Format(res, doc.Id.ToString(), doc.Name, ".folder", "") + "}");
             }            
         } catch (Exception ex) {
@@ -104,10 +99,9 @@ public class UploadFile : IHttpHandler
             SpecialtyId = specialtyId
         };
 
-        DocumentRepository repository = new DocumentRepository();
         Guid? parentId = string.IsNullOrWhiteSpace(pid) ? null : (Guid?)new Guid(pid);
         if (parentId.HasValue) {
-            Document parentFolder = repository.Get(parentId.Value);
+            Document parentFolder = DocumentRepository.Repository.Get(parentId.Value);
             if (null!= parentFolder) {
                 doc.ParentId = parentId;
                 doc.Path = parentFolder.Path+"/";
@@ -123,8 +117,7 @@ public class UploadFile : IHttpHandler
             string id = context.Request["id"];
             
             if (!string.IsNullOrWhiteSpace(id)) {
-                DocumentRepository repository = new DocumentRepository();
-                repository.Delete(new Guid(id),onDelete);                
+                DocumentRepository.Repository.Delete(new Guid(id), onDelete);                
             }
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
@@ -142,8 +135,7 @@ public class UploadFile : IHttpHandler
     void Download(HttpContext context) {
         try {
             string id = context.Request["id"];
-            DocumentRepository repository = new DocumentRepository();
-            Document doc= repository.Get(new Guid(id));
+            Document doc = DocumentRepository.Repository.Get(new Guid(id));
             if (null !=doc) {
                 DownloadFile.ResponseFile(configPath + doc.Path,doc.Name, context);
             }

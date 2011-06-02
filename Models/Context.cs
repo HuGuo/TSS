@@ -1,6 +1,7 @@
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+
 namespace TSS.Models
 {
     public class Context : DbContext
@@ -8,10 +9,11 @@ namespace TSS.Models
         public IDbSet<Employee> Employees { get; set; }
         public IDbSet<Equipment> Equipments { get; set; }
         public IDbSet<EquipmentCategory> EquipmentCategories { get; set; }
+
         public IDbSet<Specialty> Specialties { get; set; }
+
         public IDbSet<ExpTemplate> ExpTemplates { get; set; }
         public IDbSet<Experiment> Experiments { get; set; }
-
         public IDbSet<ExpData> ExpData { get; set; }
         public IDbSet<ExpAttachment> ExpAttachments { get; set; }
 
@@ -36,8 +38,9 @@ namespace TSS.Models
                 .HasKey<int>(p => p.Id)
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
-            modelBuilder.Entity<Document>().Ignore(p => p.Childs);            
-
+            modelBuilder.Entity<Document>().Ignore(p => p.Childs);
+            modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
+            modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
         }
     }
 
