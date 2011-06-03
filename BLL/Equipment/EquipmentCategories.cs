@@ -13,7 +13,7 @@ namespace TSS.BLL
             Add(new TSS.Models.EquipmentCategory {
                 Id = Guid.NewGuid(),
                 Name = name,
-                ParentId = string.IsNullOrEmpty(parentId) ? (Guid?)null : Guid.Parse(parentId)
+                ParentCategory = Context.EquipmentCategories.Find(Guid.Parse(parentId))
             });
         }
 
@@ -30,14 +30,14 @@ namespace TSS.BLL
             return result;
         }
 
-        private static StringBuilder Walking(IList<EquipmentCategory> categories, Guid? id)
+        private static StringBuilder Walking(IList<EquipmentCategory> categories, EquipmentCategory parent)
         {
             StringBuilder result = new StringBuilder();
 
-            foreach (var p in categories.Where(c => c.ParentId.Equals(id))) {
+            foreach (var p in categories.Where(c => c.ParentCategory == parent)) {
                 result.Append(string.Format(
                     "<category id=\"{0}\" name=\"{1}\">", p.Id, p.Name));
-                result.Append(Walking(categories, p.Id));
+                result.Append(Walking(categories, p));
                 result.Append("</category>");
             }
 

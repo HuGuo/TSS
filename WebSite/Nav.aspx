@@ -30,47 +30,57 @@
     <div id="nav_top_bottom">
     </div>
     <div id="nav_menu">
-      <ul>
-        <li><a href="#" class="expand">监督动态</a></li>
-        <li><a href="#" class="expand">监督体系</a></li>
-        <li><a href="#" class="expand">监督管理</a></li>
-        <li><a href="#" class="expand">专业监督</a>
-          <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1" ItemPlaceholderID="Placeholder1">
-            <LayoutTemplate>
+      <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1" ItemPlaceholderID="Placeholder1">
+        <LayoutTemplate>
+          <ul>
+            <li><a href="#" class="expand">专业监督</a>
               <ul>
                 <asp:PlaceHolder ID="Placeholder1" runat="server" />
               </ul>
-            </LayoutTemplate>
-            <ItemTemplate>
-              <li><a href="#" class="expand">
-                <%# Eval("Name") %></a>
-                <asp:ListView ID="ListView2" runat="server" DataSource='<%# Eval("Modules") %>' ItemPlaceholderID="Placeholder2">
-                  <LayoutTemplate>
-                    <ul>
-                      <asp:PlaceHolder ID="Placeholder2" runat="server" />
-                    </ul>
-                  </LayoutTemplate>
-                  <ItemTemplate>
-                    <li><a href="<%# DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Id", Eval("Url") + "/?s={0}") %>">
-                      <%# Eval("Name") %></a></li>
-                  </ItemTemplate>
-                </asp:ListView>
-              </li>
-            </ItemTemplate>
-          </asp:ListView>
-        </li>
-        <li><a href="#" class="expand">系统管理</a>
-          <ul>
-            <li><a href="SystemManagement/Employee/">人员管理</a></li>
-            <li><a href="SystemManagement/Equipment/">设备管理</a></li>
-            <li><a href="SystemManagement/Experiment/">实验管理</a></li>
-            <li><a href="SystemManagement/Workflow/">工作流管理</a></li>
-            <li><a href="SystemManagement/Module/">模块管理</a></li>
+            </li>
+            <asp:ListView ID="ListView3" runat="server" DataSourceID="ObjectDataSource2" ItemPlaceholderID="PlaceHolder3">
+              <LayoutTemplate>
+                <asp:PlaceHolder ID="PlaceHolder3" runat="server" />
+              </LayoutTemplate>
+              <ItemTemplate>
+                <li><a href="#" class="expand">
+                  <%# Eval("Name") %></a>
+                  <asp:ListView ID="ListView4" runat="server" DataSource='<%# Eval("Submodules") %>' ItemPlaceholderID="PlaceHolder4">
+                    <LayoutTemplate>
+                      <ul>
+                        <asp:PlaceHolder ID="PlaceHolder4" runat="server" />
+                      </ul>
+                    </LayoutTemplate>
+                    <ItemTemplate>
+                      <li><a href="<%# string.Format("{0}/{1}/", DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Url"), Eval("Url")) %>">
+                        <%# Eval("Name") %></a></li>
+                    </ItemTemplate>
+                  </asp:ListView>
+                </li>
+              </ItemTemplate>
+            </asp:ListView>
           </ul>
-        </li>
-      </ul>
+        </LayoutTemplate>
+        <ItemTemplate>
+          <li><a href="#" class="expand">
+            <%# Eval("Name") %></a>
+            <asp:ListView ID="ListView2" runat="server" DataSource='<%# Eval("Modules") %>' ItemPlaceholderID="Placeholder2">
+              <LayoutTemplate>
+                <ul>
+                  <asp:PlaceHolder ID="Placeholder2" runat="server" />
+                </ul>
+              </LayoutTemplate>
+              <ItemTemplate>
+                <li><a href="<%# DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Id", Eval("Url") + "/?s={0}") %>">
+                  <%# Eval("Name") %></a></li>
+              </ItemTemplate>
+            </asp:ListView>
+          </li>
+        </ItemTemplate>
+      </asp:ListView>
+      <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAllWithModules" TypeName="TSS.BLL.Specialties"></asp:ObjectDataSource>
+      <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="GetRootModules" TypeName="TSS.BLL.Modules" />
     </div>
-    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Specialties"></asp:ObjectDataSource>
     </form>
   </body>
 </html>

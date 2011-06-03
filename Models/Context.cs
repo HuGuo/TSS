@@ -14,6 +14,7 @@ namespace TSS.Models
 
         public IDbSet<Equipment> Equipments { get; set; }
         public IDbSet<EquipmentCategory> EquipmentCategories { get; set; }
+        public IDbSet<EquipmentDetail> EquipmentDetails { get; set; }
 
         public IDbSet<ExpTemplate> ExpTemplates { get; set; }
         public IDbSet<Experiment> Experiments { get; set; }
@@ -29,7 +30,7 @@ namespace TSS.Models
         public IDbSet<MaintenanceExperiment> MaintenanceExperiments { get; set; }
 
         public Context()
-            : base("TSS")
+            : base("name=TSS")
         {
             Database.SetInitializer<Context>(new DatabaseInitializer());
         }
@@ -43,8 +44,9 @@ namespace TSS.Models
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
             modelBuilder.Entity<Document>().Ignore(p => p.Childs);
-            // modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
-            // modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
+
+            //modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
+            //modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
         }
     }
 
@@ -54,14 +56,32 @@ namespace TSS.Models
         {
             base.Seed(context);
 
-            var modules = new List<Module> {
-                    new Module { Id = 1, Name = "设备台帐", Url = "Equipment" },
-                    new Module { Id = 2, Name = "实验报告", Url = "Experiment" },
-                    new Module { Id = 3, Name = "预试周期", Url = "MaintenanceCycle" },
-                    new Module { Id = 4, Name = "监督月报", Url = "Report" },
-                    new Module { Id = 5, Name = "人员资质", Url = "Certificate" },
-                    new Module { Id = 6, Name = "档案资料", Url = "Document" }
+            var systemManagementModules = new List<Module> {
+                new Module { Name = "人员管理", Url = "Employee" },
+                new Module { Name = "设备管理", Url = "Equipment" },
+                new Module { Name = "实验管理", Url = "Experiment" },
+                new Module { Name = "工作流管理", Url = "Workflow" },
+                new Module { Name = "模块管理", Url = "Module" }
             };
+
+            var specialtyModules = new List<Module> {
+                    new Module { Name = "设备台帐", Url = "Equipment" },
+                    new Module { Name = "实验报告", Url = "Experiment" },
+                    new Module { Name = "预试周期", Url = "MaintenanceCycle" },
+                    new Module { Name = "监督月报", Url = "Report" },
+                    new Module { Name = "人员资质", Url = "Certificate" },
+                    new Module { Name = "档案资料", Url = "Document" }
+            };
+
+            new List<Module> {
+                new Module { Id = 1, Name = "专业监督", Submodules = specialtyModules },
+                new Module { Id = 2, Name = "监督动态" },
+                new Module { Id = 3, Name = "监督体系" },
+                new Module { Id = 4, Name = "监督管理" },
+                new Module { Id = 5, Name = "系统管理", Url= "SystemManagement", Submodules = systemManagementModules }
+            }.ForEach(m => {
+                context.Modules.Add(m);
+            });
 
             new List<Specialty> {
                 new Specialty { Id = "GHY-DC", Name = "电测计量" },
@@ -74,7 +94,7 @@ namespace TSS.Models
                 new Specialty { Id = "GHY-LC", Name = "励磁" },
                 new Specialty { Id = "GHY-RG", Name = "热工" }
             }.ForEach(s => {
-                s.Modules = modules;
+                s.Modules = specialtyModules;
                 context.Specialties.Add(s);
             });
 

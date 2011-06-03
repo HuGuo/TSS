@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using TSS.Models;
 
@@ -7,22 +8,49 @@ namespace TSS.BLL
 {
     public class Equipments : Repository<Equipment, Guid>
     {
-        public IList<Equipment> GetAll(string categoryId, string specialtyId)
+        public IList<Equipment> GetAllByCategoryAndSpecialtyWithDetails(string categoryId, string specialtyId)
         {
-            return GetAll().Where(e => {
-                return e.EquipmentCategoryId.Equals(Guid.Parse(categoryId)) &&
-                    e.SpecialtyId.Equals(specialtyId);
-            }).ToList();
+            IList<Equipment> result = null;
+
+            if (!string.IsNullOrEmpty(categoryId) &&
+                !string.IsNullOrEmpty(specialtyId)) {
+                var c = Context.EquipmentCategories.Find(Guid.Parse(categoryId));
+                var s = Context.Specialties.Find(specialtyId);
+                if (c != null && s != null) {
+                    result = Context.Equipments.Include("EquipmentDetails").Where(e =>
+                        e.EquipmentCategoryId == c.Id &&
+                        e.SpecialtyId == s.Id
+                    ).ToList();
+                }
+            }
+
+            return result;
         }
 
-        public void Add(string name, string categoryId, string specialtyId)
+        public IList<Equipment> GetAllWithCategoryAndSpecialty()
         {
-            Add(new Equipment {
-                Id = Guid.NewGuid(),
-                Name = name,
-                EquipmentCategoryId = Guid.Parse(categoryId),
-                SpecialtyId = specialtyId
-            });
+            return Context.Equipments
+                .Include("EquipmentCategory")
+                .Include("Specialty")
+                .ToList();
+        }
+
+        public void Add(string name, string code, string categoryId, string specialtyId)
+        {
+            if (!string.IsNullOrEmpty(categoryId) &&
+                !string.IsNullOrEmpty(specialtyId)) {
+                var c = Context.EquipmentCategories.Find(Guid.Parse(categoryId));
+                var s = Context.Specialties.Find(specialtyId);
+                if (c != null && s != null) {
+                    Add(new Equipment {
+                        Id = Guid.NewGuid(),
+                        Name = name,
+                        Code = code,
+                        EquipmentCategory = c,
+                        Specialty = s
+                    });
+                }
+            }
         }
     }
 }
