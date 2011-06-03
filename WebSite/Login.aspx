@@ -56,14 +56,15 @@
 <script src="scripts/jquery-easyui/easyloader.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+        //check browser version
         if ($.browser.version == "6.0") {
             easyloader.load("thems/gray/easyui.css", function () {
                 easyloader.load("messager", function () {
                     $.messager.alert('系统提示', '您的浏览器（IE 6.0）版本过低，部分功能将无法使用！<br/>建议您使用IE 8.0及以上版本', 'warning');
                 });
             });
-
         }
+        // set width and height
         var loginResult = ["success", "口令错误", "用户不存在", "用户帐号被禁用"];
         var $form_wrapper = $('#form_wrapper')
         var $currentForm = $form_wrapper.children('form.active');
@@ -108,7 +109,9 @@
                     }
                 }
             });
-        });
+        }).ajaxStart(function () {
+            $(this).val("验证中...");
+        }).ajaxComplete(function () { $(this).val("Login"); });
 
         $("#btnSet").click(function () {
             document.location.href = "default.htm";

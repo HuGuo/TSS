@@ -1,1 +1,1 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="data.aspx.cs" Inherits="Experiment_data" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="data.aspx.cs" EnableTheming="false" Theme="" Inherits="Experiment_data" %>

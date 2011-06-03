@@ -8,6 +8,10 @@
     <link href="experiment.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <style type="text/css">
+    .text,.number,.time{ border:none;}
+    .error{ color:#FF4500; font-weight:700;}
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -27,6 +31,10 @@
 </body>
 </html>
 <script type="text/javascript">
+    $.extend({ IsNumeric: function (input) {
+        return (input - 0) == input || ($.trim(input).length == 0);}
+    });
+
     $(window).load(function () {
         var _id = '<%=Request.QueryString["id"] %>';
         var _tid = '<%=Request.QueryString["tid"] %>';
@@ -41,7 +49,17 @@
                 var $p = $$.parent("td");
                 var w = $p.width() - 5;
                 var h = $p.height() - 5;
-                $$.width(w).height(h).attr("pid", $p.attr("id"));
+                $$.width(w).height(h).attr("pid", $p.attr("id")).css("backgroundColor", "#FFFFE0");
+                if ($$.hasClass("number")) {
+                    $$.blur(function () {
+                        if (!$.IsNumeric($$.val())) {
+                            $$.addClass("error");
+                            $$.focus();
+                        } else {
+                            $$.removeClass("error");
+                        }
+                    });
+                }
             });
         }
         $("#btnSave").click(function () {

@@ -8,8 +8,7 @@ namespace TSS.BLL
 {
     public class ExperimentRepository:Repository<Experiment,Guid>
     {
-        public static readonly ExperimentRepository Repository = new ExperimentRepository();
-        private ExperimentRepository() { }
+        public ExperimentRepository() { }
 
         public override void Update(Experiment entity)
         {

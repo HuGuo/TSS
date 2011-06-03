@@ -40,37 +40,24 @@
             拆分单元格</div>
         <div class="menu-sep">
         </div>
-        <div>
-            <span>设置格式</span>
-            <div style="width: 100px;">
-                <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'left'});">
-                    左对齐</div>
-                <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'center'});">
-                    居 中</div>
-                <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'right'});">
-                    右对齐</div>
-                <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'bold'});">
-                    加 粗</div>
-            </div>
+        <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'left'});">
+            左对齐</div>
+        <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'center'});">
+            居 中</div>
+        <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'right'});">
+            右对齐</div>
+        <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'700'});">
+            加 粗</div>
+        <div class="menu-sep">
         </div>
-        <div>
-            <span>插入</span>
-            <div style="width: 100px;">
-                <div onclick="javascript:$.simpleExcel.appendRow();">
-                    下一行</div>
-                <div onclick="javascript:$.simpleExcel.appendColumn();">
-                    右边列</div>
-            </div>
-        </div>
-        <div>
-            <span>删除</span>
-            <div style="width: 100px;">
-                <div onclick="javascript:$.simpleExcel.removeRow();">
-                    行</div>
-                <div onclick="javascript:$.simpleExcel.removeColumn();">
-                    列</div>
-            </div>
-        </div>
+        <div onclick="javascript:$.simpleExcel.appendRow();">
+            插入 下一行</div>
+        <div onclick="javascript:$.simpleExcel.appendColumn();">
+            插入 右边列</div>
+        <div onclick="javascript:$.simpleExcel.removeRow();">
+            删除 行</div>
+        <div onclick="javascript:$.simpleExcel.removeColumn();">
+            删除 列</div>
     </div>
 </body>
 </html>
@@ -89,6 +76,11 @@
         $("#btnDrawTable").click(function () {
             var r = $("#txt_row").val();
             var c = $("#txt_column").val();
+            if ($.simpleExcel._op.excell.size()>0) {
+                if (!confirm("重新创建，将会覆盖已经存在的格式，确定")) {
+                    return false;
+                }
+            }
             $.simpleExcel.create(r, c);
         });
 
@@ -106,6 +98,7 @@
             $.post("../../exp.ashx", q, function (data) {
                 if (data == "1") {
                     alert("模板保存成功");
+                    window.close();
                 } else {
                     alert(data);
                 }

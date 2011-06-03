@@ -23,6 +23,8 @@ public partial class MaintenanceCycle_EditMaintenanceClass : System.Web.UI.Page
         tbClassNames.Text = maintenanceClass.equipmentClassName;
         ddlSpecialty.SelectedValue = maintenanceClass.SpecialtyId;
     }
+
+    //编辑成功与否要有提示框
     protected void btnAdd_Click(object sender, EventArgs e)
     {
         Tm.MaintenanceClass maintenanceClass = MaintenanceClass.Get(int.Parse(Request.QueryString["id"]));
@@ -36,10 +38,5 @@ public partial class MaintenanceCycle_EditMaintenanceClass : System.Web.UI.Page
         {
             ddlSpecialty.Items.Add(new ListItem(specialty.Name, specialty.Id));
         }
-    }
-
-    protected void btnCancle_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("MaintenanceClass.aspx");
     }
 }

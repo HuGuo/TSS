@@ -22,12 +22,12 @@ public partial class Experiment_data : System.Web.UI.Page
             etime = DateTime.Parse(qEtime);
         }
         string coord = Request.QueryString["coord"];
-        IList<ChartData> list = ExperimentRepository.Repository.GetChartData(coord, stime, etime);
-        string caption = Request.QueryString["t"];
+        IList<ChartData> list = RepositoryFactory<ExperimentRepository>.Get().GetChartData(coord, stime, etime);
+        string caption = Server.UrlEncode(Server.UrlDecode(Request.QueryString["t"]));
         string subCaption = "";
         int numVisiblePlot = 12;
         int showValues = 1;
-        string clickURL = "";
+        string clickURL = Server.UrlEncode("n-experiment.aspx?id=");
         string xAxisName = "实验日期";
         string yAxisName = "";
         string tooltip = "{0}<BR>result:{1} <BR>value:{2}";
@@ -35,6 +35,8 @@ public partial class Experiment_data : System.Web.UI.Page
         
         XElement chart =new XElement("chart",
             new XAttribute("numVisiblePlot", numVisiblePlot),
+            //new XAttribute("imageSave" , 1) ,
+            //new XAttribute("imageSaveURL" , "../FusionCharts/FusionChartsSave.aspx") ,
             //new XAttribute("connectNullData",1),
             new XAttribute("xAxisName", xAxisName),
             new XAttribute("yAxisName", yAxisName),
@@ -55,7 +57,7 @@ public partial class Experiment_data : System.Web.UI.Page
                                                                select new XElement("set",
                                                                    p.CoordValue.HasValue ? new XAttribute("value", p.CoordValue) : new XAttribute("nodata", ""),
                                                                    new XAttribute("anchorBgColor", p.ExpResult == 1 ? "008000" : "ff0000"),
-                                                                   new XAttribute("link",Server.UrlEncode("n-experiment.aspx?id="+p.ExperimentId.ToString())),
+                                                                   new XAttribute("link",clickURL+p.ExperimentId.ToString()),
                                                                    new XAttribute("toolText", string.Format(tooltip, p.ExpDate.ToString("yyyy-MM-dd"), p.ExpResult == 1 ? "合格" : "不合格", p.CoordValue))
                                                                    )
                 )

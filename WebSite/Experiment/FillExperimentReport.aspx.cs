@@ -17,7 +17,7 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
             string id = Request.QueryString["id"];
             if (!string.IsNullOrWhiteSpace(id)) {
                 //edit model ,load data                
-                Experiment experiment = ExperimentRepository.Repository.Get(System.Guid.Parse(id));
+                Experiment experiment = RepositoryFactory<ExperimentRepository>.Get().Get(System.Guid.Parse(id));
                 if (null !=experiment) {
                     txt_tmpName.Value = experiment.Title;
                     ltHTML.Text = experiment.HTML;
@@ -31,7 +31,7 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
                     string input = "<input type=\"text\" style=\"width:0;height:0;\" class=\"{0}\" {1} />";
                     string textarea = "<textarea style=\"width:0;height:0;\" class=\"text\"></textarea>";
 
-                    ExpTemplate template = ExpTemplateRepository.Repository.Get(guid);
+                    ExpTemplate template = RepositoryFactory<ExpTemplateRepository>.Get().Get(guid);
                     if (null != template) {
                         txt_tmpName.Value = template.Title;
                         ltHTML.Text = template.HTML.Replace("{d}", string.Format(input, "number", ""))

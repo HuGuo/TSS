@@ -26,7 +26,8 @@
                         <%# Container.ItemIndex+1 %>
                     </td>
                     <td>
-                        <%#Eval("Title") %>
+                        <a href="PreView.aspx?id=<%#Eval("Id") %>" target="_blank">
+                            <%#Eval("Title") %></a>
                     </td>
                     <td>
                         <a href="setTemplate.aspx?tid=<%#Eval("id") %>" target="_blank">编辑</a>

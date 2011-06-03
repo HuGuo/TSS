@@ -5,6 +5,7 @@
 <head runat="server">
     <title>文档资料</title>
     <link href="listStyle.css" rel="stylesheet" type="text/css" />
+    <link href="../scripts/base.css" rel="stylesheet" type="text/css" />
     <link href="../scripts/jquery-easyui/thems/gray/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../uploadify/uploadify.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
@@ -12,18 +13,22 @@
     <script src="../uploadify/jquery.uploadify.v2.1.4.min.js" type="text/javascript"></script>
     <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
 </head>
-<body>
-    <form id="form1" runat="server">
-    <div style="height: 50px; width: 100%; border-bottom:1px solid gray;">
+<body><div id="toolbar">
+<a runat="server" id="backto" href="javascript:void(0);">上级目录</a>
         <a href="#dg_upfile" id="upload">上传文件</a>
         <a href="#dg_newfolder" id="new_folder">新建文件夹</a>
         <a href="javascript:$.FF.delItem();" id="A1">删除</a>
+        <div class="search">
+            <input type="text" id="txtKey" class="textbox" maxlength="12" />
+            <input type="button" id="goSearch" class="searchbtn" />
+        </div>
     </div>
-    <ul id="mylist">
+    <form id="form1" runat="server">
+    <ul id="mylist" style="margin-top: 32px;">
         <asp:Repeater ID="rptlist" runat="server">
             <ItemTemplate>
-                <li><a href="javascript:;" pid="<%#Eval("id") %>" isfolder="<%#Eval("isFolder") %>"
-                    title="<%#Eval("name") %>">
+                <li><a href="javascript:;" pid="<%#Eval("id") %>" backid="<%#Eval("ParentId") %>"
+                    isfolder="<%#Eval("isFolder") %>" title="<%#Eval("name") %>">
                     <div class="ico" style="background: url(<%# getIcon(Eval("Path").ToString()) %>) no-repeat center center;">
                     </div>
                     <div class="filename">
@@ -54,5 +59,9 @@
 </html>
 <script src="../scripts/jquery.FF.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $.FF.config({ s: '<%=Request.QueryString["s"] %>', pid: '<%=Request.QueryString["pid"] %>' });    
+    $.FF.config({
+        s: '<%=Request.QueryString["s"] %>',
+        pid: '<%=Request.QueryString["pid"] %>',        
+        iconPath: '<%=ICON_PATH %>'
+    });
 </script>

@@ -38,7 +38,7 @@
         //
         var enableCells = $("#simpleExcel td:contains('{d}')");
         enableCells.click(function () {
-            enableCells.find("td.selectedCell").removeClass("selectedCell");
+            enableCells.filter(".selectedCell").removeClass("selectedCell");
             $(this).addClass("selectedCell");
         });
 

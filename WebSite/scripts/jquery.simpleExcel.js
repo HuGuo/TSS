@@ -30,23 +30,23 @@
                 $.simpleExcel._init($.simpleExcel._op.excell.find("td"));
                 $.simpleExcel._initHead();
                 $.simpleExcel._op.rows = x;
-                $.simpleExcel._op.columns = y;           
+                $.simpleExcel._op.columns = y;
             }
         },
         _init: function (tds) {
             if (!$.simpleExcel._op.excell) { return false; }
             tds.bind("contextmenu", function (e) {
-                var $m = $('#ct_menu');
-                var mW = $m.width();
-                var mH = $m.height();
-                var winW = $("body").width();
-                var winH = $("body").height();
-                var _x = 0; var _y = 0;
-                _x = (e.pageX + mW) > winW ? (e.pageX - mW - 5) : e.pageX;
-                _y = (e.pageY + mH) > winH ? (e.pageY - mH - 5) : e.pageY;
+                  var $m = $('#ct_menu');
+//                var mW = $m.width();
+//                var mH = $m.height();
+//                var winW = $(document).width();
+//                var winH = $(document).height();
+//                var _x = 0; var _y = 0;
+//                _x = (e.pageX + mW) > winW ? (e.pageX - mW - 5) : e.pageX;
+//                _y = (e.pageY + mH) > winH ? (e.pageY - mH - 5) : e.pageY;
                 $m.menu('show', {
-                    left: _x,
-                    top: _y
+                    left: e.pageX,
+                    top: e.pageY
                 });
                 var $this = $(this);
                 if (!$this.hasClass($.simpleExcel._op.selectedCellClass)) {
@@ -73,7 +73,7 @@
                 var _textArea = $(String.format('<textarea style="width:{0}px;height:{1}px">{2}</textarea>', ($this.width() - 5), ($this.height() - 5), $this.text()));
                 $this.empty().append(_textArea);
                 _textArea.focus().bind("blur", function () {
-                    $this.html(_textArea.text());
+                    $this.html(_textArea.val());
                 });
             });
         },
@@ -217,15 +217,17 @@
         },
         setStyle: function (o) {
             $.extend(o, {});
-            $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass).css(o);
+            var $clickItem = $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass);
+            if (o.fontWeight) {
+                if ($clickItem.css("fontWeight") == o.fontWeight || $clickItem.css("fontWeight")=="bold") {
+                    o.fontWeight = "400";}}
+            $clickItem.css(o);
         },
         mergeCell: function () {
             var _selectedCells = $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass);
             var _n = _selectedCells.size();
             if (_n < 2) { return false; }
-            var _x = [];
-            var _y = [];
-            var __c = 0;
+            var _x = []; var _y = []; var __c = 0;
             $.each(_selectedCells, function (i, q) {
                 var $this = $(this);
                 _x.push($this.attr("yy"));
@@ -233,8 +235,7 @@
                 _y.push($this.attr("xx"));
                 _y.push(parseInt($this.attr("xx")) + q.rowSpan - 1);
                 if (q.rowSpan > 1 || q.colSpan > 1) {
-                    __c += (q.rowSpan * q.colSpan - 1); //已经合并过的单元格                    
-                }
+                    __c += (q.rowSpan * q.colSpan - 1); }
             });
             var _xmax_min = maxmin(_x) + 1;
             var _ymax_min = maxmin(_y) + 1;

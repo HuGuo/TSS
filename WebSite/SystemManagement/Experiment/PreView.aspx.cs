@@ -6,19 +6,16 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TSS.BLL;
 using TSS.Models;
-
-public partial class Experiment_experiment : System.Web.UI.Page
+public partial class SystemManagement_Experiment_PreView : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
             string id = Request.QueryString["id"];
             if (!string.IsNullOrWhiteSpace(id)) {
-                Experiment obj = RepositoryFactory<ExperimentRepository>.Get().Get(new Guid(id));
-                if (null !=obj) {
+                ExpTemplate obj= RepositoryFactory<ExpTemplateRepository>.Get().Get(new Guid(id));
+                if (obj!=null) {
                     ltHTML.Text = obj.HTML;
-                    ltTitle.Text = obj.Title;
-                    ltResult.Text = obj.Result == 0 ? "不合格" : "合格";
                 }
             }
         }

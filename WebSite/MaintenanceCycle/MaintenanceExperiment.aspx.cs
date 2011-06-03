@@ -22,6 +22,7 @@ public partial class MaintenanceCycle_MaintenanceExperiment : System.Web.UI.Page
         rptExperiment.DataBind();
     }
 
+    //是否删除成功要有提示
     protected void lbtnDel_Click(object sender, EventArgs e)
     {
         MaintenanceExperiment.Delete(

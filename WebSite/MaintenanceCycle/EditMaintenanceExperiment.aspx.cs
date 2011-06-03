@@ -24,6 +24,7 @@ public partial class MaintenanceCycle_EditMaintenanceExperiment : System.Web.UI.
         tbExperimentTime.Text = maintenanceExperiment.ExperimentTime.ToString();
     }
 
+    //提示是否修改成功
     protected void btnEdit_Click(object sender, EventArgs e)
     {
         Tm.MaintenanceExperiment maintenanceExperiment = MaintenanceExperiment.Get(
@@ -31,10 +32,5 @@ public partial class MaintenanceCycle_EditMaintenanceExperiment : System.Web.UI.
         maintenanceExperiment.CurrentCycle = tbCycle.Text;
         maintenanceExperiment.ExperimentTime = DateTime.Parse(tbExperimentTime.Text);
         MaintenanceExperiment.Update(maintenanceExperiment);
-    }
-
-    protected void btnCancle_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("MaintenanceCycle.apsx");
     }
 }
