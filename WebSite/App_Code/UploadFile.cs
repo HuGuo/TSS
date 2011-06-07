@@ -60,7 +60,7 @@ public class UploadFile : IHttpHandler
                 };
                 doc.Path = obj.Path+ doc.Id + fileExtension;
                 upload.SaveAs(configPath + doc.Path);
-                DocumentRepository.Repository.Add(doc);
+                RepositoryFactory<DocumentRepository>.Get().Add(doc);
                 context.Response.Write("{" + string.Format(res, doc.Id.ToString(), doc.Name, fileExtension, "") + "}");
             }
         } catch(Exception ex) {
@@ -80,7 +80,7 @@ public class UploadFile : IHttpHandler
             doc.Path = doc.Path + doc.Id;
             if (!System.IO.Directory.Exists(configPath+doc.Path)) {
                 System.IO.Directory.CreateDirectory(configPath + doc.Path);
-                DocumentRepository.Repository.Add(doc);
+                RepositoryFactory<DocumentRepository>.Get().Add(doc);
                 context.Response.Write("{" + string.Format(res, doc.Id.ToString(), doc.Name, ".folder", "") + "}");
             }            
         } catch (Exception ex) {
@@ -101,7 +101,7 @@ public class UploadFile : IHttpHandler
 
         Guid? parentId = string.IsNullOrWhiteSpace(pid) ? null : (Guid?)new Guid(pid);
         if (parentId.HasValue) {
-            Document parentFolder = DocumentRepository.Repository.Get(parentId.Value);
+            Document parentFolder = RepositoryFactory<DocumentRepository>.Get().Get(parentId.Value);
             if (null!= parentFolder) {
                 doc.ParentId = parentId;
                 doc.Path = parentFolder.Path+"/";
@@ -117,7 +117,7 @@ public class UploadFile : IHttpHandler
             string id = context.Request["id"];
             
             if (!string.IsNullOrWhiteSpace(id)) {
-                DocumentRepository.Repository.Delete(new Guid(id), onDelete);                
+                RepositoryFactory<DocumentRepository>.Get().Delete(new Guid(id), onDelete);                
             }
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
@@ -135,7 +135,7 @@ public class UploadFile : IHttpHandler
     void Download(HttpContext context) {
         try {
             string id = context.Request["id"];
-            Document doc = DocumentRepository.Repository.Get(new Guid(id));
+            Document doc = RepositoryFactory<DocumentRepository>.Get().Get(new Guid(id));
             if (null !=doc) {
                 DownloadFile.ResponseFile(configPath + doc.Path,doc.Name, context);
             }

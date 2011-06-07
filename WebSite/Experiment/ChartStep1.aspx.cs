@@ -14,7 +14,7 @@ public partial class Experiment_ChartStep1 : System.Web.UI.Page
         if (!IsPostBack) {
             string templateId = Request.QueryString["tid"];
             if (!string.IsNullOrWhiteSpace(templateId)) {
-                ExpTemplate template = ExpTemplateRepository.Repository.Get(new Guid(templateId));
+                ExpTemplate template = RepositoryFactory<ExpTemplateRepository>.Get().Get(new Guid(templateId));
                 if (null !=template) {
 
                     ltHtml.Text = template.HTML;

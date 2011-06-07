@@ -14,6 +14,7 @@ html, body {
 	background-image: url(images/navBtn.gif);
 	background-repeat: no-repeat;
 	background-position: right top;
+	margin-top:10px;
 }
 
 #mainNav li.current{
@@ -53,7 +54,7 @@ font-weight:bold;
 color:#fff;
 }
 
-#mainNav li a span{
+#mainNav li span{
 width:140px;
 margin-left:10px;
 font-weight:normal;
@@ -61,11 +62,6 @@ font-weight:normal;
 
 #mainNav li.mainNavNoBg{
 background-image:none;
-}
-
-#mainNav li a{
-height:71px;
-display:block;
 }
 
 /* #mainNav.fiveStep */

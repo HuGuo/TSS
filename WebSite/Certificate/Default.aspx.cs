@@ -12,7 +12,7 @@ public partial class Certificate_Default : System.Web.UI.Page
     {
         if (!IsPostBack) {
             string s = Request.QueryString["s"];
-            rptList.DataSource = CertificateRepository.Repository.GetBySpecialty(s);
+            rptList.DataSource = RepositoryFactory<CertificateRepository>.Get().GetBySpecialty(s);
             rptList.DataBind();
         }
     }
@@ -21,7 +21,7 @@ public partial class Certificate_Default : System.Web.UI.Page
         string key = txtKey.Text.Trim();
         string s = Request.QueryString["s"];
         rptList.DataSourceID = "";
-        rptList.DataSource = CertificateRepository.Repository.Serach(key, s);
+        rptList.DataSource = RepositoryFactory<CertificateRepository>.Get().Serach(key, s);
         rptList.DataBind();
     }
 }

@@ -11,7 +11,7 @@ public partial class SystemManagement_Experiment_Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
-            rptList.DataSource = ExpTemplateRepository.Repository.GetAll();
+            rptList.DataSource = RepositoryFactory<ExpTemplateRepository>.Get().GetAll();
             rptList.DataBind();
         }
     }

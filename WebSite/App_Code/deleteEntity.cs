@@ -34,7 +34,7 @@ public class deleteEntity:IHttpHandler
         string id = context.Request.QueryString["id"];
         try {
 
-            CertificateRepository.Repository.Delete(new Guid(id));
+            RepositoryFactory<CertificateRepository>.Get().Delete(new Guid(id));
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }
