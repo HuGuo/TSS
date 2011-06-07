@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using TSS.BLL;
 using Tm = TSS.Models;
 
-public partial class MaintenanceCycle_AddMaintenanceExperiment : System.Web.UI.Page
+public partial class MaintenanceCycle_AddMaintenanceExperiment : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -18,11 +18,13 @@ public partial class MaintenanceCycle_AddMaintenanceExperiment : System.Web.UI.P
     //提示是否添加成功
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        Tm.MaintenanceExperiment maintenanceExperiment = new Tm.MaintenanceExperiment();
-        maintenanceExperiment.ExperimentId = Guid.NewGuid();
-        maintenanceExperiment.CurrentCycle = tbExperimentTime.Text;
-        maintenanceExperiment.MaintenanceCycleId = int.Parse(Request.QueryString["id"]);
-        maintenanceExperiment.ExperimentTime = DateTime.Parse(tbExperimentTime.Text);
-        MaintenanceExperiment.Add(maintenanceExperiment);
+        bool result = MaintenanceExperiment.Add(new Tm.MaintenanceExperiment
+         {
+             ExperimentId = Guid.NewGuid(),
+             CurrentCycle = tbExperimentTime.Text,
+             MaintenanceCycleId = int.Parse(Request.QueryString["id"]),
+             ExperimentTime = DateTime.Parse(tbExperimentTime.Text),
+         });
+        AddConfirm(result, "window.location.href='MaintenanceCycle.aspx'");
     }
 }

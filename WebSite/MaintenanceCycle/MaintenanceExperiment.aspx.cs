@@ -8,12 +8,15 @@ using System.Web.UI.WebControls;
 using TSS.BLL;
 using Tm = TSS.Models;
 
-public partial class MaintenanceCycle_MaintenanceExperiment : System.Web.UI.Page
+public partial class MaintenanceCycle_MaintenanceExperiment : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
             BindData();
+        string id = Request.QueryString["id"];
+        if (!string.IsNullOrEmpty(id))
+            Del(id);
     }
 
     protected void BindData()
@@ -23,10 +26,10 @@ public partial class MaintenanceCycle_MaintenanceExperiment : System.Web.UI.Page
     }
 
     //是否删除成功要有提示
-    protected void lbtnDel_Click(object sender, EventArgs e)
+    protected void Del(string id)
     {
-        MaintenanceExperiment.Delete(
-            ((LinkButton)sender).CommandArgument);
+        bool result = MaintenanceExperiment.Delete(id);
+        DelConfirm(result);
         BindData();
     }
 }

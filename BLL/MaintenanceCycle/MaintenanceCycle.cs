@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using System.Data;
+using System.Data.Entity;
 using System.Data.EntityModel;
 using Tm = TSS.Models;
 
@@ -14,7 +15,10 @@ namespace TSS.BLL
         public static IList<Tm.MaintenanceCycle> GetAll()
         {
             using (var dbContext = new Tm.Context())
-                return dbContext.MaintenanceCycles.ToList();
+                return dbContext.MaintenanceCycles
+                    .Include(m => m.MaintenanceCalss)
+                    .Include(m => m.MaintenanceExperiments)
+                    .ToList();
         }
 
         public static Tm.MaintenanceCycle Get(int maintenanceCycleId)
@@ -62,11 +66,12 @@ namespace TSS.BLL
             }
         }
 
-        public static bool Delete(Tm.MaintenanceCycle maintenanceCycle)
+        public static bool Delete(int maintenanceCycleId)
         {
             using (var dbContex = new Tm.Context())
             {
-                dbContex.MaintenanceCycles.Remove(maintenanceCycle);
+                dbContex.MaintenanceCycles.Remove(
+                    dbContex.MaintenanceCycles.Find(maintenanceCycleId));
                 return dbContex.SaveChanges() > 0;
             }
         }

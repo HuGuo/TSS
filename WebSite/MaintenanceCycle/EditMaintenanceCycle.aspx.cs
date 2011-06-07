@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using TSS.BLL;
 using Tm = TSS.Models;
 
-public partial class MaintenanceCycle_EditMaintenanceCycle : System.Web.UI.Page
+public partial class MaintenanceCycle_EditMaintenanceCycle : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -19,12 +19,13 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : System.Web.UI.Page
     protected void BindData()
     {
         BindClass();
-        BindCycle(MaintenanceCycle.Get(
-            int.Parse(Request.QueryString["id"])));
+        BindCycle();
     }
 
-    protected void BindCycle(Tm.MaintenanceCycle maintenanceCycle)
+    protected void BindCycle()
     {
+        Tm.MaintenanceCycle maintenanceCycle = MaintenanceCycle.Get(
+            int.Parse(Request.QueryString["id"]));
         tbCycle.Text = maintenanceCycle.Cycle;
         tbType.Text = maintenanceCycle.MaintenanceType;
         tbModel.Text = maintenanceCycle.EquipmentModel;
@@ -42,21 +43,17 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : System.Web.UI.Page
         }
     }
 
-
-    protected void btnCancle_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("MaintenanceCycle.aspx");
-    }
-
     //编辑成功与否要有提示框
     protected void btnEdit_Click(object sender, EventArgs e)
     {
-        Tm.MaintenanceCycle maintenanceCycle = new Tm.MaintenanceCycle();
-        maintenanceCycle.Cycle = tbCycle.Text;
-        maintenanceCycle.MaintenanceType = tbType.Text;
-        maintenanceCycle.InstallTime = DateTime.Parse(tbInstallTime.Text);
-        maintenanceCycle.MaintenanceClassId = int.Parse(ddlClass.SelectedValue);
-        maintenanceCycle.EquipmentId = new Guid(ddlEquipment.SelectedValue);
-        MaintenanceCycle.Update(maintenanceCycle);
+        bool result = MaintenanceCycle.Update(new Tm.MaintenanceCycle
+        {
+            Cycle = tbCycle.Text,
+            MaintenanceType = tbType.Text,
+            InstallTime = DateTime.Parse(tbInstallTime.Text),
+            MaintenanceClassId = int.Parse(ddlClass.SelectedValue),
+            EquipmentId = new Guid(ddlEquipment.SelectedValue),
+        });
+        EditConfirm(result, "window.location.href='MaintenanceCycle.aspx'");
     }
 }

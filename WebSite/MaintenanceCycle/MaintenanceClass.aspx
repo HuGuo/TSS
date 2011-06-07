@@ -8,12 +8,28 @@
     <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/default/easyui.css" />
     <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/icon.css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-validation/lib/jquery.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-validation/jquery.validate.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-validation/messages_cn.js" type="text/javascript"></script>
     <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            function Del(id) {
+                $.messager.confirm("删除", "是否删除！", function (result) {
+                    if (result) {
+                        window.location.href = "MaintenanceClass.aspx?id=" + id;
+                    } else {
+                        return result;
+                    }
+                });
+            }
+    </script>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
         <a href="AddMaintenanceClass.aspx">添加</a>
+        <a href="MaintenanceCycle.aspx">返回</a>
         <asp:Repeater runat="server" ID="rptClass">
             <HeaderTemplate>
                 <table>
@@ -32,10 +48,8 @@
                         <%# ((TSS.Models.MaintenanceClass)Container.DataItem).equipmentClassName %>
                     </td>
                     <td>
-                        <a href="EditMaintenanceClass.aspx?id=<%# ((TSS.Models.MaintenanceClass)Container.DataItem).Id %>">
-                            编辑</a>
-                        <asp:LinkButton runat="server" CommandArgument="<%# ((TSS.Models.MaintenanceClass)Container.DataItem).Id %>"
-                            OnClick="lbtnDel_Click" OnClientClick="return confirm('是否删除');" ID="lbtnDel">删除</asp:LinkButton>
+                        <a href="EditMaintenanceClass.aspx?id=<%# ((TSS.Models.MaintenanceClass)Container.DataItem).Id %>">编辑</a>
+                        <a onclick="Del(<%# ((TSS.Models.MaintenanceClass)Container.DataItem).Id.ToString() %>)" href="#">删除</a>
                     </td>
                 </tr>
             </ItemTemplate>

@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using TSS.BLL;
 using Tm = TSS.Models;
 
-public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
+public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -64,15 +64,16 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
     }
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        Tm.MaintenanceCycle maintenanceCycle = new Tm.MaintenanceCycle();
-        maintenanceCycle.Cycle = tbCycle.Text;
-        maintenanceCycle.MaintenanceType = tbType.Text;
-        maintenanceCycle.InstallTime = string.IsNullOrEmpty(tbInstallTime.Text) ?
-            (DateTime?)null : DateTime.Parse(tbInstallTime.Text);
-        maintenanceCycle.MaintenanceClassId = int.Parse(ddlClass.SelectedValue);
-        maintenanceCycle.EquipmentId = new Guid(ddlEquipment.SelectedValue);
-        maintenanceCycle.EquipmentModel = tbModel.Text;
-        MaintenanceCycle.Add(maintenanceCycle);
+        bool result = MaintenanceCycle.Add(new Tm.MaintenanceCycle
+        {
+            Cycle = tbCycle.Text,
+            MaintenanceType = tbType.Text,
+            InstallTime = string.IsNullOrEmpty(tbInstallTime.Text) ?
+                (DateTime?)null : DateTime.Parse(tbInstallTime.Text),
+            MaintenanceClassId = int.Parse(ddlClass.SelectedValue),
+            EquipmentId = new Guid(ddlEquipment.SelectedValue),
+            EquipmentModel = tbModel.Text
+        });
+        AddConfirm(result, "window.location.href='MaintenancCycle.aspx'");
     }
-
 }

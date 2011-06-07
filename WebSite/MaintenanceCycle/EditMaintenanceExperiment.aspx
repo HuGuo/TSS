@@ -5,10 +5,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/default/easyui.css" />
+    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/icon.css" />
+    <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../scripts/jquery-validation/lib/jquery.js" type="text/javascript"></script>
     <script src="../scripts/jquery-validation/jquery.validate.js" type="text/javascript"></script>
-    <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
     <script src="../scripts/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript">
         $().ready(function () {
             $("#signupForm").validate({

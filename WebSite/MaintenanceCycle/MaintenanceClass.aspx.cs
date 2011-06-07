@@ -14,6 +14,9 @@ public partial class MaintenanceCycle_MaintenanceClass : BasePage
     {
         if (!IsPostBack)
             BindData();
+        string id = Request.QueryString["id"];
+        if (!string.IsNullOrEmpty(id))
+            Del(id);
     }
 
     private void BindData()
@@ -23,11 +26,10 @@ public partial class MaintenanceCycle_MaintenanceClass : BasePage
     }
 
     //是否删除成功要有提示
-    protected void lbtnDel_Click(object sender, EventArgs e)
+    protected void Del(string id)
     {
-        int maintenanceClassId = int.Parse(((LinkButton)sender).CommandArgument);
-        bool isExistChildRecord = !MaintenanceCycle.IsExistOnMaintenancClass(maintenanceClassId);
-        if (isExistChildRecord)
+        int maintenanceClassId = int.Parse(id);
+        if (!MaintenanceCycle.IsExistOnMaintenancClass(maintenanceClassId))
             DelConfirm(MaintenanceClass.Delete(maintenanceClassId));
         else
             ExistChildConfirm();

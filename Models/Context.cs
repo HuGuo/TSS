@@ -56,12 +56,12 @@ namespace TSS.Models
             base.Seed(context);
 
             var modules = new List<Module> {
-                    new Module { Id = 1, Name = "设备台帐", Url = "Equipment" },
-                    new Module { Id = 2, Name = "实验报告", Url = "Experiment" },
-                    new Module { Id = 3, Name = "预试周期", Url = "MaintenanceCycle" },
-                    new Module { Id = 4, Name = "监督月报", Url = "Report" },
-                    new Module { Id = 5, Name = "人员资质", Url = "Certificate" },
-                    new Module { Id = 6, Name = "档案资料", Url = "Document" }
+                    new Module { Id = "1", Name = "设备台帐", Url = "Equipment" },
+                    new Module { Id = "2", Name = "实验报告", Url = "Experiment" },
+                    new Module { Id = "3", Name = "预试周期", Url = "MaintenanceCycle" },
+                    new Module { Id = "4", Name = "监督月报", Url = "Report" },
+                    new Module { Id = "5", Name = "人员资质", Url = "Certificate" },
+                    new Module { Id = "6", Name = "档案资料", Url = "Document" }
             };
 
             new List<Specialty> {
@@ -74,7 +74,8 @@ namespace TSS.Models
                 new Specialty { Id = "GHY-JY", Name = "绝缘" },
                 new Specialty { Id = "GHY-LC", Name = "励磁" },
                 new Specialty { Id = "GHY-RG", Name = "热工" }
-            }.ForEach(s => {
+            }.ForEach(s =>
+            {
                 s.Modules = modules;
                 context.Specialties.Add(s);
             });
