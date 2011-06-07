@@ -34,7 +34,7 @@
       <fieldset>
             <legend>设备预示周期 </legend>
             <p>
-                <asp:DropDownList runat="server" ID="ddlEquipment" OnSelectedIndexChanged="ddlEquipment_SelectedIndexChanged">
+                <asp:DropDownList runat="server" ID="ddlEquipment">
                     <asp:ListItem Value="">请选择设备</asp:ListItem>
                 </asp:DropDownList>
             </p>

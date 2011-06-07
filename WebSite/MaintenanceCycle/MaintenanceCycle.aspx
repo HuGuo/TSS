@@ -56,8 +56,7 @@
                     .MaintenanceCalss.equipmentClassName%>--%>
                     </td>
                     <td>
-                        <%# ((TSS.Models.MaintenanceCycle)Container.DataItem)
-                    .EquipmentId.ToString()%>
+                        
                     </td>
                     <td>
                         <%# ((TSS.Models.MaintenanceCycle)Container.DataItem)

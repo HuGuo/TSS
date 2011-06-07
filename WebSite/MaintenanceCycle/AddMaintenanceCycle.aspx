@@ -26,6 +26,7 @@
                 }
             });
         });
+
     </script>
 </head>
 <body>
@@ -34,6 +35,8 @@
         <fieldset>
             <legend>设备预示周期 </legend>
             <p>
+                <label>
+                   设备</label>
                 <asp:DropDownList runat="server" ID="ddlEquipment" OnSelectedIndexChanged="ddlEquipment_SelectedIndexChanged">
                     <asp:ListItem Value="">请选择设备</asp:ListItem>
                 </asp:DropDownList>
@@ -57,7 +60,9 @@
                 <label>
                     安装日期</label><asp:TextBox runat="server" onclick="WdatePicker()" ID="tbInstallTime"></asp:TextBox>
             </p>
-            <p>
+            <p><select>
+            <option selected="selected"></option>
+            </select>
                 <label>
                     周期</label><asp:TextBox runat="server" class="ignore" ID="tbCycle"></asp:TextBox>
             </p>

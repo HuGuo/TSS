@@ -9,6 +9,9 @@
     <script src="../scripts/jquery-validation/jquery.validate.js" type="text/javascript"></script>
     <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
     <script src="../scripts/jquery-validation/messages_cn.js" type="text/javascript"></script>
+    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/default/easyui.css" />
+    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/icon.css" />
+    <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript">
         $().ready(function () {
             $("#signupForm").validate({
@@ -21,7 +24,7 @@
     </script>
 </head>
 <body>
-    <form id="signupForm"  runat="server">
+    <form id="signupForm" runat="server">
     <div>
         <fieldset>
             <legend>添加设备类型 </legend>

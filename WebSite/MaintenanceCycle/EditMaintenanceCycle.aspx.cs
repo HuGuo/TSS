@@ -28,7 +28,7 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : System.Web.UI.Page
         tbCycle.Text = maintenanceCycle.Cycle;
         tbType.Text = maintenanceCycle.MaintenanceType;
         tbModel.Text = maintenanceCycle.EquipmentModel;
-        tbInstallTime.Text = maintenanceCycle.InstallTime.ToShortDateString();
+        tbInstallTime.Text = maintenanceCycle.InstallTime.Value.ToShortDateString();
         ddlEquipment.SelectedValue = maintenanceCycle.EquipmentId.ToString();
         ddlClass.SelectedValue = maintenanceCycle.MaintenanceClassId.ToString();
     }

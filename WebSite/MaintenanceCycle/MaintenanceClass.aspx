@@ -5,6 +5,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>设备分类</title>
+    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/default/easyui.css" />
+    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/icon.css" />
+    <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -31,12 +35,12 @@
                         <a href="EditMaintenanceClass.aspx?id=<%# ((TSS.Models.MaintenanceClass)Container.DataItem).Id %>">
                             编辑</a>
                         <asp:LinkButton runat="server" CommandArgument="<%# ((TSS.Models.MaintenanceClass)Container.DataItem).Id %>"
-                            OnClick="lbtnDel_Click" OnClientClick="confirm('是否删除？')" ID="lbtnDel">删除</asp:LinkButton>
+                            OnClick="lbtnDel_Click" OnClientClick="return confirm('是否删除');" ID="lbtnDel">删除</asp:LinkButton>
                     </td>
                 </tr>
             </ItemTemplate>
-            <FooterTemplate>
-                <tr visible="<%# rptClass.Items.Count==0 %>">
+            <FooterTemplate>            
+                <tr  style="visibility:<%# rptClass.Items.Count == 0 ? "visible" : "hidden"%>">
                     <td colspan="2" align="center">
                         无数据
                     </td>

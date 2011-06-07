@@ -26,11 +26,14 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
     {
         Tm.MaintenanceCycle maintenanceCycle = MaintenanceCycle.GetByEquipment(new
             Guid(ddlEquipment.SelectedValue));
-        ddlClass.SelectedValue = maintenanceCycle.MaintenanceCalss.Id.ToString();
-        tbCycle.Text = maintenanceCycle.Cycle;
-        tbInstallTime.Text = maintenanceCycle.InstallTime.ToShortDateString();
-        tbModel.Text = maintenanceCycle.EquipmentModel;
-        tbType.Text = maintenanceCycle.MaintenanceType;
+        if (maintenanceCycle != null)
+        {
+            tbCycle.Text = maintenanceCycle.Cycle;
+            tbModel.Text = maintenanceCycle.EquipmentModel;
+            tbType.Text = maintenanceCycle.MaintenanceType;
+            tbInstallTime.Text = maintenanceCycle.InstallTime.Value.ToString();
+            ddlClass.SelectedValue = maintenanceCycle.MaintenanceCalss.Id.ToString();
+        }
     }
 
     protected void BindClass()
@@ -47,7 +50,7 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
         foreach (Tm.Equipment equipment in new Equipments().GetAll())
         {
             ddlEquipment.Items.Add(new
-                ListItem(equipment.Id.ToString(), equipment.Name));
+                ListItem(equipment.Name, equipment.Id.ToString()));
         }
     }
 
@@ -64,9 +67,12 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
         Tm.MaintenanceCycle maintenanceCycle = new Tm.MaintenanceCycle();
         maintenanceCycle.Cycle = tbCycle.Text;
         maintenanceCycle.MaintenanceType = tbType.Text;
-        maintenanceCycle.InstallTime = DateTime.Parse(tbInstallTime.Text);
+        maintenanceCycle.InstallTime = string.IsNullOrEmpty(tbInstallTime.Text) ?
+            (DateTime?)null : DateTime.Parse(tbInstallTime.Text);
         maintenanceCycle.MaintenanceClassId = int.Parse(ddlClass.SelectedValue);
         maintenanceCycle.EquipmentId = new Guid(ddlEquipment.SelectedValue);
+        maintenanceCycle.EquipmentModel = tbModel.Text;
+        MaintenanceCycle.Add(maintenanceCycle);
     }
 
 }
