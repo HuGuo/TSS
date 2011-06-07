@@ -54,5 +54,9 @@
 </html>
 <script src="../scripts/jquery.FF.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $.FF.config({ s: '<%=Request.QueryString["s"] %>', pid: '<%=Request.QueryString["pid"] %>' });    
+    $.FF.config({
+        s: '<%=Request.QueryString["s"] %>',
+        pid: '<%=Request.QueryString["pid"] %>',
+        iconPath: '<%=ICON_PATH %>'
+    });
 </script>

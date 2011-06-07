@@ -58,11 +58,11 @@ public class Exp : IHttpHandler
                 HTML = _html,
                 Title = _title
             };
-            bool exists = ExpTemplateRepository.Repository.IsExists(guid);
+            bool exists = RepositoryFactory<ExpTemplateRepository>.Get().IsExists(guid);
             if (exists) {
-                ExpTemplateRepository.Repository.Update(template);
+                RepositoryFactory<ExpTemplateRepository>.Get().Update(template);
             } else {
-                ExpTemplateRepository.Repository.Add(template);
+                RepositoryFactory<ExpTemplateRepository>.Get().Add(template);
             }
             context.Response.Write("1");
         } catch (Exception ex) {
@@ -107,9 +107,9 @@ public class Exp : IHttpHandler
                 Expdatas = datas
             };            
             if (!string.IsNullOrWhiteSpace(_id)) {
-                ExperimentRepository.Repository.Update(experiment);
+                RepositoryFactory<ExperimentRepository>.Get().Update(experiment);
             } else {
-                ExperimentRepository.Repository.Add(experiment);
+                RepositoryFactory<ExperimentRepository>.Get().Add(experiment);
             }
             context.Response.Write(experiment.Id);
         } catch (Exception ex) {
@@ -120,7 +120,7 @@ public class Exp : IHttpHandler
     void DeleteTemplate(HttpContext context) {        
         try {
             Guid id = new Guid(context.Request["id"]);
-            ExpTemplateRepository.Repository.Delete(id);            
+            RepositoryFactory<ExpTemplateRepository>.Get().Delete(id);            
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }
@@ -129,7 +129,7 @@ public class Exp : IHttpHandler
     void DeleteExperiment(HttpContext context) {        
         try {
             Guid id = new Guid(context.Request["id"]);
-            ExperimentRepository.Repository.Delete(id);
+            RepositoryFactory<ExperimentRepository>.Get().Delete(id);
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }

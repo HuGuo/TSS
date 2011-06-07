@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using TSS.Models;
 namespace TSS.BLL
 {
     public class DocumentRepository:Repository<Document,Guid>
     {
-        public static readonly DocumentRepository Repository = new DocumentRepository();
-        private DocumentRepository() { }
+        public DocumentRepository() { }
 
         public void Delete(Guid id, Action<string> onDeleted) {
             using (Context db=new Context()) {
@@ -15,8 +15,8 @@ namespace TSS.BLL
                 if (null!=obj) {
                     db.Documents.Where(p => p.ParentId == obj.Id).ToList()
                         .ForEach(m => db.Documents.Remove(m));
-
-                    db.Documents.Remove(obj);                    
+                    
+                    db.Documents.Remove(obj);
                     db.SaveChanges();
                     onDeleted(obj.Path);
                 }

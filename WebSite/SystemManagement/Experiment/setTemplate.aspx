@@ -49,7 +49,7 @@
                     居 中</div>
                 <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'right'});">
                     右对齐</div>
-                <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'bold'});">
+                <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'700'});">
                     加 粗</div>
             </div>
         </div>
@@ -106,6 +106,7 @@
             $.post("../../exp.ashx", q, function (data) {
                 if (data == "1") {
                     alert("模板保存成功");
+                    window.close();
                 } else {
                     alert(data);
                 }

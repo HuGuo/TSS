@@ -46,6 +46,7 @@
     <Compile Include="MaintenanceCycle\MaintenanceClass.cs" />
     <Compile Include="MaintenanceCycle\MaintenanceCycle.cs" />
     <Compile Include="MaintenanceCycle\MaintenanceExperiment.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Specialty.cs" />
   </ItemGroup>

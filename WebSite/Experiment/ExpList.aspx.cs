@@ -20,7 +20,7 @@ public partial class Experiment_ExpList : System.Web.UI.Page
 
                 //加载分类下所有设备所做过的实验
                 Guid id = new Guid(categoryId);
-                IList<Experiment> list = ExperimentRepository.Repository.GetByEquipmentCategory(id, s);
+                IList<Experiment> list = RepositoryFactory<ExperimentRepository>.Get().GetByEquipmentCategory(id, s);
                 rptList.DataSource = list;
                 rptList.DataBind();
             }
@@ -28,7 +28,7 @@ public partial class Experiment_ExpList : System.Web.UI.Page
             //加载本专业模板
             
             if (!string.IsNullOrWhiteSpace(s)) {
-                IList<TSS.Models.ExpTemplate> list = ExpTemplateRepository.Repository.GetBySpecialty(s);
+                IList<TSS.Models.ExpTemplate> list = RepositoryFactory<ExpTemplateRepository>.Get().GetBySpecialty(s);
                 rptTmpList.DataSource = list;
                 rptTmpList.DataBind();
             }

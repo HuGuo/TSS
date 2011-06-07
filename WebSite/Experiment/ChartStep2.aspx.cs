@@ -32,7 +32,7 @@ public partial class Experiment_ChartStep2 : System.Web.UI.Page
             etime = DateTime.Parse(txtEtime.Text.Trim());
         }
         string coord = Request.QueryString["coord"];
-        IList<ChartData> list = ExperimentRepository.Repository.GetChartData(coord, stime, etime);
+        IList<ChartData> list = RepositoryFactory<ExperimentRepository>.Get().GetChartData(coord, stime, etime);
         string caption = Request.QueryString["t"];
         string subCaption = "";
         int numVisiblePlot = 12;

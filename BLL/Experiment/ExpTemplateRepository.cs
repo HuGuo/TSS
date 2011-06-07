@@ -7,8 +7,7 @@ namespace TSS.BLL
 {
     public class ExpTemplateRepository:Repository<ExpTemplate,Guid>
     {
-        public static readonly ExpTemplateRepository Repository = new ExpTemplateRepository();
-        private ExpTemplateRepository() { }
+        public ExpTemplateRepository() { }
 
         public ExpTemplate GetAndEquipments(Guid id) {
             using (Context db=new Context()) {

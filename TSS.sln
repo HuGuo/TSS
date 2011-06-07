@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{2F43509D-6C34-40D8-BFED-F09ED941E6A8}"
@@ -32,8 +32,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReferenceAssemblies", "Refe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{58DF235E-C529-4255-8469-5C54F32C40F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TssTest", "TssTest\TssTest.csproj", "{55EC3655-5585-4379-B423-267ACE196B61}"
-EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = TSS.vsmdi
@@ -55,10 +53,6 @@ Global
 		{58DF235E-C529-4255-8469-5C54F32C40F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58DF235E-C529-4255-8469-5C54F32C40F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58DF235E-C529-4255-8469-5C54F32C40F1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{55EC3655-5585-4379-B423-267ACE196B61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55EC3655-5585-4379-B423-267ACE196B61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55EC3655-5585-4379-B423-267ACE196B61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55EC3655-5585-4379-B423-267ACE196B61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
