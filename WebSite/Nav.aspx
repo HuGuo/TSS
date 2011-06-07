@@ -1,4 +1,4 @@
-<%@ Page Language="C#" %>
+ï»¿<%@ Page Language="C#" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -31,38 +31,41 @@
     </div>
     <div id="nav_menu">
       <ul>
-        <li><a href="#" class="expand">¼à¶½¶¯Ì¬</a></li>
-        <li><a href="#" class="expand">¼à¶½ÌåÏµ</a></li>
-        <li><a href="#" class="expand">¼à¶½¹ÜÀí</a></li>
-        <li><a href="#" class="expand">×¨Òµ¼à¶½</a>
-          <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1">
+        <li><a href="#" class="expand">ç›‘ç£åŠ¨æ€</a></li>
+        <li><a href="#" class="expand">ç›‘ç£ä½“ç³»</a></li>
+        <li><a href="#" class="expand">ç›‘ç£ç®¡ç†</a></li>
+        <li><a href="#" class="expand">ä¸“ä¸šç›‘ç£</a>
+          <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1" ItemPlaceholderID="Placeholder1">
             <LayoutTemplate>
               <ul>
-                <asp:PlaceHolder ID="itemPlaceholder" runat="server" />
+                <asp:PlaceHolder ID="Placeholder1" runat="server" />
               </ul>
             </LayoutTemplate>
             <ItemTemplate>
               <li><a href="#" class="expand">
                 <%# Eval("Name") %></a>
-                <ul>
-                  <li><a href="Equipment/?s=<%# Eval("Id") %>">Éè±¸Ì¨ÕÊ</a></li>
-                  <li><a href="Certificate/?s=<%# Eval("Id") %>">ÈËÔ±×ÊÀú</a></li>
-                  <li><a href="MaintenanceCycle/?s=<%# Eval("Id") %>">Éè±¸Ô¤ÊÔÖÜÆÚ</a></li>
-                  <li><a href="Experiment/?s=<%# Eval("Id") %>">ÊÔÑé±¨¸æ</a></li>
-                  <li><a href="Certificate/?s=<%# Eval("Id") %>">ÊÔÑéÌ¨ÕÊ</a></li>
-                  <li><a href="Report/?s=<%# Eval("Id") %>">¼à¶½ÔÂ±¨</a></li>
-                  <li><a href="Document/?s=<%# Eval("Id") %>">µµ°¸×ÊÁÏ</a></li>
-                </ul>
+                <asp:ListView ID="ListView2" runat="server" DataSource='<%# Eval("Modules") %>' ItemPlaceholderID="Placeholder2">
+                  <LayoutTemplate>
+                    <ul>
+                      <asp:PlaceHolder ID="Placeholder2" runat="server" />
+                    </ul>
+                  </LayoutTemplate>
+                  <ItemTemplate>
+                    <li><a href="<%# DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Id", Eval("Url") + "/?s={0}") %>">
+                      <%# Eval("Name") %></a></li>
+                  </ItemTemplate>
+                </asp:ListView>
               </li>
             </ItemTemplate>
           </asp:ListView>
         </li>
-        <li><a href="#" class="expand">ÏµÍ³¹ÜÀí</a>
+        <li><a href="#" class="expand">ç³»ç»Ÿç®¡ç†</a>
           <ul>
-            <li><a href="SystemManagement/Employee/">ÓÃ»§¹ÜÀí</a></li>
-            <li><a href="SystemManagement/Equipment/">Éè±¸¹ÜÀí</a></li>
-            <li><a href="SystemManagement/Experiment/">ÊÔÑé¹ÜÀí</a></li>
-            <li><a href="SystemManagement/Workflow/">¹¤×÷Á÷¹ÜÀí</a></li>
+            <li><a href="SystemManagement/Employee/">äººå‘˜ç®¡ç†</a></li>
+            <li><a href="SystemManagement/Equipment/">è®¾å¤‡ç®¡ç†</a></li>
+            <li><a href="SystemManagement/Experiment/">å®žéªŒç®¡ç†</a></li>
+            <li><a href="SystemManagement/Workflow/">å·¥ä½œæµç®¡ç†</a></li>
+            <li><a href="SystemManagement/Module/">æ¨¡å—ç®¡ç†</a></li>
           </ul>
         </li>
       </ul>

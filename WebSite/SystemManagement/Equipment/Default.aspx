@@ -1,6 +1,7 @@
-<%@ Page Language="C#" AutoEventWireup="true" Title="设备管理" MasterPageFile="~/HTML5.master" %>
+<%@ Page Language="C#" AutoEventWireup="true" Title="设备管理" MasterPageFile="~/Default.master" %>
 
-<asp:Content ContentPlaceHolderID="Main" runat="server">
+<asp:Content ContentPlaceHolderID="body" runat="server">
+  <a href="Add.aspx">添加设备</a> <a href="Category/Add.aspx">添加目录</a>
   <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1" DataKeyNames="Id">
     <LayoutTemplate>
       <ul>
@@ -12,7 +13,7 @@
         <asp:LinkButton ID="edit" runat="server" CommandName="Edit" Text='<%# Eval("Name") %>'></asp:LinkButton>
       </li>
       <li>
-        <%# new TSS.BLL.Specialties().Get(Eval("SpecialtyId").ToString()).Name %>
+        <%# Eval("Specialty.Name") %>
       </li>
     </ItemTemplate>
     <EditItemTemplate>
@@ -27,5 +28,5 @@
     </EditItemTemplate>
   </asp:ListView>
   <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Equipments" DataObjectTypeName="TSS.Models.Equipment" UpdateMethod="Update"></asp:ObjectDataSource>
-  <asp:ObjectDataSource ID="ddlo" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Specialty"></asp:ObjectDataSource>
+  <asp:ObjectDataSource ID="ddlo" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Specialties"></asp:ObjectDataSource>
 </asp:Content>

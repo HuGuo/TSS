@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TSS.BLL
+﻿namespace TSS.BLL
 {
     public class RepositoryFactory<T> where T : new()
     {

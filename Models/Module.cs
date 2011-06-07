@@ -9,6 +9,9 @@ namespace TSS.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Url { get; set; }
+
+        public virtual ICollection<Specialty> Specialties { get; set; }
     }
 
     public class Role

@@ -48,6 +48,7 @@
     <Compile Include="Equipment\Equipments.cs" />
     <Compile Include="DocumentRepository.cs" />
     <Compile Include="Equipment\EquipmentCategories.cs" />
+    <Compile Include="Modules.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="Experiment\ExperimentRepository.cs" />
     <Compile Include="Experiment\ExpTemplateRepository.cs" />
