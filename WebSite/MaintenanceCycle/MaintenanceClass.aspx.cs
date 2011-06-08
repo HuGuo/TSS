@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using TSS.BLL;
 using Tm = TSS.Models;
 
-public partial class MaintenanceCycle_MaintenanceClass : System.Web.UI.Page
+public partial class MaintenanceCycle_MaintenanceClass : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -22,11 +22,15 @@ public partial class MaintenanceCycle_MaintenanceClass : System.Web.UI.Page
         rptClass.DataBind();
     }
 
-
+    //是否删除成功要有提示
     protected void lbtnDel_Click(object sender, EventArgs e)
     {
-        MaintenanceClass.Delete(int.Parse(
-            ((LinkButton)sender).CommandArgument));
+        int maintenanceClassId = int.Parse(((LinkButton)sender).CommandArgument);
+        bool isExistChildRecord = !MaintenanceCycle.IsExistOnMaintenancClass(maintenanceClassId);
+        if (isExistChildRecord)
+            DelConfirm(MaintenanceClass.Delete(maintenanceClassId));
+        else
+            ExistChildConfirm();
         BindData();
     }
 }

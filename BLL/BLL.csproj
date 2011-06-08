@@ -60,13 +60,13 @@
     <Compile Include="Specialties.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{58DF235E-C529-4255-8469-5C54F32C40F1}</Project>
       <Name>Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

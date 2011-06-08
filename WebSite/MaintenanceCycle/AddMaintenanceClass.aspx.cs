@@ -8,12 +8,13 @@ using System.Web.UI.WebControls;
 using TSS.BLL;
 using Tm = TSS.Models;
 
-public partial class MaintenanceCycle_AddMaintenanceClass : System.Web.UI.Page
+public partial class MaintenanceCycle_AddMaintenanceClass : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
             BindData();
+
     }
 
     protected void BindData()
@@ -29,15 +30,12 @@ public partial class MaintenanceCycle_AddMaintenanceClass : System.Web.UI.Page
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        MaintenanceClass.Add(new Tm.MaintenanceClass
-        {
-            equipmentClassName = tbClassNames.Text,
-            SpecialtyId = ddlSpecialty.SelectedValue
-        });
-    }
-
-    protected void btnCancle_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("MaintenanceClass.aspx");
+        bool result = MaintenanceClass.Add(
+            new Tm.MaintenanceClass
+          {
+              equipmentClassName = tbClassNames.Text,
+              SpecialtyId = ddlSpecialty.SelectedValue
+          });
+        AddConfirm(result, "window.location.href='MaintenanceClass.aspx'");
     }
 }

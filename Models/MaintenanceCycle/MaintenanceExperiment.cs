@@ -11,7 +11,7 @@ namespace TSS.Models
         public string CurrentCycle { get; set; }
         public DateTime ExperimentTime { get; set; }
 
-        public string MaintenanceCycleId { get; set; }
+        public int MaintenanceCycleId { get; set; }
         public virtual MaintenanceCycle MaintenanceCycle { get; set; }
     }
 }

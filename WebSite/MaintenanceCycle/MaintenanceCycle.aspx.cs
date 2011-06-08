@@ -28,4 +28,13 @@ public partial class MaintenanceCycle_MaintenanceCycle : System.Web.UI.Page
         Response.Redirect(string.Format("MaintenanceClass.aspx?specialty={0}"
             , Request.QueryString["specialty"]));
     }
+
+    protected void lbtnDel_Click(object sender, EventArgs e)
+    {
+        int maintenanceCycleId = int.Parse(((LinkButton)sender).CommandArgument);
+        if (MaintenanceExperiment.IsExistOnMaintenanceCycle(maintenanceCycleId))
+            MaintenanceClass.Delete(maintenanceCycleId);
+        else//提示该类别下存在设备周期无法删除
+        { };
+    }
 }

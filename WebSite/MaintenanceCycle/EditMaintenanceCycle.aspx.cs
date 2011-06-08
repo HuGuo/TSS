@@ -28,7 +28,7 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : System.Web.UI.Page
         tbCycle.Text = maintenanceCycle.Cycle;
         tbType.Text = maintenanceCycle.MaintenanceType;
         tbModel.Text = maintenanceCycle.EquipmentModel;
-        tbInstallTime.Text = maintenanceCycle.InstallTime.ToShortDateString();
+        tbInstallTime.Text = maintenanceCycle.InstallTime.Value.ToShortDateString();
         ddlEquipment.SelectedValue = maintenanceCycle.EquipmentId.ToString();
         ddlClass.SelectedValue = maintenanceCycle.MaintenanceClassId.ToString();
     }
@@ -48,6 +48,7 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : System.Web.UI.Page
         Response.Redirect("MaintenanceCycle.aspx");
     }
 
+    //编辑成功与否要有提示框
     protected void btnEdit_Click(object sender, EventArgs e)
     {
         Tm.MaintenanceCycle maintenanceCycle = new Tm.MaintenanceCycle();

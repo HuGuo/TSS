@@ -31,6 +31,19 @@ namespace TSS.BLL
                     .SingleOrDefault();
         }
 
+        public static bool IsExistOnMaintenancClass(int maintenanceClassId)
+        {
+            return GetByMaintenanceClass(maintenanceClassId).Count > 0;
+        }
+
+        public static IList<Tm.MaintenanceCycle> GetByMaintenanceClass(int maintenanceClassId)
+        {
+            using (var dbContext = new Tm.Context())
+                return dbContext.MaintenanceCycles
+                    .Where(maintenanceCycle => maintenanceCycle.MaintenanceClassId == maintenanceClassId)
+                    .ToList();
+        }
+
         public static bool Add(Tm.MaintenanceCycle maintenanceCycle)
         {
             using (var dbContext = new Tm.Context())
