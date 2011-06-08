@@ -10,6 +10,7 @@ public partial class Experiment_ExpList : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //RegScripts("scripts" , "jquery-1.6.1.min.js" , "jquery-easyui/jquery.easyui.min.js");
         if (!IsPostBack) {
             string categoryId = Request.QueryString["category"];
             string s = Request.QueryString["s"];
@@ -31,6 +32,8 @@ public partial class Experiment_ExpList : System.Web.UI.Page
                 IList<TSS.Models.ExpTemplate> list = RepositoryFactory<ExpTemplateRepository>.Get().GetBySpecialty(s);
                 rptTmpList.DataSource = list;
                 rptTmpList.DataBind();
+                rptlist2.DataSource = list;
+                rptlist2.DataBind();
             }
         }
     }

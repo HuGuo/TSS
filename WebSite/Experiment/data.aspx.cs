@@ -23,7 +23,7 @@ public partial class Experiment_data : System.Web.UI.Page
         }
         string coord = Request.QueryString["coord"];
         IList<ChartData> list = RepositoryFactory<ExperimentRepository>.Get().GetChartData(coord, stime, etime);
-        string caption = Request.QueryString["t"];
+        string caption = Server.UrlEncode(Server.UrlDecode(Request.QueryString["t"]));
         string subCaption = "";
         int numVisiblePlot = 12;
         int showValues = 1;

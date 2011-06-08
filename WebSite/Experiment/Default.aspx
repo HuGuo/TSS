@@ -24,7 +24,7 @@
     </style>
 </head>
 <body class="easyui-layout">
-	<div region="west" split="true" title="设备分类" style="width:200px; max-width:300px;padding:5px;">
+	<div region="west" split="true" title="设备分类" style="width:220px; max-width:300px;padding:5px;">
         <ul id="expTree"></ul>
     </div>
 	<div region="center" style="padding:0">
@@ -36,7 +36,7 @@
     var s = '<%=Request.QueryString["s"] %>';
     $(document).ready(function () {
         var query = escape("?s=" + s + "&category=");
-        $("#expTree").load("../equipmentcategory.ashx?xslt=&target=frm_explist&src=explist.aspx" + query, function (data) {
+        $("#expTree").load("../equipmentcategory.ashx?dp=0&xslt=&target=frm_explist&src=explist.aspx" + query, function (data) {
             $("#expTree").tree();
         });
 

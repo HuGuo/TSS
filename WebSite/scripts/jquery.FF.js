@@ -102,4 +102,11 @@ $(document).ready(function () {
             document.location.href = "default.aspx?s=" + $.FF.$$$.s + "&pid=" + $id;
         }
     });
+
+    $("#goSearch").click(function () {
+        var q = { s: $.FF.$$$.s, key: $.trim($("#txtKey").val()) };
+        if (q.key != "") {
+            document.location.href = "search.aspx?" + $.param(q);
+        }
+    });
 });

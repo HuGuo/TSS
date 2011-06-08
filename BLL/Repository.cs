@@ -39,7 +39,7 @@ namespace TSS.BLL
 
         public virtual void Update(TEntity entity)
         {
-            Context.Set<TEntity>().Attach(entity);
+            Context.Set<TEntity>().Attach(entity);            
             Context.Entry<TEntity>(entity).State = EntityState.Modified;
 
             Context.SaveChanges();

@@ -17,6 +17,10 @@ public partial class document_Default : System.Web.UI.Page
             Guid? parentId = null;
             if (!string.IsNullOrWhiteSpace(pid)) {
                 parentId = new Guid(pid);
+                Document obj = RepositoryFactory<DocumentRepository>.Get().Get(parentId.Value);
+                if (null !=obj) {
+                    backto.HRef = string.Format("default.aspx?s={0}&pid={1}" , Request.QueryString["s"] , obj.ParentId.HasValue ? obj.ParentId.Value.ToString() : "");
+                }
             }
             IList<Document> list = RepositoryFactory<DocumentRepository>.Get().GetChildItems(parentId, s);
             rptlist.DataSource = list;

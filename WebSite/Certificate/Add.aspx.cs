@@ -66,6 +66,6 @@ public partial class Certificate_Add : System.Web.UI.Page
         } else {
             RepositoryFactory<CertificateRepository>.Get().Update(certificate);
         }
-        Response.Write("保存成功");
+        ltmsg.Text = "<div class='success'>操作成功!</div>";
     }
 }

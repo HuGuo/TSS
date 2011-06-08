@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace TSS.Models
 {
@@ -37,15 +38,14 @@ namespace TSS.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<ExpData>()
                 .HasKey<int>(p => p.Id)
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
             modelBuilder.Entity<Document>().Ignore(p => p.Childs);
-            // modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
-            // modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
+            modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
+            modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
+            modelBuilder.Entity<ExpData>().Property(p => p.Value).HasPrecision(18 , 6);
         }
     }
 

@@ -36,17 +36,17 @@
         _init: function (tds) {
             if (!$.simpleExcel._op.excell) { return false; }
             tds.bind("contextmenu", function (e) {
-                var $m = $('#ct_menu');
-                var mW = $m.width();
-                var mH = $m.height();
-                var winW = $("body").width();
-                var winH = $("body").height();
-                var _x = 0; var _y = 0;
-                _x = (e.pageX + mW) > winW ? (e.pageX - mW - 5) : e.pageX;
-                _y = (e.pageY + mH) > winH ? (e.pageY - mH - 5) : e.pageY;
+                  var $m = $('#ct_menu');
+//                var mW = $m.width();
+//                var mH = $m.height();
+//                var winW = $(document).width();
+//                var winH = $(document).height();
+//                var _x = 0; var _y = 0;
+//                _x = (e.pageX + mW) > winW ? (e.pageX - mW - 5) : e.pageX;
+//                _y = (e.pageY + mH) > winH ? (e.pageY - mH - 5) : e.pageY;
                 $m.menu('show', {
-                    left: _x,
-                    top: _y
+                    left: e.pageX,
+                    top: e.pageY
                 });
                 var $this = $(this);
                 if (!$this.hasClass($.simpleExcel._op.selectedCellClass)) {

@@ -13,8 +13,10 @@ namespace TSS.BLL
             using (Context db=new Context()) {
                 Document obj = db.Documents.Find(id);
                 if (null!=obj) {
-                    db.Documents.Where(p => p.ParentId == obj.Id).ToList()
+                    if (obj.IsFolder==1) {
+                        db.Documents.Where(p => p.ParentId == obj.Id).ToList()
                         .ForEach(m => db.Documents.Remove(m));
+                    }
                     
                     db.Documents.Remove(obj);
                     db.SaveChanges();
@@ -89,9 +91,15 @@ namespace TSS.BLL
 
         public IList<Document> Search(string key, string specialty = null)
         {
+            if (string.IsNullOrWhiteSpace(key)) {
+                return null;
+            }
             using (Context db = new Context()) {
                 var query = db.Documents
-                    .Where(p => p.IsFolder == 0 && p.Name.ToLower().Contains(key.ToLower()) && (string.IsNullOrWhiteSpace(specialty) ? true : p.SpecialtyId == specialty));
+                    .Where(p => p.IsFolder == 0 && p.Name.ToLower().Contains(key.ToLower()));
+                if (null !=specialty) {
+                    query = query.Where(p => p.SpecialtyId.Equals(specialty));
+                }
                 return query.ToList();
             }
         }
