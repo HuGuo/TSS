@@ -37,11 +37,11 @@ namespace TSS.BLL
             Context.SaveChanges();
         }
 
-        public virtual void Update(TEntity entity)
-        {
-            Context.Set<TEntity>().Attach(entity);            
-            Context.Entry<TEntity>(entity).State = EntityState.Modified;
-
+        public virtual void Update(TKey keyValue,TEntity entity) {
+            TEntity oldEntity = Context.Set<TEntity>().Find(keyValue);
+            if (null !=oldEntity) {
+                Context.Entry<TEntity>(oldEntity).CurrentValues.SetValues(entity);
+            }
             Context.SaveChanges();
         }
 
@@ -74,7 +74,5 @@ namespace TSS.BLL
                 return query.ToList();
             }
         }
-
-       
     }
 }
