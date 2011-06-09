@@ -13,11 +13,7 @@ public partial class SystemManagement_Equipment_Add : System.Web.UI.Page
 
     protected void addButton_Click(object sender, EventArgs e)
     {
-        RepositoryFactory<Equipments>.Get().Add(new TSS.Models.Equipment {
-            Id = Guid.NewGuid(),
-            Name = TextBox1.Text,
-            EquipmentCategoryId = Guid.Parse(TreeView1.SelectedValue),
-            SpecialtyId = DropDownList1.SelectedValue
-        });
+        var equipments = RepositoryFactory<Equipments>.Get();
+        equipments.Add(TextBox1.Text, TextBox2.Text, TreeView1.SelectedValue, DropDownList1.SelectedValue);
     }
 }

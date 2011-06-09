@@ -3,10 +3,12 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using TSS.Models;
+using System;
 
 namespace TSS.BLL
 {
-    public abstract class Repository<TEntity, TKey> where TEntity : class
+    public abstract class Repository<TEntity, TKey> : IDisposable
+        where TEntity : class
     {
         protected Context Context { get; private set; }
 

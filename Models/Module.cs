@@ -11,6 +11,10 @@ namespace TSS.Models
         public string Name { get; set; }
         public string Url { get; set; }
 
+        public int? ParentModuleId { get; set; }
+        public virtual Module ParentModule { get; set; }
+        public virtual ICollection<Module> Submodules { get; set; }
+
         public virtual ICollection<Specialty> Specialties { get; set; }
     }
 

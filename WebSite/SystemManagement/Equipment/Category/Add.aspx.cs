@@ -13,16 +13,17 @@ public partial class SystemManagement_Equipment_Category_Add : System.Web.UI.Pag
         if (!IsPostBack) {
             XmlDataSource1.Data = RepositoryFactory<EquipmentCategories>.Get().GetXml().ToString();
         }
-
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void addButton_Click(object sender, EventArgs e)
     {
         var categories = RepositoryFactory<EquipmentCategories>.Get();
         categories.Add(new TSS.Models.EquipmentCategory {
             Id = Guid.NewGuid(),
             Name = TextBox1.Text,
-            ParentId = string.IsNullOrEmpty(TreeView1.SelectedValue) ? (Guid?)null : Guid.Parse(TreeView1.SelectedValue)
+            ParentCategoryId = string.IsNullOrEmpty(TreeView1.SelectedValue) ? (Guid?)null : Guid.Parse(TreeView1.SelectedValue)
         });
+
+        XmlDataSource1.Data = RepositoryFactory<EquipmentCategories>.Get().GetXml().ToString();
     }
 }
