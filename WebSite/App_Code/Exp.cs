@@ -60,7 +60,7 @@ public class Exp : IHttpHandler
             };
             bool exists = RepositoryFactory<ExpTemplateRepository>.Get().IsExists(guid);
             if (exists) {
-                RepositoryFactory<ExpTemplateRepository>.Get().Update(template);
+                RepositoryFactory<ExpTemplateRepository>.Get().Update(template.Id,template);
             } else {
                 RepositoryFactory<ExpTemplateRepository>.Get().Add(template);
             }

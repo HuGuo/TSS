@@ -85,7 +85,7 @@
                         <%# Eval("Remark")%>
                     </td>
                     <td>
-                        <a href="Add.aspx?id=<%#Eval("id") %>&s=<%#Eval("SpecialtyId") %>" target="_blank">编辑</a>
+                        <a href="Add.aspx?id=<%#Eval("id") %>&s=<%#Eval("SpecialtyId") %>">编辑</a>
                         <a href="javascript:void(0);" class="delete" key="<%#Eval("id") %>">删除</a>
                     </td>
                 </tr>

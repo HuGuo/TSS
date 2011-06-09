@@ -36,6 +36,6 @@ public partial class MaintenanceCycle_AddMaintenanceClass : BasePage
               equipmentClassName = tbClassNames.Text,
               SpecialtyId = ddlSpecialty.SelectedValue
           });
-        AddConfirm(result, "window.location.href='MaintenanceClass.aspx'");
+        //AddConfirm(result, "window.location.href='MaintenanceClass.aspx'");
     }
 }
