@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>设置模板</title>
-    <link href="../../scripts/jquery-easyui/thems/default/menu.css" rel="stylesheet" type="text/css" />
-    <link href="../../scripts/jquery-easyui/thems/icon.css" rel="stylesheet" type="text/css" />
+    <link href="../../scripts/jquery-easyui/themes/default/menu.css" rel="stylesheet" type="text/css" />
+    <link href="../../scripts/jquery-easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../experiment/experiment.css" rel="stylesheet" type="text/css" />
     <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../../scripts/jquery-easyui/plugins/jquery.menu.js" type="text/javascript"></script>

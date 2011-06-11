@@ -6,7 +6,7 @@
 <head runat="server">
     <title>文档搜索</title>
     <link href="listStyle.css" rel="stylesheet" type="text/css" />
-    <link href="../scripts/base.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/_base.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">

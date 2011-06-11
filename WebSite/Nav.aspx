@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head runat="server">
     <title></title>
+    <link href="~/Styles/Nav.css" rel="Stylesheet" type="text/css" />
     <script type="text/javascript" src="Scripts/jquery-1.6.1.min.js"></script>
     <script type="text/javascript">
       $(function () {
@@ -71,7 +72,7 @@
                 </ul>
               </LayoutTemplate>
               <ItemTemplate>
-                <li><a href="<%# DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Id", Eval("Url") + "/?s={0}") %>">
+                <li><a href="<%# string.Format("{0}/?s={1}", Eval("Url"), DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Id")) %>">
                   <%# Eval("Name") %></a></li>
               </ItemTemplate>
             </asp:ListView>

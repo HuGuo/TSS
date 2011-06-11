@@ -44,8 +44,8 @@ namespace TSS.Models
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
             modelBuilder.Entity<Document>().Ignore(p => p.Childs);
-            modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
-            modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
+            //modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
+            //modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
             modelBuilder.Entity<ExpData>().Property(p => p.Value).HasPrecision(18 , 6);
         }
     }

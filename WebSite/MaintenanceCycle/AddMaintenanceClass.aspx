@@ -9,8 +9,8 @@
     <script src="../scripts/jquery-validation/jquery.validate.js" type="text/javascript"></script>
     <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
     <script src="../scripts/jquery-validation/messages_cn.js" type="text/javascript"></script>
-    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/default/easyui.css" />
-    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/icon.css" />
+    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/themes/default/easyui.css" />
+    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/themes/icon.css" />
     <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript">
         $().ready(function () {

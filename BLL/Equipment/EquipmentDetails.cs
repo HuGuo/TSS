@@ -9,33 +9,29 @@ namespace TSS.BLL
 {
     public class EquipmentDetails : Repository<EquipmentDetail, Guid>
     {
-        public IList<EquipmentDetail> GetAllByEquipment(string equipmentId)
+        public IList<EquipmentDetail> GetList(Guid equipmentId)
         {
             IList<EquipmentDetail> result = null;
 
-            if (!string.IsNullOrEmpty(equipmentId)) {
-                var e = Context.Equipments.Find(Guid.Parse(equipmentId));
-                if (e != null) {
-                    result = Context.EquipmentDetails.Where(d =>
-                        d.EquipmentId == e.Id).ToList();
-                }
+            var e = Context.Equipments.Find(equipmentId);
+            if (e != null) {
+                result = Context.EquipmentDetails.Where(d =>
+                    d.EquipmentId == e.Id).ToList();
             }
 
             return result;
         }
 
-        public void Add(string equipmentId, string lable, string value)
+        public void Add(Guid equipmentId, string lable, string value)
         {
-            if (!string.IsNullOrEmpty(equipmentId)) {
-                var e = Context.Equipments.Find(Guid.Parse(equipmentId));
-                if (e != null) {
-                    Add(new EquipmentDetail {
-                        Id = Guid.NewGuid(),
-                        Lable = lable,
-                        Value = value,
-                        Equipment = e
-                    });
-                }
+            var e = Context.Equipments.Find(equipmentId);
+            if (e != null) {
+                Add(new EquipmentDetail {
+                    Id = Guid.NewGuid(),
+                    Lable = lable,
+                    Value = value,
+                    Equipment = e
+                });
             }
         }
     }

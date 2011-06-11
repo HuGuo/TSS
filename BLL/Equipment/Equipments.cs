@@ -8,7 +8,29 @@ namespace TSS.BLL
 {
     public class Equipments : Repository<Equipment, Guid>
     {
-        public IList<Equipment> GetAllByCategoryAndSpecialtyWithDetails(string categoryId, string specialtyId)
+        public IList<Equipment> GetList(string categoryId)
+        {
+            IList<Equipment> result = null;
+
+            if (string.IsNullOrEmpty(categoryId)) {
+                result = Context.Equipments
+                    .Include("EquipmentCategory")
+                    .Include("Specialty")
+                    .ToList();
+            } else {
+                var c = Context.EquipmentCategories.Find(Guid.Parse(categoryId));
+                if (c != null) {
+                    result = Context.Equipments.Where(e => e.EquipmentCategory.Id == c.Id)
+                        .Include("EquipmentCategory")
+                        .Include("Specialty")
+                        .ToList();
+                }
+            }
+
+            return result;
+        }
+
+        public IList<Equipment> GetList(string categoryId, string specialtyId)
         {
             IList<Equipment> result = null;
 
@@ -25,14 +47,6 @@ namespace TSS.BLL
             }
 
             return result;
-        }
-
-        public IList<Equipment> GetAllWithCategoryAndSpecialty()
-        {
-            return Context.Equipments
-                .Include("EquipmentCategory")
-                .Include("Specialty")
-                .ToList();
         }
 
         public void Add(string name, string code, string categoryId, string specialtyId)

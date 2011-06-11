@@ -1,0 +1,20 @@
+﻿@import "Base.css";
+
+#header {
+    background: rgb(53, 186, 61) url(../images/header.png) no-repeat top right;
+}
+
+#header ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#header_logo {
+    height: 70px;
+}
+
+#header_toolbar {
+    height: 30px;
+    background: url(../images/header_toolbar.png) repeat-x;
+}

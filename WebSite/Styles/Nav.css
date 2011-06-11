@@ -1,20 +1,21 @@
-﻿#nav {
-    background: url(Images/nav.png) repeat-y;
+﻿@import "Base.css";
+
+#nav {
+    background: url(../images/nav.png) repeat-y;
     overflow: auto;
     height: 500px;
     width: 195px;
-    margin: 0;
 }
 
 #nav_top_top {
-    background-image: url(Images/nav_top_top.png);
+    background-image: url(../images/nav_top_top.png);
     width: 195px;
     height: 18px;
 }
 
 #nav_top_bottom {
     margin: 0 8px 0 8px;
-    background-image: url(Images/nav_top_bottom.png);
+    background-image: url(../images/nav_top_bottom.png);
     width: 178px;
     height: 25px;
 }
@@ -28,17 +29,15 @@
 
 #nav_menu ul {
     margin: 0;
-    padding: 0;
     list-style: none;
 }
 
 #nav_menu ul li {
-    background: url(Images/nav_menu_ul_li.png) no-repeat;
+    background: url(../images/nav_menu_ul_li.png) no-repeat;
 }
 
 #nav_menu ul li a {
     padding-left: 25px;
-    text-decoration: none;
 }
 
 #nav_menu ul li ul {
@@ -47,7 +46,7 @@
 }
 
 #nav_menu ul li ul li {
-    background: url(Images/nav_menu_ul_li_ul_li.png) no-repeat;
+    background: url(../images/nav_menu_ul_li_ul_li.png) no-repeat;
 }
 
 #nav_menu ul li ul li a {

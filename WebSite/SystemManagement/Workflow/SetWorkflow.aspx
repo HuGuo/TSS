@@ -5,7 +5,7 @@
 <head runat="server">
     <title>设置流程</title>
     <link href="../../scripts/cssstep.css" rel="stylesheet" type="text/css" />
-    <link href="../../scripts/jquery-easyui/thems/gray/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet" type="text/css" />
     <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <style type="text/css">

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>系统登录</title>
-    <link href="scripts/login.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/login.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="form_wrapper" class="form_wrapper">
@@ -58,7 +58,7 @@
     $(document).ready(function () {
         //check browser version
         if ($.browser.version == "6.0") {
-            easyloader.load("thems/gray/easyui.css", function () {
+            easyloader.load("themes/gray/easyui.css", function () {
                 easyloader.load("messager", function () {
                     $.messager.alert('系统提示', '您的浏览器（IE 6.0）版本过低，部分功能将无法使用！<br/>建议您使用IE 8.0及以上版本', 'warning');
                 });
