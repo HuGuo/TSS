@@ -5,7 +5,7 @@ using System.Web;
 using TSS.BLL;
 using TSS.Models;
 
-public class Exp : IHttpHandler
+public class ExpHandler : IHttpHandler
 {
     #region IHttpHandler Members
 
@@ -107,7 +107,7 @@ public class Exp : IHttpHandler
                 Expdatas = datas
             };            
             if (!string.IsNullOrWhiteSpace(_id)) {
-                RepositoryFactory<ExperimentRepository>.Get().Update(experiment);
+                RepositoryFactory<ExperimentRepository>.Get().Update(experiment.Id,experiment);
             } else {
                 RepositoryFactory<ExperimentRepository>.Get().Add(experiment);
             }

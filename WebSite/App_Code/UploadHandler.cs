@@ -3,7 +3,7 @@ using System.Web;
 using TSS.BLL;
 using TSS.Models;
 
-public class UploadFile : IHttpHandler
+public class UploadHandler : IHttpHandler
 {
     private static string configPath = HttpContext.Current.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Document"])+"\\";
     #region IHttpHandler Members

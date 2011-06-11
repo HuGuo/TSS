@@ -23,12 +23,13 @@ namespace TSS.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public virtual ICollection<Right> Rights { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
     }
 
     public class Right
     {
         public int Id { get; set; }
-        public string ModuleId { get; set; }
+        public int ModuleId { get; set; }
         public Guid RoleId { get; set; }
         public virtual Role Role { get; set; }
 

@@ -13,7 +13,7 @@
     <script src="../uploadify/jquery.uploadify.v2.1.4.min.js" type="text/javascript"></script>
     <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
 </head>
-<body><div id="toolbar">
+<body><div id="toolbar" class="fixed">
 <a runat="server" id="backto" href="javascript:void(0);">上级目录</a>
         <a href="#dg_upfile" id="upload">上传文件</a>
         <a href="#dg_newfolder" id="new_folder">新建文件夹</a>

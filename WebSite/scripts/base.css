@@ -8,7 +8,9 @@
 }
 a{ text-decoration:none;}
 a img{ border:none;}
-
+ul{margin:0; padding:0; list-style:none;}
+ul li{ list-style:none;}
+.clear{ clear:both;}
 /*button*/
 .btn
 {
@@ -32,10 +34,11 @@ a img{ border:none;}
     height:30px;
     width:100%;
     background: url(images/toolbarbg.gif) repeat-x scroll bottom right;
-    position:fixed;
-    z-index:123;
+    
     top:0;
 }
+.fixed{position:fixed;
+    z-index:123;}
 #toolbar a
 {
     margin: 0;

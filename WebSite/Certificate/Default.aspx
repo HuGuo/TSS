@@ -8,7 +8,7 @@
 </head>
 <body>
     <form id="form1" runat="server" style=" padding-top:32px;">
-    <div id="toolbar">
+    <div id="toolbar" class="fixed">
         <a href="Add.aspx?s=<%=Request.QueryString["s"] %>">添加持证信息</a>
         <div class="search">
             <asp:TextBox ID="txtKey" runat="server" class="textbox"></asp:TextBox>
