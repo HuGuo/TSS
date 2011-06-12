@@ -39,8 +39,12 @@ namespace TSS.BLL
             Context.SaveChanges();
         }
 
-        public virtual void Update(TEntity entity) {
+        public virtual void Update(TEntity entity)
+        {
+            Context.Set<TEntity>().Attach(entity);
+
             Context.Entry<TEntity>(entity).State = EntityState.Modified;
+
             Context.SaveChanges();
         }
 
@@ -59,9 +63,10 @@ namespace TSS.BLL
             }
         }
 
-        private void Delete(TEntity entity)
+        public void Delete(TEntity entity)
         {
             Context.Set<TEntity>().Attach(entity);
+
             Context.Set<TEntity>().Remove(entity);
 
             Context.SaveChanges();
@@ -72,14 +77,12 @@ namespace TSS.BLL
             return null != Get(id);
         }
 
-        public virtual IList<TEntity> PageOf(int pageIndex, int pageSize, out int rowCount) 
-        {
-            using (Context db=new Context()) {
-                int skipCount = pageSize * (pageIndex - 1);
-                rowCount = db.Set<TEntity>().Count();
-                var query = db.Set<TEntity>().AsNoTracking().Skip(skipCount).Take(pageSize);
-                return query.ToList();
-            }
+        public virtual IList<TEntity> PageOf(int pageIndex , int pageSize , out int rowCount) {
+            int skipCount = pageSize * (pageIndex - 1);
+            rowCount = Context.Set<TEntity>().Count();
+            var query = Context.Set<TEntity>().AsNoTracking().Skip(skipCount).Take(pageSize);
+            return query.ToList();
+
         }
     }
 }

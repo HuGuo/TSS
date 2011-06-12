@@ -8,7 +8,7 @@
 </head>
 <body>
     <form id="form1" runat="server" style=" padding-top:32px;">
-    <div id="toolbar">
+    <div id="toolbar" class="fixed">
         <a href="Add.aspx?s=<%=Request.QueryString["s"] %>">添加持证信息</a>
         <div class="search">
             <asp:TextBox ID="txtKey" runat="server" class="textbox"></asp:TextBox>
@@ -85,7 +85,7 @@
                         <%# Eval("Remark")%>
                     </td>
                     <td>
-                        <a href="Add.aspx?id=<%#Eval("id") %>&s=<%#Eval("SpecialtyId") %>" target="_blank">编辑</a>
+                        <a href="Add.aspx?id=<%#Eval("id") %>&s=<%#Eval("SpecialtyId") %>">编辑</a>
                         <a href="javascript:void(0);" class="delete" key="<%#Eval("id") %>">删除</a>
                     </td>
                 </tr>

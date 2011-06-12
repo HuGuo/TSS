@@ -14,7 +14,7 @@
 </head>
 <body>
     <form id="form1" runat="server" style="padding-top:32px;">
-    <div id="toolbar">
+    <div id="toolbar" class="fixed">
     <a class="dg" href="#dg_win">填写实验报告</a>
     <a class="dg" href="#dg_win2">数据分析</a>
     </div>

@@ -13,6 +13,6 @@ namespace TSS.Models
         public string SpecialtyId { get; set; }
         public virtual Specialty Specialty { get; set; }
 
-        public virtual ICollection<Certificate> Certificates { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
     }
 }

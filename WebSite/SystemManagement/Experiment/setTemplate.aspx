@@ -40,6 +40,9 @@
             拆分单元格</div>
         <div class="menu-sep">
         </div>
+        <div>
+        <span>设置格式</span>
+        <div style="width:100px;">
         <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'left'});">
             左对齐</div>
         <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'center'});">
@@ -48,8 +51,11 @@
             右对齐</div>
         <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'700'});">
             加 粗</div>
-        <div class="menu-sep">
         </div>
+ </div>
+    <div>
+    <span>添加/删除</span>
+    <div style="width:100px;">
         <div onclick="javascript:$.simpleExcel.appendRow();">
             插入 下一行</div>
         <div onclick="javascript:$.simpleExcel.appendColumn();">
@@ -58,6 +64,8 @@
             删除 行</div>
         <div onclick="javascript:$.simpleExcel.removeColumn();">
             删除 列</div>
+    </div>
+    </div>
     </div>
 </body>
 </html>

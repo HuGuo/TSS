@@ -2,52 +2,143 @@
 
 <asp:Content ContentPlaceHolderID="head" runat="Server">
   <link href="<%= ResolveUrl("~/Scripts/jquery-easyui/themes/gray/easyui.css") %>" rel="Stylesheet" type="text/css" />
+  <link href="<%= ResolveUrl("~/Scripts/jquery-easyui/themes/icon.css") %>" rel="Stylesheet" type="text/css" />
   <script type="text/javascript" src="<%= ResolveUrl("~/Scripts/jquery-easyui/jquery.easyui.min.js") %>"></script>
   <script type="text/javascript" src="<%= ResolveUrl("~/Scripts/common.js") %>"></script>
   <script type="text/javascript">
+    var toJson;
     $(function () {
-      common.initLayout("main", "right", "left", "设备类别");
+      toJson = Sys.Serialization.JavaScriptSerializer.serialize;
+
+      common.initLayout("main", "left", "right", "设备类别", "设备列表");
+
+      initToolbars();
 
       var url = '<%= ResolveUrl("~/EquipmentCategory.ashx?type=xml&src=Default.aspx?category=") %>';
-      common.initCategoryTree("categoryTree", url, '<%= Request.QueryString["category"] %>');
-
-      initDialogs();
+      common.initCategoryTree("categoryTree", url, '<%= Request.QueryString["category"] %>', renameCategory);
 
       Sys.Application.add_load(function (sender, args) {
+        initDialogs();
         attachComboTrees();
       });
     });
 
-    function attachComboTrees() {
-      var jsonUrl = '<%= ResolveUrl("~/EquipmentCategory.ashx?type=json") %>';
+    function initToolbars() {
+      var nav = $("#left");
+      if (nav.data("panel")) {
+        nav.panel({
+          tools: [
+          { iconCls: 'icon-add', handler: addCategory },
+          { iconCls: 'icon-remove', handler: removeCategory }
+          ]
+        });
+      }
 
-      $(".combo").remove();
-      $(".combo-panel").parent().remove()
-      $("#CategoryTextBox, #EditCategoryTextBox").removeData("combo").removeData("combotree")
-        .combotree({ url: jsonUrl });
+      var content = $("#right");
+      if (content.data("panel")) {
+        content.panel({
+          tools: [
+          { iconCls: "icon-add", handler: function () {
+            openDialog("AddEquipmentDialog", "添加设备");
+          }
+          }]
+        });
+      }
     }
 
     function initDialogs() {
-      $("#AddEquipmentDialog, #DetailDialog").hide();
+
+      var dialogs = $("#AddEquipmentDialog, #AddCategoryDialog, #DetailDialog");
+      dialogs.each(function () {
+        if (!$(this).data("dialog")) {
+          $(this).hide();
+        }
+      });
+    }
+
+    function attachComboTrees() {
+      var url = '<%= ResolveUrl("~/EquipmentCategory.ashx?type=json") %>';
+
+      $(".combo").remove();
+      $(".combo-panel").parent().remove()
+      $("#EquipmentCategoryTextBox, #ParentCategoryTextBox, #EditCategoryTextBox").removeData("combo").removeData("combotree")
+        .combotree({ url: url });
+    }
+
+    function addCategory() {
+      openDialog("AddCategoryDialog", "添加类别");
+    }
+
+    function removeCategory() {
+      var categoryTree = $("#categoryTree");
+      if (categoryTree.data("tree")) {
+        var selected = categoryTree.tree("getSelected");
+        if (selected) {
+          ajax("RemoveCategory", toJson({ id: selected.id }), function (msg) {
+            switch (msg.d.toUpperCase()) {
+              case "COMPLETED":
+                location.href = "Default.aspx";
+                break;
+              case "NOT_EMPTY":
+                $.messager.alert(null, "类别下存在内容", "error");
+                break;
+            }
+          });
+        } else {
+          $.messager.alert(null, "请选择要删除的类别", "warning");
+        }
+      }
+    }
+
+    function renameCategory(category) {
+      var categoryTreeData = $("#categoryTree").data("tree");
+      if (categoryTreeData) {
+        var a;
+        categoryTreeData.options.onBeforeEdit = function (node) {
+          a = node.text;
+          node.text = $(a).text();
+        };
+        categoryTreeData.options.onAfterEdit = function (node) {
+          ajax("RenameCategory", toJson({ id: node.id, name: node.text }), function (msg) {
+            if (msg.d.toUpperCase() == "COMPLETED") {
+              var text = node.text;
+              node.text = $(a).text(text)[0];
+            } else {
+              node.text = a;
+            }
+            $("#categoryTree").tree("update", node);
+          });
+        }
+
+        $("#categoryTree").tree("beginEdit", category.target);
+      }
     }
 
     function openDialog(id, title) {
+      $(".window-mask").remove();
       var e = $("#" + id);
       if (e.data("dialog")) {
         e.dialog("open");
       }
       else {
-        $(".window-mask").remove();
         var parent = e.parent();
         e.show().dialog({ title: title, modal: true, shadow: false }).parent().appendTo(parent);
       }
     }
 
-    function initLayout() {
-      
+    function ajax(method, params, callback) {
+      $.ajax({
+        type: "POST",
+        url: "Default.aspx/" + method,
+        data: params,
+        dataType: "json",
+        contentType: "application/json; charset=UTF-8",
+        success: callback,
+        error: function (xhr) {
+          $.messager.alert(method, xhr.status, "error");
+        }
+      });
     }
-
-    
   </script>
   <style type="text/css">
     #left {
@@ -71,15 +162,14 @@
   </asp:ScriptManager>
   <div id="main">
     <div id="left">
-      <a href="Default.aspx">所有分类</a>
+      <a href="Default.aspx">全部</a>
       <ul id="categoryTree">
       </ul>
     </div>
     <div id="right">
-      <a href="#" onclick="openDialog('AddEquipmentDialog', $(this).text())">添加设备</a>
       <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-          <asp:ListView ID="EquipmentListView" runat="server" ItemPlaceholderID="Placeholder1" DataSourceID="EquipmentDataSource" DataKeyNames="Id, EquipmentCategoryId" OnSelectedIndexChanged="EquipmentListView_SelectedIndexChanged">
+          <asp:ListView ID="EquipmentListView" runat="server" DataSourceID="EquipmentDataSource" DataKeyNames="Id, EquipmentCategoryId" OnSelectedIndexChanged="EquipmentListView_SelectedIndexChanged">
             <LayoutTemplate>
               <table>
                 <thead>
@@ -104,7 +194,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <asp:PlaceHolder ID="PlaceHolder1" runat="server"></asp:PlaceHolder>
+                  <asp:PlaceHolder ID="ItemPlaceHolder" runat="server"></asp:PlaceHolder>
                 </tbody>
               </table>
             </LayoutTemplate>
@@ -114,7 +204,7 @@
                   <%# Container.DataItemIndex + 1 %>
                 </td>
                 <td>
-                  <asp:LinkButton ID="edit" runat="server" CommandName="Edit" Text='<%# Eval("Name") %>'></asp:LinkButton>
+                  <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Edit" Text='<%# Eval("Name") %>'></asp:LinkButton>
                 </td>
                 <td>
                   <%# Eval("Code") %>
@@ -126,7 +216,7 @@
                   <%# Eval("EquipmentCategory.Name") %>
                 </td>
                 <td>
-                  <asp:LinkButton ID="ShowDetail" runat="server" CommandName="Select" ClientIDMode="Static">详情</asp:LinkButton>
+                  <asp:LinkButton ID="LinkButton2" runat="server" CommandName="Select">详情</asp:LinkButton>
                 </td>
               </tr>
             </ItemTemplate>
@@ -147,13 +237,13 @@
                   <asp:TextBox ID="EditCategoryTextBox" runat="server" ClientIDMode="Static" Text='<%# Bind("EquipmentCategoryId") %>' />
                 </td>
                 <td>
-                  <asp:Button ID="update" runat="server" CommandName="Update" Text="保存" />
+                  <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Update" Text="保存" />
                 </td>
               </tr>
             </EditItemTemplate>
           </asp:ListView>
           <div id="DetailDialog" class="dialog">
-            <asp:ListView ID="DetailListView" runat="server" InsertItemPosition="LastItem" DataSourceID="DetailDataSource" ItemPlaceholderID="PlaceHolder1" DataKeyNames="EquipmentId" OnItemInserted="DetailListView_ItemInserted">
+            <asp:ListView ID="DetailListView" runat="server" InsertItemPosition="LastItem" DataSourceID="DetailDataSource" DataKeyNames="Id, EquipmentId" OnItemDeleting="DetailListView_ItemDeleting" OnItemEditing="DetailListView_ItemEditing" OnItemUpdating="DetailListView_ItemUpdating" OnItemInserting="DetailListView_ItemInserting">
               <LayoutTemplate>
                 <table>
                   <thead>
@@ -168,19 +258,20 @@
                       </th>
                   </thead>
                   <tbody>
-                    <asp:PlaceHolder ID="PlaceHolder1" runat="server" />
+                    <asp:PlaceHolder ID="ItemPlaceHolder" runat="server" />
                   </tbody>
                 </table>
               </LayoutTemplate>
               <ItemTemplate>
                 <tr>
                   <td>
-                    <%# Eval("Lable") %>
+                    <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Edit" Text='<%# Eval("Lable") %>' />
                   </td>
                   <td>
                     <%# Eval("Value") %>
                   </td>
                   <td>
+                    <asp:LinkButton ID="LinkButton2" runat="server" CommandName="Delete" Text="删除" />
                   </td>
                 </tr>
               </ItemTemplate>
@@ -193,10 +284,23 @@
                     <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Value") %>' />
                   </td>
                   <td>
-                    <asp:Button ID="AddDetail" runat="server" CommandName="Insert" ClientIDMode="Static" Text="添加" />
+                    <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Insert" Text="添加" />
                   </td>
                 </tr>
               </InsertItemTemplate>
+              <EditItemTemplate>
+                <tr>
+                  <td>
+                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Lable") %>' />
+                  </td>
+                  <td>
+                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Value") %>' />
+                  </td>
+                  <td>
+                    <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Update" Text="保存" />
+                  </td>
+                </tr>
+              </EditItemTemplate>
               <EmptyDataTemplate>
                 <%= Helper.EmptyData %>
               </EmptyDataTemplate>
@@ -211,7 +315,7 @@
               设备类别
             </th>
             <td>
-              <asp:TextBox ID="CategoryTextBox" runat="server" ClientIDMode="Static"></asp:TextBox>
+              <asp:TextBox ID="EquipmentCategoryTextBox" runat="server" ClientIDMode="Static" />
             </td>
           </tr>
           <tr>
@@ -227,7 +331,7 @@
               设备名称
             </th>
             <td>
-              <asp:TextBox ID="NameTextBox" runat="server"></asp:TextBox>
+              <asp:TextBox ID="EquipmentNameTextBox" runat="server" />
             </td>
           </tr>
           <tr>
@@ -235,7 +339,7 @@
               设备编号
             </th>
             <td>
-              <asp:TextBox ID="CodeTextBox" runat="server"></asp:TextBox>
+              <asp:TextBox ID="EquipmentCodeTextBox" runat="server" />
             </td>
           </tr>
           <tr>
@@ -245,22 +349,43 @@
           </tr>
         </table>
       </div>
+      <div id="AddCategoryDialog" class="dialog">
+        <table>
+          <tr>
+            <th>
+              父类别
+            </th>
+            <td>
+              <asp:TextBox ID="ParentCategoryTextBox" runat="server" ClientIDMode="Static" />
+            </td>
+          </tr>
+          <tr>
+            <th>
+              类别名称
+            </th>
+            <td>
+              <asp:TextBox ID="CategoryNameTextBox" runat="server" ClientIDMode="Static" />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="text-align: center">
+              <asp:Button ID="AddCategoryButton" runat="server" Text="添加" OnClick="AddCategoryButton_Click" />
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
-  <asp:ObjectDataSource ID="EquipmentDataSource" runat="server" SelectMethod="GetList" TypeName="TSS.BLL.Equipments" DataObjectTypeName="TSS.Models.Equipment" UpdateMethod="Update" InsertMethod="Add">
+  <asp:ObjectDataSource ID="EquipmentDataSource" runat="server" SelectMethod="GetList" UpdateMethod="Update" TypeName="TSS.BLL.Equipments" DataObjectTypeName="TSS.Models.Equipment">
     <SelectParameters>
       <asp:QueryStringParameter Name="categoryId" QueryStringField="category" Type="String" />
+      <asp:Parameter Name="specialtyId" />
     </SelectParameters>
   </asp:ObjectDataSource>
-  <asp:ObjectDataSource ID="DetailDataSource" runat="server" SelectMethod="GetList" TypeName="TSS.BLL.EquipmentDetails" InsertMethod="Add">
+  <asp:ObjectDataSource ID="DetailDataSource" runat="server" SelectMethod="GetList" InsertMethod="Add" DeleteMethod="Delete" UpdateMethod="Update" TypeName="TSS.BLL.EquipmentDetails" DataObjectTypeName="TSS.Models.EquipmentDetail">
     <SelectParameters>
-      <asp:ControlParameter Name="equipmentId" ControlID="EquipmentListView" PropertyName="SelectedDataKey[0]" />
+      <asp:ControlParameter Name="equipmentId" ControlID="EquipmentListView" PropertyName='SelectedDataKey["Id"]' />
     </SelectParameters>
-    <InsertParameters>
-      <asp:ControlParameter Name="equipmentId" ControlID="EquipmentListView" PropertyName="SelectedDataKey[0]" />
-      <asp:Parameter Name="lable" Type="String" />
-      <asp:Parameter Name="value" Type="String" />
-    </InsertParameters>
   </asp:ObjectDataSource>
   <asp:ObjectDataSource ID="SpecialtyDataSource" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Specialties"></asp:ObjectDataSource>
 </asp:Content>

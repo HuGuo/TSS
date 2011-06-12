@@ -4,7 +4,7 @@ using TSS.BLL;
 /// <summary>
 /// Summary description for deleteEntity
 /// </summary>
-public class deleteEntity:IHttpHandler
+public class deleteHandler: IHttpHandler
 {
     #region IHttpHandler Members
 

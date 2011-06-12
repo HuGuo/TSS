@@ -27,10 +27,10 @@ public partial class MaintenanceCycle_MaintenanceClass : BasePage
     {
         int maintenanceClassId = int.Parse(((LinkButton)sender).CommandArgument);
         bool isExistChildRecord = !MaintenanceCycle.IsExistOnMaintenancClass(maintenanceClassId);
-        if (isExistChildRecord)
-            DelConfirm(MaintenanceClass.Delete(maintenanceClassId));
-        else
-            ExistChildConfirm();
+        if (isExistChildRecord) { }
+            //DelConfirm(MaintenanceClass.Delete(maintenanceClassId));
+        else { }
+            //ExistChildConfirm();
         BindData();
     }
 }

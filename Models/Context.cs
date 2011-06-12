@@ -29,7 +29,8 @@ namespace TSS.Models
         public IDbSet<MaintenanceClass> MaintenanceClasses { get; set; }
         public IDbSet<MaintenanceCycle> MaintenanceCycles { get; set; }
         public IDbSet<MaintenanceExperiment> MaintenanceExperiments { get; set; }
-
+        public IDbSet<Role> Roles { get; set; }
+        public IDbSet<Right> Rights { get; set; }
 
         public Context()
             : base("name=TSS")
@@ -47,6 +48,7 @@ namespace TSS.Models
             //modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
             //modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
             modelBuilder.Entity<ExpData>().Property(p => p.Value).HasPrecision(18 , 6);
+            modelBuilder.Entity<Right>().HasKey(p=>p.Id).Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
         }
     }
 

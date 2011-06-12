@@ -6,7 +6,7 @@
   <script type="text/javascript" src="<%= ResolveUrl("~/Scripts/common.js") %>"></script>
   <script type="text/javascript">
     $(function () {
-      common.initLayout("main", "right", "left", "设备类别");
+      common.initLayout("main", "left", "right", "设备类别");
 
       var url = '<%= ResolveUrl("~/EquipmentCategory.ashx") %>' + "?type=xml&src=Default.aspx" +
         escape('?s=<%= Request.QueryString["s"] %>&category=');
@@ -41,6 +41,12 @@
                 <th>
                   设备名称
                 </th>
+                <th>
+                  设备编号
+                </th>
+                <th>
+                  生产厂家
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -53,21 +59,11 @@
             <td>
               <%# Eval("Name") %>
             </td>
-          </tr>
-          <tr>
             <td>
-              <asp:ListView ID="ListBox2" runat="server" ItemPlaceholderID="PlaceHolder2" DataSource='<%# Eval("EquipmentDetails") %>'>
-                <LayoutTemplate>
-                  <ul>
-                    <asp:PlaceHolder ID="PlaceHolder2" runat="server" />
-                  </ul>
-                </LayoutTemplate>
-                <ItemTemplate>
-                  <li>
-                    <%# Eval("Lable") %>:
-                    <%# Eval("Value") %></li>
-                </ItemTemplate>
-              </asp:ListView>
+            <%# Eval("Code") %>
+            </td>
+            <td>
+            <%# Helper.GetEquipmentField(Eval("Id"), "生产厂家") %>
             </td>
           </tr>
         </ItemTemplate>

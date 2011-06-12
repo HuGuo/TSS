@@ -32,12 +32,27 @@ namespace TSS.BLL
             Guid categoryId;
             if (Guid.TryParse(id, out categoryId)) {
                 EquipmentCategory category = Context.EquipmentCategories.Find(categoryId);
-                if (category != null && category.Equipments.Count == 0) {
+                if (category != null && (category.Equipments == null || category.Equipments.Count == 0)) {
                     Context.EquipmentCategories.Remove(category);
 
                     if (Context.SaveChanges() == 1) {
                         result = true;
                     }
+                }
+            }
+
+            return result;
+        }
+
+        public bool HasSubcategories(string id)
+        {
+            bool result = false;
+
+            Guid categoryId;
+            if (Guid.TryParse(id, out categoryId)) {
+                EquipmentCategory category = Context.EquipmentCategories.Find(categoryId);
+                if (category != null && category.Subcategories != null && category.Subcategories.Count != 0) {
+                    result = true;
                 }
             }
 
@@ -62,7 +77,7 @@ namespace TSS.BLL
 
             return result;
         }
-        
+
         public string GetXml()
         {
             var result = new StringBuilder();

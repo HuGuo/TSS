@@ -26,10 +26,6 @@
   </head>
   <body id="nav">
     <form id="form1" runat="server">
-    <div id="nav_top_top">
-    </div>
-    <div id="nav_top_bottom">
-    </div>
     <div id="nav_menu">
       <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1" ItemPlaceholderID="Placeholder1">
         <LayoutTemplate>

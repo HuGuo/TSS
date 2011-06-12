@@ -1,6 +1,7 @@
 ﻿* {
     margin: 0;
     padding: 0;
+    text-indent: 0;
 }
 
 a {
@@ -9,4 +10,8 @@ a {
 
 a img {
     border: none;
+}
+
+ul {
+    list-style: none;
 }

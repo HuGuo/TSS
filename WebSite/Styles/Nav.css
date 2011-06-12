@@ -1,67 +1,73 @@
 ﻿@import "Base.css";
 
 #nav {
-    background: url(../images/nav.png) repeat-y;
-    overflow: auto;
+    background: url(../images/nav.jpg) no-repeat;
+    overflow: hidden;
     height: 500px;
     width: 195px;
 }
 
-#nav_top_top {
-    background-image: url(../images/nav_top_top.png);
-    width: 195px;
-    height: 18px;
-}
-
-#nav_top_bottom {
-    margin: 0 8px 0 8px;
-    background-image: url(../images/nav_top_bottom.png);
-    width: 178px;
-    height: 25px;
-}
-
 #nav_menu {
-    margin: 0 8px 0 8px;
-    border: 1px solid #BFF6D5;
-    width: 176px;
-    background-color: White;
+    margin: 26px 8px 0 8px;
+    font-size: 14px;
+    width: 182px;
 }
 
 #nav_menu ul {
-    margin: 0;
     list-style: none;
+    margin: 0;
 }
 
-#nav_menu ul li {
-    background: url(../images/nav_menu_ul_li.png) no-repeat;
-}
-
-#nav_menu ul li a {
-    padding-left: 25px;
-}
-
-#nav_menu ul li ul {
-    margin: 5px 0 5px 15px;
+#nav_menu ul ul {
+    background: url(../images/nav_menu_ul_ul.png) no-repeat bottom left;
+    padding: 4px 0 18px 2px;
+    margin: 0 0 1px 1px;
     display: none;
 }
 
-#nav_menu ul li ul li {
-    background: url(../images/nav_menu_ul_li_ul_li.png) no-repeat;
-}
-
-#nav_menu ul li ul li a {
-    padding-left: 20px;
-}
-
-#nav_menu ul li ul li ul {
-    list-style: square;
-    margin-left: 30px;
-}
-
-#nav_menu ul li ul li ul li {
+#nav_menu ul ul ul {
     background-image: none;
+    padding-bottom: 0;
 }
 
-#nav_menu ul li ul li ul li a {
-    padding-left: 0;
+#nav_menu ul a {
+    background: url(../images/nav_menu_ul_a.png) no-repeat;
+    text-indent: 36px;
+    line-height: 28px;
+    display: block;
+    height: 32px;
+    color: #FFF;
+}
+
+#nav_menu ul ul a {
+    background: url(../images/nav_menu_ul_ul_a.gif) no-repeat 6px 6px;
+    text-indent: 18px;
+    line-height: 20px;
+    height: 22px;
+    width: 176px;
+    color: #0C3B6F;
+}
+
+#nav_menu ul ul ul a {
+    background: url(../images/nav_menu_ul_ul_ul_a.gif) no-repeat 18px 10px;
+    text-indent: 30px;
+}
+
+#nav_menu ul a:hover {
+    background: url(../images/nav_menu_ul_a_hover.png) no-repeat;
+}
+
+#nav_menu ul ul a:hover {
+    background: url(../images/nav_menu_ul_ul_a_hover.gif) #e8f1f8 no-repeat 6px 8px;
+    border-top: 1px solid #8AA9C8;
+    border-bottom: 1px solid #8AA9C8;
+    line-height: 18px;
+    height: 20px;
+}
+
+#nav_menu ul ul ul a:hover {
+    background: url(../images/nav_menu_ul_ul_ul_a.gif) no-repeat 18px 10px;
+    line-height: 20px;
+    height: 22px;
+    border: none;
 }
