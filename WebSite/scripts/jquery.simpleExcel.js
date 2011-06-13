@@ -1,4 +1,8 @@
-﻿(function ($) {
+﻿/**
+* 肖宏飞 
+* 2011-5-15
+*/
+(function ($) {
     $.simpleExcel = {
         _op: { container: $("body"), cellW: 75, cellH: 25, excell: null, rows: 0, columns: 0, selectedCellClass: "selectedCell" },
         create: function (x, y) {
@@ -16,7 +20,7 @@
                         if (j == 0) {
                             _tr = _tr + String.format('<th id="{0}"  xx="{1}" yy="0">{1}</th>', guid(), i);
                         } else {
-                            _tr = _tr + String.format('<td id="{0}" xx="{1}" yy="{2}"></td>', guid(), i, j);
+                            _tr = _tr + String.format('<td id="{0}" xx="{1}" yy="{2}" width="{3}px"></td>', guid(), i, j, $.simpleExcel._op.cellW);
                         }
                     }
                 }
@@ -37,13 +41,6 @@
             if (!$.simpleExcel._op.excell) { return false; }
             tds.bind("contextmenu", function (e) {
                   var $m = $('#ct_menu');
-//                var mW = $m.width();
-//                var mH = $m.height();
-//                var winW = $(document).width();
-//                var winH = $(document).height();
-//                var _x = 0; var _y = 0;
-//                _x = (e.pageX + mW) > winW ? (e.pageX - mW - 5) : e.pageX;
-//                _y = (e.pageY + mH) > winH ? (e.pageY - mH - 5) : e.pageY;
                 $m.menu('show', {
                     left: e.pageX,
                     top: e.pageY

@@ -1,4 +1,8 @@
-﻿$.fn.bindDelete = function (o) {
+﻿/**
+* 肖宏飞 
+* 2011-5-20
+*/
+$.fn.bindDelete = function (o) {
     var opt = { handler: "delete.ashx", op: "", onSuccess: null };
     $.extend(opt, o);
     this.bind("click", function () {
@@ -11,7 +15,7 @@
                     if (opt.onSuccess) {
                         opt.onSuccess(query.id);
                     } else {
-                        alert("删除成功");
+                        $("#tr_" + query.id).remove();
                     }
                 }
             });
