@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
 public partial class MaintenanceCycle_EditMaintenanceCycle : BasePage
 {
@@ -24,19 +24,21 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : BasePage
 
     protected void BindCycle()
     {
-        Tm.MaintenanceCycle maintenanceCycle = MaintenanceCycle.Get(
-            int.Parse(Request.QueryString["id"]));
+       MaintenanceCycleRepository repository=new MaintenanceCycleRepository();
+       MaintenanceCycle maintenanceCycle = repository.Get(int.Parse(Request.QueryString["id"]));
         tbCycle.Text = maintenanceCycle.Cycle;
         tbType.Text = maintenanceCycle.MaintenanceType;
         tbModel.Text = maintenanceCycle.EquipmentModel;
-        tbInstallTime.Text = maintenanceCycle.InstallTime.Value.ToShortDateString();
         ddlEquipment.SelectedValue = maintenanceCycle.EquipmentId.ToString();
         ddlClass.SelectedValue = maintenanceCycle.MaintenanceClassId.ToString();
+        tbInstallTime.Text = !maintenanceCycle.InstallTime.HasValue ? "" :
+            maintenanceCycle.InstallTime.Value.ToShortDateString();
     }
 
     protected void BindClass()
     {
-        foreach (Tm.MaintenanceClass maintenanceClass in MaintenanceClass.GetAll())
+        MaintenanceClassRepository repository = new MaintenanceClassRepository();
+        foreach (MaintenanceClass maintenanceClass in repository.GetAll())
         {
             ddlClass.Items.Add(new ListItem(
                 maintenanceClass.equipmentClassName, maintenanceClass.Id.ToString()));
@@ -46,7 +48,8 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : BasePage
     //编辑成功与否要有提示框
     protected void btnEdit_Click(object sender, EventArgs e)
     {
-        bool result = MaintenanceCycle.Update(new Tm.MaintenanceCycle
+        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
+        bool result = repository.Update(new MaintenanceCycle
         {
             Cycle = tbCycle.Text,
             MaintenanceType = tbType.Text,
@@ -54,6 +57,6 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : BasePage
             MaintenanceClassId = int.Parse(ddlClass.SelectedValue),
             EquipmentId = new Guid(ddlEquipment.SelectedValue),
         });
-        EditConfirm(result, "window.location.href='MaintenanceCycle.aspx'");
+        EditConfirm(result, "MaintenanceCycle.aspx");
     }
 }

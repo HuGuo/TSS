@@ -20,7 +20,7 @@ namespace TSS.BLL
             Context.Dispose();
         }
 
-        public TEntity Get(TKey id) 
+        public virtual TEntity Get(TKey id)
         {
             return Context.Set<TEntity>().Find(id);
         }
@@ -30,44 +30,41 @@ namespace TSS.BLL
             return Context.Set<TEntity>().ToList();
         }
 
-        public void Add(TEntity entity)
+        public bool Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
 
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public virtual void Update(TEntity entity)
+        public virtual bool Update(TEntity entity)
         {
-            Context.Set<TEntity>().Attach(entity);
             Context.Entry<TEntity>(entity).State = EntityState.Modified;
 
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public virtual void Delete(TKey id)
+        public virtual bool Delete(TKey id)
         {
-            if (IsExists(id)) {
-                Delete(Get(id));
-            }
+            return Delete(Get(id));
         }
 
-        private void Delete(TEntity entity)
+        private bool Delete(TEntity entity)
         {
-            Context.Set<TEntity>().Attach(entity);
             Context.Set<TEntity>().Remove(entity);
 
-            Context.SaveChanges();
+            return Context.SaveChanges() > 0;
         }
 
-        public bool IsExists(TKey id) 
+        public bool IsExists(TKey id)
         {
             return null != Get(id);
         }
 
-        public virtual IList<TEntity> PageOf(int pageIndex, int pageSize, out int rowCount) 
+        public virtual IList<TEntity> PageOf(int pageIndex, int pageSize, out int rowCount)
         {
-            using (Context db=new Context()) {
+            using (Context db = new Context())
+            {
                 int skipCount = pageSize * (pageIndex - 1);
                 rowCount = db.Set<TEntity>().Count();
                 var query = db.Set<TEntity>().AsNoTracking().Skip(skipCount).Take(pageSize);
@@ -75,6 +72,6 @@ namespace TSS.BLL
             }
         }
 
-       
+
     }
 }

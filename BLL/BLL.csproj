@@ -43,6 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CertificateRepository.cs" />
+    <Compile Include="ComprehensiveReport\ComprehensiveReportRepository.cs" />
+    <Compile Include="ComprehensiveReport\IndicatorAnalysisRepository.cs" />
+    <Compile Include="ComprehensiveReport\IndicatorRepository.cs" />
+    <Compile Include="ComprehensiveReport\SpecialtyAnalysisRepository.cs" />
     <Compile Include="Employees.cs" />
     <Compile Include="Equipment\EquipmentDetails.cs" />
     <Compile Include="Equipment\Equipments.cs" />

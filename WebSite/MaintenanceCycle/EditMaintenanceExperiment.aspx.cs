@@ -6,9 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
-public partial class MaintenanceCycle_EditMaintenanceExperiment : System.Web.UI.Page
+public partial class MaintenanceCycle_EditMaintenanceExperiment : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -18,19 +18,20 @@ public partial class MaintenanceCycle_EditMaintenanceExperiment : System.Web.UI.
 
     protected void BindData()
     {
-        Tm.MaintenanceExperiment maintenanceExperiment = MaintenanceExperiment.Get(
-            int.Parse(Request.QueryString["id"]));
+        MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
+        MaintenanceExperiment maintenanceExperiment = repository.Get(int.Parse(Request.QueryString["id"]));
         tbCycle.Text = maintenanceExperiment.CurrentCycle;
         tbExperimentTime.Text = maintenanceExperiment.ExperimentTime.ToString();
     }
 
-    //提示是否修改成功
     protected void btnEdit_Click(object sender, EventArgs e)
     {
-        Tm.MaintenanceExperiment maintenanceExperiment = MaintenanceExperiment.Get(
-            int.Parse(Request.QueryString["id"]));
-        maintenanceExperiment.CurrentCycle = tbCycle.Text;
-        maintenanceExperiment.ExperimentTime = DateTime.Parse(tbExperimentTime.Text);
-        MaintenanceExperiment.Update(maintenanceExperiment);
+        MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
+        bool result = repository.Update(new MaintenanceExperiment
+        {
+            Id = int.Parse(Request.QueryString["id"]),
+            CurrentCycle = tbCycle.Text
+        });
+        EditConfirm(result, "MaintenanceCycle.aspx");
     }
 }

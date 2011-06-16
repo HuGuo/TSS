@@ -1,18 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MaintenanceCycle.aspx.cs"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MaintenanceCycle.aspx.cs" MasterPageFile="~/Default.master"
     Inherits="MaintenanceCycle_MaintenanceCycle" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>设备周期</title>
-    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/default/easyui.css" />
-    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/icon.css" />
-    <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
-    <script src="../scripts/jquery-validation/lib/jquery.js" type="text/javascript"></script>
-    <script src="../scripts/jquery-validation/jquery.validate.js" type="text/javascript"></script>
-    <script src="../scripts/jquery-validation/messages_cn.js" type="text/javascript"></script>
-    <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
-    <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+<asp:content id="Content1" contentplaceholderid="head" runat="Server">
+
+</asp:content>
+<asp:content id="Content2" contentplaceholderid="body" runat="Server">
     <script type="text/javascript">
         function Del(id) {
             $.messager.confirm("删除", "是否删除！", function (result) {
@@ -24,9 +16,6 @@
             });
         }
     </script>
-</head>
-<body>
-    <form id="form1" runat="server">
     <div>
         <a href="MaintenanceClass.aspx">设备分类</a>
         <asp:Repeater ID="rptCycle" runat="server">
@@ -85,8 +74,8 @@
                 .MaintenanceType %>
                     </td>
                     <td>
-                        <%# ((TSS.Models.MaintenanceCycle)Container.DataItem)
-                    .InstallTime.Value.ToShortDateString()%>
+                        <%# ((TSS.Models.MaintenanceCycle)Container.DataItem).InstallTime.HasValue ?
+                        ((TSS.Models.MaintenanceCycle)Container.DataItem).InstallTime.Value.ToShortDateString() : ""%>
                     </td>
                     <td>
                         <%# ((TSS.Models.MaintenanceCycle)Container.DataItem).Cycle%>
@@ -121,6 +110,4 @@
             </FooterTemplate>
         </asp:Repeater>
     </div>
-    </form>
-</body>
-</html>
+ </asp:content>

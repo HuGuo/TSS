@@ -17,3 +17,22 @@
     max: jQuery.validator.format("请输入一个最大为 {0} 的值"),
     min: jQuery.validator.format("请输入一个最小为 {0} 的值")
 });
+jQuery.metadata.setType("attr", "validate"); //自定义验证属性，添加属性validate
+//jQuery.validator.setDefaults({
+//    submithandler: function (form) {
+//        alert("submitted!"); form.submit(); //form提交，用form.submit()
+//    }, //设置submit
+//    // meta: "tt",//在class中添加tt,{tt:{}}
+//    debug: true, //只验证，不提交
+//    ignore: "#ignore", //排除验证
+//    errorPlacement: function (error, element) {
+//        error.appendTo(element.parent().parent());
+//    }, //错误的位置
+//    errorClass: "tt",
+//    errorElement: "em",
+//    errorContainer: "div.error",
+//    errorLabelContainer: "#signForm div.error",
+//    wrapper: "li",
+//    nsubmit: true,
+//    focusInvalid: true
+//});

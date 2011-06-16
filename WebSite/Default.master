@@ -1,20 +1,28 @@
 ﻿<%@ Master Language="C#" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head runat="server">
+<head runat="server">
     <title></title>
+    <link rel="Stylesheet" type="text/css" href="~/scripts/jquery-easyui/thems/default/easyui.css" />
+    <link rel="Stylesheet" type="text/css" href="~/scripts/jquery-easyui/thems/icon.css" />
     <asp:ContentPlaceHolder ID="head" runat="server">
-      <script type="text/javascript" src="<%= Page.ResolveClientUrl("~/Scripts/jquery-1.6.1.min.js") %>"></script>
     </asp:ContentPlaceHolder>
-  </head>
-  <body>
-    <form id="form1" runat="server">
+</head>
+<body>
+    <form runat="server">
+    <asp:ScriptManager runat="server">
+        <Scripts>            <asp:ScriptReference Path="~/scripts/jquery-1.6.1.min.js" />
+            <asp:ScriptReference Path="~/scripts/jquery-easyui/jquery.easyui.min.js" />
+            <asp:ScriptReference Path="~/scripts/jquery-validation/jquery.validate.js" />
+            <asp:ScriptReference Path="~/scripts/jquery-validation/lib/jquery.metadata.js" />
+            <asp:ScriptReference Path="~/scripts/jquery-validation/messages_cn.js" />
+        </Scripts>
+    </asp:ScriptManager>
     <div>
-      <asp:ContentPlaceHolder ID="body" runat="server">
-      </asp:ContentPlaceHolder>
+        <asp:ContentPlaceHolder ID="body" runat="server">
+        </asp:ContentPlaceHolder>
     </div>
     </form>
-  </body>
+</body>
 </html>

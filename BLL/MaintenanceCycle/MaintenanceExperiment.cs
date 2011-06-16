@@ -4,64 +4,41 @@ using System.Linq;
 using System.Text;
 
 using System.Data;
+using System.Data.Entity;
 using System.Data.EntityModel;
-using Tm = TSS.Models;
+using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class MaintenanceExperiment
+    public class MaintenanceExperimentRepository : Repository<MaintenanceExperiment, int>
     {
-        public static IList<Tm.MaintenanceExperiment> GetAll()
+        public override IList<MaintenanceExperiment> GetAll()
         {
-            using (var dbContext = new Tm.Context())
+            using (var dbContext = new Context())
                 return dbContext.MaintenanceExperiments.ToList();
         }
 
-        public static IList<Tm.MaintenanceExperiment> GetByMaintenanceCycle(int maintenanceCycleId)
+        public override MaintenanceExperiment Get(int maintenanceExperimentId)
         {
-            using (var dbContext = new Tm.Context())
+            using (var dbContext = new Context())
+                return dbContext.MaintenanceExperiments
+                    .Where(m => m.Id == maintenanceExperimentId)
+                    .Include(m => m.MaintenanceCycle.MaintenanceCalss)
+                    .SingleOrDefault();
+
+        }
+
+        public IList<MaintenanceExperiment> GetByMaintenanceCycle(int maintenanceCycleId)
+        {
+            using (var dbContext = new Context())
                 return dbContext.MaintenanceExperiments
                     .Where(o => o.MaintenanceCycleId == maintenanceCycleId)
                     .ToList();
         }
 
-        public static bool IsExistOnMaintenanceCycle(int maintenanceCycleId)
+        public bool IsExistOnMaintenanceCycle(int maintenanceCycleId)
         {
             return GetByMaintenanceCycle(maintenanceCycleId).Count > 0;
-        }
-
-        public static Tm.MaintenanceExperiment Get(int maintenanceExperimentId)
-        {
-            using (var dbContext = new Tm.Context())
-                return dbContext.MaintenanceExperiments.Find(maintenanceExperimentId);
-        }
-
-        public static bool Add(Tm.MaintenanceExperiment maintenanceExperiment)
-        {
-            using (var dbContext = new Tm.Context())
-            {
-                dbContext.MaintenanceExperiments.Add(maintenanceExperiment);
-                return dbContext.SaveChanges() > 0;
-            }
-        }
-
-        public static bool Update(Tm.MaintenanceExperiment maintenanceExperiment)
-        {
-            using (var dbContext = new Tm.Context())
-            {
-                dbContext.Entry(maintenanceExperiment).State = EntityState.Modified;
-                return dbContext.SaveChanges() > 0;
-            }
-        }
-
-        public static bool Delete(string maintenanceExperimentId)
-        {
-            using (var dbContex = new Tm.Context())
-            {
-                dbContex.MaintenanceExperiments.Remove(dbContex.MaintenanceExperiments
-                    .Find(int.Parse(maintenanceExperimentId)));
-                return dbContex.SaveChanges() > 0;
-            }
         }
     }
 }

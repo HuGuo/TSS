@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
 public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
 {
@@ -24,8 +24,9 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
 
     protected void BindCycle()
     {
-        Tm.MaintenanceCycle maintenanceCycle = MaintenanceCycle.GetByEquipment(new
-            Guid(ddlEquipment.SelectedValue));
+        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
+        MaintenanceCycle maintenanceCycle = repository.GetByEquipment(
+            new Guid(ddlEquipment.SelectedValue));
         if (maintenanceCycle != null)
         {
             tbCycle.Text = maintenanceCycle.Cycle;
@@ -38,7 +39,8 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
 
     protected void BindClass()
     {
-        foreach (Tm.MaintenanceClass maintenanceClass in MaintenanceClass.GetAll())
+        IList<MaintenanceClass> maintenanceCycles = new MaintenanceClassRepository().GetAll();
+        foreach (MaintenanceClass maintenanceClass in maintenanceCycles)
         {
             ddlClass.Items.Add(new ListItem(
                 maintenanceClass.equipmentClassName, maintenanceClass.Id.ToString()));
@@ -47,7 +49,7 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
 
     protected void BindEquipment()
     {
-        foreach (Tm.Equipment equipment in new Equipments().GetAll())
+        foreach (Equipment equipment in new Equipments().GetAll())
         {
             ddlEquipment.Items.Add(new
                 ListItem(equipment.Name, equipment.Id.ToString()));
@@ -64,7 +66,8 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
     }
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        bool result = MaintenanceCycle.Add(new Tm.MaintenanceCycle
+        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
+        bool result = repository.Add(new MaintenanceCycle
         {
             Cycle = tbCycle.Text,
             MaintenanceType = tbType.Text,
@@ -74,6 +77,6 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
             EquipmentId = new Guid(ddlEquipment.SelectedValue),
             EquipmentModel = tbModel.Text
         });
-        AddConfirm(result, "window.location.href='MaintenancCycle.aspx'");
+        AddConfirm(result, "MaintenanceCycle.aspx");
     }
 }

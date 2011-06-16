@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
 public partial class MaintenanceCycle_MaintenanceClass : BasePage
 {
@@ -14,23 +14,25 @@ public partial class MaintenanceCycle_MaintenanceClass : BasePage
     {
         if (!IsPostBack)
             BindData();
-        string id = Request.QueryString["id"];
-        if (!string.IsNullOrEmpty(id))
-            Del(id);
+        if (!string.IsNullOrEmpty(Request.QueryString["id"]))
+            Del();
     }
 
     private void BindData()
     {
-        rptClass.DataSource = MaintenanceClass.GetAll();
+        MaintenanceClassRepository repository = new MaintenanceClassRepository();
+        IList<MaintenanceClass> maintenanceClasses = repository.GetAll();
+        rptClass.DataSource = maintenanceClasses;
         rptClass.DataBind();
     }
 
     //是否删除成功要有提示
-    protected void Del(string id)
+    protected void Del()
     {
-        int maintenanceClassId = int.Parse(id);
-        if (!MaintenanceCycle.IsExistOnMaintenancClass(maintenanceClassId))
-            DelConfirm(MaintenanceClass.Delete(maintenanceClassId));
+        int maintenanceClassId = int.Parse(Request.QueryString["id"]);
+        MaintenanceCycleRepository repostitory = new MaintenanceCycleRepository();
+        if (!repostitory.IsExistOnMaintenancClass(maintenanceClassId))
+            DelConfirm(repostitory.Delete(maintenanceClassId));
         else
             ExistChildConfirm();
         BindData();

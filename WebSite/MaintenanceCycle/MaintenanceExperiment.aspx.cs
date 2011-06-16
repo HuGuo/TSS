@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
 public partial class MaintenanceCycle_MaintenanceExperiment : BasePage
 {
@@ -14,21 +14,23 @@ public partial class MaintenanceCycle_MaintenanceExperiment : BasePage
     {
         if (!IsPostBack)
             BindData();
-        string id = Request.QueryString["id"];
-        if (!string.IsNullOrEmpty(id))
-            Del(id);
+        if (!string.IsNullOrEmpty(Request.QueryString["id"]))
+            Del();
     }
 
     protected void BindData()
     {
-        rptExperiment.DataSource = MaintenanceExperiment.GetAll();
+        MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
+        IList<MaintenanceExperiment> maintenanceExperiment = repository.GetAll();
+        rptExperiment.DataSource = maintenanceExperiment;
         rptExperiment.DataBind();
     }
 
     //是否删除成功要有提示
-    protected void Del(string id)
+    protected void Del()
     {
-        bool result = MaintenanceExperiment.Delete(id);
+        MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
+        bool result = repository.Delete(int.Parse(Request.QueryString["id"]));
         DelConfirm(result);
         BindData();
     }

@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
 public partial class MaintenanceCycle_EditMaintenanceClass : BasePage
 {
@@ -19,7 +19,13 @@ public partial class MaintenanceCycle_EditMaintenanceClass : BasePage
     protected void BindData()
     {
         BindSpecalty();
-        Tm.MaintenanceClass maintenanceClass = MaintenanceClass.Get(
+        BindMaintenanceClass();
+    }
+
+    protected void BindMaintenanceClass()
+    {
+        MaintenanceClassRepository repository = new MaintenanceClassRepository();
+        MaintenanceClass maintenanceClass = repository.Get(
             int.Parse(Request.QueryString["id"]));
         tbClassNames.Text = maintenanceClass.equipmentClassName;
         ddlSpecialty.SelectedValue = maintenanceClass.SpecialtyId;
@@ -27,16 +33,16 @@ public partial class MaintenanceCycle_EditMaintenanceClass : BasePage
 
     protected void btnEdit_Click(object sender, EventArgs e)
     {
-        Tm.MaintenanceClass maintenanceClass = MaintenanceClass.Get(
-            int.Parse(Request.QueryString["id"]));
+        MaintenanceClassRepository repository = new MaintenanceClassRepository();
+        MaintenanceClass maintenanceClass = repository.Get(int.Parse(Request.QueryString["id"]));
         maintenanceClass.equipmentClassName = tbClassNames.Text;
-        bool result = MaintenanceClass.Update(maintenanceClass);
-        EditConfirm(result, "window.location.href='MaintenanceClass.aspx'");
+        bool result = repository.Update(maintenanceClass);
+        EditConfirm(result, "MaintenanceClass.aspx");
     }
 
     protected void BindSpecalty()
     {
-        foreach (Tm.Specialty specialty in new Specialties().GetAll())
+        foreach (Specialty specialty in new Specialties().GetAll())
         {
             ddlSpecialty.Items.Add(new ListItem(specialty.Name, specialty.Id));
         }

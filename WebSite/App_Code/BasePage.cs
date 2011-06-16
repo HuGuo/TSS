@@ -4,15 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
 
-public class BasePage:System.Web.UI.Page
+public class BasePage : System.Web.UI.Page
 {
-    public BasePage() {
+    public BasePage()
+    {
     }
 
     #region regist css and js
-    protected void RegScripts(string basePath,params string [] scriptFileName) {
-        foreach (string item in scriptFileName) {
-            RegScripts(System.IO.Path.Combine(basePath , item));
+    protected void RegScripts(string basePath, params string[] scriptFileName)
+    {
+        foreach (string item in scriptFileName)
+        {
+            RegScripts(System.IO.Path.Combine(basePath, item));
         }
     }
     protected void RegScript(string scriptFileName)
@@ -31,29 +34,37 @@ public class BasePage:System.Web.UI.Page
         }
     }
 
-    protected void RegCsss(string basePath,params string[] styleFileName) {
-        foreach (string item in styleFileName) {
-            RegCss(System.IO.Path.Combine(basePath , item));
+    protected void RegCsss(string basePath, params string[] styleFileName)
+    {
+        foreach (string item in styleFileName)
+        {
+            RegCss(System.IO.Path.Combine(basePath, item));
         }
     }
-    protected void RegCss(string styleFileName) {
-        string name = styleFileName.ToLower();        
+    protected void RegCss(string styleFileName)
+    {
+        string name = styleFileName.ToLower();
         HtmlLink link = new HtmlLink();
-        if (name.StartsWith("http://") || name.StartsWith(Request.ApplicationPath.ToLower())) {
+        if (name.StartsWith("http://") || name.StartsWith(Request.ApplicationPath.ToLower()))
+        {
             link.Href = styleFileName;
-        } else {
+        }
+        else
+        {
             bool startRoot = name.StartsWith("/");
             link.Href = Request.ApplicationPath + (startRoot ? "" : "/") + styleFileName;
         }
-        link.Attributes.Add("type" , "text/css");
-        link.Attributes.Add("rel" , "stylesheet");
+        link.Attributes.Add("type", "text/css");
+        link.Attributes.Add("rel", "stylesheet");
         Page.Header.Controls.Add(link);
     }
 
-    protected void RegClientScript(string script,string key) {
+    protected void RegClientScript(string script, string key)
+    {
         Type t = this.GetType();
-        if (!this.ClientScript.IsStartupScriptRegistered(t,key)) {
-            this.ClientScript.RegisterStartupScript(t ,key , script);
+        if (!this.ClientScript.IsStartupScriptRegistered(t, key))
+        {
+            this.ClientScript.RegisterStartupScript(t, key, script);
         }
     }
     #endregion
@@ -204,19 +215,19 @@ public class BasePage:System.Web.UI.Page
     }
     #endregion
 
-    public void AddConfirm(bool addResult, string callback)
+    public void AddConfirm(bool addResult, string redirectUrl)
     {
-        OperateConfirm(addResult, callback, Operate.Add);
+        OperateConfirm(addResult, string.Format("window.location.href='{0}'", redirectUrl), Operate.Add);
     }
 
-    public void EditConfirm(bool editResult, string callback)
+    public void EditConfirm(bool editResult, string redirectUrl)
     {
-        OperateConfirm(editResult, callback, Operate.Edit);
+        OperateConfirm(editResult, string.Format("window.location.href='{0}'", redirectUrl), Operate.Edit);
     }
 
-    public void DelConfirm(bool delResult, string callback)
+    public void DelConfirm(bool delResult, string redirectUrl)
     {
-        OperateConfirm(delResult, callback, Operate.Del);
+        OperateConfirm(delResult, string.Format("window.location.href='{0}'", redirectUrl), Operate.Del);
     }
 
     public void AddConfirm(bool addResult)
@@ -237,6 +248,11 @@ public class BasePage:System.Web.UI.Page
     public void ExistChildConfirm()
     {
         jAlert("存在子记录无法删除！");
+    }
+
+    public void ExistCurrentTimeRecord()
+    {
+        jAlert("已经存在当前时间记录！");
     }
 
     public void OperateConfirm(bool result, string callback, Operate operate)
@@ -267,16 +283,26 @@ public class BasePage:System.Web.UI.Page
         }
         return confirmText;
     }
+
+    public string TextEncode(string text)
+    {
+        return text.Replace("\r\n", "<br/>");
+    }
+
+    public string TextDecode(string text)
+    {
+        return text.Replace("<br/>", "\r\n");
+    }
 }
 
 [Flags]
 public enum Action
 {
-    View=0x00,
-    Add=0x01,
-    Edit=0x02,
-    Delete=0x04,
-    Audit=0x08
+    View = 0x00,
+    Add = 0x01,
+    Edit = 0x02,
+    Delete = 0x04,
+    Audit = 0x08
 }
 
 public enum Operate

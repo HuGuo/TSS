@@ -28,6 +28,10 @@ namespace TSS.Models
         public IDbSet<MaintenanceCycle> MaintenanceCycles { get; set; }
         public IDbSet<MaintenanceExperiment> MaintenanceExperiments { get; set; }
 
+        public IDbSet<Indicator> Indicators { get; set; }
+        public IDbSet<ComprehensiveReport> ComprehensiveReports { get; set; }
+        public IDbSet<SpecialtyAnalysis> SpecialtyAnalysises { get; set; }
+        public IDbSet<IndicatorAnalysis> IndicatorAnalysises { get; set; }
 
         public Context()
             : base("TSS")
@@ -49,7 +53,7 @@ namespace TSS.Models
         }
     }
 
-    class DatabaseInitializer : DropCreateDatabaseIfModelChanges<Context>
+    class DatabaseInitializer : CreateDatabaseIfNotExists<Context>
     {
         protected override void Seed(Context context)
         {
@@ -61,7 +65,8 @@ namespace TSS.Models
                     new Module { Id = "3", Name = "预试周期", Url = "MaintenanceCycle" },
                     new Module { Id = "4", Name = "监督月报", Url = "Report" },
                     new Module { Id = "5", Name = "人员资质", Url = "Certificate" },
-                    new Module { Id = "6", Name = "档案资料", Url = "Document" }
+                    new Module { Id = "6", Name = "档案资料", Url = "Document" },
+                    new Module{ Id="7", Name="指标分析",Url="ComprehensiveReport"}
             };
 
             new List<Specialty> {

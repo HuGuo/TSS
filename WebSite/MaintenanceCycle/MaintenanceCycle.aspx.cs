@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
 public partial class MaintenanceCycle_MaintenanceCycle : BasePage
 {
@@ -14,25 +14,28 @@ public partial class MaintenanceCycle_MaintenanceCycle : BasePage
     {
         if (!IsPostBack)
             BindData();
-        string id = Request.QueryString["id"];
-        if (!string.IsNullOrEmpty(id))
-            Del(id);
+        if (!string.IsNullOrEmpty(Request.QueryString["id"]))
+            Del();
     }
 
     protected void BindData()
     {
-        IList<Tm.MaintenanceCycle> maintenanceCycle = MaintenanceCycle.GetAll().ToList();
-        rptCycle.DataSource = maintenanceCycle;
+        MaintenanceCycleRepository reposittory = new MaintenanceCycleRepository();
+        IList<MaintenanceCycle> maintenanceCycles = reposittory.GetAll();
+        rptCycle.DataSource = maintenanceCycles;
         rptCycle.DataBind();
     }
 
 
-    public void Del(string id)
+
+    public void Del()
     {
-        int maintenanceCycleId = int.Parse(id);
-        if (!MaintenanceExperiment.IsExistOnMaintenanceCycle(maintenanceCycleId))
+        int maintenanceCycleId = int.Parse(Request.QueryString["id"]);
+        MaintenanceExperimentRepository experimentRepository = new MaintenanceExperimentRepository();
+        if (!experimentRepository.IsExistOnMaintenanceCycle(maintenanceCycleId))
         {
-            bool result = MaintenanceCycle.Delete(maintenanceCycleId);
+            MaintenanceCycleRepository maintenanceCycleRepository = new MaintenanceCycleRepository();
+            bool result = maintenanceCycleRepository.Delete(maintenanceCycleId);
             DelConfirm(result);
         }
         else
