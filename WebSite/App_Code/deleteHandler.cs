@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Web;
 using TSS.BLL;
-/// <summary>
-/// Summary description for deleteEntity
-/// </summary>
+
 public class deleteHandler: IHttpHandler
 {
     #region IHttpHandler Members
@@ -21,7 +19,8 @@ public class deleteHandler: IHttpHandler
                 case "del-certificate":
                     DeleteCertificate(context);
                     break;
-                default:
+                case "del-workflow":
+                    DeleteWorkflow(context);
                     break;
             }
         } else {
@@ -33,11 +32,19 @@ public class deleteHandler: IHttpHandler
     void DeleteCertificate(HttpContext context) {
         string id = context.Request.QueryString["id"];
         try {
-
             RepositoryFactory<CertificateRepository>.Get().Delete(new Guid(id));
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }
         context.Response.End();
+    }
+
+    void DeleteWorkflow(HttpContext context) {
+        string id = context.Request["id"];
+        try {
+            workflow.WFRepository.Delete(id , true);
+        } catch (Exception ex) {
+            context.Response.Write(ex.Message);
+        }
     }
 }

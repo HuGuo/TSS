@@ -4,13 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>设置模版</title>
-    <link href="../scripts/jquery-easyui/thems/default/menu.css" rel="stylesheet" type="text/css" />
-    <link href="../scripts/jquery-easyui/thems/icon.css" rel="stylesheet" type="text/css" />
+        
     <link href="experiment.css" rel="stylesheet" type="text/css" />
+
+    <link href="../scripts/jquery-easyui/thems/gray/menu.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../scripts/jquery-easyui/plugins/jquery.menu.js" type="text/javascript"></script>
-    <script src="../scripts/jquery.simpleExcel.js" type="text/javascript"></script>
-    
+    <script src="../scripts/jquery.excel.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -26,8 +26,7 @@
         <input id="txt_hidden_sp" type="hidden" value="<%=Request.QueryString["sp"] %>" />
     
     </form>
-    
-    <div id="ct_menu" class="easyui-menu" style="width: 120px;">
+    <div id="ct_menu" style="width: 120px;">
         <div onclick="javascript:$.simpleExcel.clearCell()">
             清空</div>
         <div class="menu-sep">
@@ -47,67 +46,28 @@
                     居 中</div>
                 <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'right'});">
                     右对齐</div>
-                <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'bold'});">
+                <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'700'});">
                     加 粗</div>
             </div>
         </div>
         <div>
-            <span>插入</span>
+            <span>添加/删除</span>
             <div style="width: 100px;">
                 <div onclick="javascript:$.simpleExcel.appendRow();">
-                    下一行</div>
+                    插入 下一行</div>
                 <div onclick="javascript:$.simpleExcel.appendColumn();">
-                    右边列</div>
-            </div>
-        </div>
-        <div>
-            <span>删除</span>
-            <div style="width: 100px;">
+                    插入 右边列</div>
                 <div onclick="javascript:$.simpleExcel.removeRow();">
-                    行</div>
+                    删除 行</div>
                 <div onclick="javascript:$.simpleExcel.removeColumn();">
-                    列</div>
+                    删除 列</div>
             </div>
         </div>
     </div>
 </body>
 </html>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#ct_menu").menu();
-        $.simpleExcel._op.container = $("#dtb");
-        //edit model
-        $.simpleExcel._op.excell = $("#simpleExcel");
-        if ($.simpleExcel._op.excell.size() > 0) {
-            $.simpleExcel._init($.simpleExcel._op.excell.find("td"));
-            $.simpleExcel._initHead();
-            $.simpleExcel._op.rows = $.simpleExcel._op.excell.find("tr").size();
-            $.simpleExcel._op.columns = $.simpleExcel._op.excell.find("tr:first th").size();
-        }
-        $("#btnDrawTable").click(function () {
-            var r = $("#txt_row").val();
-            var c = $("#txt_column").val();
-            $.simpleExcel.create(r, c);
-        });
-
-        $("#btnSave").click(function () {
-            var q = { op: "save", cid: 0, sp: "", title: "", html: "" };
-            q.title = $.trim($("#txt_tmpName").val());
-            if (q.title == "") {
-                alert("模板名称未设置");
-                return false;
-            }
-            q.cid = $("#txt_hidden_cid").val();
-            q.sp = $("#txt_hidden_sp").val();
-            $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass).removeClass($.simpleExcel._op.selectedCellClass);
-            q.html = $("#dtb").html();
-            $.post("exp.ashx", q, function (data) {
-                if (data == "1") {
-                    alert("模板保存成功");
-                } else {
-                    alert(data);
-                }
-            });
-        });
+    $(function () {
+        var excel = $("#dtb").simpleExcel({ rows: 10, columns: 10, menu: $("#ct_menu") });        
     });
 </script>

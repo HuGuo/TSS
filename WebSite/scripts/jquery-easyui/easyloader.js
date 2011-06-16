@@ -56,7 +56,7 @@ if(easyloader.css&&_13["css"]){
 if(/^http/i.test(_13["css"])){
 var url=_13["css"];
 }else{
-var url=easyloader.base+"themes/"+easyloader.theme+"/"+_13["css"];
+var url=easyloader.base+"thems/"+easyloader.theme+"/"+_13["css"];
 }
 _c(url,function(){
 _15="loaded";

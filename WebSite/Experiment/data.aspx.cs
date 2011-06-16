@@ -55,7 +55,7 @@ public partial class Experiment_data : System.Web.UI.Page
                 new XAttribute("color", "FF0080"),
                 new XAttribute("anchorBorderColor", "FF0080"), from p in list
                                                                select new XElement("set",
-                                                                   p.CoordValue.HasValue ? new XAttribute("value", p.CoordValue) : new XAttribute("nodata", ""),
+                                                                   !string.IsNullOrWhiteSpace(p.CoordValue) ? new XAttribute("value" , p.CoordValue) : new XAttribute("nodata" , "") ,
                                                                    new XAttribute("anchorBgColor", p.ExpResult == 1 ? "008000" : "ff0000"),
                                                                    new XAttribute("link",clickURL+p.ExperimentId.ToString()),
                                                                    new XAttribute("toolText", string.Format(tooltip, p.ExpDate.ToString("yyyy-MM-dd"), p.ExpResult == 1 ? "合格" : "不合格", p.CoordValue))

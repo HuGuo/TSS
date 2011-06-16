@@ -27,6 +27,6 @@
         /// <summary>
         /// 实验数据
         /// </summary>
-        public decimal? CoordValue { get; set; }
+        public string CoordValue { get; set; }
     }
 }

@@ -49,7 +49,7 @@ ul li{ list-style:none;}
     line-height: 28px;
     letter-spacing: 2px;
 }
-#toolbar a:hover
+#toolbar a:hover,#toolbar a.active
 {
     background: #33ADDB url(images/hover.gif) repeat-x;
     border: 1px solid #1E90FF;

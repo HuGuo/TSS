@@ -73,9 +73,7 @@
             q.data = $("#dtb :text").map(function () {
                 var $$ = $(this);
                 $$.attr("value", $$.val());
-                if ($$.hasClass("number")) {
-                    return $$.attr("pid") + "<=>" + $$.val();
-                }
+                return $$.attr("pid") + "<=>" + $$.val();
             }).get().join("<|>");
             q.html = $("#dtb").html();
             $.post("../exp.ashx", q, function (data) {

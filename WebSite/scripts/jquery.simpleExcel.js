@@ -2,7 +2,7 @@
 * 肖宏飞 
 * 2011-5-15
 */
-(function ($) {
+(function ($) {    
     $.simpleExcel = {
         _op: { container: $("body"), cellW: 75, cellH: 25, excell: null, rows: 0, columns: 0, selectedCellClass: "selectedCell" },
         create: function (x, y) {
@@ -40,7 +40,7 @@
         _init: function (tds) {
             if (!$.simpleExcel._op.excell) { return false; }
             tds.bind("contextmenu", function (e) {
-                  var $m = $('#ct_menu');
+                var $m = $('#ct_menu');
                 $m.menu('show', {
                     left: e.pageX,
                     top: e.pageY
@@ -216,8 +216,10 @@
             $.extend(o, {});
             var $clickItem = $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass);
             if (o.fontWeight) {
-                if ($clickItem.css("fontWeight") == o.fontWeight || $clickItem.css("fontWeight")=="bold") {
-                    o.fontWeight = "400";}}
+                if ($clickItem.css("fontWeight") == o.fontWeight || $clickItem.css("fontWeight") == "bold") {
+                    o.fontWeight = "400";
+                }
+            }
             $clickItem.css(o);
         },
         mergeCell: function () {
@@ -232,7 +234,8 @@
                 _y.push($this.attr("xx"));
                 _y.push(parseInt($this.attr("xx")) + q.rowSpan - 1);
                 if (q.rowSpan > 1 || q.colSpan > 1) {
-                    __c += (q.rowSpan * q.colSpan - 1); }
+                    __c += (q.rowSpan * q.colSpan - 1);
+                }
             });
             var _xmax_min = maxmin(_x) + 1;
             var _ymax_min = maxmin(_y) + 1;

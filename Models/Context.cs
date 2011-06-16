@@ -33,13 +33,14 @@ namespace TSS.Models
         public IDbSet<Right> Rights { get; set; }
 
         public Context()
-            : base("name=TSS")
+            : base("TSS")
         {
             Database.SetInitializer<Context>(new DatabaseInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<ExpData>()
                 .HasKey<int>(p => p.Id)
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
@@ -47,7 +48,6 @@ namespace TSS.Models
             modelBuilder.Entity<Document>().Ignore(p => p.Childs);
             modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
             modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
-            modelBuilder.Entity<ExpData>().Property(p => p.Value).HasPrecision(18 , 6);
             modelBuilder.Entity<Right>().HasKey(p=>p.Id).Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
         }
     }

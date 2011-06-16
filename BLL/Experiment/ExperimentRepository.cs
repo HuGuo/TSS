@@ -10,6 +10,19 @@ namespace TSS.BLL
     {
         public ExperimentRepository() { }
 
+        public void Add(Experiment entity,Action<Experiment> onAdd=null) {
+            base.Add(entity);
+            if (null !=onAdd) {
+                onAdd(entity);
+            }
+        }
+
+        public Experiment GetLastExperiment(Guid templateId,Guid equipmentId) {
+            return Context.Experiments.Where(p => p.EquipmentID.Equals(equipmentId) && p.ExpTemplateID.Equals(templateId))
+                .OrderByDescending(p => p.ExpDate)
+                .FirstOrDefault();
+        }
+
         public override void Update(Experiment entity) {
             Experiment experiment = Context.Experiments.Find(entity.Id);
             if (null != experiment) {

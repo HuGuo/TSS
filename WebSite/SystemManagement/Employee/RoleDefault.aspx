@@ -93,10 +93,11 @@
         $$$.$treeRole.treeHelper({
             handlerUrl: $$$.url,
             opStr: { "data": "list", "add": "add", "del": "delete", "edit": "update-n" },
+            enableContextMenu: false,
             onclick: function (o) {
                 if (o.id == "" || o.id == $("#employees").data("rid")) {
                     return false;
-                } 
+                }
                 $$$.clearRight();
                 $("#employees").data("rid", o.id);
                 var query = { op: "right", id: o.id, rand: Math.random() };
@@ -175,7 +176,13 @@
             if ($("#employees").data("rid") == null) {
                 return;
             }
-            $("#tbrights td[p='" + this.getAttribute("p") + "']").toggleClass("checked");
+            var $this = $(this);
+            if ($this.hasClass("aa")) {
+                $("#tbrights td[p='" + this.getAttribute("p") + "']").removeClass("checked");
+            } else {
+                $("#tbrights td[p='" + this.getAttribute("p") + "']").addClass("checked");
+            }
+            $this.toggleClass("aa");
         });
         $("#btnSave").click(function (e) {
             var query = { op: "update-r", id: "", mvs: "" };

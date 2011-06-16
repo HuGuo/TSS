@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TSS.Models;
 using TSS.BLL;
+using System.Data;
 
 public partial class SystemManagement_Workflow_SetWorkflow : System.Web.UI.Page
 {
@@ -27,6 +28,33 @@ public partial class SystemManagement_Workflow_SetWorkflow : System.Web.UI.Page
             }
 
             ltLI.Text = build.ToString();
+
+            //bind workflow
+            string id = Request.QueryString["id"];
+            if (!string.IsNullOrWhiteSpace(id)) {
+
+                workflow.Workflow wf = workflow.WFRepository.Get(id);
+                if (null != wf) {
+                    wf.DesrializeFromXML();
+                    txtName.Text = wf.Name;
+                    stepsCount.Value = wf.Actives.Count.ToString();
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Id");
+                    dt.Columns.Add("hours");
+                    dt.Columns.Add("t");
+                    System.Text.StringBuilder build2 = new System.Text.StringBuilder();
+                    foreach (var item in wf.Actives) {
+                        build2.Clear();
+                        foreach (var signer in item.Signers) {
+                            build2.AppendFormat("<span {0} sid=\"{1}\">{2}</span>" , signer.IsWeight ? " class=\"weight\"" : "" , signer.Id , signer.NameCN);
+                        }
+                        dt.Rows.Add(item.Id,item.IntervalHours , build2.ToString());
+                    }
+
+                    rptlist.DataSource = dt;
+                    rptlist.DataBind();
+                }
+            }
         }
     }
 }
