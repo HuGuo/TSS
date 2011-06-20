@@ -9,16 +9,20 @@
     <script type="text/javascript" src="Scripts/jquery-1.6.1.min.js"></script>
     <script type="text/javascript">
       $(function () {
-        $("a.expand").bind("click", function (e) {
-          $(e.target).parent().siblings().find("a.expand").each(function () {
+        $("a").bind("click", function (e) {
+          $(this).parent().siblings().find("a").each(function () {
             if (this != e.target) {
               $(this).next("ul").hide();
+              $(this).removeClass("hover");
             }
           });
 
           $(this).next("ul").toggle();
+          $(this).toggleClass("hover");
 
-          return false;
+          if ($(this).attr("href") == "#") {
+            return false;
+          }
         });
       });
     </script>
@@ -30,7 +34,7 @@
       <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1" ItemPlaceholderID="Placeholder1">
         <LayoutTemplate>
           <ul>
-            <li><a href="#" class="expand">专业监督</a>
+            <li><a href="#">专业监督</a>
               <ul>
                 <asp:PlaceHolder ID="Placeholder1" runat="server" />
               </ul>
@@ -40,7 +44,7 @@
                 <asp:PlaceHolder ID="PlaceHolder3" runat="server" />
               </LayoutTemplate>
               <ItemTemplate>
-                <li><a href="#" class="expand">
+                <li><a href="<%# ((HashSet<TSS.Models.Module>)Eval("Submodules")).Count == 0 && Eval("Url") != null ? ResolveUrl(string.Format("~/{0}/", Eval("Url"))) : "#" %>">
                   <%# Eval("Name") %></a>
                   <asp:ListView ID="ListView4" runat="server" DataSource='<%# Eval("Submodules") %>' ItemPlaceholderID="PlaceHolder4">
                     <LayoutTemplate>
@@ -49,8 +53,20 @@
                       </ul>
                     </LayoutTemplate>
                     <ItemTemplate>
-                      <li><a href="<%# string.Format("{0}/{1}/", DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Url"), Eval("Url")) %>">
-                        <%# Eval("Name") %></a></li>
+                      <li><a href="<%# ((HashSet<TSS.Models.Module>)Eval("Submodules")).Count == 0 ? ResolveUrl(string.Format("~/{0}/{1}/", DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Url"), Eval("Url"))) : "#" %>">
+                        <%# Eval("Name") %></a>
+                        <asp:ListView ID="ListView5" runat="server" DataSource='<%# Eval("Submodules") %>' ItemPlaceholderID="PlaceHolder5">
+                          <LayoutTemplate>
+                            <ul>
+                              <asp:PlaceHolder ID="PlaceHolder5" runat="server" />
+                            </ul>
+                          </LayoutTemplate>
+                          <ItemTemplate>
+                            <li><a href="<%# ResolveUrl(string.Format("~/{0}/{1}/{2}/", DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer.Parent.DataItemContainer).DataItem, "Url"), DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Url"), Eval("Url"))) %>">
+                              <%# Eval("Name") %></a></li>
+                          </ItemTemplate>
+                        </asp:ListView>
+                      </li>
                     </ItemTemplate>
                   </asp:ListView>
                 </li>
@@ -59,7 +75,7 @@
           </ul>
         </LayoutTemplate>
         <ItemTemplate>
-          <li><a href="#" class="expand">
+          <li><a href="#">
             <%# Eval("Name") %></a>
             <asp:ListView ID="ListView2" runat="server" DataSource='<%# Eval("Modules") %>' ItemPlaceholderID="Placeholder2">
               <LayoutTemplate>
@@ -68,7 +84,7 @@
                 </ul>
               </LayoutTemplate>
               <ItemTemplate>
-                <li><a href="<%# string.Format("{0}/?s={1}", Eval("Url"), DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Id")) %>">
+                <li><a href="<%# ResolveUrl(string.Format("~/{0}/?s={1}", Eval("Url"), DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Id"))) %>">
                   <%# Eval("Name") %></a></li>
               </ItemTemplate>
             </asp:ListView>

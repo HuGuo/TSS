@@ -6,11 +6,11 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class ExperimentRepository : Repository<Experiment , Guid>
+    public class ExperimentRepository : Repository<Experiment>
     {
-        public ExperimentRepository() { }
+        public override bool Update(Experiment entity) {
+            bool result = false;
 
-        public override void Update(Experiment entity) {
             Experiment experiment = Context.Experiments.Find(entity.Id);
             if (null != experiment) {
                 int c = experiment.Expdatas.Count - 1;
@@ -23,9 +23,11 @@ namespace TSS.BLL
                 experiment.EquipmentID = entity.EquipmentID;
                 experiment.ExpDate = entity.ExpDate;
                 experiment.Title = entity.Title;
-                Context.SaveChanges();
+                result = Context.SaveChanges() == 1;
 
             }
+
+            return result;
         }
 
         public IList<Experiment> GetMuch(Guid equipmentID) {

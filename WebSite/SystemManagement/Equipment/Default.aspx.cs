@@ -15,13 +15,18 @@ public partial class SystemManagement_Equipment_Default : System.Web.UI.Page
 
     protected void AddEquipmentButton_Click(object sender, EventArgs e)
     {
+        using (var equipments = RepositoryFactory<Equipments>.Get()) {
+            equipments.Add(EquipmentNameTextBox.Text, EquipmentCodeTextBox.Text, EquipmentCategoryTextBox.Text, SpecialtyDropDownList.SelectedValue);
+        }
+
         EquipmentListView.DataBind();
     }
 
     protected void AddCategoryButton_Click(object sender, EventArgs e)
     {
-        var categories = RepositoryFactory<EquipmentCategories>.Get();
-        categories.Add(CategoryNameTextBox.Text, ParentCategoryTextBox.Text);
+        using (var categories = RepositoryFactory<EquipmentCategories>.Get()) {
+            categories.Add(CategoryNameTextBox.Text, ParentCategoryTextBox.Text);
+        }
     }
 
     protected void EquipmentListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -63,14 +68,15 @@ public partial class SystemManagement_Equipment_Default : System.Web.UI.Page
     {
         string result = string.Empty;
 
-        var categories = RepositoryFactory<EquipmentCategories>.Get();
-        if (categories.HasSubcategories(id)) {
-            result = "NOT_EMPTY";
-        } else {
-            if (categories.Remove(id)) {
-                result = "COMPLETED";
-            } else {
+        using (var categories = RepositoryFactory<EquipmentCategories>.Get()) {
+            if (categories.HasSubcategories(id)) {
                 result = "NOT_EMPTY";
+            } else {
+                if (categories.Remove(id)) {
+                    result = "COMPLETED";
+                } else {
+                    result = "NOT_EMPTY";
+                }
             }
         }
 
@@ -82,9 +88,10 @@ public partial class SystemManagement_Equipment_Default : System.Web.UI.Page
     {
         string result = string.Empty;
 
-        var categories = RepositoryFactory<EquipmentCategories>.Get();
-        if (categories.Update(id, name)) {
-            result = "COMPLETED";
+        using (var categories = RepositoryFactory<EquipmentCategories>.Get()) {
+            if (categories.Update(id, name)) {
+                result = "COMPLETED";
+            }
         }
 
         return result;

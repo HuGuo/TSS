@@ -7,7 +7,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class EquipmentDetails : Repository<EquipmentDetail, Guid>
+    public class EquipmentDetails : Repository<EquipmentDetail>
     {
         public IList<EquipmentDetail> GetList(Guid equipmentId)
         {
@@ -27,11 +27,8 @@ namespace TSS.BLL
 
             Guid eId;
             if (Guid.TryParse(equipmentId, out eId)) {
-                Context.Configuration.ProxyCreationEnabled = false;
-                Context.EquipmentDetails.Load();
                 var d = Context.EquipmentDetails.Where(o =>
-                    o.EquipmentId == eId && o.Lable == lable)
-                    .FirstOrDefault();
+                    o.EquipmentId == eId && o.Lable == lable).SingleOrDefault();
                 if (d != null) {
                     result = d.Value;
                 }
