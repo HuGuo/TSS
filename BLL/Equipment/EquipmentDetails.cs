@@ -9,34 +9,35 @@ namespace TSS.BLL
 {
     public class EquipmentDetails : Repository<EquipmentDetail, Guid>
     {
-        public IList<EquipmentDetail> GetAllByEquipment(string equipmentId)
+        public IList<EquipmentDetail> GetList(Guid equipmentId)
         {
             IList<EquipmentDetail> result = null;
 
-            if (!string.IsNullOrEmpty(equipmentId)) {
-                var e = Context.Equipments.Find(Guid.Parse(equipmentId));
-                if (e != null) {
-                    result = Context.EquipmentDetails.Where(d =>
-                        d.EquipmentId == e.Id).ToList();
-                }
+            var e = Context.Equipments.Find(equipmentId);
+            if (e != null) {
+                result = e.EquipmentDetails.ToList();
             }
 
             return result;
         }
 
-        public void Add(string equipmentId, string lable, string value)
+        public string GetValue(string equipmentId, string lable)
         {
-            if (!string.IsNullOrEmpty(equipmentId)) {
-                var e = Context.Equipments.Find(Guid.Parse(equipmentId));
-                if (e != null) {
-                    Add(new EquipmentDetail {
-                        Id = Guid.NewGuid(),
-                        Lable = lable,
-                        Value = value,
-                        Equipment = e
-                    });
+            string result = string.Empty;
+
+            Guid eId;
+            if (Guid.TryParse(equipmentId, out eId)) {
+                Context.Configuration.ProxyCreationEnabled = false;
+                Context.EquipmentDetails.Load();
+                var d = Context.EquipmentDetails.Where(o =>
+                    o.EquipmentId == eId && o.Lable == lable)
+                    .FirstOrDefault();
+                if (d != null) {
+                    result = d.Value;
                 }
             }
+
+            return result;
         }
     }
 }

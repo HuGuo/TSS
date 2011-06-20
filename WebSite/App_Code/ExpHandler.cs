@@ -31,6 +31,9 @@ public class ExpHandler : IHttpHandler
                 case "del-d":
                     DeleteExperiment(context);
                     break;
+                case "recordjson":
+                    ResponseExpRecordJSON(context);
+                    break;
                 default:
                     break;
             }
@@ -136,5 +139,55 @@ public class ExpHandler : IHttpHandler
         context.Response.End();
     }
 
+    //实验台帐 数据
+    void ResponseExpRecordJSON(HttpContext context) {
+        
+        string eqId = context.Request["equipment"];
+        string tmpId = context.Request["exptemplate"];
+        string columns = context.Request["fields"];
+        try {
+            string cacheKey = "category_" + eqId;
+            object json= CacheManager.GetCache(cacheKey);
+            string[] fields = columns.Split(',');
+            //if (null != json) {
+                System.Web.Script.Serialization.JavaScriptSerializer jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+                IList<Experiment> list = RepositoryFactory<ExperimentRepository>.Get().GetMuch(new Guid(eqId) , new Guid(tmpId));
+                Equipment obj = RepositoryFactory<Equipments>.Get().Get(new Guid(eqId));
+                var datas = from p in list
+                            select new {
+                                expdate = p.ExpDate.ToString("yyyy-MM-dd") ,
+                                id = p.Id ,
+                                result = p.Result ,
+                                dts = from m in p.Expdatas
+                                      where fields.Contains(m.GUID)
+                                      select new { label=m.GUID, val=m.Value}
+                            };
+                var result = new {
+                    eqid = obj.Id.ToString() ,
+                    name = obj.Name ,
+                    code = obj.Code ,
+                    rows=datas,
+                    nameplates = from m in obj.EquipmentDetails
+                                 select new { label = m.Lable , val = m.Value }
+                };
+                json = jss.Serialize(result);
+                //CacheManager.SetCache(cacheKey , json,30);
+            //}
+            context.Response.Write(json);
+            
+        } catch (Exception ex) {
+            context.Response.Write("{\"msg\":\""+ex.Message+"\"}");
+        }
+    }
+    //保存实验台帐模板
+    void SaveExpRecordTemplate(HttpContext context) {
+        string id = context.Request["id"];
+        string html = context.Request["html"];
+        try {
+            //ExpRecord obj=RepositoryFactory<ExperimentRepository>.Get().Get
+        } catch (Exception ex) {
+            context.Response.Write(ex.Message);
+        }
+    }
     #endregion
 }

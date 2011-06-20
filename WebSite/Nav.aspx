@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head runat="server">
     <title></title>
+    <link href="~/Styles/Nav.css" rel="Stylesheet" type="text/css" />
     <script type="text/javascript" src="Scripts/jquery-1.6.1.min.js"></script>
     <script type="text/javascript">
       $(function () {
@@ -25,10 +26,6 @@
   </head>
   <body id="nav">
     <form id="form1" runat="server">
-    <div id="nav_top_top">
-    </div>
-    <div id="nav_top_bottom">
-    </div>
     <div id="nav_menu">
       <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1" ItemPlaceholderID="Placeholder1">
         <LayoutTemplate>
@@ -52,7 +49,7 @@
                       </ul>
                     </LayoutTemplate>
                     <ItemTemplate>
-                      <li><a href="<%# string.Format("{0}/{1}/", DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Url"), Eval("Url")) %>">
+                      <li><a href="<%# ResolveUrl(string.Format("~/{0}/{1}/", DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Url"), Eval("Url"))) %>">
                         <%# Eval("Name") %></a></li>
                     </ItemTemplate>
                   </asp:ListView>
@@ -71,7 +68,7 @@
                 </ul>
               </LayoutTemplate>
               <ItemTemplate>
-                <li><a href="<%# DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Id", Eval("Url") + "/?s={0}") %>">
+                <li><a href="<%# string.Format("{0}/?s={1}", Eval("Url"), DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Id")) %>">
                   <%# Eval("Name") %></a></li>
               </ItemTemplate>
             </asp:ListView>

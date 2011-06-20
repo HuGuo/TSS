@@ -149,7 +149,7 @@
         appendColumn: function () {
             if (!$.simpleExcel._op.excell) { return false; }
             var _selectedCellLast = $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass + ":last");
-            var _yy = $.simpleExcel._op.rows;
+            var _yy = $.simpleExcel._op.columns;
             if (_selectedCellLast.size() > 0) {
                 _yy = parseInt(_selectedCellLast.attr("yy"));
             }

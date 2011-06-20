@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>设备分类</title>
-    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/default/easyui.css" />
-    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/thems/icon.css" />
+    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/themes/default/easyui.css" />
+    <link rel="Stylesheet" type="text/css" href="../scripts/jquery-easyui/themes/icon.css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
 </head>

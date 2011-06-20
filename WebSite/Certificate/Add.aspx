@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>人员资质</title>
-    <link rel="stylesheet" type="text/css"  href="../scripts/base.css"/>
+    <link rel="stylesheet" type="text/css"  href="~/Styles/_base.css"/>
     <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
 </head>
 <body>

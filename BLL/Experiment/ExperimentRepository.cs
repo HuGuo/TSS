@@ -31,7 +31,10 @@ namespace TSS.BLL
                     Context.ExpData.Remove(experiment.Expdatas.ElementAt(i));
                 }
                 experiment.Expdatas.Clear();
-                experiment.Expdatas = entity.Expdatas;
+                //experiment.Expdatas = entity.Expdatas;
+                foreach (var item in entity.Expdatas) {
+                    experiment.Expdatas.Add(item);
+                }
                 experiment.HTML = entity.HTML;
                 experiment.EquipmentID = entity.EquipmentID;
                 experiment.ExpDate = entity.ExpDate;

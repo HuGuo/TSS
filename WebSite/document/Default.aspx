@@ -5,8 +5,8 @@
 <head runat="server">
     <title>文档资料</title>
     <link href="listStyle.css" rel="stylesheet" type="text/css" />
-    <link href="../scripts/base.css" rel="stylesheet" type="text/css" />
-    <link href="../scripts/jquery-easyui/thems/gray/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/_base.css" rel="stylesheet" type="text/css" />
+    <link href="../scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../uploadify/uploadify.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../uploadify/swfobject.js" type="text/javascript"></script>

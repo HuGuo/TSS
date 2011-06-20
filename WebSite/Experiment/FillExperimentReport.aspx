@@ -8,6 +8,7 @@
     <link href="experiment.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <script src="../scripts/jquery-easyui/easyloader.js" type="text/javascript"></script>
     <style type="text/css">
     .text,.number,.time{ border:none;}
     .error{ color:#FF4500; font-weight:700;}
@@ -27,6 +28,24 @@
     </div>
     <div id="dtb"  style=" margin-top:31px;"><asp:Literal ID="ltHTML" runat="server"></asp:Literal>
     </div>
+    <div style="position: fixed; top: 31px; right: 0; width: 250px; height: 500px">
+        <div id="commField" title="设备信息" fit="true" collapsed="true" collapsible="true" style="overflow: auto;">
+            <table cellpadding="0" cellspacing="0" style="width: 100%; border: 0;">
+                <asp:Repeater ID="rptEquipment" runat="server">
+                    <ItemTemplate>
+                        <tr>
+                            <th style="widht: 50px;">
+                                <%#Eval("Lable")%>
+                            </th>
+                            <td>
+                                <%#Eval("Value")%>
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </table>
+        </div>
+    </div>
     </form>
 </body>
 </html>
@@ -39,7 +58,9 @@
         var _id = '<%=Request.QueryString["id"] %>';
         var _tid = '<%=Request.QueryString["tid"] %>';
         var _eqmId = '<%=Request.QueryString["eqmId"] %>';
-
+        easyloader.load("panel", function () {
+            $("#commField").panel();
+        })
         if (_id != "") {
             //edit model
 

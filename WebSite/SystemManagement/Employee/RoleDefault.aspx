@@ -4,9 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>角色</title>
-    <link href="../../scripts/base.css" rel="stylesheet" type="text/css" />
-    <link href="../../scripts/jquery-easyui/thems/icon.css" rel="stylesheet" type="text/css" />
-    <link href="../../scripts/jquery-easyui/thems/gray/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/_base.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jquery-easyui/themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet" type="text/css" />
     <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <style type="text/css">
@@ -30,8 +30,8 @@
             <ul id="employees">
             </ul>
             </div>
-    <div region="center" style="padding: 0">
-    <div id="toolbar">
+    <div region="center" style="padding-top: 30px;">
+    <div id="toolbar" class="fixed">
     <a href="Default.aspx">用户管理</a>
     <input type="button" id="btnSave" class="btn" value="保存" style=" float:right; margin-top:3px;" />
     </div>

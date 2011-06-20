@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace TSS.Models
 {
@@ -18,5 +17,6 @@ namespace TSS.Models
 
         public virtual ICollection<Experiment> Experiments { get; set; }
         public virtual ICollection<Equipment> Equipments { get; set; }
+        public virtual ICollection<ExpRecord> ExpRecords { get; set; }
     }
 }

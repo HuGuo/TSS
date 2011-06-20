@@ -15,6 +15,15 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
         if (!IsPostBack) {
             string templateID = Request.QueryString["tid"];
             string id = Request.QueryString["id"];
+            string eqId=Request.QueryString["eqmId"];
+            if (!string.IsNullOrWhiteSpace(eqId)) {
+                Equipment obj= RepositoryFactory<Equipments>.Get().Get(new Guid(eqId));
+                if (null !=obj) {
+                    rptEquipment.DataSource = obj.EquipmentDetails;
+                    rptEquipment.DataBind();
+                }
+
+            }
             if (!string.IsNullOrWhiteSpace(id)) {
                 //edit model ,load data                
                 Experiment experiment = RepositoryFactory<ExperimentRepository>.Get().Get(System.Guid.Parse(id));
@@ -28,7 +37,7 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
                 System.Guid guid;
 
                 if (Guid.TryParse(templateID, out guid)) {
-                    string input = "<input type=\"text\" style=\"width:0;height:0;\" class=\"{0}\" {1} />";
+                    string input = "<input type=\"text\" style=\"width:75px;\" class=\"{0}\" {1} />";
                     string textarea = "<textarea style=\"width:0;height:0;\" class=\"text\"></textarea>";
 
                     ExpTemplate template = RepositoryFactory<ExpTemplateRepository>.Get().Get(guid);

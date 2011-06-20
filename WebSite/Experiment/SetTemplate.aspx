@@ -1,13 +1,12 @@
-ï»¿<%@ Page Language="C#" ValidateRequest="false" EnableViewState="false" AutoEventWireup="true" CodeFile="SetTemplate.aspx.cs" Inherits="Experiment_SetTemplate" %>
+<%@ Page Language="C#" ValidateRequest="false" EnableViewState="false" AutoEventWireup="true" CodeFile="SetTemplate.aspx.cs" Inherits="Experiment_SetTemplate" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>è®¾ç½®æ¨¡ç‰ˆ</title>
+    <title>ÉèÖÃÄ£°æ</title>
         
     <link href="experiment.css" rel="stylesheet" type="text/css" />
-
-    <link href="../scripts/jquery-easyui/thems/gray/menu.css" rel="stylesheet" type="text/css" />
+    <link href="../scripts/jquery-easyui/themes/gray/menu.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../scripts/jquery-easyui/plugins/jquery.menu.js" type="text/javascript"></script>
     <script src="../scripts/jquery.excel.js" type="text/javascript"></script>
@@ -15,11 +14,11 @@
 <body>
     <form id="form1" runat="server">
     <div id="toolbar">
-        è¡Œæ•°<input type="text" id="txt_row" value="10" style="width: 50px;" />åˆ—æ•°<input type="text"
+        ÐÐÊý<input type="text" id="txt_row" value="10" style="width: 50px;" />ÁÐÊý<input type="text"
             id="txt_column" style="width: 50px;" value="10" />
-        <input type="button" id="btnDrawTable" value="ç»˜åˆ¶è¡¨æ ¼" />
-        æ¨¡æ¿åç§°<input type="text" id="txt_tmpName" runat="server" />
-        <input type="button" id="btnSave" value="ä¿å­˜æ¨¡æ¿" />
+        <input type="button" id="btnDrawTable" value="»æÖÆ±í¸ñ" />
+        Ä£°åÃû³Æ<input type="text" id="txt_tmpName" runat="server" />
+        <input type="button" id="btnSave" value="±£´æÄ£°å" />
     </div>
     <div id="dtb" style=" margin-top:31px;"><asp:Literal ID="ltHTML" runat="server"></asp:Literal></div>
         <input id="txt_hidden_cid" type="hidden" value="<%=Request.QueryString["cid"] %>" />
@@ -28,39 +27,39 @@
     </form>
     <div id="ct_menu" style="width: 120px;">
         <div onclick="javascript:$.simpleExcel.clearCell()">
-            æ¸…ç©º</div>
+            Çå¿Õ</div>
         <div class="menu-sep">
         </div>
         <div onclick="javascript:$.simpleExcel.mergeCell()">
-            åˆå¹¶å•å…ƒæ ¼</div>
+            ºÏ²¢µ¥Ôª¸ñ</div>
         <div onclick="javascript:$.simpleExcel.splitCell()">
-            æ‹†åˆ†å•å…ƒæ ¼</div>
+            ²ð·Öµ¥Ôª¸ñ</div>
         <div class="menu-sep">
         </div>
         <div>
-            <span>è®¾ç½®æ ¼å¼</span>
+            <span>ÉèÖÃ¸ñÊ½</span>
             <div style="width: 100px;">
                 <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'left'});">
-                    å·¦å¯¹é½</div>
+                    ×ó¶ÔÆë</div>
                 <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'center'});">
-                    å±… ä¸­</div>
+                    ¾Ó ÖÐ</div>
                 <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'right'});">
-                    å³å¯¹é½</div>
+                    ÓÒ¶ÔÆë</div>
                 <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'700'});">
-                    åŠ  ç²—</div>
+                    ¼Ó ´Ö</div>
             </div>
         </div>
         <div>
-            <span>æ·»åŠ /åˆ é™¤</span>
+            <span>Ìí¼Ó/É¾³ý</span>
             <div style="width: 100px;">
-                <div onclick="javascript:$.simpleExcel.appendRow();">
-                    æ’å…¥ ä¸‹ä¸€è¡Œ</div>
+                <div onclick="javascript:a1();">
+                    ²åÈë ÏÂÒ»ÐÐ</div>
                 <div onclick="javascript:$.simpleExcel.appendColumn();">
-                    æ’å…¥ å³è¾¹åˆ—</div>
+                    ²åÈë ÓÒ±ßÁÐ</div>
                 <div onclick="javascript:$.simpleExcel.removeRow();">
-                    åˆ é™¤ è¡Œ</div>
+                    É¾³ý ÐÐ</div>
                 <div onclick="javascript:$.simpleExcel.removeColumn();">
-                    åˆ é™¤ åˆ—</div>
+                    É¾³ý ÁÐ</div>
             </div>
         </div>
     </div>
@@ -68,6 +67,13 @@
 </html>
 <script type="text/javascript">
     $(function () {
-        var excel = $("#dtb").simpleExcel({ rows: 10, columns: 10, menu: $("#ct_menu") });        
+        var excel = $("#dtb").simpleExcel({ rows: 10, columns: 10, menu: $("#ct_menu") });
+        function a1() {
+            alert("aa");
+            excel.addRow();
+        }
+        //excel.removeRow();
+        excel.removeColumn();
+        //excel.addColumn();
     });
 </script>

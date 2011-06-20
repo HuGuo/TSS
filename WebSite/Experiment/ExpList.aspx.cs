@@ -16,7 +16,7 @@ public partial class Experiment_ExpList : System.Web.UI.Page
             string s = Request.QueryString["s"];
             if (!string.IsNullOrWhiteSpace(categoryId)) {
                 //加载分类下设备
-                rptEqipmentList.DataSource= TSS.BLL.RepositoryFactory<Equipments>.Get().GetAllByCategoryAndSpecialtyWithDetails(categoryId, s);
+                rptEqipmentList.DataSource= TSS.BLL.RepositoryFactory<Equipments>.Get().GetList(categoryId, s);
                 rptEqipmentList.DataBind();
 
                 //加载分类下所有设备所做过的实验

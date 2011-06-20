@@ -39,8 +39,12 @@ namespace TSS.BLL
             Context.SaveChanges();
         }
 
-        public virtual void Update(TEntity entity) {
+        public virtual void Update(TEntity entity)
+        {
+            Context.Set<TEntity>().Attach(entity);
+
             Context.Entry<TEntity>(entity).State = EntityState.Modified;
+
             Context.SaveChanges();
         }
 
@@ -59,9 +63,10 @@ namespace TSS.BLL
             }
         }
 
-        private void Delete(TEntity entity)
+        public void Delete(TEntity entity)
         {
             Context.Set<TEntity>().Attach(entity);
+
             Context.Set<TEntity>().Remove(entity);
 
             Context.SaveChanges();

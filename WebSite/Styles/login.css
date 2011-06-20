@@ -4,7 +4,7 @@
 }
 body{
 	font-size:14px;
-	background:#f4f4f4 url(images/bg.gif) repeat top left;
+	background:#f4f4f4 url(../images/bg.gif) repeat top left;
 	color:#333;
 	text-shadow:1px 1px 1px #fff;
 	overflow:hidden

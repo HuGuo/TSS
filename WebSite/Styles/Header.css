@@ -1,0 +1,36 @@
+﻿@import "Base.css";
+
+#header {
+    background: url(../images/header.gif) repeat-x;
+}
+
+#header_logo {
+    background: url(../images/header_logo.jpg) no-repeat;
+    height: 64px;
+    width: 666px;    
+}
+
+#header_toolbar {
+    background: url(../images/header_toolbar.gif) no-repeat;
+    width: 344px;
+    height: 32px;
+    position: absolute;
+    top: 16px;
+    right: 10px;    
+    line-height: 32px;
+    font-size: 12px;
+}
+
+#header_toolbar ul {
+    margin-left: 8px;
+}
+
+#header_toolbar li {
+    float: left;
+    width: 80px;
+    text-align: center;
+}
+
+#header_toolbar li a {
+    color: #fff;
+}
