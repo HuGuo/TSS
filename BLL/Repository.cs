@@ -7,7 +7,7 @@ using System;
 
 namespace TSS.BLL
 {
-    public abstract class Repository<TEntity, TKey> : IDisposable
+    public abstract class Repository<TEntity> : IDisposable
         where TEntity : class
     {
         protected Context Context { get; private set; }
@@ -22,7 +22,7 @@ namespace TSS.BLL
             Context.Dispose();
         }
 
-        public TEntity Get(TKey id) 
+        public TEntity Get(object id) 
         {
             return Context.Set<TEntity>().Find(id);
         }
@@ -48,7 +48,7 @@ namespace TSS.BLL
             Context.SaveChanges();
         }
 
-        public virtual void Update(TKey keyValue,TEntity entity) {
+        public virtual void Update(object keyValue,TEntity entity) {
             TEntity oldEntity = Context.Set<TEntity>().Find(keyValue);
             if (null !=oldEntity) {
                 Context.Entry<TEntity>(oldEntity).CurrentValues.SetValues(entity);
@@ -56,7 +56,7 @@ namespace TSS.BLL
             Context.SaveChanges();
         }
 
-        public virtual void Delete(TKey id)
+        public virtual void Delete(object id)
         {
             if (IsExists(id)) {
                 Delete(Get(id));
@@ -72,7 +72,7 @@ namespace TSS.BLL
             Context.SaveChanges();
         }
 
-        public bool IsExists(TKey id) 
+        public bool IsExists(object id) 
         {
             return null != Get(id);
         }

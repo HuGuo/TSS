@@ -6,7 +6,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class ExperimentRepository : Repository<Experiment , Guid>
+    public class ExperimentRepository : Repository<Experiment>
     {
         public ExperimentRepository() { }
 

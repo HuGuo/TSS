@@ -5,7 +5,7 @@ using System.Data.Entity;
 
 namespace TSS.BLL
 {
-    public class Modules : Repository<TSS.Models.Module, int>
+    public class Modules : Repository<TSS.Models.Module>
     {
         public IList<Module> GetRootModules()
         {

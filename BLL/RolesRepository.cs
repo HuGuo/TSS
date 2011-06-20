@@ -6,7 +6,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class RolesRepository:Repository<Role,Guid>
+    public class RolesRepository:Repository<Role>
     {
         
     }

@@ -5,7 +5,7 @@ using System.Linq;
 using TSS.Models;
 namespace TSS.BLL
 {
-    public class ExpTemplateRepository : Repository<ExpTemplate , Guid>
+    public class ExpTemplateRepository : Repository<ExpTemplate>
     {
         public ExpTemplateRepository() { }
 
@@ -14,7 +14,7 @@ namespace TSS.BLL
             return null;
 
         }
-        public override void Delete(Guid id) {
+        public override void Delete(object id) {
             ExpTemplate entity = Context.ExpTemplates.Find(id);
             if (null != entity) {
                 int exps = Context.Experiments.Count(p => p.ExpTemplateID == entity.Id);

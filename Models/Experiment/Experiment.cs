@@ -24,6 +24,8 @@ namespace TSS.Models
         /// 1 合格
         /// </summary>
         public int Result { get; set; }
+        public string Remark { get; set; }
+
         public virtual ICollection<ExpData> Expdatas { get; set; }
         public virtual ICollection<ExpAttachment> Attachments { get; set; }
     }

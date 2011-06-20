@@ -5,7 +5,7 @@ using System.Data.Entity;
 using TSS.Models;
 namespace TSS.BLL
 {
-    public class DocumentRepository : Repository<Document , Guid>
+    public class DocumentRepository : Repository<Document>
     {
         public DocumentRepository() { }
 
