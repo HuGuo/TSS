@@ -27,10 +27,13 @@
     height: 30px;
     width: 100%;
     background: url(../images/toolbarbg.gif) repeat-x scroll bottom right;
-    position: fixed;
-    z-index: 123;
     top: 0;
 }
+.fixed 
+{
+    position: fixed;
+    z-index: 123;
+    }
 #toolbar a {
     margin: 0;
     padding: 5px 10px 4px 10px;

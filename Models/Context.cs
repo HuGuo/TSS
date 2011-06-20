@@ -31,70 +31,67 @@ namespace TSS.Models
         public IDbSet<MaintenanceExperiment> MaintenanceExperiments { get; set; }
         public IDbSet<Role> Roles { get; set; }
         public IDbSet<Right> Rights { get; set; }
-
+        public IDbSet<ExpRecord> ExpRecords { get; set; }
         public Context()
-            : base("name=TSS")
-        {
+            : base("TSS") {
             Database.SetInitializer<Context>(new DatabaseInitializer());
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+
             modelBuilder.Entity<ExpData>()
                 .HasKey<int>(p => p.Id)
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
             modelBuilder.Entity<Document>().Ignore(p => p.Childs);
-            //modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
-            //modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
-            modelBuilder.Entity<ExpData>().Property(p => p.Value).HasPrecision(18 , 6);
-            modelBuilder.Entity<Right>().HasKey(p=>p.Id).Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
+            modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
+            modelBuilder.Entity<Right>().HasKey(p => p.Id).Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
         }
     }
 
     class DatabaseInitializer : DropCreateDatabaseIfModelChanges<Context>
     {
-        protected override void Seed(Context context)
-        {
+        protected override void Seed(Context context) {
             base.Seed(context);
 
             var systemManagementModules = new List<Module> {
-                new Module { Name = "äººå‘˜ç®¡ç†", Url = "Employee" },
-                new Module { Name = "è®¾å¤‡ç®¡ç†", Url = "Equipment" },
-                new Module { Name = "å®éªŒç®¡ç†", Url = "Experiment" },
-                new Module { Name = "å·¥ä½œæµç®¡ç†", Url = "Workflow" },
-                new Module { Name = "æ¨¡å—ç®¡ç†", Url = "Module" }
+                new Module { Name = "ÈËÔ±¹ÜÀí", Url = "Employee" },
+                new Module { Name = "Éè±¸¹ÜÀí", Url = "Equipment" },
+                new Module { Name = "ÊµÑé¹ÜÀí", Url = "Experiment" },
+                new Module { Name = "¹¤×÷Á÷¹ÜÀí", Url = "Workflow" },
+                new Module { Name = "Ä£¿é¹ÜÀí", Url = "Module" }
             };
 
             var specialtyModules = new List<Module> {
-                    new Module { Name = "è®¾å¤‡å°å¸", Url = "Equipment" },
-                    new Module { Name = "å®éªŒæŠ¥å‘Š", Url = "Experiment" },
-                    new Module { Name = "é¢„è¯•å‘¨æœŸ", Url = "MaintenanceCycle" },
-                    new Module { Name = "ç›‘ç£æœˆæŠ¥", Url = "Report" },
-                    new Module { Name = "äººå‘˜èµ„è´¨", Url = "Certificate" },
-                    new Module { Name = "æ¡£æ¡ˆèµ„æ–™", Url = "Document" }
+                    new Module { Name = "Éè±¸Ì¨ÕÊ", Url = "Equipment" },
+                    new Module { Name = "ÊµÑé±¨¸æ", Url = "Experiment" },
+                    new Module { Name = "Ô¤ÊÔÖÜÆÚ", Url = "MaintenanceCycle" },
+                    new Module { Name = "¼à¶½ÔÂ±¨", Url = "Report" },
+                    new Module { Name = "ÈËÔ±×ÊÖÊ", Url = "Certificate" },
+                    new Module { Name = "µµ°¸×ÊÁÏ", Url = "Document" }
             };
 
             new List<Module> {
-                new Module { Id = 1, Name = "ä¸“ä¸šç›‘ç£", Submodules = specialtyModules },
-                new Module { Id = 2, Name = "ç›‘ç£åŠ¨æ€" },
-                new Module { Id = 3, Name = "ç›‘ç£ä½“ç³»" },
-                new Module { Id = 4, Name = "ç›‘ç£ç®¡ç†" },
-                new Module { Id = 5, Name = "ç³»ç»Ÿç®¡ç†", Url= "SystemManagement", Submodules = systemManagementModules }
+                new Module { Id = 1, Name = "×¨Òµ¼à¶½", Submodules = specialtyModules },
+                new Module { Id = 2, Name = "¼à¶½¶¯Ì¬" },
+                new Module { Id = 3, Name = "¼à¶½ÌåÏµ" },
+                new Module { Id = 4, Name = "¼à¶½¹ÜÀí" },
+                new Module { Id = 5, Name = "ÏµÍ³¹ÜÀí", Url= "SystemManagement", Submodules = systemManagementModules }
             }.ForEach(m => {
                 context.Modules.Add(m);
             });
 
             new List<Specialty> {
-                new Specialty { Id = "GHY-DC", Name = "ç”µæµ‹è®¡é‡" },
-                new Specialty { Id = "GHY-DN", Name = "ç”µèƒ½" },
-                new Specialty { Id = "GHY-HX", Name = "åŒ–å­¦" },
-                new Specialty { Id = "GHY-JDBH", Name = "ç»§ç”µä¿æŠ¤" },
-                new Specialty { Id = "GHY-JN", Name = "èŠ‚èƒ½" },
-                new Specialty { Id = "GHY-JS", Name = "é‡‘å±" },
-                new Specialty { Id = "GHY-JY", Name = "ç»ç¼˜" },
-                new Specialty { Id = "GHY-LC", Name = "åŠ±ç£" },
-                new Specialty { Id = "GHY-RG", Name = "çƒ­å·¥" }
+                new Specialty { Id = "GHY-DC", Name = "µç²â¼ÆÁ¿" },
+                new Specialty { Id = "GHY-DN", Name = "µçÄÜ" },
+                new Specialty { Id = "GHY-HX", Name = "»¯Ñ§" },
+                new Specialty { Id = "GHY-JDBH", Name = "¼Ìµç±£»¤" },
+                new Specialty { Id = "GHY-JN", Name = "½ÚÄÜ" },
+                new Specialty { Id = "GHY-JS", Name = "½ğÊô" },
+                new Specialty { Id = "GHY-JY", Name = "¾øÔµ" },
+                new Specialty { Id = "GHY-LC", Name = "Àø´Å" },
+                new Specialty { Id = "GHY-RG", Name = "ÈÈ¹¤" }
             }.ForEach(s => {
                 s.Modules = specialtyModules;
                 context.Specialties.Add(s);

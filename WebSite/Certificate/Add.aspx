@@ -9,7 +9,7 @@
 </head>
 <body>
     <form id="form1" runat="server" style=" padding-top:32px;">
-    <div id="toolbar">
+    <div id="toolbar" class="fixed">
     <a href="Default.aspx?s=<%=Request.QueryString["s"] %>">返回列表</a>
     </div>
 

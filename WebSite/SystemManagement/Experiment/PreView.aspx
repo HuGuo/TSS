@@ -6,18 +6,19 @@
 <head runat="server">
     <title>实验报告模板</title>
     <link href="../../experiment/experiment.css" rel="stylesheet" type="text/css" />
-    <%--<script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>--%>
+    <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div id="dtb">
         <asp:Literal ID="ltHTML" runat="server"></asp:Literal>
-    </div>
     </form>
 </body>
 </html>
-<%--<script type="text/javascript">
+<script type="text/javascript">
     $(function () {
-        
+        $("#simpleExcel tr:eq(1) td").each(function () {
+            $(this).width($(this).width());
+        });
+        $("#simpleExcel tr:first,#simpleExcel th").remove();
     });
-</script>--%>
+</script>

@@ -53,8 +53,8 @@
             }
         },
         delItem: function () {
-            var $selitems = $.FF.$$$.$ul.find("a.selected");
-            if (selitems.size() < 1) {
+            var $selitems = $.FF.$$$.$ul.find("a.selected"); 
+            if ($selitems.size() < 1) {
                 return false;
             }
             $.messager.confirm('删除提示', '确定删除所选项？', function (r) {

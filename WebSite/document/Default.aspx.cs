@@ -32,7 +32,7 @@ public partial class document_Default : System.Web.UI.Page
     {
         string extension=System.IO.Path.GetExtension(path);
         if (extension=="" || extension.ToLower()==".folder") {
-            return "../scripts/images/folder.gif";
+            return "../images/folder.gif";
         } else {
             return ICON_PATH + extension;
         }

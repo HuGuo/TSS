@@ -4,8 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>用户列表</title>
-    <link href="../../scripts/base.css" rel="stylesheet" type="text/css" />
-    <link href="../../scripts/jquery-easyui/thems/gray/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../Styles/_base.css" rel="stylesheet" type="text/css" />
+    <link href="../../scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet"
+        type="text/css" />
     <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
 </head>
@@ -88,6 +89,9 @@
 </html>
 <script type="text/javascript">
     $(function () {
+        $(document).ajaxError(function (event, request, settings) {
+            alert("出错页面:" + settings.url );
+        });
         var g = {
             handlerUrl: "../../employee.ashx",
             ll: function (o) {

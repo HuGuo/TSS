@@ -22,7 +22,7 @@ public partial class Experiment_ExpList : System.Web.UI.Page
                 //加载分类下所有设备所做过的实验
                 Guid id = new Guid(categoryId);
                 IList<Experiment> list = RepositoryFactory<ExperimentRepository>.Get().GetByEquipmentCategory(id, s);
-                rptList.DataSource = list;
+                rptList.DataSource = list.OrderByDescending(p => p.ExpDate);
                 rptList.DataBind();
             }
 

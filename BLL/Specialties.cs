@@ -30,7 +30,7 @@ namespace TSS.BLL
             IList<Module> result = null;
 
             var s = Context.Specialties.Find(spcialtyId);
-            var m = Context.Modules.Find(1); // 只获取专业监督
+            var m = Context.Modules.Find(1); // 只锟斤拷取专业锟洁督
             if (s != null && m != null) {
                 result = m.Submodules.Except(s.Modules).ToList();
             }
