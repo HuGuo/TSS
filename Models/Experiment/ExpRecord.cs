@@ -8,6 +8,8 @@ namespace TSS.Models
         public string Name { get; set; }
         public string Path { get; set; }
         public Guid ExpTemplateId { get; set; }
+        public string SpecialtyId { get; set; }
+        public virtual Specialty Specialty { get; set; }
         public virtual ExpTemplate DataSourcesTemplate { get; set; }
     }
 }

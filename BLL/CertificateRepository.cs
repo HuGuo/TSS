@@ -5,7 +5,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class CertificateRepository : Repository<Certificate>
+    public class CertificateRepository : Repository<Certificate,Guid>
     {
         public CertificateRepository() { }
 

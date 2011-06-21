@@ -7,7 +7,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class EquipmentCategories : Repository<EquipmentCategory>
+    public class EquipmentCategories : Repository<EquipmentCategory,Guid>
     {
         public void Add(string name, string parentId)
         {

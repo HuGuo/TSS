@@ -34,6 +34,9 @@ public class ExpHandler : IHttpHandler
                 case "recordjson":
                     ResponseExpRecordJSON(context);
                     break;
+                case "sert":
+                    SaveExpRecordTemplate(context);
+                    break;
                 default:
                     break;
             }
@@ -122,8 +125,7 @@ public class ExpHandler : IHttpHandler
 
     void DeleteTemplate(HttpContext context) {        
         try {
-            Guid id = new Guid(context.Request["id"]);
-            RepositoryFactory<ExpTemplateRepository>.Get().Delete(id);            
+            RepositoryFactory<ExpTemplateRepository>.Get().Delete(new Guid(context.Request["id"]));            
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }
@@ -131,8 +133,7 @@ public class ExpHandler : IHttpHandler
     }
     void DeleteExperiment(HttpContext context) {        
         try {
-            Guid id = new Guid(context.Request["id"]);
-            RepositoryFactory<ExperimentRepository>.Get().Delete(id);
+            RepositoryFactory<ExperimentRepository>.Get().Delete(new Guid(context.Request["id"]));
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }
@@ -182,9 +183,23 @@ public class ExpHandler : IHttpHandler
     //保存实验台帐模板
     void SaveExpRecordTemplate(HttpContext context) {
         string id = context.Request["id"];
+        string tmpId = context.Request["tmpId"];
         string html = context.Request["html"];
         try {
-            //ExpRecord obj=RepositoryFactory<ExperimentRepository>.Get().Get
+            ExpRecord obj = RepositoryFactory<ExpReocrdRepository>.Get().Get(new Guid(id));
+            if (null !=obj) {
+                obj.DataSourcesTemplate = RepositoryFactory<ExpTemplateRepository>.Get().Get(new Guid(tmpId));
+                string path = context.Server.MapPath(obj.Path);
+                if (System.IO.File.Exists(path)) {
+                    using (System.IO.StreamWriter write = new System.IO.StreamWriter(path , false)) {
+                        write.WriteLine("<!--"+obj.Name+"-->");
+                        write.Write(html);
+                        write.Flush();
+                        write.Close();
+                    }
+                }
+                RepositoryFactory<ExpReocrdRepository>.Get().Update(obj.Id , obj);
+            }
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }

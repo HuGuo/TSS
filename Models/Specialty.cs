@@ -15,5 +15,9 @@ namespace TSS.Models
         public virtual ICollection<MaintenanceClass> MaintenanceCalss { get; set; }
 
         public virtual ICollection<Module> Modules { get; set; }
+        /// <summary>
+        /// 实验台帐
+        /// </summary>
+        public virtual ICollection<ExpRecord> ExpRecords { get; set; }
     }
 }

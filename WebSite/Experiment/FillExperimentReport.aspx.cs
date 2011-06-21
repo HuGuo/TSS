@@ -17,7 +17,7 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
             string id = Request.QueryString["id"];
             string eqId=Request.QueryString["eqmId"];
             if (!string.IsNullOrWhiteSpace(eqId)) {
-                Equipment obj= RepositoryFactory<Equipments>.Get().Get(new Guid(eqId));
+                Equipment obj = RepositoryFactory<Equipments>.Get().Get(new Guid(eqId));
                 if (null !=obj) {
                     rptEquipment.DataSource = obj.EquipmentDetails;
                     rptEquipment.DataBind();

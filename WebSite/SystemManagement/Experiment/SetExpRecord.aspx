@@ -30,6 +30,7 @@
     <div class="layout" style="overflow:auto; height:400px;">
     <asp:Literal ID="ltExpTemplate" runat="server"></asp:Literal>
     </div>
+    <input type="hidden" runat="server" id="exptemplate" />
 </body>
 </html>
 <script type="text/javascript">
@@ -39,6 +40,7 @@
             return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
         };
         var c = '#fafafa';
+        var handler = "../../exp.ashx";
         $("#simpleExcel").find("td:contains('{#}'),td:contains('{d}'),td:contains('{time}')").draggable({
             revert: true,
             deltaX: 0,
@@ -77,7 +79,20 @@
         });
 
         $("#btnSave").click(function () {
-            alert($("#divt1").html());
+            var query = { op: "sert", id: "", tmpId: "", html: "" };
+            query.id = '<%=Request.QueryString["id"] %>';
+            query.tmpId = $("#exptemplate").val();
+            query.html = $("#divt1").html();
+            if (query.id == "" || query.t == "") {
+                return;
+            }
+            $.post(handler, query, function (res) {
+                if (res != "") {
+                    alert(res);
+                } else {
+                    alert("保存成功");
+                }
+            });
         });
     });
 

@@ -6,7 +6,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class Employees : Repository<Employee>
+    public class Employees : Repository<Employee,Guid>
     {
         public bool ExistsCode(string code)
         {

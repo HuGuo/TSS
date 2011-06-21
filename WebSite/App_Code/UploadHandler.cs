@@ -117,7 +117,7 @@ public class UploadHandler : IHttpHandler
             string id = context.Request["id"];
             
             if (!string.IsNullOrWhiteSpace(id)) {
-                RepositoryFactory<DocumentRepository>.Get().Delete(new Guid(id), onDelete);                
+                RepositoryFactory<DocumentRepository>.Get().Delete(new Guid(id) , onDelete);                
             }
         } catch (Exception ex) {
             context.Response.Write(ex.Message);

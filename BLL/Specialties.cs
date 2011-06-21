@@ -6,7 +6,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class Specialties : Repository<Specialty>
+    public class Specialties : Repository<Specialty,string>
     {
         public IList<Specialty> GetAllWithModules()
         {

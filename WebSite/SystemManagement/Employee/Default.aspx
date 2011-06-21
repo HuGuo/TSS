@@ -89,6 +89,9 @@
 </html>
 <script type="text/javascript">
     $(function () {
+        $(document).ajaxError(function (event, request, settings) {
+            alert("出错页面:" + settings.url );
+        });
         var g = {
             handlerUrl: "../../employee.ashx",
             ll: function (o) {

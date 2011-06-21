@@ -10,14 +10,18 @@ public partial class SystemManagement_Experiment_SetExpRecord : System.Web.UI.Pa
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        string id = "b7064ba8-1585-4733-bc2a-1f295c97b150";
+        //string id = "b7064ba8-1585-4733-bc2a-1f295c97b150";
+        string id = Request.QueryString["id"];
         ExpRecord obj = RepositoryFactory<ExpReocrdRepository>.Get().Get(new Guid(id));
-        if (null!=obj.DataSourcesTemplate) {
-            ltExpTemplate.Text = obj.DataSourcesTemplate.HTML;
-        }
-        using (System.IO.StreamReader fs=System.IO.File.OpenText(Server.MapPath("zb.htm"))) {
-            ltExpReocrd.Text= fs.ReadToEnd();
-            fs.Close();            
+        if (null != obj) {
+            if (null != obj.DataSourcesTemplate) {
+                ltExpTemplate.Text = obj.DataSourcesTemplate.HTML;
+                exptemplate.Value = obj.ExpTemplateId.ToString();
+            }
+            using (System.IO.StreamReader fs = System.IO.File.OpenText(Server.MapPath(obj.Path))) {
+                ltExpReocrd.Text = fs.ReadToEnd();
+                fs.Close();
+            }
         }
     }
 }
