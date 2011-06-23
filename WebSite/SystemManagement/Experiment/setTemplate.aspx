@@ -19,7 +19,7 @@
         行数<input type="text" id="txt_row" value="10" style="width: 50px;" />列数<input type="text"
             id="txt_column" style="width: 50px;" value="10" />
         <input type="button" id="btnDrawTable" value="绘制表格" />
-        模板名称<input type="text" id="txt_tmpName" runat="server" />
+        模板名称<input type="text" id="txt_tmpName" runat="server" style="width: 250px;" />
         <asp:DropDownList ID="ddlSpecialty" runat="server">
         </asp:DropDownList>
         <input type="button" id="btnSave" value="保存模板" />
@@ -105,11 +105,14 @@
             $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass).removeClass($.simpleExcel._op.selectedCellClass);
             q.html = $("#dtb").html();
             $.post("../../exp.ashx", q, function (data) {
-                if (data == "1") {
-                    alert("模板保存成功");
-                    window.close();
+                var json = eval('(' + data + ')');
+                if (json.msg) {
+                    alert(json.msg);
                 } else {
-                    alert(data);
+                    document.location.href = "default.aspx";
+                    //                    document.location.href = "success.aspx?id=" + json.id;
+                    //                    alert("操作成功");
+                    //                    window.close();
                 }
             });
         });

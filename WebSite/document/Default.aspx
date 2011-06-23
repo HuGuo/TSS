@@ -29,7 +29,7 @@
             <ItemTemplate>
                 <li><a href="javascript:;" pid="<%#Eval("id") %>" backid="<%#Eval("ParentId") %>"
                     isfolder="<%#Eval("isFolder") %>" title="<%#Eval("name") %>">
-                    <div class="ico" style="background: url(<%# getIcon(Eval("Path").ToString()) %>) no-repeat center center;">
+                    <div class="ico <%# Helper.GetClassName(Eval("Name").ToString()) %>">
                     </div>
                     <div class="filename">
                         <%#Eval("name") %>
@@ -61,7 +61,6 @@
 <script type="text/javascript">
     $.FF.config({
         s: '<%=Request.QueryString["s"] %>',
-        pid: '<%=Request.QueryString["pid"] %>',        
-        iconPath: '<%=ICON_PATH %>'
+        pid: '<%=Request.QueryString["pid"] %>'
     });
 </script>

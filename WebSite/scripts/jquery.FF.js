@@ -5,9 +5,8 @@
 (function ($) {
     $.FF = {
         $$$: { s: '', pid: '',
-            iconPath: 'http://192.168.0.100/icons/geticon.axd?file=',
             $ul: $("#mylist"),
-            $li: '<li><a href="#" pid="{0}" isfolder="{1}" title="{2}"><div class="ico" style="background: url({3}) no-repeat center center;"></div><div class="filename">{2}</div></a></li>'
+            $li: '<li><a href="#" pid="{0}" isfolder="{1}" title="{2}"><div class="ico {3}"></div><div class="filename">{2}</div></a></li>'
         },
         config: function (opt) { $.extend($.FF.$$$, opt) },
         regUpload: function () {
@@ -21,7 +20,7 @@
                 'onComplete': function (event, ID, fileObj, response, data) {
                     var json = eval('(' + response + ')');
                     if (json.errorMsg == '') {
-                        $.FF.$$$.$ul.append(String.format($.FF.$$$.$li, json.id, "0", json.name, $.FF.$$$.iconPath + json.extension));
+                        $.FF.$$$.$ul.append(String.format($.FF.$$$.$li, json.id, "0", json.name,  json.extension));
                     } else {
                         alert(json.errorMsg);
                     }
@@ -44,7 +43,7 @@
                 $.get("../upload.ashx", q, function (data) {
                     var json = eval('(' + data + ')');
                     if (json.errorMsg == "") {
-                        $.FF.$$$.$ul.append(String.format($.FF.$$$.$li, json.id, "1", json.name, $.FF.$$$.iconPath + json.extension));
+                        $.FF.$$$.$ul.append(String.format($.FF.$$$.$li, json.id, "1", json.name, json.extension));
                         $('#dg_newfolder').dialog('close');
                     } else {
                         alert(json.errorMsg);

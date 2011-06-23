@@ -9,7 +9,6 @@ namespace TSS.BLL
     public class ExperimentRepository : Repository<Experiment,Guid>
     {
         public ExperimentRepository() { }
-
         public void Add(Experiment entity,Action<Experiment> onAdd=null) {
             base.Add(entity);
             if (null !=onAdd) {
@@ -17,6 +16,33 @@ namespace TSS.BLL
             }
         }
 
+        public void RemoveAttachment(Guid id,Guid attachment,Action<string> onRemove) {
+            Experiment obj = Context.Experiments.Find(id);
+            if (null !=obj) {
+                ExpAttachment item=obj.Attachments.Single(p => p.Id.Equals(attachment));
+                if (null !=item) {
+                    Context.ExpAttachments.Remove(item);
+                    obj.Attachments.Remove(item);
+                    Context.SaveChanges();
+                    onRemove(item.Id + System.IO.Path.GetExtension(item.FileName));
+                }
+            }
+        }
+
+        public void AddAttachment(Guid id , ICollection<ExpAttachment> items , Action<ICollection<ExpAttachment>> onError) {
+            try {
+                Experiment obj = Context.Experiments.Find(id);
+                if (null != obj) {
+                    foreach (var item in items) {
+                        item.Experiment = obj;
+                        obj.Attachments.Add(item);
+                    }
+                    Context.SaveChanges();
+                }
+            } catch (Exception) {
+                onError(items);
+            }
+        }
         public Experiment GetLastExperiment(Guid templateId,Guid equipmentId) {
             return Context.Experiments.Where(p => p.EquipmentID.Equals(equipmentId) && p.ExpTemplateID.Equals(templateId))
                 .OrderByDescending(p => p.ExpDate)

@@ -2,11 +2,11 @@
 {
     public class RepositoryFactory<T> where T : new()
     {
-        private static readonly T instance = new T();
+        //private static readonly T instance = new T();
 
         public static T Get()
         {
-            return instance;
+            return new T();
         }
     }
 }

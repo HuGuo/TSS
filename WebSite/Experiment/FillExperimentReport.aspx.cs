@@ -16,6 +16,7 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
             string templateID = Request.QueryString["tid"];
             string id = Request.QueryString["id"];
             string eqId=Request.QueryString["eqmId"];
+            //设备信息
             if (!string.IsNullOrWhiteSpace(eqId)) {
                 Equipment obj = RepositoryFactory<Equipments>.Get().Get(new Guid(eqId));
                 if (null !=obj) {
@@ -31,6 +32,9 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
                     txt_tmpName.Value = experiment.Title;
                     ltHTML.Text = experiment.HTML;
                     txt_expdate.Text = experiment.ExpDate.ToString("yyyy-MM-dd");
+                    txt_remark.Value = experiment.Remark;
+                    rptlistAttachment.DataSource = experiment.Attachments;
+                    rptlistAttachment.DataBind();
                 }
             }
             else if (!string.IsNullOrWhiteSpace(templateID)) {

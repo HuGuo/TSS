@@ -61,7 +61,7 @@ public class UploadHandler : IHttpHandler
                 doc.Path = obj.Path+ doc.Id + fileExtension;
                 upload.SaveAs(configPath + doc.Path);
                 RepositoryFactory<DocumentRepository>.Get().Add(doc);
-                context.Response.Write("{" + string.Format(res, doc.Id.ToString(), doc.Name, fileExtension, "") + "}");
+                context.Response.Write("{" + string.Format(res, doc.Id.ToString(), doc.Name, fileExtension.Replace(".",""), "") + "}");
             }
         } catch(Exception ex) {
             context.Response.Write("{" + string.Format(res, "", "", "", ex.Message) + "}");
@@ -81,7 +81,7 @@ public class UploadHandler : IHttpHandler
             if (!System.IO.Directory.Exists(configPath+doc.Path)) {
                 System.IO.Directory.CreateDirectory(configPath + doc.Path);
                 RepositoryFactory<DocumentRepository>.Get().Add(doc);
-                context.Response.Write("{" + string.Format(res, doc.Id.ToString(), doc.Name, ".folder", "") + "}");
+                context.Response.Write("{" + string.Format(res, doc.Id.ToString(), doc.Name, "folder", "") + "}");
             }            
         } catch (Exception ex) {
             context.Response.Write("{" + string.Format(res, "", "", "", ex.Message) + "}");
