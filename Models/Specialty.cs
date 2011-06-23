@@ -16,5 +16,8 @@ namespace TSS.Models
         public virtual ICollection<SpecialtyAnalysis> SpecialtyAnalysises { get; set; }
         public virtual ICollection<Module> Modules { get; set; }
         public virtual ICollection<Indicator> Indicators { get; set; }
+        /// 实验台帐
+        /// </summary>
+        public virtual ICollection<ExpRecord> ExpRecords { get; set; }
     }
 }

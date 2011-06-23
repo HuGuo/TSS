@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.3
+ * jQuery EasyUI 1.2.4
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -90,12 +90,12 @@ _12.addClass("menu-active");
 var _15=_12[0].submenu;
 if(_15){
 var _16=_12.offset().left+_12.outerWidth()-2;
-if(_16+_15.outerWidth()+5>$(window).width()){
+if(_16+_15.outerWidth()+5>$(window).width()+$(document).scrollLeft()){
 _16=_12.offset().left-_15.outerWidth()+2;
 }
 var top=_12.offset().top-3;
-if(top+_15.outerHeight()>$(window).height()){
-top=$(window).height()-_15.outerHeight()-5;
+if(top+_15.outerHeight()>$(window).height()+$(document).scrollTop()){
+top=$(window).height()+$(document).scrollTop()-_15.outerHeight()-5;
 }
 _1f(_15,{left:_16,top:top});
 }
@@ -128,10 +128,10 @@ var _1e=$.data(_1d,"menu").options;
 if(pos){
 _1e.left=pos.left;
 _1e.top=pos.top;
-if(_1e.left+$(_1d).outerWidth()>$(window).width()){
-_1e.left=$(window).width()-$(_1d).outerWidth()-5;
+if(_1e.left+$(_1d).outerWidth()>$(window).width()+$(document).scrollLeft()){
+_1e.left=$(window).width()+$(document).scrollLeft()-$(_1d).outerWidth()-5;
 }
-if(_1e.top+$(_1d).outerHeight()>$(window).height()){
+if(_1e.top+$(_1d).outerHeight()>$(window).height()+$(document).scrollTop()){
 _1e.top-=$(_1d).outerHeight();
 }
 }

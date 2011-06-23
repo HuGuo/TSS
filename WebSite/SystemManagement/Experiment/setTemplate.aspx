@@ -1,16 +1,17 @@
-﻿<%@ Page Language="C#" EnableViewState="false" ValidateRequest="false" AutoEventWireup="true" CodeFile="setTemplate.aspx.cs" Inherits="SystemManagement_Experiment_setTemplate" %>
+﻿<%@ Page Language="C#" EnableViewState="false" ValidateRequest="false" AutoEventWireup="true"
+    CodeFile="setTemplate.aspx.cs" Inherits="SystemManagement_Experiment_setTemplate" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>设置模板</title>
-    <link href="../../scripts/jquery-easyui/thems/default/menu.css" rel="stylesheet" type="text/css" />
-    <link href="../../scripts/jquery-easyui/thems/icon.css" rel="stylesheet" type="text/css" />
+    <link href="../../scripts/jquery-easyui/themes/gray/menu.css" rel="stylesheet" type="text/css" />
+    <link href="../../scripts/jquery-easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../experiment/experiment.css" rel="stylesheet" type="text/css" />
     <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
+    <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <script src="../../scripts/jquery-easyui/plugins/jquery.menu.js" type="text/javascript"></script>
-    <script src="../../scripts/jquery.simpleExcel.js" type="text/javascript"></script>
+    <script src="../../scripts/jquery.simpleExcel.js" type="text/javascript"></script>    
 </head>
 <body>
     <form id="form1" runat="server">
@@ -23,10 +24,10 @@
         </asp:DropDownList>
         <input type="button" id="btnSave" value="保存模板" />
     </div>
-    <div id="dtb" style=" margin-top:31px;"><asp:Literal ID="ltHTML" runat="server"></asp:Literal></div>
-        <input id="txt_hidden_cid" type="hidden" value="<%=Request.QueryString["tid"] %>" />
-        <input id="txt_hidden_sp" type="hidden" value="<%=Request.QueryString["s"] %>" />
-    
+    <div id="dtb" style="margin-top: 31px;">
+        <asp:Literal ID="ltHTML" runat="server"></asp:Literal></div>
+    <input id="txt_hidden_cid" type="hidden" value="<%=Request.QueryString["tid"] %>" />
+    <input id="txt_hidden_sp" type="hidden" value="<%=Request.QueryString["s"] %>" />
     </form>
     
     <div id="ct_menu" class="easyui-menu" style="width: 120px;">
@@ -54,21 +55,16 @@
             </div>
         </div>
         <div>
-            <span>插入</span>
+            <span>添加/删除</span>
             <div style="width: 100px;">
                 <div onclick="javascript:$.simpleExcel.appendRow();">
-                    下一行</div>
+                    插入 下一行</div>
                 <div onclick="javascript:$.simpleExcel.appendColumn();">
-                    右边列</div>
-            </div>
-        </div>
-        <div>
-            <span>删除</span>
-            <div style="width: 100px;">
+                    插入 右边列</div>
                 <div onclick="javascript:$.simpleExcel.removeRow();">
-                    行</div>
+                    删除 行</div>
                 <div onclick="javascript:$.simpleExcel.removeColumn();">
-                    列</div>
+                    删除 列</div>
             </div>
         </div>
     </div>
@@ -89,6 +85,11 @@
         $("#btnDrawTable").click(function () {
             var r = $("#txt_row").val();
             var c = $("#txt_column").val();
+            if ($.simpleExcel._op.excell.size() > 0) {
+                if (!confirm("重新创建，将会覆盖已经存在的格式，确定")) {
+                    return false;
+                }
+            }
             $.simpleExcel.create(r, c);
         });
 

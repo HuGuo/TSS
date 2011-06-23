@@ -4,13 +4,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>持证管理</title>
+    <link href="~/Styles/_base.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    
-    <form id="form1" runat="server">
-    <a href="Add.aspx?s=<%=Request.QueryString["s"] %>">添加持证信息</a>
-<asp:TextBox ID="txtKey" runat="server">姓名或证书编号</asp:TextBox>
-    <asp:Button ID="btnSearch" runat="server" onclick="btnSearch_Click" Text="搜索" />
+    <form id="form1" runat="server" style=" padding-top:32px;">
+    <div id="toolbar" class="fixed">
+        <a href="Add.aspx?s=<%=Request.QueryString["s"] %>">添加持证信息</a>
+        <div class="search">
+            <asp:TextBox ID="txtKey" runat="server" class="textbox"></asp:TextBox>
+            <asp:Button ID="btnSearch" runat="server" class="searchbtn" OnClick="btnSearch_Click"
+                Text="" />
+        </div>
+    </div>
     <table>
         <tr>
             <td>
@@ -43,7 +48,8 @@
             <td>
                 备注
             </td>
-            <td></td>
+            <td>
+            </td>
         </tr>
         <asp:Repeater ID="rptList" runat="server">
             <ItemTemplate>
@@ -78,8 +84,9 @@
                     <td>
                         <%# Eval("Remark")%>
                     </td>
-                    <td><a href="Add.aspx?id=<%#Eval("id") %>&s=<%#Eval("SpecialtyId") %>" target="_blank">编辑</a>
-                    <a href="javascript:void(0);" class="delete" key="<%#Eval("id") %>">删除</a>
+                    <td>
+                        <a href="Add.aspx?id=<%#Eval("id") %>&s=<%#Eval("SpecialtyId") %>">编辑</a>
+                        <a href="javascript:void(0);" class="delete" key="<%#Eval("id") %>">删除</a>
                     </td>
                 </tr>
             </ItemTemplate>

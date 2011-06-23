@@ -64,8 +64,8 @@ public partial class Certificate_Add : System.Web.UI.Page
         if (string.IsNullOrWhiteSpace(id)) {
             RepositoryFactory<CertificateRepository>.Get().Add(certificate);
         } else {
-            RepositoryFactory<CertificateRepository>.Get().Update(certificate);
+            RepositoryFactory<CertificateRepository>.Get().Update(certificate.Id,certificate);
         }
-        Response.Write("保存成功");
+        ltmsg.Text = "<div class='success'>操作成功!</div>";
     }
 }

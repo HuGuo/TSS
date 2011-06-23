@@ -1,4 +1,8 @@
-﻿(function ($) {
+﻿/**
+* 肖宏飞 
+* 2011-5-20
+*/
+(function ($) {
     $.FF = {
         $$$: { s: '', pid: '',
             iconPath: 'http://192.168.0.100/icons/geticon.axd?file=',
@@ -49,10 +53,14 @@
             }
         },
         delItem: function () {
+            var $selitems = $.FF.$$$.$ul.find("a.selected"); 
+            if ($selitems.size() < 1) {
+                return false;
+            }
             $.messager.confirm('删除提示', '确定删除所选项？', function (r) {
                 if (r) {
                     var q = { op: "delete", id: "" };
-                    $.FF.$$$.$ul.find("a.selected").each(function () {
+                    $selitems.each(function () {
                         var $$ = $(this);
                         q.id = $$.attr("pid");
                         $.get("../upload.ashx", q, function (data) {
@@ -100,6 +108,13 @@ $(document).ready(function () {
         } else {
             //打开文件夹
             document.location.href = "default.aspx?s=" + $.FF.$$$.s + "&pid=" + $id;
+        }
+    });
+
+    $("#goSearch").click(function () {
+        var q = { s: $.FF.$$$.s, key: $.trim($("#txtKey").val()) };
+        if (q.key != "") {
+            document.location.href = "search.aspx?" + $.param(q);
         }
     });
 });

@@ -4,10 +4,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>人员资质</title>
+    <link rel="stylesheet" type="text/css"  href="~/Styles/_base.css"/>
     <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" style=" padding-top:32px;">
+    <div id="toolbar" class="fixed">
+    <a href="Default.aspx?s=<%=Request.QueryString["s"] %>">返回列表</a>
+    </div>
+
+        <asp:Literal ID="ltmsg" runat="server"></asp:Literal>
     <table>
         <tr>
             <td>
@@ -97,7 +103,7 @@
                 &nbsp;
             </td>
             <td>
-                <asp:Button ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" /><a href="Default.aspx?s=<%=Request.QueryString["s"] %>">返回列表</a>
+                <asp:Button ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" class="btn" />
             </td>
         </tr>
     </table>

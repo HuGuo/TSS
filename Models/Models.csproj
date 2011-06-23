@@ -42,6 +42,7 @@
     <Compile Include="Experiment\ExpAttachment.cs" />
     <Compile Include="Experiment\ExpData.cs" />
     <Compile Include="Experiment\Experiment.cs" />
+    <Compile Include="Experiment\ExpRecord.cs" />
     <Compile Include="Experiment\ExpTemplate.cs" />
     <Compile Include="Document.cs" />
     <Compile Include="ComprehensiveReport\Indicator.cs" />

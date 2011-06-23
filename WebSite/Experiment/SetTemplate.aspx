@@ -1,113 +1,79 @@
-ï»¿<%@ Page Language="C#" ValidateRequest="false" EnableViewState="false" AutoEventWireup="true" CodeFile="SetTemplate.aspx.cs" Inherits="Experiment_SetTemplate" %>
+<%@ Page Language="C#" ValidateRequest="false" EnableViewState="false" AutoEventWireup="true" CodeFile="SetTemplate.aspx.cs" Inherits="Experiment_SetTemplate" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>è®¾ç½®æ¨¡ç‰ˆ</title>
-    <link href="../scripts/jquery-easyui/thems/default/menu.css" rel="stylesheet" type="text/css" />
-    <link href="../scripts/jquery-easyui/thems/icon.css" rel="stylesheet" type="text/css" />
+    <title>ÉèÖÃÄ£°æ</title>
+        
     <link href="experiment.css" rel="stylesheet" type="text/css" />
+    <link href="../scripts/jquery-easyui/themes/gray/menu.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../scripts/jquery-easyui/plugins/jquery.menu.js" type="text/javascript"></script>
-    <script src="../scripts/jquery.simpleExcel.js" type="text/javascript"></script>
-    
+    <script src="../scripts/jquery.excel.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server">
     <div id="toolbar">
-        è¡Œæ•°<input type="text" id="txt_row" value="10" style="width: 50px;" />åˆ—æ•°<input type="text"
+        ĞĞÊı<input type="text" id="txt_row" value="10" style="width: 50px;" />ÁĞÊı<input type="text"
             id="txt_column" style="width: 50px;" value="10" />
-        <input type="button" id="btnDrawTable" value="ç»˜åˆ¶è¡¨æ ¼" />
-        æ¨¡æ¿åç§°<input type="text" id="txt_tmpName" runat="server" />
-        <input type="button" id="btnSave" value="ä¿å­˜æ¨¡æ¿" />
+        <input type="button" id="btnDrawTable" value="»æÖÆ±í¸ñ" />
+        Ä£°åÃû³Æ<input type="text" id="txt_tmpName" runat="server" />
+        <input type="button" id="btnSave" value="±£´æÄ£°å" />
     </div>
     <div id="dtb" style=" margin-top:31px;"><asp:Literal ID="ltHTML" runat="server"></asp:Literal></div>
         <input id="txt_hidden_cid" type="hidden" value="<%=Request.QueryString["cid"] %>" />
         <input id="txt_hidden_sp" type="hidden" value="<%=Request.QueryString["sp"] %>" />
     
     </form>
-    
-    <div id="ct_menu" class="easyui-menu" style="width: 120px;">
+    <div id="ct_menu" style="width: 120px;">
         <div onclick="javascript:$.simpleExcel.clearCell()">
-            æ¸…ç©º</div>
+            Çå¿Õ</div>
         <div class="menu-sep">
         </div>
         <div onclick="javascript:$.simpleExcel.mergeCell()">
-            åˆå¹¶å•å…ƒæ ¼</div>
+            ºÏ²¢µ¥Ôª¸ñ</div>
         <div onclick="javascript:$.simpleExcel.splitCell()">
-            æ‹†åˆ†å•å…ƒæ ¼</div>
+            ²ğ·Öµ¥Ôª¸ñ</div>
         <div class="menu-sep">
         </div>
         <div>
-            <span>è®¾ç½®æ ¼å¼</span>
+            <span>ÉèÖÃ¸ñÊ½</span>
             <div style="width: 100px;">
                 <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'left'});">
-                    å·¦å¯¹é½</div>
+                    ×ó¶ÔÆë</div>
                 <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'center'});">
-                    å±… ä¸­</div>
+                    ¾Ó ÖĞ</div>
                 <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'right'});">
-                    å³å¯¹é½</div>
-                <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'bold'});">
-                    åŠ  ç²—</div>
+                    ÓÒ¶ÔÆë</div>
+                <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'700'});">
+                    ¼Ó ´Ö</div>
             </div>
         </div>
         <div>
-            <span>æ’å…¥</span>
+            <span>Ìí¼Ó/É¾³ı</span>
             <div style="width: 100px;">
-                <div onclick="javascript:$.simpleExcel.appendRow();">
-                    ä¸‹ä¸€è¡Œ</div>
+                <div onclick="javascript:a1();">
+                    ²åÈë ÏÂÒ»ĞĞ</div>
                 <div onclick="javascript:$.simpleExcel.appendColumn();">
-                    å³è¾¹åˆ—</div>
-            </div>
-        </div>
-        <div>
-            <span>åˆ é™¤</span>
-            <div style="width: 100px;">
+                    ²åÈë ÓÒ±ßÁĞ</div>
                 <div onclick="javascript:$.simpleExcel.removeRow();">
-                    è¡Œ</div>
+                    É¾³ı ĞĞ</div>
                 <div onclick="javascript:$.simpleExcel.removeColumn();">
-                    åˆ—</div>
+                    É¾³ı ÁĞ</div>
             </div>
         </div>
     </div>
 </body>
 </html>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $("#ct_menu").menu();
-        $.simpleExcel._op.container = $("#dtb");
-        //edit model
-        $.simpleExcel._op.excell = $("#simpleExcel");
-        if ($.simpleExcel._op.excell.size() > 0) {
-            $.simpleExcel._init($.simpleExcel._op.excell.find("td"));
-            $.simpleExcel._initHead();
-            $.simpleExcel._op.rows = $.simpleExcel._op.excell.find("tr").size();
-            $.simpleExcel._op.columns = $.simpleExcel._op.excell.find("tr:first th").size();
+    $(function () {
+        var excel = $("#dtb").simpleExcel({ rows: 10, columns: 10, menu: $("#ct_menu") });
+        function a1() {
+            alert("aa");
+            excel.addRow();
         }
-        $("#btnDrawTable").click(function () {
-            var r = $("#txt_row").val();
-            var c = $("#txt_column").val();
-            $.simpleExcel.create(r, c);
-        });
-
-        $("#btnSave").click(function () {
-            var q = { op: "save", cid: 0, sp: "", title: "", html: "" };
-            q.title = $.trim($("#txt_tmpName").val());
-            if (q.title == "") {
-                alert("æ¨¡æ¿åç§°æœªè®¾ç½®");
-                return false;
-            }
-            q.cid = $("#txt_hidden_cid").val();
-            q.sp = $("#txt_hidden_sp").val();
-            $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass).removeClass($.simpleExcel._op.selectedCellClass);
-            q.html = $("#dtb").html();
-            $.post("exp.ashx", q, function (data) {
-                if (data == "1") {
-                    alert("æ¨¡æ¿ä¿å­˜æˆåŠŸ");
-                } else {
-                    alert(data);
-                }
-            });
-        });
+        //excel.removeRow();
+        excel.removeColumn();
+        //excel.addColumn();
     });
 </script>

@@ -1,0 +1,17 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a img {
+    border: none;
+}
+
+ul {
+    list-style: none;
+}

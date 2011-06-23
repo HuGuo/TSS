@@ -1,4 +1,8 @@
-﻿(function ($) {
+﻿/**
+* 肖宏飞 
+* 2011-5-15
+*/
+(function ($) {    
     $.simpleExcel = {
         _op: { container: $("body"), cellW: 75, cellH: 25, excell: null, rows: 0, columns: 0, selectedCellClass: "selectedCell" },
         create: function (x, y) {
@@ -16,7 +20,7 @@
                         if (j == 0) {
                             _tr = _tr + String.format('<th id="{0}"  xx="{1}" yy="0">{1}</th>', guid(), i);
                         } else {
-                            _tr = _tr + String.format('<td id="{0}" xx="{1}" yy="{2}"></td>', guid(), i, j);
+                            _tr = _tr + String.format('<td id="{0}" xx="{1}" yy="{2}" width="{3}px"></td>', guid(), i, j, $.simpleExcel._op.cellW);
                         }
                     }
                 }
@@ -37,16 +41,9 @@
             if (!$.simpleExcel._op.excell) { return false; }
             tds.bind("contextmenu", function (e) {
                 var $m = $('#ct_menu');
-                var mW = $m.width();
-                var mH = $m.height();
-                var winW = $("body").width();
-                var winH = $("body").height();
-                var _x = 0; var _y = 0;
-                _x = (e.pageX + mW) > winW ? (e.pageX - mW - 5) : e.pageX;
-                _y = (e.pageY + mH) > winH ? (e.pageY - mH - 5) : e.pageY;
                 $m.menu('show', {
-                    left: _x,
-                    top: _y
+                    left: e.pageX,
+                    top: e.pageY
                 });
                 var $this = $(this);
                 if (!$this.hasClass($.simpleExcel._op.selectedCellClass)) {
@@ -152,7 +149,7 @@
         appendColumn: function () {
             if (!$.simpleExcel._op.excell) { return false; }
             var _selectedCellLast = $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass + ":last");
-            var _yy = $.simpleExcel._op.rows;
+            var _yy = $.simpleExcel._op.columns;
             if (_selectedCellLast.size() > 0) {
                 _yy = parseInt(_selectedCellLast.attr("yy"));
             }
@@ -219,8 +216,10 @@
             $.extend(o, {});
             var $clickItem = $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass);
             if (o.fontWeight) {
-                if ($clickItem.css("fontWeight") == o.fontWeight || $clickItem.css("fontWeight")=="bold") {
-                    o.fontWeight = "400";}}
+                if ($clickItem.css("fontWeight") == o.fontWeight || $clickItem.css("fontWeight") == "bold") {
+                    o.fontWeight = "400";
+                }
+            }
             $clickItem.css(o);
         },
         mergeCell: function () {
@@ -235,7 +234,8 @@
                 _y.push($this.attr("xx"));
                 _y.push(parseInt($this.attr("xx")) + q.rowSpan - 1);
                 if (q.rowSpan > 1 || q.colSpan > 1) {
-                    __c += (q.rowSpan * q.colSpan - 1); }
+                    __c += (q.rowSpan * q.colSpan - 1);
+                }
             });
             var _xmax_min = maxmin(_x) + 1;
             var _ymax_min = maxmin(_y) + 1;

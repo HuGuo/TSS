@@ -15,7 +15,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>实验报告</title>
-    <link href="../scripts/jquery-easyui/thems/gray/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <style type="text/css">
@@ -24,7 +24,7 @@
     </style>
 </head>
 <body class="easyui-layout">
-	<div region="west" split="true" title="设备分类" style="width:200px; max-width:300px;padding:5px;">
+	<div region="west" split="true" title="设备分类" style="width:220px; max-width:300px;padding:5px;">
         <ul id="expTree"></ul>
     </div>
 	<div region="center" style="padding:0">
@@ -36,7 +36,7 @@
     var s = '<%=Request.QueryString["s"] %>';
     $(document).ready(function () {
         var query = escape("?s=" + s + "&category=");
-        $("#expTree").load("../equipmentcategory.ashx?xslt=&target=frm_explist&src=explist.aspx" + query, function (data) {
+        $("#expTree").load("../equipmentcategory.ashx?type=xml&dp=0&target=frm_explist&src=explist.aspx" + query, function (data) {
             $("#expTree").tree();
         });
 
