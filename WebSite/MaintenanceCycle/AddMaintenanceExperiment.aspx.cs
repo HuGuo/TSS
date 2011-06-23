@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 using TSS.BLL;
 using TSS.Models;
+using System.Globalization;
 
 public partial class MaintenanceCycle_AddMaintenanceExperiment : BasePage
 {
@@ -15,17 +16,34 @@ public partial class MaintenanceCycle_AddMaintenanceExperiment : BasePage
 
     }
 
-    //提示是否添加成功
+    protected void BindData()
+    {
+    }
+
     protected void btnAdd_Click(object sender, EventArgs e)
     {
         MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
         bool result = repository.Add(new MaintenanceExperiment
          {
              ExperimentId = Guid.NewGuid(),
-             CurrentCycle = tbExperimentTime.Text,
-             MaintenanceCycleId = int.Parse(Request.QueryString["id"]),
-             ExperimentTime = DateTime.Parse(tbExperimentTime.Text),
+             MaintenanceCycleId = int.Parse(Request.QueryString["maintenanceCycleId"]),
+             ExpectantTime = string.IsNullOrEmpty(tbExpectantTime.Text) ?
+                (DateTime?)null : DateTime.Parse(tbExpectantTime.Text),
+             ActualTime = DateTime.Parse(tbActualTime.Text),
+             CurrentCycle = hfCycle.Value
          });
-        AddConfirm(result, "MaintenanceCycle.aspx");
+        AddConfirm(result,
+            string.Format("MaintenanceExperiment.aspx?MaintenanceCycleId={0}", Request.QueryString["MaintenanceCycleId"]));
+    }
+
+    protected void tbActualTime_TextChanged(object sender, EventArgs e)
+    {
+        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
+        MaintenanceCycle maintenaceCycle = repository.Get(
+            int.Parse(Request.QueryString["maintenanceCycleId"]));
+        tbExpectantTime.Text = DateTime.Parse(tbActualTime.Text)
+            .AddYears(int.Parse(maintenaceCycle.Cycle))
+            .Date.ToString("yyyy-MM-dd");
+        hfCycle.Value = maintenaceCycle.Cycle;
     }
 }

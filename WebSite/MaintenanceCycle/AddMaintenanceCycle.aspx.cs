@@ -32,7 +32,8 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
             tbCycle.Text = maintenanceCycle.Cycle;
             tbModel.Text = maintenanceCycle.EquipmentModel;
             tbType.Text = maintenanceCycle.MaintenanceType;
-            tbInstallTime.Text = maintenanceCycle.InstallTime.Value.ToString();
+            tbInstallTime.Text = maintenanceCycle.InstallTime.HasValue ?
+                maintenanceCycle.InstallTime.Value.ToString() : "";
             ddlClass.SelectedValue = maintenanceCycle.MaintenanceCalss.Id.ToString();
         }
     }

@@ -53,7 +53,7 @@ namespace TSS.Models
         }
     }
 
-    class DatabaseInitializer : CreateDatabaseIfNotExists<Context>
+    class DatabaseInitializer : DropCreateDatabaseIfModelChanges<Context>//CreateDatabaseIfNotExists<Context>
     {
         protected override void Seed(Context context)
         {

@@ -30,28 +30,40 @@ public partial class ComprehensiveReport_EditSpecialtyAnalysis : BasePage
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        SpecialtyAnalysisRepository repository = new SpecialtyAnalysisRepository();
-        SpecialtyAnalysis specialtyAnalysis = repository.Get(int.Parse(Request.QueryString["id"]));
-        ComprehensiveReportRepository comprehensiveReportRepository = new ComprehensiveReportRepository();
-        ComprehensiveReport comprehensiveReport = comprehensiveReportRepository
-           .Get(int.Parse(YearAndMonControl1.Year), int.Parse(YearAndMonControl1.Mon));
-        if (comprehensiveReport != null)
-        {
-            specialtyAnalysis = SetSpecialtyAnalysis(specialtyAnalysis, comprehensiveReport);
-            if (repository.IsExistWhileEdit(specialtyAnalysis))
-            {   
-                ExistCurrentTimeRecord();
-                return;
-            }
-        }
+        ComprehensiveReport comprehensiveReport = GetComprehensiveReport();
         if (comprehensiveReport == null)
-            comprehensiveReport = AddCurrentTimeComprehensiveReport();
-        SetSpecialtyAnalysis(specialtyAnalysis, comprehensiveReport);
-        EditConfirm(repository.Update(specialtyAnalysis),
-            string.Format("specialtyanalysis.aspx?specialtyId={0}", specialtyAnalysis.SpecialtyId));
+        {
+            AddCurrentTimeComprehensiveReport();
+        }
+        if (comprehensiveReport != null && IsExistExceptSelfSpecialty())
+        {
+            ExistCurrentTimeRecord();
+            return;
+        }
+        bool reuslt = new SpecialtyAnalysisRepository().Update(GetSpecialtyAnalysis());
+        EditIsSccessfulPrompt(reuslt);
     }
 
-    public ComprehensiveReport AddCurrentTimeComprehensiveReport()
+    protected void EditIsSccessfulPrompt(bool reuslt)
+    {
+        EditConfirm(reuslt,
+            string.Format("specialtyanalysis.aspx?specialtyId={0}", Request.QueryString["specialtyId"]));
+    }
+
+    protected ComprehensiveReport GetComprehensiveReport()
+    {
+        return new ComprehensiveReportRepository().Get(
+            int.Parse(YearAndMonControl1.Year), int.Parse(YearAndMonControl1.Mon));
+    }
+
+    protected bool IsExistExceptSelfSpecialty()
+    {
+        SpecialtyAnalysisRepository repository = new SpecialtyAnalysisRepository();
+        return repository.IsExistWhileEdit(int.Parse(YearAndMonControl1.Year), int.Parse(YearAndMonControl1.Mon),
+            Request.QueryString["specialtyId"], int.Parse(Request.QueryString["id"]));
+    }
+
+    public void AddCurrentTimeComprehensiveReport()
     {
         ComprehensiveReportRepository comprehensiveReportRepository = new ComprehensiveReportRepository();
         ComprehensiveReport comprehensiveReport = new ComprehensiveReport
@@ -59,17 +71,22 @@ public partial class ComprehensiveReport_EditSpecialtyAnalysis : BasePage
             ReportYear = int.Parse(YearAndMonControl1.Year),
             ReportMonth = int.Parse(YearAndMonControl1.Mon)
         };
-        
         comprehensiveReportRepository.Add(comprehensiveReport);
-        return comprehensiveReportRepository.Get(comprehensiveReport.ReportYear, comprehensiveReport.ReportMonth);
     }
 
-    private SpecialtyAnalysis SetSpecialtyAnalysis(SpecialtyAnalysis specialtyAnalysis, ComprehensiveReport comprehensiveReport)
+    private SpecialtyAnalysis GetSpecialtyAnalysis()
     {
+        SpecialtyAnalysisRepository repository = new SpecialtyAnalysisRepository();
+        SpecialtyAnalysis specialtyAnalysis = repository.Get(int.Parse(Request.QueryString["id"]));
+        ComprehensiveReportRepository comprehensiveReportRepository = new ComprehensiveReportRepository();
+        ComprehensiveReport comprehensiveReport = comprehensiveReportRepository.Get(int.Parse(YearAndMonControl1.Year),
+            int.Parse(YearAndMonControl1.Mon));
         specialtyAnalysis.Analysis = TextEncode(tbSpecialtyAnalysis.Text);
         specialtyAnalysis.ComprehensiveReportId = comprehensiveReport.Id;
         foreach (IndicatorAnalysis indicatorAnalysis in specialtyAnalysis.IndicatorAnalysises)
             SetIndicatorAnalysis(indicatorAnalysis);
+        repository.Dispose();//实例中content一直存在
+        comprehensiveReportRepository.Dispose();//实例中content一直存在
         return specialtyAnalysis;
     }
 

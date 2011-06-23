@@ -16,29 +16,55 @@ public partial class ComprehensiveReport_AddSpecialtyAnalysis : BasePage
             BindData();
     }
 
-    public void BindData()
+    protected void BindData()
     {
         rptIndicator.DataSource = new IndicatorRepository().GetAll();
         rptIndicator.DataBind();
     }
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        SpecialtyAnalysisRepository specialtyAnalysisRepository = new SpecialtyAnalysisRepository();
-        ComprehensiveReportRepository comprehensiveReportRepository = new ComprehensiveReportRepository();
-        ComprehensiveReport comprehensiveReport = comprehensiveReportRepository.Get(
-            int.Parse(YearAndMonControl1.Year), int.Parse(YearAndMonControl1.Mon));
+        ComprehensiveReport comprehensiveReport = GetComprehensiveReport(YearAndMonControl1.Year, 
+            YearAndMonControl1.Mon);
         if (comprehensiveReport == null)
-            AddConfirm(comprehensiveReportRepository.Add(GetComprehensiveReport()),
-                string.Format("specialtyAnalysis.aspx?specialtyId={0}", Request.QueryString["specialtyId"]));
+        {
+            AddComprehensiveReport();
+        }
         else
-            if (!specialtyAnalysisRepository.IsExistWhileAdd(GetSpecialtyAnalysis(comprehensiveReport)))
-                AddConfirm(specialtyAnalysisRepository.Add(GetSpecialtyAnalysis(comprehensiveReport)),
-               string.Format("specialtyAnalysis.aspx?specialtyId={0}", Request.QueryString["specialtyId"]));
+        {
+            if (!IsExistSpecialtyAnalysis())
+                AddSpecialtyAnalysis();
             else
                 ExistCurrentTimeRecord();
+        }
     }
 
-    public ComprehensiveReport GetComprehensiveReport()
+    protected void AddSpecialtyAnalysis()
+    {
+        SpecialtyAnalysisRepository repository = new SpecialtyAnalysisRepository();
+        bool result= repository.Add(GetSpecialtyAnalysisOnComprehensiveReport());
+        ConfirmAdd(result);
+    }
+
+    protected void ConfirmAdd(bool result)
+    {
+        AddConfirm(result,string.Format("specialtyAnalysis.aspx?specialtyId={0}", 
+            Request.QueryString["specialtyId"]));
+    }
+
+    protected ComprehensiveReport GetComprehensiveReport(string year, string mon)
+    {
+        ComprehensiveReportRepository comprehensiveReportRepository = new ComprehensiveReportRepository();
+        return comprehensiveReportRepository.Get(int.Parse(year), int.Parse(mon));
+    }
+
+    protected void AddComprehensiveReport()
+    {
+        ComprehensiveReportRepository repository = new ComprehensiveReportRepository();
+        bool result = repository.Add(GetComprehensiveReport());
+        ConfirmAdd(result);
+    }
+
+    protected ComprehensiveReport GetComprehensiveReport()
     {
         return new ComprehensiveReport
         {
@@ -46,19 +72,6 @@ public partial class ComprehensiveReport_AddSpecialtyAnalysis : BasePage
             ReportMonth = int.Parse(YearAndMonControl1.Mon),
             SpecialtyAnalysises = new List<SpecialtyAnalysis> { GetSpecialtyAnalysis() }
         };
-    }
-
-    public SpecialtyAnalysis GetSpecialtyAnalysis(ComprehensiveReport comprehensiveReport)
-    {
-        SpecialtyAnalysis specialtyAnalysis = GetSpecialtyAnalysis();
-        specialtyAnalysis.ComprehensiveReportId = comprehensiveReport.Id;
-        specialtyAnalysis.ComprehensiveReport = new ComprehensiveReport
-        {
-            Id = comprehensiveReport.Id,
-            ReportMonth = comprehensiveReport.ReportMonth,
-            ReportYear = comprehensiveReport.ReportYear
-        };
-        return specialtyAnalysis;
     }
 
     public SpecialtyAnalysis GetSpecialtyAnalysis()
@@ -71,7 +84,7 @@ public partial class ComprehensiveReport_AddSpecialtyAnalysis : BasePage
         };
     }
 
-    public IList<IndicatorAnalysis> GetIndicatorAnalysis()
+    protected IList<IndicatorAnalysis> GetIndicatorAnalysis()
     {
         IList<IndicatorAnalysis> listIndicatorAnalysis = new List<IndicatorAnalysis>();
         foreach (RepeaterItem rpti in rptIndicator.Items)
@@ -88,4 +101,21 @@ public partial class ComprehensiveReport_AddSpecialtyAnalysis : BasePage
         return listIndicatorAnalysis;
     }
 
+    protected bool IsExistSpecialtyAnalysis()
+    {
+        SpecialtyAnalysisRepository repositoy = new SpecialtyAnalysisRepository();
+        return repositoy.IsExistWhileAdd(int.Parse(YearAndMonControl1.Year),
+            int.Parse(YearAndMonControl1.Mon), Request.QueryString["specialtyId"]);
+    }
+
+    protected SpecialtyAnalysis GetSpecialtyAnalysisOnComprehensiveReport()
+    {
+        ComprehensiveReportRepository respository = new ComprehensiveReportRepository();
+        ComprehensiveReport comprehensiveReport = respository.Get(
+            int.Parse(YearAndMonControl1.Year),int.Parse(YearAndMonControl1.Mon));
+        SpecialtyAnalysis specialtyAnalysis = GetSpecialtyAnalysis();
+        specialtyAnalysis.ComprehensiveReportId = comprehensiveReport.Id;
+        specialtyAnalysis.IndicatorAnalysises = GetIndicatorAnalysis();
+        return specialtyAnalysis;
+    }
 }

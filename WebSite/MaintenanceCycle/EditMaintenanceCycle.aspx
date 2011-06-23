@@ -14,6 +14,7 @@
         <fieldset>
             <legend>设备预示周期 </legend>
             <p>
+            <label>设备名称</label>
                 <asp:DropDownList runat="server" validate="{required:true}" ID="ddlEquipment">
                     <asp:ListItem Value="">请选择设备</asp:ListItem>
                 </asp:DropDownList>

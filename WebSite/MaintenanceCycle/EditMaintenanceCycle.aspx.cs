@@ -18,6 +18,7 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : BasePage
 
     protected void BindData()
     {
+        BindEquipment();
         BindClass();
         BindCycle();
     }
@@ -33,6 +34,12 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : BasePage
         ddlClass.SelectedValue = maintenanceCycle.MaintenanceClassId.ToString();
         tbInstallTime.Text = !maintenanceCycle.InstallTime.HasValue ? "" :
             maintenanceCycle.InstallTime.Value.ToShortDateString();
+
+    }
+
+    protected void BindEquipment()
+    {
+        
     }
 
     protected void BindClass()

@@ -20,8 +20,10 @@ public partial class MaintenanceCycle_EditMaintenanceExperiment : BasePage
     {
         MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
         MaintenanceExperiment maintenanceExperiment = repository.Get(int.Parse(Request.QueryString["id"]));
-        tbCycle.Text = maintenanceExperiment.CurrentCycle;
-        tbExperimentTime.Text = maintenanceExperiment.ExperimentTime.ToString();
+        tbActualTime.Text = maintenanceExperiment.ActualTime.Date.ToString("yyyy-MM-dd");
+        tbExpectantTime.Text = maintenanceExperiment.ExpectantTime.Value.Date.ToString("yyyy-MM-dd");
+        hfCycle.Value = maintenanceExperiment.MaintenanceCycle.Cycle;
+        hfMaintenanceCycleId.Value = maintenanceExperiment.MaintenanceCycleId.ToString();
     }
 
     protected void btnEdit_Click(object sender, EventArgs e)
@@ -30,8 +32,23 @@ public partial class MaintenanceCycle_EditMaintenanceExperiment : BasePage
         bool result = repository.Update(new MaintenanceExperiment
         {
             Id = int.Parse(Request.QueryString["id"]),
-            CurrentCycle = tbCycle.Text
+            CurrentCycle = hfCycle.Value,
+            ActualTime = DateTime.Parse(tbActualTime.Text),
+            ExpectantTime = DateTime.Parse(tbExpectantTime.Text),
+            MaintenanceCycleId = int.Parse(hfMaintenanceCycleId.Value)
         });
-        EditConfirm(result, "MaintenanceCycle.aspx");
+        EditConfirm(result, 
+            string.Format("MaintenanceExperiment.aspx?MaintenanceCycleId={0}", Request.QueryString["MaintenanceCycleId"]));
+    }
+
+    protected void tbActualTime_TextChanged(object sender, EventArgs e)
+    {
+        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
+        MaintenanceCycle maintenaceCycle = repository.Get(
+            int.Parse(Request.QueryString["maintenanceCycleId"]));
+        tbExpectantTime.Text = DateTime.Parse(tbActualTime.Text)
+            .AddYears(int.Parse(maintenaceCycle.Cycle))
+            .Date.ToString("yyyy-MM-dd");
+        hfCycle.Value = maintenaceCycle.Cycle;
     }
 }
