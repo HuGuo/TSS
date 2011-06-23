@@ -1,14 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class CertificateRepository : Repository<Certificate,Guid>
+    public class CertificateRepository : Repository<Certificate>
     {
-        public CertificateRepository() { }
-
         public IList<Certificate> GetBySpecialty(string id) {
             return Context.Certificates.Where(p => p.SpecialtyId == id).ToList();
         }

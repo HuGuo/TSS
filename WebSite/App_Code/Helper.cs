@@ -19,9 +19,10 @@ public class Helper
 
     public static string GetEquipmentField(object equipmentId, string fieldName)
     {
-        var equipmentDetails = 
-            TSS.BLL.RepositoryFactory<TSS.BLL.EquipmentDetails>.Get();
-        return equipmentDetails.GetValue(equipmentId.ToString(), fieldName);
+        using (var equipmentDetails =
+            TSS.BLL.RepositoryFactory<TSS.BLL.EquipmentDetails>.Get()) {
+            return equipmentDetails.GetValue(equipmentId.ToString(), fieldName);
+        }
     }
 
     public static string GetClassName(string extension) {        

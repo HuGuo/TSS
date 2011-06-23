@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
 public partial class MaintenanceCycle_AddMaintenanceClass : BasePage
 {
@@ -24,18 +24,18 @@ public partial class MaintenanceCycle_AddMaintenanceClass : BasePage
 
     protected void BindSpecialty()
     {
-        foreach (Tm.Specialty specialty in new Specialties().GetAll())
+        foreach (Specialty specialty in new Specialties().GetAll())
             ddlSpecialty.Items.Add(new ListItem(specialty.Name, specialty.Id));
     }
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        bool result = MaintenanceClass.Add(
-            new Tm.MaintenanceClass
+        MaintenanceClassRepository repository = new MaintenanceClassRepository();
+        bool result = repository.Add(new MaintenanceClass
           {
               equipmentClassName = tbClassNames.Text,
               SpecialtyId = ddlSpecialty.SelectedValue
           });
-        //AddConfirm(result, "window.location.href='MaintenanceClass.aspx'");
+        AddConfirm(result, "MaintenanceClass.aspx");
     }
 }

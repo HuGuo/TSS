@@ -6,7 +6,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class Equipments : Repository<Equipment,Guid>
+    public class Equipments : Repository<Equipment>
     {
         public IList<Equipment> GetList(string categoryId, string specialtyId)
         {

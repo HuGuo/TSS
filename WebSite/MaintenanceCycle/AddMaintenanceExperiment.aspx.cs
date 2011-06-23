@@ -6,23 +6,44 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
+using System.Globalization;
 
-public partial class MaintenanceCycle_AddMaintenanceExperiment : System.Web.UI.Page
+public partial class MaintenanceCycle_AddMaintenanceExperiment : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
 
     }
 
-    //提示是否添加成功
+    protected void BindData()
+    {
+    }
+
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        Tm.MaintenanceExperiment maintenanceExperiment = new Tm.MaintenanceExperiment();
-        maintenanceExperiment.ExperimentId = Guid.NewGuid();
-        maintenanceExperiment.CurrentCycle = tbExperimentTime.Text;
-        maintenanceExperiment.MaintenanceCycleId = int.Parse(Request.QueryString["id"]);
-        maintenanceExperiment.ExperimentTime = DateTime.Parse(tbExperimentTime.Text);
-        MaintenanceExperiment.Add(maintenanceExperiment);
+        MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
+        bool result = repository.Add(new MaintenanceExperiment
+         {
+             ExperimentId = Guid.NewGuid(),
+             MaintenanceCycleId = int.Parse(Request.QueryString["maintenanceCycleId"]),
+             ExpectantTime = string.IsNullOrEmpty(tbExpectantTime.Text) ?
+                (DateTime?)null : DateTime.Parse(tbExpectantTime.Text),
+             ActualTime = DateTime.Parse(tbActualTime.Text),
+             CurrentCycle = hfCycle.Value
+         });
+        AddConfirm(result,
+            string.Format("MaintenanceExperiment.aspx?MaintenanceCycleId={0}", Request.QueryString["MaintenanceCycleId"]));
+    }
+
+    protected void tbActualTime_TextChanged(object sender, EventArgs e)
+    {
+        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
+        MaintenanceCycle maintenaceCycle = repository.Get(
+            int.Parse(Request.QueryString["maintenanceCycleId"]));
+        tbExpectantTime.Text = DateTime.Parse(tbActualTime.Text)
+            .AddYears(int.Parse(maintenaceCycle.Cycle))
+            .Date.ToString("yyyy-MM-dd");
+        hfCycle.Value = maintenaceCycle.Cycle;
     }
 }

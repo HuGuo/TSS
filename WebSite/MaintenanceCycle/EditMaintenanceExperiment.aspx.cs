@@ -6,9 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
-public partial class MaintenanceCycle_EditMaintenanceExperiment : System.Web.UI.Page
+public partial class MaintenanceCycle_EditMaintenanceExperiment : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -18,19 +18,37 @@ public partial class MaintenanceCycle_EditMaintenanceExperiment : System.Web.UI.
 
     protected void BindData()
     {
-        Tm.MaintenanceExperiment maintenanceExperiment = MaintenanceExperiment.Get(
-            int.Parse(Request.QueryString["id"]));
-        tbCycle.Text = maintenanceExperiment.CurrentCycle;
-        tbExperimentTime.Text = maintenanceExperiment.ExperimentTime.ToString();
+        MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
+        MaintenanceExperiment maintenanceExperiment = repository.Get(int.Parse(Request.QueryString["id"]));
+        tbActualTime.Text = maintenanceExperiment.ActualTime.Date.ToString("yyyy-MM-dd");
+        tbExpectantTime.Text = maintenanceExperiment.ExpectantTime.Value.Date.ToString("yyyy-MM-dd");
+        hfCycle.Value = maintenanceExperiment.MaintenanceCycle.Cycle;
+        hfMaintenanceCycleId.Value = maintenanceExperiment.MaintenanceCycleId.ToString();
     }
 
-    //提示是否修改成功
     protected void btnEdit_Click(object sender, EventArgs e)
     {
-        Tm.MaintenanceExperiment maintenanceExperiment = MaintenanceExperiment.Get(
-            int.Parse(Request.QueryString["id"]));
-        maintenanceExperiment.CurrentCycle = tbCycle.Text;
-        maintenanceExperiment.ExperimentTime = DateTime.Parse(tbExperimentTime.Text);
-        MaintenanceExperiment.Update(maintenanceExperiment);
+        MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
+        bool result = repository.Update(new MaintenanceExperiment
+        {
+            Id = int.Parse(Request.QueryString["id"]),
+            CurrentCycle = hfCycle.Value,
+            ActualTime = DateTime.Parse(tbActualTime.Text),
+            ExpectantTime = DateTime.Parse(tbExpectantTime.Text),
+            MaintenanceCycleId = int.Parse(hfMaintenanceCycleId.Value)
+        });
+        EditConfirm(result, 
+            string.Format("MaintenanceExperiment.aspx?MaintenanceCycleId={0}", Request.QueryString["MaintenanceCycleId"]));
+    }
+
+    protected void tbActualTime_TextChanged(object sender, EventArgs e)
+    {
+        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
+        MaintenanceCycle maintenaceCycle = repository.Get(
+            int.Parse(Request.QueryString["maintenanceCycleId"]));
+        tbExpectantTime.Text = DateTime.Parse(tbActualTime.Text)
+            .AddYears(int.Parse(maintenaceCycle.Cycle))
+            .Date.ToString("yyyy-MM-dd");
+        hfCycle.Value = maintenaceCycle.Cycle;
     }
 }

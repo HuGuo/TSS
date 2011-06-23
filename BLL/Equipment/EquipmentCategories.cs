@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -7,14 +7,15 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class EquipmentCategories : Repository<EquipmentCategory,Guid>
+    public class EquipmentCategories : Repository<EquipmentCategory>
     {
         public void Add(string name, string parentId)
         {
             if (!string.IsNullOrEmpty(name)) {
                 EquipmentCategory parent = null;
-                if (!string.IsNullOrEmpty(parentId)) {
-                    parent = Context.EquipmentCategories.Find(Guid.Parse(parentId));
+                Guid pid;
+                if (Guid.TryParse(parentId, out pid)) {
+                    parent = Get(pid);
                 }
 
                 Add(new TSS.Models.EquipmentCategory {
@@ -31,13 +32,9 @@ namespace TSS.BLL
 
             Guid categoryId;
             if (Guid.TryParse(id, out categoryId)) {
-                EquipmentCategory category = Context.EquipmentCategories.Find(categoryId);
+                var category = Get(categoryId);
                 if (category != null && (category.Equipments == null || category.Equipments.Count == 0)) {
-                    Context.EquipmentCategories.Remove(category);
-
-                    if (Context.SaveChanges() == 1) {
-                        result = true;
-                    }
+                    return Delete(category);
                 }
             }
 
@@ -50,7 +47,7 @@ namespace TSS.BLL
 
             Guid categoryId;
             if (Guid.TryParse(id, out categoryId)) {
-                EquipmentCategory category = Context.EquipmentCategories.Find(categoryId);
+                var category = Get(categoryId);
                 if (category != null && category.Subcategories != null && category.Subcategories.Count != 0) {
                     result = true;
                 }
@@ -65,13 +62,11 @@ namespace TSS.BLL
 
             Guid categoryId;
             if (!string.IsNullOrEmpty(name) && Guid.TryParse(id, out categoryId)) {
-                EquipmentCategory category = Context.EquipmentCategories.Find(categoryId);
+                var category = Get(categoryId);
                 if (category != null) {
                     category.Name = name;
 
-                    if (Context.SaveChanges() == 1) {
-                        result = true;
-                    }
+                    return Update(category);
                 }
             }
 
@@ -106,9 +101,9 @@ namespace TSS.BLL
         {
             StringBuilder result = new StringBuilder();
 
-            foreach (var p in categories.Where(c => c.ParentCategory == parent)) {
-                result.Append(string.Format(begin, p.Id, p.Name));
-                result.Append(Walking(categories, p, begin, end));
+            foreach (var i in categories.Where(c => c.ParentCategory == parent)) {
+                result.Append(string.Format(begin, i.Id, i.Name));
+                result.Append(Walking(categories, i, begin, end));
                 result.Append(end);
             }
 

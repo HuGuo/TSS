@@ -1,24 +1,36 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MaintenanceExperiment.aspx.cs"
-    Inherits="MaintenanceCycle_MaintenanceExperiment" %>
+    MasterPageFile="~/Default.master" Inherits="MaintenanceCycle_MaintenanceExperiment" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+<%@ Import Namespace="TSS.Models" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+    <script type="text/javascript">
+        function Del(maintenanceExperimentId,id) {
+            $.messager.confirm("删除", "是否删除！", function (result) {
+                if (result) {
+                    window.location.href = "MaintenanceExperiment.aspx?maintenanceExperimentId=" + maintenanceExperimentId + "&id=" + id;
+                } else {
+                    return result;
+                }
+            });
+        }
+    </script>
     <div>
-    <a href="AddMaintenanceExperiment.aspx?maintenanceCycleId=><%= Request.QueryString["maintenanceExperimentId"] %>">添加</a>
+        <a href="AddMaintenanceExperiment.aspx?maintenanceCycleId=<%= Request.QueryString["maintenanceExperimentId"] %>">
+            添加</a><a href="MaintenanceCycle.aspx">返回</a>
         <asp:Repeater runat="server" ID="rptExperiment">
             <HeaderTemplate>
                 <table>
                     <tr>
                         <td>
-                            预期试验时间
+                            序号
                         </td>
                         <td>
-                            实际试验时间
+                            上次试验时间
+                        </td>
+                        <td>
+                            这次试验时间
                         </td>
                         <td>
                             关联试验报告
@@ -31,19 +43,21 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <%# ((TSS.Models.MaintenanceExperiment)Container.DataItem).CurrentCycle.ToString() %>
+                        <%# Container.ItemIndex+1 %>
                     </td>
                     <td>
-                        <%# ((TSS.Models.MaintenanceExperiment)Container.DataItem).ExperimentTime.ToString() %>
+                        <%# ((MaintenanceExperiment)Container.DataItem).ActualTime.ToShortDateString() %>
                     </td>
                     <td>
-                        关联试验报告
+                        <%# ((MaintenanceExperiment)Container.DataItem).ExpectantTime.Value.ToShortDateString() %>
                     </td>
                     <td>
-                        <a href="EditMaintenanceExperiment.aspx?id=<%# ((TSS.Models.MaintenanceExperiment)Container.DataItem).Id%>">
-                            修改</a>
-                        <asp:LinkButton runat="server" ID="lbtnDel" CommandArgument="<%# ((TSS.Models.MaintenanceExperiment)Container.DataItem).Id%>"
-                            OnClick="lbtnDel_Click" OnClientClick="confirm('是否删除？')">删除</asp:LinkButton>
+                        关联试验报告 
+                    </td>
+                    <td>
+                        <a href="EditMaintenanceExperiment.aspx?maintenanceCycleId=<%# ((TSS.Models.MaintenanceExperiment)Container.DataItem).MaintenanceCycleId%>&id=<%# ((TSS.Models.MaintenanceExperiment)Container.DataItem).Id%>">
+                            修改</a> <a href="#" onclick="Del(<%# ((MaintenanceExperiment)Container.DataItem).MaintenanceCycleId.ToString() %>,<%# ((MaintenanceExperiment)Container.DataItem).Id.ToString() %>);">
+                                删除</a>
                     </td>
                 </tr>
             </ItemTemplate>
@@ -52,6 +66,4 @@
             </FooterTemplate>
         </asp:Repeater>
     </div>
-    </form>
-</body>
-</html>
+</asp:Content>

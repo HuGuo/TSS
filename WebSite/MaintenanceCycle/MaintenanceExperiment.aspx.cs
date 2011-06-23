@@ -6,27 +6,32 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
-public partial class MaintenanceCycle_MaintenanceExperiment : System.Web.UI.Page
+public partial class MaintenanceCycle_MaintenanceExperiment : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
             BindData();
+        if (!string.IsNullOrEmpty(Request.QueryString["id"]))
+            Del();
     }
 
     protected void BindData()
     {
-        rptExperiment.DataSource = MaintenanceExperiment.GetAll();
+        MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
+        IList<MaintenanceExperiment> maintenanceExperiment = repository.GetAll();
+        rptExperiment.DataSource = maintenanceExperiment;
         rptExperiment.DataBind();
     }
 
     //是否删除成功要有提示
-    protected void lbtnDel_Click(object sender, EventArgs e)
+    protected void Del()
     {
-        MaintenanceExperiment.Delete(
-            ((LinkButton)sender).CommandArgument);
+        MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
+        bool result = repository.Delete(int.Parse(Request.QueryString["id"]));
+        DelConfirm(result);
         BindData();
     }
 }

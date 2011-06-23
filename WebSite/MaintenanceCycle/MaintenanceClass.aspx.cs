@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
 public partial class MaintenanceCycle_MaintenanceClass : BasePage
 {
@@ -14,23 +14,27 @@ public partial class MaintenanceCycle_MaintenanceClass : BasePage
     {
         if (!IsPostBack)
             BindData();
+        if (!string.IsNullOrEmpty(Request.QueryString["id"]))
+            Del();
     }
 
     private void BindData()
     {
-        rptClass.DataSource = MaintenanceClass.GetAll();
+        MaintenanceClassRepository repository = new MaintenanceClassRepository();
+        IList<MaintenanceClass> maintenanceClasses = repository.GetAll();
+        rptClass.DataSource = maintenanceClasses;
         rptClass.DataBind();
     }
 
     //是否删除成功要有提示
-    protected void lbtnDel_Click(object sender, EventArgs e)
+    protected void Del()
     {
-        int maintenanceClassId = int.Parse(((LinkButton)sender).CommandArgument);
-        bool isExistChildRecord = !MaintenanceCycle.IsExistOnMaintenancClass(maintenanceClassId);
-        if (isExistChildRecord) { }
-            //DelConfirm(MaintenanceClass.Delete(maintenanceClassId));
-        else { }
-            //ExistChildConfirm();
+        int maintenanceClassId = int.Parse(Request.QueryString["id"]);
+        MaintenanceCycleRepository repostitory = new MaintenanceCycleRepository();
+        if (!repostitory.IsExistOnMaintenancClass(maintenanceClassId))
+            DelConfirm(repostitory.Delete(maintenanceClassId));
+        else
+            ExistChildConfirm();
         BindData();
     }
 }

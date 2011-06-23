@@ -6,9 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
-using Tm = TSS.Models;
+using TSS.Models;
 
-public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
+public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -24,21 +24,24 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
 
     protected void BindCycle()
     {
-        Tm.MaintenanceCycle maintenanceCycle = MaintenanceCycle.GetByEquipment(new
-            Guid(ddlEquipment.SelectedValue));
+        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
+        MaintenanceCycle maintenanceCycle = repository.GetByEquipment(
+            new Guid(ddlEquipment.SelectedValue));
         if (maintenanceCycle != null)
         {
             tbCycle.Text = maintenanceCycle.Cycle;
             tbModel.Text = maintenanceCycle.EquipmentModel;
             tbType.Text = maintenanceCycle.MaintenanceType;
-            tbInstallTime.Text = maintenanceCycle.InstallTime.Value.ToString();
+            tbInstallTime.Text = maintenanceCycle.InstallTime.HasValue ?
+                maintenanceCycle.InstallTime.Value.ToString() : "";
             ddlClass.SelectedValue = maintenanceCycle.MaintenanceCalss.Id.ToString();
         }
     }
 
     protected void BindClass()
     {
-        foreach (Tm.MaintenanceClass maintenanceClass in MaintenanceClass.GetAll())
+        IList<MaintenanceClass> maintenanceCycles = new MaintenanceClassRepository().GetAll();
+        foreach (MaintenanceClass maintenanceClass in maintenanceCycles)
         {
             ddlClass.Items.Add(new ListItem(
                 maintenanceClass.equipmentClassName, maintenanceClass.Id.ToString()));
@@ -47,7 +50,7 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
 
     protected void BindEquipment()
     {
-        foreach (Tm.Equipment equipment in new Equipments().GetAll())
+        foreach (Equipment equipment in new Equipments().GetAll())
         {
             ddlEquipment.Items.Add(new
                 ListItem(equipment.Name, equipment.Id.ToString()));
@@ -64,15 +67,17 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : System.Web.UI.Page
     }
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        Tm.MaintenanceCycle maintenanceCycle = new Tm.MaintenanceCycle();
-        maintenanceCycle.Cycle = tbCycle.Text;
-        maintenanceCycle.MaintenanceType = tbType.Text;
-        maintenanceCycle.InstallTime = string.IsNullOrEmpty(tbInstallTime.Text) ?
-            (DateTime?)null : DateTime.Parse(tbInstallTime.Text);
-        maintenanceCycle.MaintenanceClassId = int.Parse(ddlClass.SelectedValue);
-        maintenanceCycle.EquipmentId = new Guid(ddlEquipment.SelectedValue);
-        maintenanceCycle.EquipmentModel = tbModel.Text;
-        MaintenanceCycle.Add(maintenanceCycle);
+        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
+        bool result = repository.Add(new MaintenanceCycle
+        {
+            Cycle = tbCycle.Text,
+            MaintenanceType = tbType.Text,
+            InstallTime = string.IsNullOrEmpty(tbInstallTime.Text) ?
+                (DateTime?)null : DateTime.Parse(tbInstallTime.Text),
+            MaintenanceClassId = int.Parse(ddlClass.SelectedValue),
+            EquipmentId = new Guid(ddlEquipment.SelectedValue),
+            EquipmentModel = tbModel.Text
+        });
+        AddConfirm(result, "MaintenanceCycle.aspx");
     }
-
 }

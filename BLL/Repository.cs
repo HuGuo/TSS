@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -7,7 +7,7 @@ using System;
 
 namespace TSS.BLL
 {
-    public abstract class Repository<TEntity,Tkey> : IDisposable
+    public abstract class Repository<TEntity> : IDisposable
         where TEntity : class
     {
         protected Context Context { get; private set; }
@@ -22,7 +22,7 @@ namespace TSS.BLL
             Context.Dispose();
         }
 
-        public virtual TEntity Get(Tkey id) 
+        public virtual TEntity Get(object id)
         {
             return Context.Set<TEntity>().Find(id);
         }
@@ -32,57 +32,56 @@ namespace TSS.BLL
             return Context.Set<TEntity>().ToList();
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual bool Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
 
-            Context.SaveChanges();
+            return Context.SaveChanges() == 1;
         }
 
-        public virtual void Update(TEntity entity)
+        public virtual bool Update(TEntity entity)
         {
             Context.Set<TEntity>().Attach(entity);
-
             Context.Entry<TEntity>(entity).State = EntityState.Modified;
 
-            Context.SaveChanges();
+            return Context.SaveChanges() == 1;
         }
 
-        public virtual void Update(Tkey keyValue,TEntity entity) {
-            TEntity oldEntity = Context.Set<TEntity>().Find(keyValue);
-            if (null !=oldEntity) {
+        public virtual void Update(object key, TEntity entity)
+        {
+            TEntity oldEntity = Context.Set<TEntity>().Find(key);
+            if (null != oldEntity) {
                 Context.Entry<TEntity>(oldEntity).CurrentValues.SetValues(entity);
             }
             Context.SaveChanges();
         }
 
-        public virtual void Delete(Tkey id)
+        public virtual void Delete(object id)
         {
             if (IsExists(id)) {
                 Delete(Get(id));
             }
         }
 
-        public void Delete(TEntity entity)
+        public bool Delete(TEntity entity)
         {
             Context.Set<TEntity>().Attach(entity);
-
             Context.Set<TEntity>().Remove(entity);
 
-            Context.SaveChanges();
+            return Context.SaveChanges() == 1;
         }
 
-        public bool IsExists(Tkey id) 
+        public bool IsExists(object id)
         {
             return null != Get(id);
         }
 
-        public virtual IList<TEntity> PageOf(int pageIndex , int pageSize , out int rowCount) {
+        public virtual IList<TEntity> PageOf(int pageIndex, int pageSize, out int rowCount)
+        {
             int skipCount = pageSize * (pageIndex - 1);
             rowCount = Context.Set<TEntity>().Count();
             var query = Context.Set<TEntity>().AsNoTracking().Skip(skipCount).Take(pageSize);
             return query.ToList();
-
         }
     }
 }

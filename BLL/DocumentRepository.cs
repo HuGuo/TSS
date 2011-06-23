@@ -1,14 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
 using TSS.Models;
 namespace TSS.BLL
 {
-    public class DocumentRepository : Repository<Document,Guid>
+    public class DocumentRepository : Repository<Document>
     {
-        public DocumentRepository() { }
-
         public void Delete(Guid id , Action<string> onDeleted) {
             Document obj = Context.Documents.Find(id);
             if (null != obj) {
