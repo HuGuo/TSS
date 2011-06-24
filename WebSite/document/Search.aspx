@@ -10,7 +10,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div id="toolbar">
+    <div id="toolbar" class="fixed">
     <a href="Default.aspx?s=<%=Request.QueryString["s"] %>">返回</a>
         <div class="search">
             <asp:TextBox ID="txtKey" runat="server" class="textbox"></asp:TextBox>
@@ -23,7 +23,7 @@
             <ItemTemplate>
                 <li><a href="javascript:void(0);" ondblclick="javascript:download('<%#Eval("Id") %>')" pid="<%#Eval("id") %>" isfolder="<%#Eval("isFolder") %>"
                     title="<%#Eval("name") %>">
-                    <div class="ico" style="background: url(<%# getIcon(Eval("Path").ToString()) %>) no-repeat center center;">
+                    <div class="ico <%# Helper.GetClassName(Eval("Name").ToString()) %>">
                     </div>
                     <div class="filename">
                         <%#Eval("name") %>
