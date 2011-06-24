@@ -61,10 +61,7 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
     {
         BindCycle();
     }
-    protected void btnCancle_Click(object sender, EventArgs e)
-    {
-        Response.Redirect("MaintenanceCycle.aspx");
-    }
+
     protected void btnAdd_Click(object sender, EventArgs e)
     {
         MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
@@ -78,6 +75,6 @@ public partial class MaintenanceCycle_AddMaintenanceCycle : BasePage
             EquipmentId = new Guid(ddlEquipment.SelectedValue),
             EquipmentModel = tbModel.Text
         });
-        AddConfirm(result, "MaintenanceCycle.aspx");
+        AddConfirm(result, string.Format("MaintenanceClass.aspx?sepcialtyId=", Request.QueryString["specialtyId"]));
     }
 }

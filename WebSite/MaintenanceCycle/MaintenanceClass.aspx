@@ -1,5 +1,5 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="MaintenanceClass.aspx.cs"
-    MasterPageFile="~/Default.master" Inherits="MaintenanceCycle_MaintenanceClass" %>
+    MasterPageFile="~/ValidateAndUi.master" Inherits="MaintenanceCycle_MaintenanceClass" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 
 </asp:Content>
@@ -15,9 +15,11 @@
             });
         }
     </script>
-    <div>
-        <a href="AddMaintenanceClass.aspx">添加</a> <a href="MaintenanceCycle.aspx">返回</a>
-        <asp:Repeater runat="server" ID="rptClass">
+   <div id="toolbar" class="fixed">
+        <a href="AddMaintenanceClass.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>">添加</a>
+        <a href="Default.aspx?s=<%= Request.QueryString["specialtyId"] %>">返回</a>
+    </div>
+            <asp:Repeater runat="server" ID="rptClass">
             <HeaderTemplate>
                 <table>
                     <tr>
@@ -50,5 +52,4 @@
                 </table>
             </FooterTemplate>
         </asp:Repeater>
-    </div>
 </asp:Content>

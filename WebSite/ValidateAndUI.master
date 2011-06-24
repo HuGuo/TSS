@@ -1,0 +1,31 @@
+﻿<%@ Master Language="C#" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <link rel="Stylesheet" type="text/css" href="~/scripts/jquery-easyui/themes/default/easyui.css" />
+    <link rel="Stylesheet" type="text/css" href="~/scripts/jquery-easyui/themes/icon.css" />
+    <link rel="stylesheet" type="text/css" href="~/Styles/_base.css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="Form1" runat="server" style=" padding-top:32px;">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+        <Scripts>
+            <asp:ScriptReference Path="~/scripts/jquery-1.6.1.min.js" />
+            <asp:ScriptReference Path="~/scripts/jquery-easyui/jquery.easyui.min.js" />
+            <asp:ScriptReference Path="~/scripts/jquery-validation/jquery.validate.js" />
+            <asp:ScriptReference Path="~/scripts/jquery-validation/lib/jquery.metadata.js" />
+            <asp:ScriptReference Path="~/scripts/jquery-validation/messages_cn.js" />
+            <asp:ScriptReference Path="~/scripts/My97DatePicker/WdatePicker.js" />
+        </Scripts>
+    </asp:ScriptManager>
+    <div>
+        <asp:ContentPlaceHolder ID="body" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

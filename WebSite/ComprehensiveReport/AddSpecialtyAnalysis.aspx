@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ValidateAndUi.master" AutoEventWireup="true"
     CodeFile="AddSpecialtyAnalysis.aspx.cs" Inherits="ComprehensiveReport_AddSpecialtyAnalysis" %>
 
 <%@ Register Src="../UserControl/YearAndMonControl.ascx" TagName="YearAndMonControl"
@@ -6,6 +6,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+    <div id="toolbar" class="fixed">
+        <a href="Default.aspx?s=<%= Request.QueryString["specialtyId"] %>">
+            返回</a>
+    </div>
     <table>
         <tr>
             <td colspan="6" align="center">
@@ -64,21 +68,16 @@
         </asp:Repeater>
         <tr>
             <td colspan="6">
-                <table>
-                    <tr>
-                        <td>
-                            综合分析
-                        </td>
-                        <td>
-                            <asp:TextBox runat="server" ID="tbSpecialtyAnalysis" TextMode="MultiLine"></asp:TextBox>
-                        </td>
-                    </tr>
-                </table>
+                综合分析
             </td>
         </tr>
+        <tr>
+            <td colspan="6">
+                <asp:TextBox runat="server" ID="tbSpecialtyAnalysis" TextMode="MultiLine"></asp:TextBox>
+            </td>
+        </tr>
+        <td colspan="6">
+            <asp:Button runat="server" ID="btnAdd" Text="添加" CssClass="btn" OnClick="btnAdd_Click" />
+        </td>
     </table>
-    <p>
-        <asp:Button runat="server" ID="btnAdd" Text="添加" OnClick="btnAdd_Click" />
-        <input value="返回" type="button" onclick="window.location.href='SpecialtyAnalysis.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>'" />
-    </p>
 </asp:Content>

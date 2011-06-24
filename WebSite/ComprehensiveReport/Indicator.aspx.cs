@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
+using TSS.Models;
 
 public partial class ComprehensiveReport_Indicator : BasePage
 {
@@ -15,7 +16,7 @@ public partial class ComprehensiveReport_Indicator : BasePage
             BindData();
         string id = Request.QueryString["id"];
         if (!string.IsNullOrEmpty(id))
-            Del(id);
+            Del(int.Parse(id));
     }
 
     public void BindData()
@@ -25,11 +26,18 @@ public partial class ComprehensiveReport_Indicator : BasePage
         rptIndicator.DataBind();
     }
 
-    public void Del(string id)
+    public void Del(int indicatorId)
     {
-        IndicatorRepository repository = new IndicatorRepository();
-        bool resutl = repository.Delete(repository.Get(int.Parse(id)));
-        DelConfirm(resutl);
-        DataBind();
+        IndicatorAnalysisRepository repository = new IndicatorAnalysisRepository();
+        if (repository.IsExistOnIndicator(indicatorId))
+        {
+            ExistChildConfirm();
+        }
+        else
+        {
+            bool resutl = new IndicatorRepository().Delete(indicatorId);
+            DelConfirm(resutl);
+        }
+        BindData();
     }
 }

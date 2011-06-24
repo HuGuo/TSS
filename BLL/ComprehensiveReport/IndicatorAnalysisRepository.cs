@@ -10,7 +10,7 @@ namespace TSS.BLL
 {
     public class IndicatorAnalysisRepository : Repository<IndicatorAnalysis>
     {
-        public List<IndicatorAnalysis> GetMuch(int specialtyAnalysisId)
+        public List<IndicatorAnalysis> GetMuchBySpecialtyAnalysisId(int specialtyAnalysisId)
         {
             using (var db = new Context())
             {
@@ -20,6 +20,21 @@ namespace TSS.BLL
                     .Include(i => i.Indicator.Specialty)
                     .ToList();
             }
+        }
+
+        public List<IndicatorAnalysis> GetMuchByIndicatorId(int indicatorId)
+        {
+            using (var db = new Context())
+            {
+                return db.IndicatorAnalysises
+                    .Where(i => i.IndicatorId == indicatorId)
+                    .ToList();
+            }
+        }
+
+        public bool IsExistOnIndicator(int indicatorId)
+        {
+            return GetMuchByIndicatorId(indicatorId).Count > 0;
         }
     }
 }

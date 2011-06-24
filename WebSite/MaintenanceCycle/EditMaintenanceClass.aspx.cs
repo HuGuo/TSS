@@ -18,7 +18,7 @@ public partial class MaintenanceCycle_EditMaintenanceClass : BasePage
 
     protected void BindData()
     {
-        BindSpecalty();
+        ucSpecialtyControl.SpecialtyId = Request.QueryString["specialtyId"];
         BindMaintenanceClass();
     }
 
@@ -28,7 +28,7 @@ public partial class MaintenanceCycle_EditMaintenanceClass : BasePage
         MaintenanceClass maintenanceClass = repository.Get(
             int.Parse(Request.QueryString["id"]));
         tbClassNames.Text = maintenanceClass.equipmentClassName;
-        ddlSpecialty.SelectedValue = maintenanceClass.SpecialtyId;
+        ucSpecialtyControl.SpecialtyId = maintenanceClass.SpecialtyId;
     }
 
     protected void btnEdit_Click(object sender, EventArgs e)
@@ -37,14 +37,6 @@ public partial class MaintenanceCycle_EditMaintenanceClass : BasePage
         MaintenanceClass maintenanceClass = repository.Get(int.Parse(Request.QueryString["id"]));
         maintenanceClass.equipmentClassName = tbClassNames.Text;
         bool result = repository.Update(maintenanceClass);
-        EditConfirm(result, "MaintenanceClass.aspx");
-    }
-
-    protected void BindSpecalty()
-    {
-        foreach (Specialty specialty in new Specialties().GetAll())
-        {
-            ddlSpecialty.Items.Add(new ListItem(specialty.Name, specialty.Id));
-        }
+        EditConfirm(result, string.Format("MaintenanceClass.aspx?sepcialtyId=", Request.QueryString["specialtyId"]));
     }
 }

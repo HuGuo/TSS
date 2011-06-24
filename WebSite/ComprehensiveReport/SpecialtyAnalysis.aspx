@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ValidateAndUi.master" AutoEventWireup="true"
     CodeFile="SpecialtyAnalysis.aspx.cs" Inherits="ComprehensiveReport_SpecialtyAnalysis" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -15,10 +15,12 @@
             });
         }
     </script>
-    <div>
-        <a href="AddSpecialtyAnalysis.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>">
+ <div id="toolbar" class="fixed">
+        <a href="AddSpecialtyAnalysis.aspx?specialtyId=<%= Request.QueryString["s"] %>">
             添加</a>   <a href="Indicator.aspx?specialtyId=GHY-JY">指标管理</a>
-        <asp:Repeater runat="server" ID="rptSpecialtyAnalysis">
+  
+    </div>
+          <asp:Repeater runat="server" ID="rptSpecialtyAnalysis">
             <HeaderTemplate>
                 <table>
                     <tr>
@@ -70,5 +72,4 @@
                 </table>
             </FooterTemplate>
         </asp:Repeater>
-    </div>
 </asp:Content>

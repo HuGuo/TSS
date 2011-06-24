@@ -1,9 +1,13 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ValidateAndUi.master" AutoEventWireup="true"
     CodeFile="SpecialtyAnalysisDetail.aspx.cs" Inherits="ComprehensiveReport_SpecialtyAnalysisDetail" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+    <div id="toolbar" class="fixed">
+        <a href="Default.aspx?s=<%= Request.QueryString["specialtyId"] %>">
+            返回</a>
+    </div>
     <table>
         <tr>
             <td colspan="6">
@@ -72,7 +76,4 @@
             </td>
         </tr>
     </table>
-    <p>
-        <input value="返回" type="button" onclick="window.location.href='SpecialtyAnalysis.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>'" />
-    </p>
 </asp:Content>

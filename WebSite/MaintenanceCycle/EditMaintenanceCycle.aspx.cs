@@ -64,6 +64,6 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : BasePage
             MaintenanceClassId = int.Parse(ddlClass.SelectedValue),
             EquipmentId = new Guid(ddlEquipment.SelectedValue),
         });
-        EditConfirm(result, "MaintenanceCycle.aspx");
+        EditConfirm(result, string.Format("MaintenanceClass.aspx?sepcialtyId=", Request.QueryString["specialtyId"]));
     }
 }

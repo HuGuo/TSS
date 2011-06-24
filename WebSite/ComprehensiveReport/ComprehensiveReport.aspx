@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ValidateAndUi.master" AutoEventWireup="true"
     CodeFile="ComprehensiveReport.aspx.cs" Inherits="ComprehensiveReport_ComprehensiveReport" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -15,6 +15,9 @@
             });
         }
     </script>    
+    <div id="toolbar" class="fixed">
+    
+    </div>
         <asp:Repeater runat="server" ID="rptReport">
             <HeaderTemplate>
             <table>

@@ -47,7 +47,7 @@ public partial class ComprehensiveReport_EditSpecialtyAnalysis : BasePage
     protected void EditIsSccessfulPrompt(bool reuslt)
     {
         EditConfirm(reuslt,
-            string.Format("specialtyanalysis.aspx?specialtyId={0}", Request.QueryString["specialtyId"]));
+            string.Format("Default.aspx?s={0}", Request.QueryString["specialtyId"]));
     }
 
     protected ComprehensiveReport GetComprehensiveReport()

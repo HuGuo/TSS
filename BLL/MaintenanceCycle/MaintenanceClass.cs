@@ -26,5 +26,13 @@ namespace TSS.BLL
                     .Where(m => m.Id == maintenanceClassId)
                     .SingleOrDefault();
         }
+
+        public IList<MaintenanceClass> GetMuchBySpecialty(string specialtyId)
+        {
+            using (var dbContext = new Context())
+                return dbContext.MaintenanceClasses
+                    .Where(m => m.SpecialtyId == specialtyId)
+                    .ToList();
+        }
     }
 }

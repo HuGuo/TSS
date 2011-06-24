@@ -18,7 +18,7 @@ public partial class ComprehensiveReport_AddSpecialtyAnalysis : BasePage
 
     protected void BindData()
     {
-        rptIndicator.DataSource = new IndicatorRepository().GetAll();
+        rptIndicator.DataSource = new IndicatorRepository().GetBySpecialty(Request.QueryString["specialtyId"]);
         rptIndicator.DataBind();
     }
     protected void btnAdd_Click(object sender, EventArgs e)
@@ -47,7 +47,7 @@ public partial class ComprehensiveReport_AddSpecialtyAnalysis : BasePage
 
     protected void ConfirmAdd(bool result)
     {
-        AddConfirm(result,string.Format("specialtyAnalysis.aspx?specialtyId={0}", 
+        AddConfirm(result, string.Format("Default.aspx?s={0}", 
             Request.QueryString["specialtyId"]));
     }
 
