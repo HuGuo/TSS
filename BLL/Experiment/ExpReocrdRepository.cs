@@ -6,7 +6,7 @@ using TSS.Models;
 using System.Data.Entity;
 namespace TSS.BLL
 {
-    public class ExpReocrdRepository:Repository<TSS.Models.ExpRecord,Guid>
+    public class ExpReocrdRepository:Repository<TSS.Models.ExpRecord>
     {
         public IList<ExpRecord> GetAll(string specialtyId) {
             return Context.ExpRecords.Where(p => p.SpecialtyId.Equals(specialtyId)).ToList();

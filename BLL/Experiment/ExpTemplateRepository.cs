@@ -13,7 +13,7 @@ namespace TSS.BLL
 
         }
 
-        public override void Delete(object id) {
+        public override bool Delete(object id) {
             ExpTemplate entity = Context.ExpTemplates.Find(id);
             if (null != entity) {
                 int exps = Context.Experiments.Count(p => p.ExpTemplateID == entity.Id);
@@ -22,9 +22,9 @@ namespace TSS.BLL
                 } else {
                     Context.ExpTemplates.Remove(entity);
                 }
-                Context.SaveChanges();
+                return Context.SaveChanges()>0;
             }
-
+            return false;
         }
 
         public override IList<ExpTemplate> GetAll() {

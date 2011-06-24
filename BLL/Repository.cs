@@ -56,11 +56,9 @@ namespace TSS.BLL
             Context.SaveChanges();
         }
 
-        public virtual void Delete(object id)
+        public virtual bool Delete(object id)
         {
-            if (IsExists(id)) {
-                Delete(Get(id));
-            }
+            return Delete(Get(id));
         }
 
         public bool Delete(TEntity entity)

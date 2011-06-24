@@ -6,7 +6,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class ExperimentRepository : Repository<Experiment,Guid>
+    public class ExperimentRepository : Repository<Experiment>
     {
         public ExperimentRepository() { }
         public void Add(Experiment entity,Action<Experiment> onAdd=null) {
@@ -49,7 +49,7 @@ namespace TSS.BLL
                 .FirstOrDefault();
         }
 
-        public override void Update(Experiment entity) {
+        public override bool Update(Experiment entity) {
             Experiment experiment = Context.Experiments.Find(entity.Id);
             if (null != experiment) {
                 int c = experiment.Expdatas.Count - 1;
@@ -65,9 +65,10 @@ namespace TSS.BLL
                 experiment.EquipmentID = entity.EquipmentID;
                 experiment.ExpDate = entity.ExpDate;
                 experiment.Title = entity.Title;
-                Context.SaveChanges();
+                return Context.SaveChanges() > 0;
 
             }
+            return false;
         }
 
         public IList<Experiment> GetMuch(Guid equipmentID) {
