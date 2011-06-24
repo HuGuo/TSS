@@ -65,7 +65,7 @@ namespace TSS.Models
             var systemManagementModules = new List<Module> {
                 new Module { Name = "人员管理", Url = "Employee" },
                 new Module { Name = "设备管理", Url = "Equipment" },
-                new Module { Name = "实验管理", Url = "Experiment" },
+                new Module { Name = "试验管理", Url = "Experiment" },
                 new Module { Name = "工作流管理", Url = "Workflow" },
                 new Module { Name = "模块管理", Url = "Module" }
             };
@@ -74,7 +74,7 @@ namespace TSS.Models
                     new Module { Name = "设备台帐", Url = "Equipment" },
                     new Module { Name = "实验报告", Url = "Experiment" },
                     new Module { Name = "预试周期", Url = "MaintenanceCycle" },
-                    new Module { Name = "监督月报", Url = "Report" },
+                    new Module { Name = "监督月报", Url = "ComprehensiveReport" },
                     new Module { Name = "人员资质", Url = "Certificate" },
                     new Module { Name = "档案资料", Url = "Document" }
             };
