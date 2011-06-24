@@ -58,34 +58,55 @@ namespace TSS.Models
 
     class DatabaseInitializer : DropCreateDatabaseIfModelChanges<Context>
     {
-        protected override void Seed(Context context) {
+        protected override void Seed(Context context)
+        {
             base.Seed(context);
 
-                new Module { Name = "浜哄憳绠＄悊", Url = "Employee" },
-                new Module { Name = "璁惧绠＄悊", Url = "Equipment" },
-                new Module { Name = "瀹為獙绠＄悊", Url = "Experiment" },
-                new Module { Name = "宸ヤ綔娴佺鐞, Url = "Workflow" },
-                new Module { Name = "妯″潡绠＄悊", Url = "Module" }
-                    new Module { Name = "璁惧鍙板笎", Url = "Equipment" },
-                    new Module { Name = "瀹為獙鎶ュ憡", Url = "Experiment" },
-                    new Module { Name = "棰勮瘯鍛ㄦ湡", Url = "MaintenanceCycle" },
-                    new Module { Name = "鐩戠潱鏈堟姤", Url = "Report" },
-                    new Module { Name = "浜哄憳璧勮川", Url = "Certificate" },
-                    new Module { Name = "妗ｆ璧勬枡", Url = "Document" }
-                new Module { Id = 1, Name = "涓撲笟鐩戠潱", Submodules = specialtyModules },
-                new Module { Id = 2, Name = "鐩戠潱鍔ㄦ� },
-                new Module { Id = 3, Name = "鐩戠潱浣撶郴" },
-                new Module { Id = 4, Name = "鐩戠潱绠＄悊" },
-                new Module { Id = 5, Name = "绯荤粺绠＄悊", Url= "SystemManagement", Submodules = systemManagementModules }
-                new Specialty { Id = "GHY-DC", Name = "鐢垫祴璁￠噺" },
-                new Specialty { Id = "GHY-DN", Name = "鐢佃兘" },
-                new Specialty { Id = "GHY-HX", Name = "鍖栧" },
-                new Specialty { Id = "GHY-JDBH", Name = "缁х數淇濇姢" },
-                new Specialty { Id = "GHY-JN", Name = "鑺傝兘" },
-                new Specialty { Id = "GHY-JS", Name = "閲戝睘" },
-                new Specialty { Id = "GHY-JY", Name = "缁濈紭" },
-                new Specialty { Id = "GHY-LC", Name = "鍔辩" },
-                new Specialty { Id = "GHY-RG", Name = "鐑伐" }
+            var systemManagementModules = new List<Module> {
+                new Module { Name = "人员管理", Url = "Employee" },
+                new Module { Name = "设备管理", Url = "Equipment" },
+                new Module { Name = "实验管理", Url = "Experiment" },
+                new Module { Name = "工作流管理", Url = "Workflow" },
+                new Module { Name = "模块管理", Url = "Module" }
+            };
+
+            var specialtyModules = new List<Module> {
+                    new Module { Name = "设备台帐", Url = "Equipment" },
+                    new Module { Name = "实验报告", Url = "Experiment" },
+                    new Module { Name = "预试周期", Url = "MaintenanceCycle" },
+                    new Module { Name = "监督月报", Url = "Report" },
+                    new Module { Name = "人员资质", Url = "Certificate" },
+                    new Module { Name = "档案资料", Url = "Document" }
+            };
+
+            new List<Module> {
+                new Module { Id = 1, Name = "专业监督", Submodules = specialtyModules },
+                new Module { Id = 2, Name = "监督动态" },
+                new Module { Id = 3, Name = "监督体系" },
+                new Module { Id = 4, Name = "监督管理" },
+                new Module { Id = 5, Name = "系统管理", Url= "SystemManagement", Submodules = systemManagementModules }
+            }.ForEach(m =>
+            {
+                context.Modules.Add(m);
+            });
+
+            new List<Specialty> {
+                new Specialty { Id = "GHY-DC", Name = "电测计量" },
+                new Specialty { Id = "GHY-DN", Name = "电能" },
+                new Specialty { Id = "GHY-HX", Name = "化学" },
+                new Specialty { Id = "GHY-JDBH", Name = "继电保护" },
+                new Specialty { Id = "GHY-JN", Name = "节能" },
+                new Specialty { Id = "GHY-JS", Name = "金属" },
+                new Specialty { Id = "GHY-JY", Name = "绝缘" },
+                new Specialty { Id = "GHY-LC", Name = "励磁" },
+                new Specialty { Id = "GHY-RG", Name = "热工" }
+            }.ForEach(s =>
+            {
+                s.Modules = specialtyModules;
+                context.Specialties.Add(s);
+            });
+
+            context.SaveChanges();
         }
     }
 }
