@@ -7,6 +7,7 @@ using TSS.Models;
 
 public class ExpHandler : IHttpHandler
 {
+    static readonly string attachmentPath = HttpContext.Current.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Experiment"])+"\\";
     #region IHttpHandler Members
 
     public bool IsReusable
@@ -37,6 +38,18 @@ public class ExpHandler : IHttpHandler
                 case "sert":
                     SaveExpRecordTemplate(context);
                     break;
+                case "recordequipments":
+                    ResponseEquipmentJSON(context);
+                    break;
+                case "upload":
+                    Upload(context);
+                    break;
+                case"del-attachment":
+                    DeleteAttachment(context);
+                    break;
+                case"download":
+                    DownloadAttachment(context);
+                    break;
                 default:
                     break;
             }
@@ -45,6 +58,7 @@ public class ExpHandler : IHttpHandler
         }
     }
 
+    //保存试验报告模板
     void SaveTemplate(HttpContext context)
     {
         try {
@@ -70,12 +84,12 @@ public class ExpHandler : IHttpHandler
             } else {
                 RepositoryFactory<ExpTemplateRepository>.Get().Add(template);
             }
-            context.Response.Write("1");
+            context.Response.Write("{\"id\":\""+template.Id+"\"}");
         } catch (Exception ex) {
-            context.Response.Write("错误：" + ex.Message);
+            context.Response.Write("{\"msg\":\"错误：" + ex.Message+"\"");
         }
     }
-
+    //试验报告数据
     void SaveData(HttpContext context)
     {
         try {
@@ -84,6 +98,7 @@ public class ExpHandler : IHttpHandler
             string date = context.Request["date"];
             string emID = context.Request["eqmId"];
             string result = context.Request["result"];
+            string remark = context.Server.UrlDecode(context.Request["remark"]);
             string title = context.Server.UrlDecode(context.Request["title"]);
             string html = context.Server.UrlDecode(context.Request["html"]);
             string data = context.Server.UrlDecode(context.Request["data"]);
@@ -110,6 +125,7 @@ public class ExpHandler : IHttpHandler
                 ExpTemplateID = templateID,
                 HTML = html,
                 EquipmentID = Guid.Parse(emID),
+                Remark=remark,
                 Expdatas = datas
             };            
             if (!string.IsNullOrWhiteSpace(_id)) {
@@ -117,10 +133,65 @@ public class ExpHandler : IHttpHandler
             } else {
                 RepositoryFactory<ExperimentRepository>.Get().Add(experiment);
             }
-            context.Response.Write(experiment.Id);
+            context.Response.Write("{\"id\":\"" + experiment.Id + "\"}");
         } catch (Exception ex) {
-            context.Response.Write("错误：" + ex.Message);
+            context.Response.Write("{\"msg\":\"错误：" + ex.Message+"\"");
         }
+    }
+
+    //上传试验报告附件
+    void Upload(HttpContext context) {
+        try {
+            string id = context.Request["expid"];
+
+            HttpFileCollection fileCollection = context.Request.Files;
+            int count = fileCollection.Count;
+            HttpPostedFile upload;
+            ICollection<ExpAttachment> items = new List<ExpAttachment>();
+            for (int i = 0; i < count; i++) {
+                upload = fileCollection[i];
+                string fileExtension = System.IO.Path.GetExtension(upload.FileName);
+                Guid guid = System.Guid.NewGuid();
+                upload.SaveAs(attachmentPath + guid.ToString() + fileExtension);
+                ExpAttachment item = new ExpAttachment { 
+                    Id=guid,
+                    FileName=upload.FileName
+                };
+
+                items.Add(item);
+                context.Response.Write("{"+string.Format("\"id\":\"{0}\",\"name\":\"{1}\"" , item.Id , item.FileName.Replace("\"" , "“"))+"}");
+            }
+            RepositoryFactory<ExperimentRepository>.Get().AddAttachment(new Guid(id) , items , onUploadError);
+        } finally { }
+    }
+    void onUploadError(ICollection<ExpAttachment> uploadedFiles) {
+        foreach (var item in uploadedFiles) {
+            string path = attachmentPath + item.Id.ToString() + System.IO.Path.GetExtension(item.FileName);
+            if (System.IO.File.Exists(path)) {
+                System.IO.File.Delete(path);
+            }
+        }
+    }
+    //删除试验报告附件
+    void DeleteAttachment(HttpContext context) {
+        string id = context.Request["id"];
+        string attachment = context.Request["att"];
+        try {
+            RepositoryFactory<ExperimentRepository>.Get().RemoveAttachment(new Guid(id) , new Guid(attachment) , onRemove);
+        } catch (Exception ex) {
+            context.Response.Write(ex.Message);
+        }
+
+    }
+    void onRemove(string fileName) {
+        if (System.IO.File.Exists(attachmentPath+fileName)) {
+            System.IO.File.Delete(attachmentPath + fileName);
+        }    
+    }
+    void DownloadAttachment(HttpContext context) {
+        string id = context.Request.QueryString["id"];
+        string filename = context.Server.UrlDecode(context.Request.QueryString["filename"]);
+        DownloadFile.ResponseFile(attachmentPath + id+System.IO.Path.GetExtension(filename) , filename , context);
     }
 
     void DeleteTemplate(HttpContext context) {        
@@ -142,7 +213,7 @@ public class ExpHandler : IHttpHandler
 
     //实验台帐 数据
     void ResponseExpRecordJSON(HttpContext context) {
-        
+        context.Response.ContentType = "application/json";
         string eqId = context.Request["equipment"];
         string tmpId = context.Request["exptemplate"];
         string columns = context.Request["fields"];
@@ -159,6 +230,7 @@ public class ExpHandler : IHttpHandler
                                 expdate = p.ExpDate.ToString("yyyy-MM-dd") ,
                                 id = p.Id ,
                                 result = p.Result ,
+                                remark=p.Remark,
                                 dts = from m in p.Expdatas
                                       where fields.Contains(m.GUID)
                                       select new { label=m.GUID, val=m.Value}
@@ -180,6 +252,19 @@ public class ExpHandler : IHttpHandler
             context.Response.Write("{\"msg\":\""+ex.Message+"\"}");
         }
     }
+
+    //实验台帐设备列表 
+    void ResponseEquipmentJSON(HttpContext context) {
+        context.Response.ContentType = "application/json";
+        string tmpId = context.Request.QueryString["tid"];
+         IEnumerable<Equipment> list= RepositoryFactory<ExpReocrdRepository>.Get().GetEquipmentsByExpTemplate(new Guid(tmpId));
+         var quer = from p in list
+                    select new { id = p.Id , name = p.Name };
+        
+        System.Web.Script.Serialization.JavaScriptSerializer jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+        context.Response.Write(jss.Serialize(quer));
+    }
+
     //保存实验台帐模板
     void SaveExpRecordTemplate(HttpContext context) {
         string id = context.Request["id"];
@@ -188,17 +273,19 @@ public class ExpHandler : IHttpHandler
         try {
             ExpRecord obj = RepositoryFactory<ExpReocrdRepository>.Get().Get(new Guid(id));
             if (null !=obj) {
-                obj.DataSourcesTemplate = RepositoryFactory<ExpTemplateRepository>.Get().Get(new Guid(tmpId));
+                //obj.DataSourcesTemplate = RepositoryFactory<ExpTemplateRepository>.Get().Get(new Guid(tmpId));
+                //RepositoryFactory<ExpReocrdRepository>.Get().Update(obj.Id , obj);
+
                 string path = context.Server.MapPath(obj.Path);
                 if (System.IO.File.Exists(path)) {
                     using (System.IO.StreamWriter write = new System.IO.StreamWriter(path , false)) {
-                        write.WriteLine("<!--"+obj.Name+"-->");
+                        //write.WriteLine("<!--"+obj.Name+"-->");
                         write.Write(html);
                         write.Flush();
                         write.Close();
                     }
                 }
-                RepositoryFactory<ExpReocrdRepository>.Get().Update(obj.Id , obj);
+                
             }
         } catch (Exception ex) {
             context.Response.Write(ex.Message);

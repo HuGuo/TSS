@@ -30,8 +30,8 @@
             <ul id="employees">
             </ul>
             </div>
-    <div region="center" style="padding-top: 30px;">
-    <div id="toolbar" class="fixed">
+    <div region="center">
+    <div id="toolbar">
     <a href="Default.aspx">用户管理</a>
     <input type="button" id="btnSave" class="btn" value="保存" style=" float:right; margin-top:3px;" />
     </div>

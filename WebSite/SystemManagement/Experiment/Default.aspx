@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>实验报告模板</title>
-    <link href="../../scripts/base.css" rel="stylesheet" type="text/css" />
+    <link href="../../Styles/_base.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server" style="padding-top: 32px;">
@@ -12,10 +12,10 @@
         <a href="ExpRecordDefault.aspx">试验台帐</a>
         <a href="setTemplate.aspx" target="_blank">添加模板</a>        
         </div>
-    <table style="width:90%;">
+    <table id="tb" style="width:90%;">
         <tr>
             <th style="width:50px;">
-                序号</tdth>
+                序号</th>
                 <th>
                     模板名称
                 </th>
@@ -50,10 +50,8 @@
     $(function () {
         $("a.delete").bindDelete({
             handler: "../../exp.ashx",
-            op: "del-t",
-            onSuccess: function (k) {
-                $("#tr_" + k).remove();
-            }
+            op: "del-t"
         });
+        $("#tb tr:gt(0)").hoverColor();
     });
 </script>

@@ -10,6 +10,30 @@
     <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <style type="text/css">
+        body
+        {
+            font-size: 12px;
+            margin: 0;
+            padding: 0;
+        }
+        .nveltb
+        {
+            border: 1px solid #e2e2e2;
+            border-collapse: collapse;
+        }
+        .caption
+        {
+            font-size: 18px;
+            line-height: 30px;
+            font-weight: 800;
+        }
+        td
+        {
+            border: 1px solid #e2e2e2;
+            text-align: center;
+            height:26px;
+        }
+        .noborder{ border:0;}
     .dg{width:100px;
 			height:25px;
 			padding:10px;
@@ -23,7 +47,7 @@
     </style>
 </head>
 <body>
-<input type="button" id="btnSave" value="保存" style=" position:fixed; top:0; right:10px; width:105px; height:35px; z-index:98;" />
+<input type="button" id="btnSave" value="保存" style=" position:fixed; top:0; right:10px; width:85px; height:25px; z-index:98;" />
     <div id="divt1" class="layout" style="height:230px; ">
         <asp:Literal ID="ltExpReocrd" runat="server"></asp:Literal>
     </div>

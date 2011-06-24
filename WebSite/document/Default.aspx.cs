@@ -8,7 +8,6 @@ using TSS.BLL;
 using TSS.Models;
 public partial class document_Default : System.Web.UI.Page
 {
-    public static string ICON_PATH = System.Configuration.ConfigurationManager.AppSettings["FileTypeIcon"];
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
@@ -28,13 +27,4 @@ public partial class document_Default : System.Web.UI.Page
         }
     }
 
-    public string getIcon(string path) 
-    {
-        string extension=System.IO.Path.GetExtension(path);
-        if (extension=="" || extension.ToLower()==".folder") {
-            return "../images/folder.gif";
-        } else {
-            return ICON_PATH + extension;
-        }
-    }
 }

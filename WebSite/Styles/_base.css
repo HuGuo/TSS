@@ -5,8 +5,8 @@
     height: auto !important;
     padding: 0;
 }
-
-
+ul{ margin:0; padding:0; list-style:none;}
+a{ text-decoration:none;}
 /*button*/
 .btn {
     background: url(../images/btn_bg_short.gif) no-repeat left top;

@@ -16,6 +16,7 @@ public partial class SystemManagement_Experiment_PreView : System.Web.UI.Page
                 ExpTemplate obj= RepositoryFactory<ExpTemplateRepository>.Get().Get(new Guid(id));
                 if (obj!=null) {
                     ltHTML.Text = obj.HTML;
+                    ltTitle.Text = obj.Title;
                 }
             }
         }

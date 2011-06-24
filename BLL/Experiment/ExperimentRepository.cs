@@ -6,11 +6,50 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class ExperimentRepository : Repository<Experiment>
+    public class ExperimentRepository : Repository<Experiment,Guid>
     {
-        public override bool Update(Experiment entity) {
-            bool result = false;
+        public ExperimentRepository() { }
+        public void Add(Experiment entity,Action<Experiment> onAdd=null) {
+            base.Add(entity);
+            if (null !=onAdd) {
+                onAdd(entity);
+            }
+        }
 
+        public void RemoveAttachment(Guid id,Guid attachment,Action<string> onRemove) {
+            Experiment obj = Context.Experiments.Find(id);
+            if (null !=obj) {
+                ExpAttachment item=obj.Attachments.Single(p => p.Id.Equals(attachment));
+                if (null !=item) {
+                    Context.ExpAttachments.Remove(item);
+                    obj.Attachments.Remove(item);
+                    Context.SaveChanges();
+                    onRemove(item.Id + System.IO.Path.GetExtension(item.FileName));
+                }
+            }
+        }
+
+        public void AddAttachment(Guid id , ICollection<ExpAttachment> items , Action<ICollection<ExpAttachment>> onError) {
+            try {
+                Experiment obj = Context.Experiments.Find(id);
+                if (null != obj) {
+                    foreach (var item in items) {
+                        item.Experiment = obj;
+                        obj.Attachments.Add(item);
+                    }
+                    Context.SaveChanges();
+                }
+            } catch (Exception) {
+                onError(items);
+            }
+        }
+        public Experiment GetLastExperiment(Guid templateId,Guid equipmentId) {
+            return Context.Experiments.Where(p => p.EquipmentID.Equals(equipmentId) && p.ExpTemplateID.Equals(templateId))
+                .OrderByDescending(p => p.ExpDate)
+                .FirstOrDefault();
+        }
+
+        public override void Update(Experiment entity) {
             Experiment experiment = Context.Experiments.Find(entity.Id);
             if (null != experiment) {
                 int c = experiment.Expdatas.Count - 1;
@@ -18,16 +57,17 @@ namespace TSS.BLL
                     Context.ExpData.Remove(experiment.Expdatas.ElementAt(i));
                 }
                 experiment.Expdatas.Clear();
-                experiment.Expdatas = entity.Expdatas;
+                //experiment.Expdatas = entity.Expdatas;
+                foreach (var item in entity.Expdatas) {
+                    experiment.Expdatas.Add(item);
+                }
                 experiment.HTML = entity.HTML;
                 experiment.EquipmentID = entity.EquipmentID;
                 experiment.ExpDate = entity.ExpDate;
                 experiment.Title = entity.Title;
-                result = Context.SaveChanges() == 1;
+                Context.SaveChanges();
 
             }
-
-            return result;
         }
 
         public IList<Experiment> GetMuch(Guid equipmentID) {

@@ -22,7 +22,7 @@ namespace TSS.BLL
             Context.Dispose();
         }
 
-        public TEntity Get(object id)
+        public virtual TEntity Get(object id)
         {
             return Context.Set<TEntity>().Find(id);
         }
@@ -32,7 +32,7 @@ namespace TSS.BLL
             return Context.Set<TEntity>().ToList();
         }
 
-        public bool Add(TEntity entity)
+        public virtual bool Add(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
 
