@@ -14,7 +14,7 @@ public partial class ComprehensiveReport_SpecialtyAnalysis : BasePage
     {
         if (!IsPostBack)
             BindData();
-        string specialtyAnalysisId=Request.QueryString["id"];
+        string specialtyAnalysisId = Request.QueryString["id"];
         if (!string.IsNullOrEmpty(specialtyAnalysisId))
             Del(specialtyAnalysisId);
     }
@@ -28,9 +28,9 @@ public partial class ComprehensiveReport_SpecialtyAnalysis : BasePage
 
     public void Del(string specialtyAnalysisId)
     {
-        bool result = new SpecialtyAnalysisRepository()
-            .Delete(int.Parse(Request.QueryString["id"]));
+        SpecialtyAnalysisRepository reposigotry = new SpecialtyAnalysisRepository();
+        bool result = reposigotry.Delete(reposigotry.Get(int.Parse(Request.QueryString["id"])));
         DelConfirm(result, string.Format("SpecialtyAnalysis.aspx?specialtyId={0}"
-            ,Request.QueryString["specialtyId"]));
+            , Request.QueryString["specialtyId"]));
     }
 }

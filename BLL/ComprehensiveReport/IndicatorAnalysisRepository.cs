@@ -8,7 +8,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class IndicatorAnalysisRepository : Repository<IndicatorAnalysis, int>
+    public class IndicatorAnalysisRepository : Repository<IndicatorAnalysis>
     {
         public List<IndicatorAnalysis> GetMuch(int specialtyAnalysisId)
         {

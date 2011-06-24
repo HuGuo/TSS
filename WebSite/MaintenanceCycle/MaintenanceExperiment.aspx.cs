@@ -30,7 +30,7 @@ public partial class MaintenanceCycle_MaintenanceExperiment : BasePage
     protected void Del()
     {
         MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
-        bool result = repository.Delete(int.Parse(Request.QueryString["id"]));
+        bool result = repository.Delete(repository.Get(int.Parse(Request.QueryString["id"])));
         DelConfirm(result);
         BindData();
     }

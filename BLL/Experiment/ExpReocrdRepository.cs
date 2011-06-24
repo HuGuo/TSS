@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TSS.BLL
 {
-    public class ExpReocrdRepository:Repository<TSS.Models.ExpRecord,Guid>
+    public class ExpReocrdRepository:Repository<TSS.Models.ExpRecord>
     {
     }
 }

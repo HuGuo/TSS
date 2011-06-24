@@ -8,9 +8,9 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class SpecialtyAnalysisRepository : Repository<SpecialtyAnalysis, int>
+    public class SpecialtyAnalysisRepository : Repository<SpecialtyAnalysis>
     {
-        public override SpecialtyAnalysis Get(int specialtyAnalysisId)
+        public SpecialtyAnalysis Get(int specialtyAnalysisId)
         {
             return Context.SpecialtyAnalysises
                 .Where(s => s.Id == specialtyAnalysisId)

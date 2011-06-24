@@ -35,7 +35,7 @@ public partial class MaintenanceCycle_MaintenanceCycle : BasePage
         if (!experimentRepository.IsExistOnMaintenanceCycle(maintenanceCycleId))
         {
             MaintenanceCycleRepository maintenanceCycleRepository = new MaintenanceCycleRepository();
-            bool result = maintenanceCycleRepository.Delete(maintenanceCycleId);
+            bool result = maintenanceCycleRepository.Delete(maintenanceCycleRepository.Get(maintenanceCycleId));
             DelConfirm(result);
         }
         else

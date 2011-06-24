@@ -8,7 +8,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class IndicatorRepository : Repository<Indicator, int>
+    public class IndicatorRepository : Repository<Indicator>
     {
         public override IList<Indicator> GetAll()
         {

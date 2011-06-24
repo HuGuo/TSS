@@ -27,7 +27,8 @@ public partial class ComprehensiveReport_Indicator : BasePage
 
     public void Del(string id)
     {
-        bool resutl = new IndicatorRepository().Delete(int.Parse(id));
+        IndicatorRepository repository = new IndicatorRepository();
+        bool resutl = repository.Delete(repository.Get(int.Parse(id)));
         DelConfirm(resutl);
         DataBind();
     }

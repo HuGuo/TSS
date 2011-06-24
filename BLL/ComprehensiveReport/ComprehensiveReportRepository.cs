@@ -8,7 +8,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class ComprehensiveReportRepository : Repository<ComprehensiveReport, int>
+    public class ComprehensiveReportRepository : Repository<ComprehensiveReport>
     {
         public ComprehensiveReport Get(int comprehensiveReportId)
         {

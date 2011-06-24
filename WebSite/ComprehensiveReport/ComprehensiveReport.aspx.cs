@@ -31,7 +31,7 @@ public partial class ComprehensiveReport_ComprehensiveReport : BasePage
         ComprehensiveReport report = repository.Get(comprehensiveReportId);
         if (report.SpecialtyAnalysises.Count == 0)
         {
-            bool result = repository.Delete(comprehensiveReportId);
+            bool result = repository.Delete(repository.Get(comprehensiveReportId));
             DelConfirm(result);
             BindData();
         }

@@ -10,7 +10,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class MaintenanceExperimentRepository : Repository<MaintenanceExperiment, int>
+    public class MaintenanceExperimentRepository : Repository<MaintenanceExperiment>
     {
         public override IList<MaintenanceExperiment> GetAll()
         {
@@ -18,7 +18,7 @@ namespace TSS.BLL
                 return dbContext.MaintenanceExperiments.ToList();
         }
 
-        public override MaintenanceExperiment Get(int maintenanceExperimentId)
+        public  MaintenanceExperiment Get(int maintenanceExperimentId)
         {
             using (var dbContext = new Context())
                 return dbContext.MaintenanceExperiments
