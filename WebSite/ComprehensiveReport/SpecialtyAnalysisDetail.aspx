@@ -41,22 +41,22 @@
                 <tr>
                     <td>
                         <%# Container.ItemIndex+1 %>
-                        <asp:HiddenField runat="server" ID="hdfId" Value="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Id %>" />
+                        <asp:HiddenField runat="server" ID="hdfId" Value='<%# Eval("Id") %>' />
                     </td>
                     <td>
-                        <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Indicator.IndicatorName %>
+                        <%# Eval("Indicator.IndicatorName") %>
                     </td>
                     <td>
-                        <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Indicator.IndivatorUnit%>
+                        <%# Eval("Indicator.IndivatorUnit")%>
                     </td>
                     <td>
-                        <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).StandardValue%>
+                        <%# Eval("StandardValue")%>
                     </td>
                     <td>
-                        <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).ActualValue%>
+                        <%# Eval("ActualValue")%>
                     </td>
                     <td>
-                        <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Analysis%>
+                        <%# Eval("Analysis")%>
                     </td>
                 </tr>
             </ItemTemplate>

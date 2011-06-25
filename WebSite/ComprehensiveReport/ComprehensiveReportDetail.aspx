@@ -47,22 +47,22 @@
                                 <%# Container.ItemIndex+1  %>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).SpecialtyAnalysis.Specialty.Name %>
+                                <%# Eval("SpecialtyAnalysis.Specialty.Name") %>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Indicator.IndicatorName%>
+                                <%# Eval("Indicator.IndicatorName")%>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Indicator.IndivatorUnit %>
+                                <%# Eval("Indicator.IndivatorUnit") %>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).StandardValue %>
+                                <%#Eval("StandardValue") %>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).ActualValue %>
+                                <%# Eval("ActualValue") %>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Analysis %>
+                                <%# Eval("Analysis") %>
                             </td>
                         </tr>
                     </ItemTemplate>

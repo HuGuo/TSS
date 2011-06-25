@@ -3,8 +3,6 @@
 
 <%@ Import Namespace="TSS.Models" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
     <script type="text/javascript">
         function Del(id) {
             $.messager.confirm("删除", "是否删除！", function (result) {
@@ -16,6 +14,9 @@
             });
         }
     </script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+
     <div id="toolbar" class="fixed">
         <a href="MaintenanceClass.aspx">设备分类</a><a href="AddMaintenanceCycle.aspx">添加</a>
     </div>
@@ -61,25 +62,22 @@
                     <%# Container.ItemIndex+1 %>
                 </td>
                 <td>
-                    <%# ((MaintenanceCycle)Container.DataItem)
-                    .MaintenanceCalss.equipmentClassName%>
+                    <%# Eval("MaintenanceCalss.equipmentClassName")%>
                 </td>
                 <td>
                 </td>
                 <td>
-                    <%# ((MaintenanceCycle)Container.DataItem)
-                .EquipmentModel %>
+                    <%# Eval("EquipmentModel") %>
                 </td>
                 <td>
-                    <%# ((MaintenanceCycle)Container.DataItem)
-                .MaintenanceType %>
+                    <%# Eval("MaintenanceType") %>
                 </td>
                 <td>
                     <%# ((MaintenanceCycle)Container.DataItem).InstallTime.HasValue ?
                         ((MaintenanceCycle)Container.DataItem).InstallTime.Value.ToShortDateString() : ""%>
                 </td>
                 <td>
-                    <%# ((MaintenanceCycle)Container.DataItem).Cycle%>
+                    <%# Eval("Cycle")%>
                 </td>
                 <td>
                     <%# ((MaintenanceCycle)Container.DataItem).MaintenanceExperiments.Count == 0 ?
@@ -90,9 +88,9 @@
                         "" : ((MaintenanceCycle)Container.DataItem).MaintenanceExperiments.Last().ExpectantTime.Value.ToShortDateString()%>
                 </td>
                 <td>
-                    <a href="AddMaintenanceCycle.aspx">添加</a> <a href="EditMaintenanceCycle.aspx?id=<%# ((MaintenanceCycle)Container.DataItem).Id.ToString()%>">
-                        编辑</a> <a href="#" onclick="Del(<%# ((MaintenanceCycle)Container.DataItem).Id.ToString()%>);">
-                            删除</a> <a href="MaintenanceExperiment.aspx?maintenanceExperimentId=<%# ((MaintenanceCycle)Container.DataItem).Id.ToString()%>">
+                    <a href="AddMaintenanceCycle.aspx">添加</a> <a href="EditMaintenanceCycle.aspx?id=<%# Eval("Id")%>">
+                        编辑</a> <a href="#" onclick="Del(<%# Eval("Id")%>);">
+                            删除</a> <a href="MaintenanceExperiment.aspx?maintenanceExperimentId=<%# Eval("Id")%>">
                                 历史记录</a>
                 </td>
             </tr>

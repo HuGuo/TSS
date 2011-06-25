@@ -4,13 +4,14 @@
 <%@ Register Src="../UserControl/SpecialtyControl.ascx" TagName="SpecialtyControl"
     TagPrefix="uc2" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
     <script type="text/javascript">
         $().ready(function () {
             $("#<%=Page.Form.UniqueID %>").validate();
         });
     </script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+
     <div id="toolbar" class="fixed">
         <a href="Indicator.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>">返回</a>
     </div>

@@ -43,14 +43,14 @@
                 <tr>
                     <td>
                         <%# Container.ItemIndex+1 %>
-                        <asp:HiddenField ID="tbIndicatorId" Value="<%# ((TSS.Models.Indicator)Container.DataItem).Id %>"
+                        <asp:HiddenField ID="tbIndicatorId" Value='<%# Eval("Id") %>'
                             runat="server" />
                     </td>
                     <td>
-                        <%# ((TSS.Models.Indicator)Container.DataItem).IndicatorName %>
+                        <%# Eval("IndicatorName") %>
                     </td>
                     <td>
-                        <%# ((TSS.Models.Indicator)Container.DataItem).IndivatorUnit %>
+                        <%# Eval("IndivatorUnit") %>
                     </td>
                     <td>
                         <asp:TextBox runat="server" ID="tbStanderdValue"></asp:TextBox>
@@ -75,9 +75,9 @@
             <td colspan="6">
                 <asp:TextBox runat="server" ID="tbSpecialtyAnalysis" TextMode="MultiLine"></asp:TextBox>
             </td>
-        </tr>
+        </tr><tr>
         <td colspan="6">
             <asp:Button runat="server" ID="btnAdd" Text="添加" CssClass="btn" OnClick="btnAdd_Click" />
-        </td>
+        </td</tr>
     </table>
 </asp:Content>

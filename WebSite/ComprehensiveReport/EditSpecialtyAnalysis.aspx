@@ -43,23 +43,23 @@
                 <tr>
                     <td>
                         <%# Container.ItemIndex+1 %>
-                        <asp:HiddenField runat="server" ID="hdfId" Value="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Id %>" />
+                        <asp:HiddenField runat="server" ID="hdfId" Value='<%# Eval("Id") %>' />
                     </td>
                     <td>
-                        <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Indicator.IndicatorName %>
-                        <asp:HiddenField runat="server" ID="hdfIndicatorId" Value="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).IndicatorId %>" />
+                        <%# Eval("Indicator.IndicatorName") %>
+                        <asp:HiddenField runat="server" ID="hdfIndicatorId" Value='<%# Eval("IndicatorId") %>' />
                     </td>
                     <td>
-                        <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Indicator.IndivatorUnit%>
+                        <%# Eval("Indicator.IndivatorUnit")%>
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="tbStanderdValue" Text="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).StandardValue%>"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="tbStanderdValue" Text='<%# Eval("StandardValue")%>'></asp:TextBox>
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="tbActualValue" Text="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).ActualValue%>"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="tbActualValue" Text='<%# Eval("ActualValue")%>'></asp:TextBox>
                     </td>
                     <td>
-                        <asp:TextBox runat="server" TextMode="MultiLine" Text="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Analysis%>"
+                        <asp:TextBox runat="server" TextMode="MultiLine" Text='<%# Eval("Analysis")%>'
                             ID="tbIndicatorAnalysis"></asp:TextBox>
                     </td>
                 </tr>

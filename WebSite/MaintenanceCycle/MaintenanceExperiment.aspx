@@ -3,8 +3,6 @@
 
 <%@ Import Namespace="TSS.Models" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
     <script type="text/javascript">
         function Del(maintenanceExperimentId, id) {
             $.messager.confirm("删除", "是否删除！", function (result) {
@@ -16,6 +14,9 @@
             });
         }
     </script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+
     <div id="toolbar" class="fixed">
         <a href="AddMaintenanceExperiment.aspx?maintenanceCycleId=<%= Request.QueryString["maintenanceExperimentId"] %>">添加</a>
         <a href="Default.aspx?s=<%= Request.QueryString["specialtyId"] %>">返回</a>
@@ -57,7 +58,7 @@
                 </td>
                 <td>
                     <a href="EditMaintenanceExperiment.aspx?maintenanceCycleId=<%# ((TSS.Models.MaintenanceExperiment)Container.DataItem).MaintenanceCycleId%>&id=<%# ((TSS.Models.MaintenanceExperiment)Container.DataItem).Id%>">
-                        修改</a> <a href="#" onclick="Del(<%# ((MaintenanceExperiment)Container.DataItem).MaintenanceCycleId.ToString() %>,<%# ((MaintenanceExperiment)Container.DataItem).Id.ToString() %>);">
+                        修改</a> <a href="#" onclick="Del(<%# Eval("MaintenanceCycleId") %>,<%# Eval("Id") %>);">
                             删除</a>
                 </td>
             </tr>
