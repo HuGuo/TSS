@@ -10,6 +10,8 @@ NTest/
 [Aa]ttachment/
 packages.config
 [Ww]eb.config
+test.aspx
+test.aspx.cs
 *.sdf
 *.docstates
 *.suo
@@ -21,6 +23,7 @@ packages.config
 *.vsp
 *.psess
 *.testsettings
+*.sql
 WebSite/ComprehensiveReport/Default.aspx
 WebSite/ComprehensiveReport/Default.aspx.cs
 WebSite/MaintenanceCycle/Default.aspx.cs

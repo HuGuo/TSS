@@ -95,8 +95,7 @@
         var g = {
             handlerUrl: "../../employee.ashx",
             ll: function (o) {
-                var query = $.extend({ op: "ur", act: "d", id: $("#div1").data("employeeId"), rid: "", onSuccess: null }, o);
-                alert("dll");
+                var query = $.extend({ op: "ur", act: "d", id: $("#div1").data("employeeId"), rid: "", onSuccess: null }, o);                
                 $.get(this.handlerUrl, query, function (res) {
                     if (res == "") {
                         query.onSuccess;
@@ -122,7 +121,6 @@
                 return;
             }
             g.ll({ rid: $option.val(), onSuccess: function () {
-                alert("append");
                 $selL.append('<option value="' + $option.val() + '">' + $option.text() + '</option>');
             }
             });

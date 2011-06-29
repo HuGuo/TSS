@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>实验报告</title>
+    <title>试验报告</title>
     <link href="experiment.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -16,7 +16,7 @@
         </tr>
         <tr>
             <td align="right" style="background-color: #e6e6e6;">
-                实验结果:<asp:Literal ID="ltResult" runat="server"></asp:Literal>
+                试验结果:<asp:Literal ID="ltResult" runat="server"></asp:Literal>
             </td>
         </tr>
         <tr>

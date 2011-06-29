@@ -6,6 +6,19 @@
     <title>人员资质</title>
     <link rel="stylesheet" type="text/css"  href="~/Styles/_base.css"/>
     <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
+    <style type="text/css">
+    .rounded-img {
+	display: inline-block;
+	border: solid 1px #000;
+	overflow: hidden;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+}
+    </style>
 </head>
 <body>
     <form id="form1" runat="server" style=" padding-top:32px;">
@@ -22,6 +35,12 @@
             <td>
                 <asp:TextBox ID="txtNumber" runat="server"></asp:TextBox>
             </td>
+            <td style="width: 20px;">
+                &nbsp;</td>
+            <td rowspan="11" valign="middle" align="center">
+                <div style="width:450px; height:300px;">
+                    <asp:Literal ID="ltimg" runat="server"></asp:Literal>
+                </div></td>
         </tr>
         <tr>
             <td>
@@ -30,6 +49,8 @@
             <td>
                 <asp:FileUpload ID="fileUp" runat="server" />
             </td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -38,6 +59,8 @@
             <td>
                 <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
             </td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -49,6 +72,8 @@
                     <asp:ListItem>女</asp:ListItem>
                 </asp:DropDownList>
             </td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -57,6 +82,8 @@
             <td>
                 <asp:TextBox ID="txtType" runat="server"></asp:TextBox>
             </td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -65,6 +92,8 @@
             <td>
                 <asp:TextBox ID="txtProject" runat="server"></asp:TextBox>
             </td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -73,6 +102,8 @@
             <td>
                 <asp:TextBox ID="txtAuthor" runat="server"></asp:TextBox>
             </td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -81,6 +112,8 @@
             <td>
                 <asp:TextBox ID="txtReceiveDate" runat="server" class="Wdate" onclick="WdatePicker({maxDate:'%y-%M-%d'})"></asp:TextBox>
             </td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -89,6 +122,8 @@
             <td>
                 <asp:TextBox ID="txtExpireDate" runat="server" class="Wdate" onclick="WdatePicker({minDate:'#F{$dp.$D(\'txtReceiveDate\');}'})"></asp:TextBox>
             </td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -97,6 +132,8 @@
             <td>
                 <asp:TextBox ID="txtRemark" runat="server"></asp:TextBox>
             </td>
+            <td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td>
@@ -105,6 +142,8 @@
             <td>
                 <asp:Button ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" class="btn" />
             </td>
+            <td>
+                &nbsp;</td>
         </tr>
     </table>
     </form>

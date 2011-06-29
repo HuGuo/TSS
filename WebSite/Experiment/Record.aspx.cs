@@ -18,6 +18,10 @@ public partial class Experiment_Record : System.Web.UI.Page
                     ltHTML.Text = reader.ReadToEnd();
                 }
                 this.Title = obj.Name;
+                templateId.Value = obj.ExpTemplateId.ToString();
+                if (obj.EquipmentId.HasValue) {
+                    equipmentId.Value = obj.EquipmentId.Value.ToString();
+                }
             }
         }
     }

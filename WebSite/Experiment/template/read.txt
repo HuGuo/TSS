@@ -1,0 +1,6 @@
+﻿试验台帐模板设置规则
+1 table id="tbExpRecord"
+2 表头行 单元格 <tr><td colspan="" id="customerTheadContainer">
+3 数据行模板 
+					<tr class="firstrow" ...
+					要绑定数据的单元格 <td class="expdata"...

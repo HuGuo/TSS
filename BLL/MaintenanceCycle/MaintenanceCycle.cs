@@ -10,7 +10,7 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class MaintenanceCycleRepository : Repository<MaintenanceCycle, int>
+    public class MaintenanceCycleRepository : Repository<MaintenanceCycle>
     {
         public override IList<MaintenanceCycle> GetAll()
         {
@@ -21,15 +21,15 @@ namespace TSS.BLL
                     .ToList();
         }
 
-        public override MaintenanceCycle Get(int maintenanceCycleId)
-        {
-            using (var dbContext = new Context())
-                return dbContext.MaintenanceCycles
-                   .Where(m => m.Id == maintenanceCycleId)
-                    .Include(m => m.MaintenanceCalss)
-                    .Include(m => m.MaintenanceExperiments)
-                    .SingleOrDefault();
-        }
+        //public override MaintenanceCycle Get(int maintenanceCycleId)
+        //{
+        //    using (var dbContext = new Context())
+        //        return dbContext.MaintenanceCycles
+        //           .Where(m => m.Id == maintenanceCycleId)
+        //            .Include(m => m.MaintenanceCalss)
+        //            .Include(m => m.MaintenanceExperiments)
+        //            .SingleOrDefault();
+        //}
 
         public  MaintenanceCycle GetByEquipment(Guid equipmentId)
         {

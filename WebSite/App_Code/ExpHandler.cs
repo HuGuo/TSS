@@ -8,6 +8,7 @@ using TSS.Models;
 public class ExpHandler : IHttpHandler
 {
     static readonly string attachmentPath = HttpContext.Current.Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["Experiment"])+"\\";
+
     #region IHttpHandler Members
 
     public bool IsReusable
@@ -211,9 +212,9 @@ public class ExpHandler : IHttpHandler
         context.Response.End();
     }
 
-    //实验台帐 数据
+    //试验台帐 数据
     void ResponseExpRecordJSON(HttpContext context) {
-        context.Response.ContentType = "application/json";
+        //context.Response.ContentType = "application/json";
         string eqId = context.Request["equipment"];
         string tmpId = context.Request["exptemplate"];
         string columns = context.Request["fields"];
@@ -235,10 +236,10 @@ public class ExpHandler : IHttpHandler
                                       where fields.Contains(m.GUID)
                                       select new { label=m.GUID, val=m.Value}
                             };
+                obj.EquipmentDetails.Add(new EquipmentDetail { Lable="id",Value=obj.Id.ToString()});
+                obj.EquipmentDetails.Add(new EquipmentDetail { Lable = "code" , Value = obj.Code });
+                obj.EquipmentDetails.Add(new EquipmentDetail { Lable = "name" , Value = obj.Name });
                 var result = new {
-                    eqid = obj.Id.ToString() ,
-                    name = obj.Name ,
-                    code = obj.Code ,
                     rows=datas,
                     nameplates = from m in obj.EquipmentDetails
                                  select new { label = m.Lable , val = m.Value }
@@ -253,7 +254,7 @@ public class ExpHandler : IHttpHandler
         }
     }
 
-    //实验台帐设备列表 
+    //试验台帐设备列表 
     void ResponseEquipmentJSON(HttpContext context) {
         context.Response.ContentType = "application/json";
         string tmpId = context.Request.QueryString["tid"];
@@ -265,7 +266,7 @@ public class ExpHandler : IHttpHandler
         context.Response.Write(jss.Serialize(quer));
     }
 
-    //保存实验台帐模板
+    //保存试验台帐模板
     void SaveExpRecordTemplate(HttpContext context) {
         string id = context.Request["id"];
         string tmpId = context.Request["tmpId"];

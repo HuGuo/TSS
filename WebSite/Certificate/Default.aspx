@@ -5,6 +5,7 @@
 <head runat="server">
     <title>持证管理</title>
     <link href="~/Styles/_base.css" rel="stylesheet" type="text/css" />
+    
 </head>
 <body>
     <form id="form1" runat="server" style=" padding-top:32px;">
@@ -45,6 +46,7 @@
             <td>
                 证书编号
             </td>
+            <td>效果图</td>
             <td>
                 备注
             </td>
@@ -82,6 +84,9 @@
                         <%# Eval("Number")%>
                     </td>
                     <td>
+                    <%# string.IsNullOrWhiteSpace(Eval("ScanFilePath").ToString()) ? "" : string.Format("<a class='preview' href='{0}'>预览</a>" , ResolveUrl(Eval("ScanFilePath").ToString()))%>
+                    </td>
+                    <td>
                         <%# Eval("Remark")%>
                     </td>
                     <td>
@@ -97,10 +102,15 @@
 </html>
 <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script src="../scripts/jquery.delete.js" type="text/javascript"></script>
+<script src="../scripts/popImg/jquery.popImage.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $("a.delete").bindDelete({
-        handler: "../delete.ashx",
-        op: "del-certificate",
-        onSuccess: function (k) { $("#tr_" + k).remove(); }
+    $(function () {
+        $("a.delete").bindDelete({
+            handler: "../delete.ashx",
+            op: "del-certificate",
+            onSuccess: function (k) { $("#tr_" + k).remove(); }
+        });
+
+        $("a.preview").popImage();
     });
 </script>

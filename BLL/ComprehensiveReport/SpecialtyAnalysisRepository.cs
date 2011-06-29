@@ -8,17 +8,17 @@ using TSS.Models;
 
 namespace TSS.BLL
 {
-    public class SpecialtyAnalysisRepository : Repository<SpecialtyAnalysis, int>
+    public class SpecialtyAnalysisRepository : Repository<SpecialtyAnalysis>
     {
-        public override SpecialtyAnalysis Get(int specialtyAnalysisId)
-        {
-            return Context.SpecialtyAnalysises
-                .Where(s => s.Id == specialtyAnalysisId)
-                .Include(s => s.ComprehensiveReport)
-                .Include(s => s.IndicatorAnalysises
-                .Select(i => i.Indicator.Specialty))
-                .SingleOrDefault();
-        }
+        //public override SpecialtyAnalysis Get(int specialtyAnalysisId)
+        //{
+        //    return Context.SpecialtyAnalysises
+        //        .Where(s => s.Id == specialtyAnalysisId)
+        //        .Include(s => s.ComprehensiveReport)
+        //        .Include(s => s.IndicatorAnalysises
+        //        .Select(i => i.Indicator.Specialty))
+        //        .SingleOrDefault();
+        //}
 
         public SpecialtyAnalysis GetForEdit(int specialtyAnalysisId)
         {

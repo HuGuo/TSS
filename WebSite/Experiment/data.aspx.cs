@@ -28,7 +28,7 @@ public partial class Experiment_data : System.Web.UI.Page
         int numVisiblePlot = 12;
         int showValues = 1;
         string clickURL = Server.UrlEncode("n-experiment.aspx?id=");
-        string xAxisName = "实验日期";
+        string xAxisName = "试验日期";
         string yAxisName = "";
         string tooltip = "{0}<BR>result:{1} <BR>value:{2}";
         string[] labelDisplay = { "WRAP", "STAGGER", "ROTATE", "NONE" };

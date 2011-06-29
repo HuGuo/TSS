@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>配置实验台帐模板</title>
+    <title>配置试验台帐模板</title>
     <link href="../../scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet"
         type="text/css" />
     <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>

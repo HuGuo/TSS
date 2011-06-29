@@ -9,7 +9,7 @@ using  TSS.Models;
 
 namespace TSS.BLL
 {
-    public class MaintenanceClassRepository:Repository<MaintenanceClass,int>
+    public class MaintenanceClassRepository:Repository<MaintenanceClass>
     {
         public override IList<MaintenanceClass> GetAll()
         {
@@ -19,12 +19,12 @@ namespace TSS.BLL
                     .ToList();
         }
 
-        public override MaintenanceClass Get(int maintenanceClassId)
-        {
-            using (var dbContext = new Context())
-                return dbContext.MaintenanceClasses
-                    .Where(m => m.Id == maintenanceClassId)
-                    .SingleOrDefault();
-        }
+        //public override MaintenanceClass Get(int maintenanceClassId)
+        //{
+        //    using (var dbContext = new Context())
+        //        return dbContext.MaintenanceClasses
+        //            .Where(m => m.Id == maintenanceClassId)
+        //            .SingleOrDefault();
+        //}
     }
 }

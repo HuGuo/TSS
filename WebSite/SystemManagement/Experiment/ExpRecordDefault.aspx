@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server" style=" padding-top:32px;">
     <div id="toolbar" class="fixed">
-    <a href="Default.aspx">实验报告</a>
+    <a href="Default.aspx">试验报告</a>
     </div>
     <table>
     <thead>

@@ -32,7 +32,9 @@ public partial class Certificate_Add : System.Web.UI.Page
         txtReceiveDate.Text = obj.ReceiveDateTime.ToString("yyyy-MM-dd");
         txtRemark.Text = obj.Remark;
         txtType.Text = obj.Type;
-        
+        if (!string.IsNullOrWhiteSpace(obj.ScanFilePath)) {
+            ltimg.Text = "<img width=\"448\" height=\"298\" class=\"rounded-img\" src=\""+ResolveUrl(obj.ScanFilePath)+"\" alt=\"效果图\" />";
+        }
 
     }
     protected void btnSave_Click(object sender, EventArgs e)
@@ -55,11 +57,12 @@ public partial class Certificate_Add : System.Web.UI.Page
             certificate.Id = System.Guid.NewGuid();
         }
         if (fileUp.HasFile) {
-            string path = Server.MapPath(System.Configuration.ConfigurationManager.AppSettings["CertificateScan"]) + "\\";
+            string configPath = System.Configuration.ConfigurationManager.AppSettings["CertificateScan"];
+            string path = Server.MapPath(configPath) + "\\";
             string extension= System.IO.Path.GetExtension(fileUp.FileName);
             string savePath = path + certificate.Id + extension;
             fileUp.SaveAs(savePath);
-            certificate.ScanFilePath = certificate.Id + extension;
+            certificate.ScanFilePath = configPath+certificate.Id + extension;
         }        
         if (string.IsNullOrWhiteSpace(id)) {
             RepositoryFactory<CertificateRepository>.Get().Add(certificate);

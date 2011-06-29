@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TSS.Models;
+using System.Data.Entity;
 
 namespace TSS.BLL
 {
@@ -10,9 +10,24 @@ namespace TSS.BLL
     {
         public bool ExistsCode(string code)
         {
-            int count = Context.Employees.Count(p => p.Code == code);
+            int count = Context.Employees.Count(p => p.Code.Equals(code));
                 return count > 0;
 
+        }
+
+        public Employee GetByCode(string code) {
+            return Context.Employees.FirstOrDefault(p => p.Code.Equals(code));
+        }
+
+        public override bool Add(Employee entity) {
+            Role defaultRole = Context.Roles.First(p => p.Name.ToLower().Equals("guest"));
+            if (null==entity.Roles) {
+                entity.Roles = new List<Role>();
+            }
+            entity.Roles.Add(defaultRole);
+            Context.Employees.Add(entity);
+            defaultRole.Employees.Add(entity);
+            return Context.SaveChanges()>0;
         }
 
         public void UpdateRoles(Employee entity) {
@@ -41,5 +56,7 @@ namespace TSS.BLL
             }
             return Context.Employees.Where(p => p.Name.Contains(key)).ToList();
         }
+
+        
     }
 }

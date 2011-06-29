@@ -32,6 +32,12 @@ namespace TSS.Models
         public IDbSet<Role> Roles { get; set; }
         public IDbSet<Right> Rights { get; set; }
         public IDbSet<ExpRecord> ExpRecords { get; set; }
+
+        public IDbSet<ComprehensiveReport> ComprehensiveReports { get; set; }
+        public IDbSet<IndicatorAnalysis> IndicatorAnalysises { get; set; }
+        public IDbSet<Indicator> Indicators { get; set; }
+        public IDbSet<SpecialtyAnalysis> SpecialtyAnalysises { get; set; }
+
         public Context()
             : base("TSS") {
             Database.SetInitializer<Context>(new DatabaseInitializer());
@@ -98,6 +104,8 @@ namespace TSS.Models
                 s.Modules = specialtyModules;
                 context.Specialties.Add(s);
             });
+
+            //系统默认角色 guest
 
             context.SaveChanges();
         }

@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>实验数据曲线</title>
+    <title>试验数据曲线</title>
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <link href="experiment.css" rel="stylesheet" type="text/css" />
 </head>
@@ -13,10 +13,7 @@
     <div id="eqlist">
         <asp:CheckBoxList ID="ckblist" runat="server" RepeatColumns="8" 
             RepeatDirection="Horizontal" RepeatLayout="Flow">
-            <asp:ListItem>11</asp:ListItem>
-            <asp:ListItem>22</asp:ListItem>
-            <asp:ListItem>33</asp:ListItem>
-            <asp:ListItem>44</asp:ListItem>
+            
         </asp:CheckBoxList>
     </div>
     step1：从模板中选择单元格：
