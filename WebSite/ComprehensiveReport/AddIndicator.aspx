@@ -1,38 +1,48 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddIndicator.aspx.cs" MasterPageFile="~/Default.master"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddIndicator.aspx.cs" MasterPageFile="~/ValidateAndUi.master"
     Inherits="ComprehensiveReport_AddIndicator" %>
 
-<%@ Register src="../UserControl/SpecialtyControl.ascx" tagname="SpecialtyControl" tagprefix="uc1" %>
-
+<%@ Register Src="../UserControl/SpecialtyControl.ascx" TagName="SpecialtyControl"
+    TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
     <script type="text/javascript">
         $().ready(function () {
             $("#<%=Page.Form.UniqueID %>").validate();
         });
     </script>
-    <div>
-        <fieldset>
-            <legend>添加</legend>
-            <p>
-                <label>
-                    指标名称</label>
-                <asp:TextBox runat="server" validate="{required:true}" ID="tbName"></asp:TextBox>
-            </p>
-            <p>
-                <label>
-                    指标单位</label>
-                <asp:TextBox runat="server" validate="{required:true}"  ID="tbUnit"></asp:TextBox>
-            </p>
-            <p>
-                <label>
-                    专业</label>
-                <uc1:SpecialtyControl ID="SpecialtyControl1" runat="server" />
-            </p>
-            <p>
-                <asp:Button ID="btnAdd" runat="server" Text="添加" OnClick="btnAdd_Click" />
-                <input type="button" value="取消" onclick="window.location.href='Indicator.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>'" />
-            </p>
-        </fieldset>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+    <div id="toolbar" class="fixed">
+        <a href="Indicator.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>">返回</a>
     </div>
+    <table>
+        <tr>
+            <td>
+                指标名称
+            </td>
+            <td>
+                <asp:TextBox runat="server" validate="{required:true}" ID="tbName"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                指标单位
+            </td>
+            <td>
+                <asp:TextBox runat="server" validate="{required:true}" ID="tbUnit"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                专业
+            </td>
+            <td>
+                <uc1:SpecialtyControl ID="SpecialtyControl1" runat="server" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <asp:Button ID="btnAdd" runat="server" Text="添加" CssClass="btn" OnClick="btnAdd_Click" />
+            </td>
+        </tr>
+    </table>
 </asp:Content>

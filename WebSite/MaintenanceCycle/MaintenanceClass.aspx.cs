@@ -32,7 +32,7 @@ public partial class MaintenanceCycle_MaintenanceClass : BasePage
         int maintenanceClassId = int.Parse(Request.QueryString["id"]);
         MaintenanceCycleRepository repostitory = new MaintenanceCycleRepository();
         if (!repostitory.IsExistOnMaintenancClass(maintenanceClassId))
-            DelConfirm(repostitory.Delete(maintenanceClassId));
+            DelConfirm(new MaintenanceClassRepository().Delete(maintenanceClassId));
         else
             ExistChildConfirm();
         BindData();

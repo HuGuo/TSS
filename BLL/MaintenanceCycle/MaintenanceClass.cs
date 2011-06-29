@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,12 +19,20 @@ namespace TSS.BLL
                     .ToList();
         }
 
-        //public override MaintenanceClass Get(int maintenanceClassId)
-        //{
-        //    using (var dbContext = new Context())
-        //        return dbContext.MaintenanceClasses
-        //            .Where(m => m.Id == maintenanceClassId)
-        //            .SingleOrDefault();
-        //}
+        public MaintenanceClass Get(int maintenanceClassId)
+        {
+            using (var dbContext = new Context())
+                return dbContext.MaintenanceClasses
+                    .Where(m => m.Id == maintenanceClassId)
+                    .SingleOrDefault();
+        }
+
+        public IList<MaintenanceClass> GetMuchBySpecialty(string specialtyId)
+        {
+            using (var dbContext = new Context())
+                return dbContext.MaintenanceClasses
+                    .Where(m => m.SpecialtyId == specialtyId)
+                    .ToList();
+        }
     }
 }

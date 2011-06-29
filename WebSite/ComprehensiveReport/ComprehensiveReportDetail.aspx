@@ -1,10 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ValidateAndUi.master" AutoEventWireup="true"
     CodeFile="ComprehensiveReportDetail.aspx.cs" Inherits="ComprehensiveReport_ComprehensiveReportDetail" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
-
+<div id="toolbar" class="fixed">
+<a href="SpecialtyAnalysis.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>">返回</a>
+</div>
      <table>
         <tr>
             <td colspan="7">
@@ -45,22 +47,22 @@
                                 <%# Container.ItemIndex+1  %>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).SpecialtyAnalysis.Specialty.Name %>
+                                <%# Eval("SpecialtyAnalysis.Specialty.Name") %>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Indicator.IndicatorName%>
+                                <%# Eval("Indicator.IndicatorName")%>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Indicator.IndivatorUnit %>
+                                <%# Eval("Indicator.IndivatorUnit") %>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).StandardValue %>
+                                <%#Eval("StandardValue") %>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).ActualValue %>
+                                <%# Eval("ActualValue") %>
                             </td>
                             <td>
-                                <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Analysis %>
+                                <%# Eval("Analysis") %>
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -88,19 +90,4 @@
             </td>
         </tr>
     </table>
-    <div id="aa" class="easyui-accordion" style="width: 700px; height: 300px;">
-        <div title="Title1" iconcls="icon-ok" selected="true" style=" padding: 10px;">
-            <h3 style="color: #0099FF;">
-                Accordion for jQuery</h3>
-            <p>
-                Accordion is a part of easyui framework for jQuery. It lets you define your accordion
-                component on web page more easily.</p>
-        </div>
-        <div title="Title2" iconcls="icon-reload" selected="true" style="padding: 10px;">
-            content2
-        </div>
-        <div title="Title3">
-            content3
-        </div>
-    </div>
 </asp:Content>

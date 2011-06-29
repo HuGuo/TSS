@@ -1,17 +1,11 @@
 
 PrecompiledWeb/
-TestProject2/
 [Bb]in/
 [Oo]bj/
 /packages/
-TestResults/
-TssTest/
-NTest/
 [Aa]ttachment/
 packages.config
 [Ww]eb.config
-test.aspx
-test.aspx.cs
 *.sdf
 *.docstates
 *.suo
@@ -22,12 +16,5 @@ test.aspx.cs
 *.vsmdi
 *.vsp
 *.psess
-*.testsettings
 *.sql
-WebSite/ComprehensiveReport/Default.aspx
-WebSite/ComprehensiveReport/Default.aspx.cs
-WebSite/MaintenanceCycle/Default.aspx.cs
-WebSite/MaintenanceCycle/Default.aspx
-TestProject1/Properties/AssemblyInfo.cs
-TestProject1/TestProject1.csproj
-TestProject1/WebTest1.webtest
+*[Tt]est*

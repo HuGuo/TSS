@@ -19,13 +19,7 @@ public partial class MaintenanceCycle_AddMaintenanceClass : BasePage
 
     protected void BindData()
     {
-        BindSpecialty();
-    }
-
-    protected void BindSpecialty()
-    {
-        foreach (Specialty specialty in new Specialties().GetAll())
-            ddlSpecialty.Items.Add(new ListItem(specialty.Name, specialty.Id));
+        ucSpecialtyControl.SpecialtyId = Request.QueryString["specialtyId"];
     }
 
     protected void btnAdd_Click(object sender, EventArgs e)
@@ -34,8 +28,8 @@ public partial class MaintenanceCycle_AddMaintenanceClass : BasePage
         bool result = repository.Add(new MaintenanceClass
           {
               equipmentClassName = tbClassNames.Text,
-              SpecialtyId = ddlSpecialty.SelectedValue
+              SpecialtyId = ucSpecialtyControl.SpecialtyId
           });
-        AddConfirm(result, "MaintenanceClass.aspx");
+        AddConfirm(result, string.Format("MaintenanceClass.aspx?sepcialtyId=", Request.QueryString["specialtyId"]));
     }
 }

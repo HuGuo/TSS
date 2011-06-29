@@ -1,5 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="MaintenanceCycle.aspx.cs"
-    MasterPageFile="~/ValidateAndUi.master" Inherits="MaintenanceCycle_MaintenanceCycle" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" MasterPageFile="~/ValidateAndUi.master"
+    Inherits="MaintenanceCycle_Default" %>
 
 <%@ Import Namespace="TSS.Models" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
@@ -18,7 +18,13 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
 
     <div id="toolbar" class="fixed">
-        <a href="MaintenanceClass.aspx">设备分类</a><a href="AddMaintenanceCycle.aspx">添加</a>
+        <a href="AddMaintenanceCycle.aspx?specialtyId=<%= Request.QueryString["s"] %>">添加</a>
+        <a href="MaintenanceClass.aspx?specialtyId=<%= Request.QueryString["s"] %>">设备分类</a>
+        <div class="search">
+            <asp:DropDownList ID="ddlClass"  AutoPostBack="true" runat="server">
+                <asp:ListItem Value="">请选择</asp:ListItem>
+            </asp:DropDownList>
+        </div>
     </div>
     <asp:Repeater ID="rptCycle" runat="server">
         <HeaderTemplate>

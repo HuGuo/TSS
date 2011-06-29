@@ -1,11 +1,9 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Indicator.aspx.cs" MasterPageFile="~/Default.master"
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Indicator.aspx.cs" MasterPageFile="~/ValidateAndUi.master"
     Inherits="ComprehensiveReport_Indicator" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
     <script type="text/javascript">
-        function Del(id,specialtyId) {
+        function Del(id, specialtyId) {
             $.messager.confirm("删除", "是否删除！", function (result) {
                 if (result) {
                     window.location.href = "Indicator.aspx?id=" + id + "&specialtyId=" + specialtyId;
@@ -15,9 +13,15 @@
             });
         }
     </script>
-<a href="AddIndicator.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>">添加</a>
-    <div>
-        <asp:Repeater ID="rptIndicator" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+
+
+ <div id="toolbar" class="fixed">
+      <a href="AddIndicator.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>">添加</a>
+      <a href="Default.aspx?s=<%= Request.QueryString["specialtyId"] %>">返回</a>
+    </div>
+      <asp:Repeater ID="rptIndicator" runat="server">
             <HeaderTemplate>
                 <table>
                     <tr>
@@ -44,17 +48,17 @@
                         <%# Container.ItemIndex+1 %>
                     </td>
                     <td>
-                        <%# ((TSS.Models.Indicator)Container.DataItem).IndicatorName%>
+                        <%# Eval("IndicatorName")%>
                     </td>
                     <td>
-                        <%# ((TSS.Models.Indicator)Container.DataItem).IndivatorUnit%>
+                        <%# Eval("IndivatorUnit")%>
                     </td>
                     <td>
-                        <%# ((TSS.Models.Indicator)Container.DataItem).Specialty.Name%>
+                        <%# Eval("Specialty.Name")%>
                     </td>
                     <td>
-                        <a href="EditIndicator.aspx?specialtyId=<%# Request.QueryString["specialtyId"]  %>&id=<%# ((TSS.Models.Indicator)Container.DataItem).Id%>">修改</a>
-                        <a href="#" onclick="Del(<%# ((TSS.Models.Indicator)Container.DataItem).Id%>,<%# Request.QueryString["specialtyId"]  %>)">删除</a>
+                        <a href="EditIndicator.aspx?specialtyId=<%# Request.QueryString["specialtyId"]  %>&id=<%# Eval("Id")%>">修改</a>
+                        <a href="#" onclick="Del('<%# Eval("Id")%>','<%# Request.QueryString["specialtyId"]  %>')">删除</a>
                     </td>
                 </tr>
             </ItemTemplate>
@@ -67,5 +71,4 @@
                 </table>
             </FooterTemplate>
         </asp:Repeater>
-    </div>
 </asp:Content>

@@ -17,21 +17,25 @@ public partial class UserControl_YearAndMonControl : System.Web.UI.UserControl
     {
         if (string.IsNullOrEmpty(year))
             ddlYear.SelectedValue = DateTime.Now.Year.ToString();
+        else
+            ddlYear.SelectedValue = year;
         if (string.IsNullOrEmpty(mon))
             ddlMon.SelectedValue = DateTime.Now.Month.ToString();
+        else
+            ddlMon.SelectedValue = mon;
     }
 
     private string year;
     public string Year
     {
         get { return ddlYear.SelectedValue; }
-        set { ddlYear.SelectedValue = value; }
+        set { year = value; }
     }
 
     private string mon;
     public string Mon
     {
         get { return ddlMon.SelectedValue; }
-        set { ddlMon.SelectedValue = value; }
+        set { mon = value; }
     }
 }

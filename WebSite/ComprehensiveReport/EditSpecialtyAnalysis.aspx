@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true"
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ValidateAndUi.master" AutoEventWireup="true"
     CodeFile="EditSpecialtyAnalysis.aspx.cs" Inherits="ComprehensiveReport_EditSpecialtyAnalysis" %>
 
 <%@ Register Src="../UserControl/YearAndMonControl.ascx" TagName="YearAndMonControl"
@@ -6,6 +6,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
+    <div id="toolbar" class="fixed">
+        <a href="Default.aspx?s=<%= Request.QueryString["specialtyId"] %>">
+            返回</a>
+    </div>
     <table>
         <tr>
             <td align="center">
@@ -39,48 +43,43 @@
                 <tr>
                     <td>
                         <%# Container.ItemIndex+1 %>
-                        <asp:HiddenField runat="server" ID="hdfId" Value="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Id %>" />
+                        <asp:HiddenField runat="server" ID="hdfId" Value='<%# Eval("Id") %>' />
                     </td>
                     <td>
-                        <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Indicator.IndicatorName %>
-                         <asp:HiddenField runat="server" ID="hdfIndicatorId" Value="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).IndicatorId %>"/>
+                        <%# Eval("Indicator.IndicatorName") %>
+                        <asp:HiddenField runat="server" ID="hdfIndicatorId" Value='<%# Eval("IndicatorId") %>' />
                     </td>
                     <td>
-                        <%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Indicator.IndivatorUnit%>
+                        <%# Eval("Indicator.IndivatorUnit")%>
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="tbStanderdValue" Text="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).StandardValue%>"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="tbStanderdValue" Text='<%# Eval("StandardValue")%>'></asp:TextBox>
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="tbActualValue" Text="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).ActualValue%>"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="tbActualValue" Text='<%# Eval("ActualValue")%>'></asp:TextBox>
                     </td>
                     <td>
-                        <asp:TextBox runat="server" TextMode="MultiLine" Text="<%# ((TSS.Models.IndicatorAnalysis)Container.DataItem).Analysis%>"
+                        <asp:TextBox runat="server" TextMode="MultiLine" Text='<%# Eval("Analysis")%>'
                             ID="tbIndicatorAnalysis"></asp:TextBox>
                     </td>
                 </tr>
             </ItemTemplate>
-            <FooterTemplate>
-            </FooterTemplate>
         </asp:Repeater>
         <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td>
-                            综合分析
-                        </td>
-                        <td>
-                            <asp:TextBox runat="server" ID="tbSpecialtyAnalysis" Text="" TextMode="MultiLine"></asp:TextBox>
-                        </td>
-                    </tr>
-                </table>
+            <td colspan="6">
+                综合分析
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <asp:TextBox runat="server" ID="tbSpecialtyAnalysis" Text="" TextMode="MultiLine"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="6">
+                <asp:Button runat="server" ID="btnAdd" Text="修改" CssClass="btn" OnClick="btnAdd_Click" />
             </td>
         </tr>
     </table>
     <asp:HiddenField runat="server" ID="HfcomprehensiveReportId" Value="" />
-    <p>
-        <asp:Button runat="server" ID="btnAdd" Text="修改" OnClick="btnAdd_Click" />
-        <input type="button" value="返回" onclick="window.location.href='SpecialtyAnalysis.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>'" />
-    </p>
 </asp:Content>

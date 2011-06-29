@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,15 +21,15 @@ namespace TSS.BLL
                     .ToList();
         }
 
-        //public override MaintenanceCycle Get(int maintenanceCycleId)
-        //{
-        //    using (var dbContext = new Context())
-        //        return dbContext.MaintenanceCycles
-        //           .Where(m => m.Id == maintenanceCycleId)
-        //            .Include(m => m.MaintenanceCalss)
-        //            .Include(m => m.MaintenanceExperiments)
-        //            .SingleOrDefault();
-        //}
+        public MaintenanceCycle Get(int maintenanceCycleId)
+        {
+            using (var dbContext = new Context())
+                return dbContext.MaintenanceCycles
+                   .Where(m => m.Id == maintenanceCycleId)
+                    .Include(m => m.MaintenanceCalss)
+                    .Include(m => m.MaintenanceExperiments)
+                    .SingleOrDefault();
+        }
 
         public  MaintenanceCycle GetByEquipment(Guid equipmentId)
         {
@@ -43,14 +43,22 @@ namespace TSS.BLL
 
         public  bool IsExistOnMaintenancClass(int maintenanceClassId)
         {
-            return GetByMaintenanceClass(maintenanceClassId).Count > 0;
+            return GetMuchByMaintenanceClass(maintenanceClassId).Count > 0;
         }
 
-        public  IList<MaintenanceCycle> GetByMaintenanceClass(int maintenanceClassId)
+        public  IList<MaintenanceCycle> GetMuchByMaintenanceClass(int maintenanceClassId)
         {
             using (var dbContext = new Context())
                 return dbContext.MaintenanceCycles
                     .Where(maintenanceCycle => maintenanceCycle.MaintenanceClassId == maintenanceClassId)
+                    .ToList();
+        }
+
+        public IList<MaintenanceCycle> GetMuchBySpecaity(string specialtyId)
+        {
+            using (var dbContext = new Context())
+                return dbContext.MaintenanceCycles
+                    .Where(m => m.MaintenanceCalss.SpecialtyId == specialtyId)
                     .ToList();
         }
     }

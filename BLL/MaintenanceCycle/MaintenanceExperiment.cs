@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,15 +18,15 @@ namespace TSS.BLL
                 return dbContext.MaintenanceExperiments.ToList();
         }
 
-        //public override MaintenanceExperiment Get(int maintenanceExperimentId)
-        //{
-        //    using (var dbContext = new Context())
-        //        return dbContext.MaintenanceExperiments
-        //            .Where(m => m.Id == maintenanceExperimentId)
-        //            .Include(m => m.MaintenanceCycle.MaintenanceCalss)
-        //            .SingleOrDefault();
+        public  MaintenanceExperiment Get(int maintenanceExperimentId)
+        {
+            using (var dbContext = new Context())
+                return dbContext.MaintenanceExperiments
+                    .Where(m => m.Id == maintenanceExperimentId)
+                    .Include(m => m.MaintenanceCycle.MaintenanceCalss)
+                    .SingleOrDefault();
 
-        //}
+        }
 
         public IList<MaintenanceExperiment> GetByMaintenanceCycle(int maintenanceCycleId)
         {

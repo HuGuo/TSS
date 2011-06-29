@@ -19,7 +19,7 @@ public partial class ComprehensiveReport_SpecialtyAnalysisDetail : BasePage
     public void BindData()
     {
         rptIndicator.DataSource = new IndicatorAnalysisRepository()
-            .GetMuch(int.Parse(Request.QueryString["id"]));
+            .GetMuchBySpecialtyAnalysisId(int.Parse(Request.QueryString["id"]));
         rptIndicator.DataBind();
         SpecialtyAnalysis specialtyAnalysis = new SpecialtyAnalysisRepository()
             .Get(int.Parse(Request.QueryString["id"]));

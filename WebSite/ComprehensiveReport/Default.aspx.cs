@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using TSS.BLL;
 using TSS.Models;
 
-public partial class ComprehensiveReport_SpecialtyAnalysis : BasePage
+public partial class ComprehensiveReport_Default : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -22,7 +22,7 @@ public partial class ComprehensiveReport_SpecialtyAnalysis : BasePage
     public void BindData()
     {
         rptSpecialtyAnalysis.DataSource = new SpecialtyAnalysisRepository()
-            .GetMuch(Request.QueryString["specialtyId"]);
+            .GetMuch(Request.QueryString["s"]);
         rptSpecialtyAnalysis.DataBind();
     }
 
@@ -30,7 +30,7 @@ public partial class ComprehensiveReport_SpecialtyAnalysis : BasePage
     {
         SpecialtyAnalysisRepository reposigotry = new SpecialtyAnalysisRepository();
         bool result = reposigotry.Delete(reposigotry.Get(int.Parse(Request.QueryString["id"])));
-        DelConfirm(result, string.Format("SpecialtyAnalysis.aspx?specialtyId={0}"
-            , Request.QueryString["specialtyId"]));
+        DelConfirm(result, string.Format("Default.aspx?s={0}"
+            , Request.QueryString["s"]));
     }
 }
