@@ -32,7 +32,7 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
                     txt_tmpName.Value = experiment.Title;
                     ltHTML.Text = experiment.HTML;
                     txt_expdate.Text = experiment.ExpDate.ToString("yyyy-MM-dd");
-                    txt_remark.Value = experiment.Remark;
+                    txt_remark.Value = experiment.Remark.HtmlDecode();
                     rptlistAttachment.DataSource = experiment.Attachments;
                     rptlistAttachment.DataBind();
                 }

@@ -72,6 +72,7 @@
 </html>
 <script type="text/javascript">
     $(document).ready(function () {
+        var handlerUrl = "../../Exptemplate.ashx";
         $("#ct_menu").menu();
         $.simpleExcel._op.container = $("#dtb");
         //edit model
@@ -104,7 +105,7 @@
             q.sp = $("#ddlSpecialty option:selected").val();
             $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass).removeClass($.simpleExcel._op.selectedCellClass);
             q.html = $("#dtb").html();
-            $.post("../../exp.ashx", q, function (data) {
+            $.post(handlerUrl, q, function (data) {
                 var json = eval('(' + data + ')');
                 if (json.msg) {
                     alert(json.msg);

@@ -29,19 +29,24 @@
                 <xsl:value-of select="@id"/>
             </xsl:attribute>
             <span>
-                <a>
-                    <xsl:if test="$src!=''">
-                        <xsl:attribute name="href">
-                            <xsl:value-of select="$src"/><xsl:value-of select="@id"/>
-                        </xsl:attribute>
-                    </xsl:if>
-                    <xsl:if test="$target!=''">
-                        <xsl:attribute name="target">
-                            <xsl:value-of select="$target"/>
-                        </xsl:attribute>
-                    </xsl:if>
+                <xsl:if test="$src=''">
                     <xsl:value-of select="@name"/>
-                </a>
+                </xsl:if>
+                <xsl:if test="$src!=''">
+                    <a>
+                        <xsl:attribute name="href">
+                            <xsl:value-of select="$src"/>
+                            <xsl:value-of select="@id"/>
+                        </xsl:attribute>
+
+                        <xsl:if test="$target!=''">
+                            <xsl:attribute name="target">
+                                <xsl:value-of select="$target"/>
+                            </xsl:attribute>
+                        </xsl:if>
+                        <xsl:value-of select="@name"/>
+                    </a>
+                </xsl:if>
             </span>
             <xsl:if test="child::*">
                 <ul>

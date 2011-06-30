@@ -16,6 +16,7 @@
         <tr>
             <th style="width:50px;">
                 序号</th>
+                <th>专业</th>
                 <th>
                     模板名称
                 </th>
@@ -29,6 +30,8 @@
                     <td>
                         <%# Container.ItemIndex+1 %>
                     </td>
+                    <td style=" color:#c71;">
+                        <%#((TSS.Models.Specialty)Eval("Specialty")).Name %></td>
                     <td>
                         <a href="PreView.aspx?id=<%#Eval("Id") %>" target="_blank">
                             <%#Eval("Title") %></a>
@@ -47,9 +50,10 @@
 <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script src="../../scripts/jquery.delete.js" type="text/javascript"></script>
 <script type="text/javascript">
+    var handlerUrl = "../../Exptemplate.ashx";
     $(function () {
         $("a.delete").bindDelete({
-            handler: "../../exp.ashx",
+            handler: handlerUrl,
             op: "del-t"
         });
         //$("#tb tr:gt(0)").hoverColor();

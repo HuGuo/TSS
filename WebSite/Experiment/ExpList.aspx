@@ -111,11 +111,12 @@
 </html>
 <script src="../scripts/jquery.delete.js" type="text/javascript"></script>
 <script type="text/javascript">
+    var handlerUrl = "../exp.ashx";
     $(document).ready(function () {
         $('#dg_win,#dg_win2').dialog('close');
         $("a.dg").click(function () { $($(this).attr("href")).dialog('open'); });
         $("a.delete").bindDelete({
-            handler: "../exp.ashx",
+            handler: handlerUrl,
             op: "del-d",
             onSuccess: function (k) {
                 $("#tr_" + k).remove();
