@@ -1,12 +1,8 @@
 
 PrecompiledWeb/
-TestProject2/
 [Bb]in/
 [Oo]bj/
 /packages/
-TestResults/
-TssTest/
-NTest/
 [Aa]ttachment/
 packages.config
 [Ww]eb.config
@@ -20,7 +16,5 @@ packages.config
 *.vsmdi
 *.vsp
 *.psess
-*.testsettings
-TestProject1/Properties/AssemblyInfo.cs
-TestProject1/TestProject1.csproj
-TestProject1/WebTest1.webtest
+*.sql
+*[Tt]est*

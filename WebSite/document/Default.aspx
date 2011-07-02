@@ -17,7 +17,7 @@
 <a runat="server" id="backto" href="javascript:void(0);">上级目录</a>
         <a href="#dg_upfile" id="upload">上传文件</a>
         <a href="#dg_newfolder" id="new_folder">新建文件夹</a>
-        <a href="javascript:$.FF.delItem();" id="A1">删除</a>
+        <a href="javascript:delItem();" id="A1">删除</a>
         <div class="search">
             <input type="text" id="txtKey" class="textbox" maxlength="12" />
             <input type="button" id="goSearch" class="searchbtn" />
@@ -52,14 +52,14 @@
     <input type="text" value="新建文件夹" id="NN" style=" margin:20px 30px; width:220px; height:25px;" />
     </div>
     <div id="dlg_btn2">
-        <a href="#" class="easyui-linkbutton" onclick="javascript:$.FF.newFolder('#NN');">确定</a>
+        <a href="#" class="easyui-linkbutton" id="btnOk2" onclick="javascript:newFolder();">确定</a>
         <a href="#" id="" class="easyui-linkbutton" onclick="javascript:$('#dg_newfolder').dialog('close');">关闭</a>
     </div>
 </body>
 </html>
 <script src="../scripts/jquery.FF.js" type="text/javascript"></script>
 <script type="text/javascript">
-    $.FF.config({
+    $.extend(cfg,{
         s: '<%=Request.QueryString["s"] %>',
         pid: '<%=Request.QueryString["pid"] %>'
     });

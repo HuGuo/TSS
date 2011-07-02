@@ -32,43 +32,13 @@
                         <%#Container.ItemIndex+1 %>
                     </td>
                     <td>
-                        <a href="javascript:;" id="<%#Eval("Id") %>" class="c" tid="<%#Eval("ExpTemplateId") %>">
+                        <a href="Record.aspx?id=<%#Eval("Id") %>">
                             <%#Eval("Name") %></a>
                     </td>
                 </tr>
             </ItemTemplate>
         </asp:Repeater>
     </table>
-    <div id="dg_win" title="选择设备" closable="true" style="width: 300px; height: 200px;padding: 0;">
-        <ul id="equipmentList">
-        </ul>
-    </div>
     </form>
 </body>
 </html>
-<script src="../scripts/jquery-easyui/easyloader.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $(function () {
-        $(document).ajaxError(function (event, request, settings) {
-            alert("请求地址发生错误：" + settings.url);
-        });
-        var handlerUrl = "../exp.ashx";
-        easyloader.load("panel", function () {
-            var p = $("#dg_win");
-            p.panel({ top: 100, left: 200, style: { position: "fixed"} }).panel("close");
-            $("a.c").click(function (e) {
-                p.panel("setTitle", this.innerText).panel("open");
-                var query = { op: "recordequipments", id: "", tid: "" };
-                query.tid = this.getAttribute("tid");
-                query.id = this.id;
-                $.getJSON(handlerUrl, query, function (res) {
-                    var lis = '';
-                    for (var i = 0; i < res.length; i++) {
-                        lis += '<li><a target="_parent" href="Record.aspx?id=' + query.id + '&tid=' + query.tid + '&equipment=' + res[i].id + '">' + res[i].name + '</a></li>';
-                    }
-                    $("#equipmentList").empty().append(lis);
-                });
-            });
-        });
-    });
-</script>

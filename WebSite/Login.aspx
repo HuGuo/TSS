@@ -25,8 +25,8 @@
             <span class="error">This is an error</span>
         </div>
         <div class="bottom">
-            <div class="remember">
-                <input type="checkbox" /><span>记住用户名密码</span></div>
+            <div class="remember" style=" display:none;">
+                <input type="checkbox" value="1" id="rememberme" /><span>记住用户名密码</span></div>
             <%--<asp:Button ID="btnLogin" runat="server" Text="Login" 
                 onclick="btnLogin_Click" />--%>
                 <input type="button" id="btnLogin" value="Login" />
@@ -55,6 +55,7 @@
 <script src="scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script src="scripts/jquery-easyui/easyloader.js" type="text/javascript"></script>
 <script type="text/javascript">
+    var handlerUrl = "login.ashx";
     $(document).ready(function () {
         //check browser version
         if ($.browser.version == "6.0") {
@@ -65,7 +66,6 @@
             });
         }
         // set width and height
-        var loginResult = ["success", "口令错误", "用户不存在", "用户帐号被禁用"];
         var $form_wrapper = $('#form_wrapper')
         var $currentForm = $form_wrapper.children('form.active');
         $form_wrapper.children('form').each(function (i) {
@@ -79,14 +79,14 @@
         });
 
         $("#btnLogin").click(function (e) {
-            var query = { ajax: "", name: "", pwd: "" };
+            var query = { op: "login", name: "", pwd: "", remember: $("input:checked").size() };
             query.name = $("#txt_name").val();
-            query.pw = $("#txt_pwd").val();
+            query.pwd = $("#txt_pwd").val();
             if (query.name == "") {
                 alert("用户名不能为空"); return false;
             }
-            $.get("login.aspx", query, function (data) {
-                if (data == "1") {
+            $.post(handlerUrl, query, function (data) {
+                if (data == "FIRSTLOGIN") {
                     //第一次登陆系统
                     //var target=$(this).attr("rel")
                     $currentForm.fadeOut(400, function () {
@@ -102,11 +102,10 @@
 									 });
                     });
                     e.preventDefault();
+                } else if (data == "SUCCESS") {
+                    window.location.href = "default.htm";
                 } else {
-                    var r = parseInt(data);
-                    if (r > 0) {
-                        alert(loginResult[r]);
-                    }
+                    alert(data);
                 }
             });
         }).ajaxStart(function () {
@@ -114,7 +113,15 @@
         }).ajaxComplete(function () { $(this).val("Login"); });
 
         $("#btnSet").click(function () {
-            document.location.href = "default.htm";
+            var query = { op: "initprofile", name: "", spid: "", remember: $("input:checked").size() };
+            query.spid = $("#ddlSpecialty option:selected").val();
+            query.name = $("#txt_name").val();
+            $.post(handlerUrl, query, function (res) {
+                if (res != "") {
+                    alert(res);
+                }
+                window.location.href = "default.htm";
+            });            
         });
     });
 </script>

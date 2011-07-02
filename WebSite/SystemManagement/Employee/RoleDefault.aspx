@@ -16,7 +16,7 @@
             line-height: 22px;
         }
         td{ cursor:pointer;}
-        .checked{ background:url(../../scripts/images/ok.png) no-repeat center;}
+        .checked{ background:url(../../images/ok.png) no-repeat center;}
         li{ display:block; margin:3px 5px;}
     </style>
 </head>

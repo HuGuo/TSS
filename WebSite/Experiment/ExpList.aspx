@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>实验报告</title>
+    <title>试验报告</title>
     <link href="../scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet" type="text/css" />
     <link href="~/Styles/_base.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
@@ -15,8 +15,8 @@
 <body>
     <form id="form1" runat="server" style="padding-top:32px;">
     <div id="toolbar" class="fixed">
-    <a href="RecordDefault.aspx?s=<%=Request.QueryString["s"] %>">实验台帐</a>
-    <a class="dg" href="#dg_win">填写实验报告</a>
+    <a href="RecordDefault.aspx?s=<%=Request.QueryString["s"] %>">试验台帐</a>
+    <a class="dg" href="#dg_win">填写试验报告</a>
     <a class="dg" href="#dg_win2">数据分析</a>
     </div>
     <table>
@@ -26,13 +26,13 @@
                     序号
                 </th>
                 <th>
-                    实验时间
+                    试验时间
                 </th>
                 <th>
-                    实验结果
+                    试验结果
                 </th>
                 <th>
-                    实验报告
+                    试验报告
                 </th>
                 <th>
                 </th>
@@ -61,7 +61,7 @@
             </ItemTemplate>
         </asp:Repeater>
     </table>
-    <div id="dg_win" class="easyui-dialog" title="选择实验报告模板" style="width: 500px; height: 300px;
+    <div id="dg_win" class="easyui-dialog" title="选择试验报告模板" style="width: 500px; height: 300px;
         top:100px; margin-left:auto; margin-right:auto; padding:0;" buttons="#dlg_buttons">
         <div class="easyui-layout" style="width:100%; height:100%;">
         <div region="west" border="true" split="false" style="width:150px; overflow:auto;">
@@ -87,10 +87,10 @@
         </div>
     </div>
     <div id="dlg_buttons">
-		<a href="#" class="easyui-linkbutton" onclick="javascript:goFillIn()">填写实验报告</a>
+		<a href="#" class="easyui-linkbutton" onclick="javascript:goFillIn()">填写试验报告</a>
 		<a href="#" class="easyui-linkbutton" onclick="javascript:$('#dg_win').dialog('close')">关闭</a>
 	</div>
-    <div id="dg_win2" class="easyui-dialog" title="选择实验报告模板" style="width: 350px; height: 300px;
+    <div id="dg_win2" class="easyui-dialog" title="选择试验报告模板" style="width: 350px; height: 300px;
         top: 100px; margin-left: auto; margin-right: auto; padding: 0; overflow:auto;" buttons="#dlg_buttons2">
         <ul id="tmplist2">
             <asp:Repeater ID="rptlist2" runat="server">
@@ -128,7 +128,7 @@
         var tmpId = $("#tmplist :radio:checked").val();
         var emp = $("#eqmlist :radio:checked").val();
         if (tmpId == null) {
-            alert("实验模报告板未选择"); return false;
+            alert("试验模报告板未选择"); return false;
         }
         if (emp == null) {
             alert("设备未选择"); return false;
@@ -140,7 +140,7 @@
     function goChart() {
         var tid = $("#tmplist2 :radio:checked").val();
         if (tid==null) {
-            alert("选择实验报告模板");return false;
+            alert("选择试验报告模板");return false;
         }
         window.open("chartstep1.aspx?tid=" + tid);
     }

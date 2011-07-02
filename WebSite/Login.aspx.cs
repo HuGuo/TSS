@@ -10,22 +10,10 @@ public partial class _Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Request.QueryString["ajax"]!=null) {
-            string name = Server.UrlDecode(Request.QueryString["name"]);
-            string pwd = Server.UrlDecode(Request.QueryString["pwd"]);
-            RightService server = new RightService();
-            int result= server.Login(name, pwd);
-            if (result==0) {
-                //检查是否第一次登陆系统
-                UserDetail user = server.GetUserDetail(name);
-                Employees repository = new Employees();
-                bool firstLogin=repository.ExistsCode(user.EmployeeCode);
-                Response.Write("-1");
-            } else {
-                Response.Write(result);
-            }
-            Response.End();
-            return;
+        if (Request.QueryString["out"]!=null) {
+            CacheManager.RemoveCache("CACHE_" + User.Identity.Name);
+            System.Web.Security.FormsAuthentication.SignOut();
+            
         }
         if (!IsPostBack) {
             IList<TSS.Models.Specialty> list = new TSS.BLL.Specialties().GetAll();
@@ -35,7 +23,7 @@ public partial class _Login : System.Web.UI.Page
         }
     }
 
-    void InitProfile(string userid) 
+    void InitProfile(Employee obj) 
     {
         RightService rs = new RightService();
 

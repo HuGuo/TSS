@@ -71,8 +71,8 @@ namespace TSS.BLL
             return false;
         }
 
-        public IList<Experiment> GetMuch(Guid equipmentID) {
-            return Context.Experiments.Where(p => p.EquipmentID == equipmentID)
+        public IList<Experiment> GetMuch(Guid exptemplateId) {
+            return Context.Experiments.Where(p => p.ExpTemplateID.Equals(exptemplateId))
                     .OrderByDescending(p => p.ExpDate).ToList();
         }
 

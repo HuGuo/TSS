@@ -63,43 +63,43 @@ namespace TSS.Models
             base.Seed(context);
 
             var systemManagementModules = new List<Module> {
-                new Module { Name = "ÈËÔ±¹ÜÀí", Url = "Employee" },
-                new Module { Name = "Éè±¸¹ÜÀí", Url = "Equipment" },
-                new Module { Name = "ÊÔÑé¹ÜÀí", Url = "Experiment" },
-                new Module { Name = "¹¤×÷Á÷¹ÜÀí", Url = "Workflow" },
-                new Module { Name = "Ä£¿é¹ÜÀí", Url = "Module" }
+                new Module { Name = "ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½", Url = "Employee" },
+                new Module { Name = "ï¿½è±¸ï¿½ï¿½ï¿½ï¿½", Url = "Equipment" },
+                new Module { Name = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Url = "Experiment" },
+                new Module { Name = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Url = "Workflow" },
+                new Module { Name = "Ä£ï¿½ï¿½ï¿½ï¿½ï¿½", Url = "Module" }
             };
 
             var specialtyModules = new List<Module> {
-                    new Module { Name = "Éè±¸Ì¨ÕÊ", Url = "Equipment" },
-                    new Module { Name = "ÊµÑé±¨¸æ", Url = "Experiment" },
-                    new Module { Name = "Ô¤ÊÔÖÜÆÚ", Url = "MaintenanceCycle" },
-                    new Module { Name = "¼à¶½ÔÂ±¨", Url = "ComprehensiveReport" },
-                    new Module { Name = "ÈËÔ±×ÊÖÊ", Url = "Certificate" },
-                    new Module { Name = "µµ°¸×ÊÁÏ", Url = "Document" }
+                    new Module { Name = "ï¿½è±¸Ì¨ï¿½ï¿½", Url = "Equipment" },
+                    new Module { Name = "Êµï¿½é±¨ï¿½ï¿½", Url = "Experiment" },
+                    new Module { Name = "Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Url = "MaintenanceCycle" },
+                    new Module { Name = "ï¿½à¶½ï¿½Â±ï¿½", Url = "ComprehensiveReport" },
+                    new Module { Name = "ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½", Url = "Certificate" },
+                    new Module { Name = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Url = "Document" }
             };
 
             new List<Module> {
-                new Module { Id = 1, Name = "×¨Òµ¼à¶½", Submodules = specialtyModules },
-                new Module { Id = 2, Name = "¼à¶½¶¯Ì¬" },
-                new Module { Id = 3, Name = "¼à¶½ÌåÏµ" },
-                new Module { Id = 4, Name = "¼à¶½¹ÜÀí" },
-                new Module { Id = 5, Name = "ÏµÍ³¹ÜÀí", Url= "SystemManagement", Submodules = systemManagementModules }
+                new Module { Id = 1, Name = "×¨Òµï¿½à¶½", Submodules = specialtyModules },
+                new Module { Id = 2, Name = "ï¿½à¶½ï¿½ï¿½Ì¬" },
+                new Module { Id = 3, Name = "ï¿½à¶½ï¿½ï¿½Ïµ" },
+                new Module { Id = 4, Name = "ï¿½à¶½ï¿½ï¿½ï¿½ï¿½" },
+                new Module { Id = 5, Name = "ÏµÍ³ï¿½ï¿½ï¿½ï¿½", Url= "SystemManagement", Submodules = systemManagementModules }
             }.ForEach(m =>
             {
                 context.Modules.Add(m);
             });
 
             new List<Specialty> {
-                new Specialty { Id = "GHY-DC", Name = "µç²â¼ÆÁ¿" },
-                new Specialty { Id = "GHY-DN", Name = "µçÄÜ" },
-                new Specialty { Id = "GHY-HX", Name = "»¯Ñ§" },
-                new Specialty { Id = "GHY-JDBH", Name = "¼Ìµç±£»¤" },
-                new Specialty { Id = "GHY-JN", Name = "½ÚÄÜ" },
-                new Specialty { Id = "GHY-JS", Name = "½ðÊô" },
-                new Specialty { Id = "GHY-JY", Name = "¾øÔµ" },
-                new Specialty { Id = "GHY-LC", Name = "Àø´Å" },
-                new Specialty { Id = "GHY-RG", Name = "ÈÈ¹¤" }
+                new Specialty { Id = "GHY-DC", Name = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" },
+                new Specialty { Id = "GHY-DN", Name = "ï¿½ï¿½ï¿½ï¿½" },
+                new Specialty { Id = "GHY-HX", Name = "ï¿½ï¿½Ñ§" },
+                new Specialty { Id = "GHY-JDBH", Name = "ï¿½Ìµç±£ï¿½ï¿½" },
+                new Specialty { Id = "GHY-JN", Name = "ï¿½ï¿½ï¿½ï¿½" },
+                new Specialty { Id = "GHY-JS", Name = "ï¿½ï¿½ï¿½ï¿½" },
+                new Specialty { Id = "GHY-JY", Name = "ï¿½ï¿½Ôµ" },
+                new Specialty { Id = "GHY-LC", Name = "ï¿½ï¿½ï¿½ï¿½" },
+                new Specialty { Id = "GHY-RG", Name = "ï¿½È¹ï¿½" }
             }.ForEach(s =>
             {
                 s.Modules = specialtyModules;

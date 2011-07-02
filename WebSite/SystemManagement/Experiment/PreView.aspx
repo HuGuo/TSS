@@ -4,12 +4,12 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>实验报告模板</title>
+    <title>试验报告模板</title>
     <link href="../../experiment/experiment.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <h4 style="text-align:center;"><asp:Literal ID="ltTitle" runat="server"></asp:Literal></h4>    
+    <h3 style="text-align:center;"><asp:Literal ID="ltTitle" runat="server"></asp:Literal></h3>    
         <asp:Literal ID="ltHTML" runat="server"></asp:Literal>
     </form>
 </body>

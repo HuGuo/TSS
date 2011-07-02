@@ -3,11 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.HtmlControls;
+using System.Web.Security;
 
-public class BasePage : System.Web.UI.Page
+public partial class BasePage : System.Web.UI.Page
 {
-    public BasePage()
-    {
+    public string UserID {
+        get {
+            if (!User.Identity.IsAuthenticated) {
+                return "未登录";
+            }
+            return User.Identity.Name;
+        }
+    }
+
+    public string LoginName {
+        get {
+            if (!User.Identity.IsAuthenticated) {
+                return "未登录";
+            }
+            FormsIdentity ticket = (FormsIdentity)User.Identity;
+            return ticket.Ticket.UserData.Split(';')[0];
+        }
     }
 
     #region regist css and js
@@ -293,16 +309,6 @@ public class BasePage : System.Web.UI.Page
     {
         return text.Replace("<br/>", "\r\n");
     }
-}
-
-[Flags]
-public enum Action
-{
-    View = 0x00,
-    Add = 0x01,
-    Edit = 0x02,
-    Delete = 0x04,
-    Audit = 0x08
 }
 
 public enum Operate
