@@ -36,7 +36,7 @@ namespace TSS.BLL
         {
             Context.Set<TEntity>().Add(entity);
 
-            return Context.SaveChanges() == 1;
+            return Context.SaveChanges() >0;
         }
 
         public virtual bool Update(TEntity entity)
@@ -44,7 +44,7 @@ namespace TSS.BLL
             Context.Set<TEntity>().Attach(entity);
             Context.Entry<TEntity>(entity).State = EntityState.Modified;
 
-            return Context.SaveChanges() == 1;
+            return Context.SaveChanges() >0;
         }
 
         public virtual void Update(object key, TEntity entity)
@@ -66,7 +66,7 @@ namespace TSS.BLL
             Context.Set<TEntity>().Attach(entity);
             Context.Set<TEntity>().Remove(entity);
 
-            return Context.SaveChanges() == 1;
+            return Context.SaveChanges() >0;
         }
 
         public bool IsExists(object id)

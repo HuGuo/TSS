@@ -40,7 +40,7 @@ public partial class ComprehensiveReport_EditSpecialtyAnalysis : BasePage
             ExistCurrentTimeRecord();
             return;
         }
-        bool reuslt = new SpecialtyAnalysisRepository().Update(GetSpecialtyAnalysis());
+        bool reuslt = EditSpecialtyAnalysis();
         EditIsSccessfulPrompt(reuslt);
     }
 
@@ -63,7 +63,7 @@ public partial class ComprehensiveReport_EditSpecialtyAnalysis : BasePage
             Request.QueryString["specialtyId"], int.Parse(Request.QueryString["id"]));
     }
 
-    public void AddCurrentTimeComprehensiveReport()
+    public bool AddCurrentTimeComprehensiveReport()
     {
         ComprehensiveReportRepository comprehensiveReportRepository = new ComprehensiveReportRepository();
         ComprehensiveReport comprehensiveReport = new ComprehensiveReport
@@ -71,10 +71,10 @@ public partial class ComprehensiveReport_EditSpecialtyAnalysis : BasePage
             ReportYear = int.Parse(YearAndMonControl1.Year),
             ReportMonth = int.Parse(YearAndMonControl1.Mon)
         };
-        comprehensiveReportRepository.Add(comprehensiveReport);
+        return comprehensiveReportRepository.Add(comprehensiveReport);
     }
 
-    private SpecialtyAnalysis GetSpecialtyAnalysis()
+    private bool EditSpecialtyAnalysis()
     {
         SpecialtyAnalysisRepository repository = new SpecialtyAnalysisRepository();
         SpecialtyAnalysis specialtyAnalysis = repository.Get(int.Parse(Request.QueryString["id"]));
@@ -85,9 +85,7 @@ public partial class ComprehensiveReport_EditSpecialtyAnalysis : BasePage
         specialtyAnalysis.ComprehensiveReportId = comprehensiveReport.Id;
         foreach (IndicatorAnalysis indicatorAnalysis in specialtyAnalysis.IndicatorAnalysises)
             SetIndicatorAnalysis(indicatorAnalysis);
-        repository.Dispose();//实例中content一直存在
-        comprehensiveReportRepository.Dispose();//实例中content一直存在
-        return specialtyAnalysis;
+        return repository.Update(specialtyAnalysis);
     }
 
     private IndicatorAnalysis SetIndicatorAnalysis(IndicatorAnalysis indicatorAnalysis)
