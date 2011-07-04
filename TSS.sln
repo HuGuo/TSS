@@ -27,6 +27,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReferenceAssemblies", "ReferenceAssemblies", "{C15DD871-584C-4259-B22D-5C2508AC6FE7}"
 	ProjectSection(SolutionItems) = preProject
 		ReferenceAssemblies\RightService.dll = ReferenceAssemblies\RightService.dll
+		..\workflow\workflow\bin\Debug\workflow.dll = ..\workflow\workflow\bin\Debug\workflow.dll
+		..\wssmax\wssmax\bin\Debug\wssmax.dll = ..\wssmax\wssmax\bin\Debug\wssmax.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{58DF235E-C529-4255-8469-5C54F32C40F1}"

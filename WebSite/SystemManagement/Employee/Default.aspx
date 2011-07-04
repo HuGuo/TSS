@@ -42,8 +42,9 @@
         </ItemTemplate>
         </asp:repeater>
     </table>
-    <div id="dg_win" class="easyui-dialog" title="设置用户信息" style="width: 500px; height: 300px;
-        top: 100px; margin-left: auto; margin-right: auto; padding: 0;" buttons="#dlg_buttons">
+    <div id="dg_win" class="easyui-dialog" modal="true" title="设置用户信息" style="width: 500px;
+        height: 300px; top: 100px; margin-left: auto; margin-right: auto; padding: 0;"
+        buttons="#dlg_buttons">
         <table cellpadding="0" cellspacing="0" style="width: 100%">
             <tr>
                 <td colspan="3" style="height: 40px; border-bottom:1px dotted #e2e2e2; padding-left:15px;">

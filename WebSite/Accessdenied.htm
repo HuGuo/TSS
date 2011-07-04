@@ -3,10 +3,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>拒绝访问</title>
-    <link href="Styles/_base.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        body{ font-size:12px; margin:0; padding:0; overflow:hidden;}
+    .ct{ width:807px; margin:0 auto;}
+    .a{ background:url(images/error_divider_strip.png) no-repeat scroll; height:10px; width:807px;}
+    .b{ background-position:0px 0px;}
+    .c{ background-position:0px -10px;}
+    .main{ height:300px; background-color:#FFF;}
+    h3{ color:#e74; margin:20px 50px 10px 50px; letter-spacing:2px;}
+    p{ margin:5px 60px; padding:0;}
+    a{ color:#422; text-decoration:none;}
+    </style>
 </head>
 <body>
-<div class="error"><h3>
-    权限不够，拒绝访问</h3><a href="javascript:window.history.go(-1);">点此返回</a></div>
+    <div style="width:100%; padding-top:100px;">
+    <div class="ct">
+    <div class="a b">&nbsp;</div>
+    <div class="main">
+    <h3>
+        权限不够，拒绝访问</h3>
+        <p>你可以进行以下操作</p>
+        <p><a href="javascript:window.history.go(-1)">返回上页</a></p>
+    </div>
+        <div class="a c">&nbsp;
+        </div></div>
+    </div>
 </body>
 </html>

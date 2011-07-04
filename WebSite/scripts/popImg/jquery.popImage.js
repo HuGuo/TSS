@@ -1,7 +1,7 @@
 (function ($) {
     var root;
     $('script').each(function (a, tag) {
-        miuScript = $(tag).get(0).src.match(/(.*)jquery\.popImage(\.mini)?\.js$/);
+        miuScript = this.src.match(/(.*)jquery\.pop[Ii]mage(\.mini)?\.js$/);
         if (miuScript !== null) {
             root = miuScript[1];
         }
@@ -36,8 +36,6 @@
                 $('.popImage_close').hide();
                 e.preventDefault();
                 position = $$.offset(),
-                //                o_h = w_h - 80,
-                //                o_w = w_w - 80;
                 o_h = animate_image.height() > w_h ? (w_h - 80) : animate_image.height() - 50;
                 o_w = animate_image.width() > w_w ? (w_w - 80) : animate_image.width() - 50;
 
