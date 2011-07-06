@@ -18,11 +18,13 @@ namespace TSS.BLL
                 if (old.Name.ToLower()=="guest" && entity.Name.ToLower() != "guest") {
                     throw new Exception("“guest”为系统默认角色名，请更换其他角色名称");
                 }
-                //Context.Entry(old).GetDatabaseValues().GetValue<string>("Name");
-                //Context.Entry(old).CurrentValues.GetValue<string>("Name");
+                
                 Context.Entry(old).CurrentValues.SetValues(entity);
+                foreach (var item in old.Rights) {
+                    item.Permission = entity.Rights.First(p => p.Id.Equals(item.Id)).Permission;
+                }
                 Context.SaveChanges();
-                //base.Update(key , entity);
+                
             }
         }
         public override bool Update(Role entity) {

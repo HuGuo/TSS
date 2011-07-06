@@ -7,17 +7,43 @@
     <link rel="stylesheet" type="text/css"  href="~/Styles/_base.css"/>
     <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
     <style type="text/css">
-    .rounded-img {
-	display: inline-block;
-	border: solid 1px #000;
-	overflow: hidden;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-	box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-}
+        .rounded-img
+        {
+            display: inline-block;
+            border: solid 1px #000;
+            overflow: hidden;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+            -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+        }
+        .linkbutton
+        {
+            background: url(../images/bglinkbutton.gif) no-repeat scroll 0 -4px;
+            display: block;
+            width:75px;
+            line-height:26px;
+            padding:0 10px;
+            color:#000;
+            text-align:center;
+        }
+        .linkbutton span
+        {
+            background: url(../images/bglinkbutton.gif) no-repeat scroll -230px -4px;
+            padding:13px 5px;
+            float:right;
+            margin-right:-15px;
+        }
+        .linkbutton:hover
+        {
+            background-position: 0 -32px;
+        }
+        .linkbutton:hover span
+        {
+            background-position: -230px -32px;
+        }
     </style>
 </head>
 <body>
@@ -140,12 +166,29 @@
                 &nbsp;
             </td>
             <td>
-                <asp:Button ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" class="btn" />
+                <asp:Button ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" class="btn" OnClientClick="javascript:return checkNull(['txtReceiveDate', 'txtExpireDate'])" />
             </td>
             <td>
                 &nbsp;</td>
         </tr>
     </table>
+    <a class="linkbutton" href="#" style=" width:50px; display:none;">保存<span></span></a>
     </form>
 </body>
 </html>
+<script type="text/javascript">
+    function checkNull(o) {
+        for (var i = 0; i < o.length; i++) {
+            var obj = document.getElementById(o[i]);
+            if (obj) {
+                if (obj.value == "") {
+                    obj.style.borderColor = "red";
+                    obj.focus();
+                    alert("信息不完整");
+                    return false;
+                }
+            }
+        }
+    }
+        
+</script>

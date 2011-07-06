@@ -70,7 +70,14 @@ namespace TSS.BLL
             return false;
         }
 
-        public IList<Experiment> GetMuch(Guid exptemplateId) {
+        /// <summary>
+        /// 指定试验报告模板的试验记录列表
+        /// </summary>
+        /// <param name="exptemplateId"></param>
+        /// <param name="stime"></param>
+        /// <param name="etime"></param>
+        /// <returns></returns>
+        public IList<Experiment> GetMuch(Guid exptemplateId,DateTime? stime=null,DateTime? etime=null) {
             return Context.Experiments.Where(p => p.ExpTemplateID.Equals(exptemplateId))
                     .OrderByDescending(p => p.ExpDate).ToList();
         }
@@ -86,7 +93,13 @@ namespace TSS.BLL
             return query.ToList();
 
         }
-
+        
+        /// <summary>
+        /// 指定设备 指定试验报告模板的试验记录列表
+        /// </summary>
+        /// <param name="equipmentID"></param>
+        /// <param name="exptemplateID"></param>
+        /// <returns></returns>
         public IList<Experiment> GetMuch(Guid equipmentID , Guid exptemplateID) {
             return Context.Experiments.Where(p => p.EquipmentID == equipmentID && p.ExpTemplateID == exptemplateID)
                     .OrderByDescending(p => p.ExpDate).ToList();
@@ -114,15 +127,14 @@ namespace TSS.BLL
         }
 
         public IList<ChartData> GetChartData(string coord , DateTime? startTime , DateTime? endTime , params string[] equipmentId) {
-            List<Guid> equipments = (from v in equipmentId
-                                     select new Guid(v)).ToList();
-
             var query = Context.ExpData.Where(p => p.GUID == coord);
-
-            if (equipments.Count > 0) {
-                query = query.Where(p => equipments.Contains(p.Experiment.EquipmentID));
+            if (null!=equipmentId) {
+                List<Guid> equipments = (from v in equipmentId
+                                         select new Guid(v)).ToList();
+                if (equipments.Count > 0) {
+                    query = query.Where(p => equipments.Contains(p.Experiment.EquipmentID));
+                }
             }
-
             if (startTime.HasValue && endTime.HasValue) {
                 query = query.Where(p => p.Experiment.ExpDate >= startTime && p.Experiment.ExpDate <= endTime);
             } else if (startTime.HasValue) {

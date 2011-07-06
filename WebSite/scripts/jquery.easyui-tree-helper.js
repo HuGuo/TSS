@@ -75,7 +75,7 @@
                 }
                 var aTag = $(node.target).find("a");
                 if (aTag.size() > 0) {
-                    d.data("t", aTag);
+                    d.data("t", aTag).data("nd", node);
                     node.text = aTag.text();
                     $$.tree("update", node);
                 }
@@ -88,11 +88,11 @@
                 if (d.data("t") != null) {
                     node.text = d.data("t");
                     $$.tree("update", node);
-                    d.removeData("t");
+                    d.removeData("t").removeData("nd");
                 }
             },
             onAfterEdit: function (node) {
-                if (node.text != currentText) {                    
+                if (node.text != currentText) {
                     var query = { op: opt.opStr.edit, id: node.id, text: node.text };
                     $.get(opt.handlerUrl, query, function (data) {
                         if (data == "") {
@@ -103,6 +103,10 @@
                             if (opt.onAfterEdit) {
                                 opt.onAfterEdit(node);
                             }
+                        } else {
+                            node.text = currentText;
+                            $$.tree("update", node);
+                            alert(data);
                         }
                     });
                 } else {

@@ -30,17 +30,16 @@ public partial class BasePage:System.Web.UI.Page
     
     protected override void OnPreRenderComplete(EventArgs e) {
         if (DefaultAction != Action.None) {
-            NameValueCollection col = GetRights();
-            string val= col.Get(ModuleId.ToString());
-            if (null !=val) {
-                int p = int.Parse(val);
-                bool deny = ((int)DefaultAction & p) != (int)DefaultAction;
-                if (deny) {
-                    Response.Redirect("~/Accessdenied.htm",true);
+            int val = GetIntValue(ModuleId , GetRights());
+            bool deny = ((int)DefaultAction & val) != (int)DefaultAction;
+            if (deny) {
+                Response.Redirect("~/Accessdenied.htm" , true);
+            }
+            foreach (var item in RControls) {
+                if (null==item) {
+                    continue;
                 }
-                foreach (var item in RControls) {
-                    item.control.Visible = ((int)item.action & p) == (int)item.action;
-                }
+                item.control.Visible = ((int)item.action & val) == (int)item.action;
             }
         }
         base.OnPreRenderComplete(e);
@@ -68,6 +67,27 @@ public partial class BasePage:System.Web.UI.Page
             CacheManager.SetCache(key , col , 15);
         }
         return col;
+    }
+
+    /// <summary>
+    /// 是否具有指定模块的指定操作权限
+    /// </summary>
+    /// <param name="moduleId"></param>
+    /// <param name="action"></param>
+    /// <returns></returns>
+    protected bool HasRight(int moduleId , Action action) {
+        int val = GetIntValue(moduleId , GetRights());
+        return ((int)action & val) == (int)action;
+    }
+
+    private int GetIntValue(int key,NameValueCollection col) 
+    {
+        int result = 0;
+        string val = col.Get(key.ToString());
+        if (null !=val) {
+            int.TryParse(val , out result);
+        }
+        return result;
     }
 }
 

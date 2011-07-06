@@ -1,18 +1,25 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="SystemManagement_Experiment_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableViewState="false" CodeFile="Default.aspx.cs" Inherits="SystemManagement_Experiment_Default" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>试验报告模板</title>
     <link href="../../Styles/_base.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+    thead th{ background-color:#e1e5ee; border-top:1px solid #bfc4ca; height:27px;}
+    td,td a{ color:#666;}
+    </style>
 </head>
 <body>
     <form id="form1" runat="server" style="padding-top: 32px;">
     <div id="toolbar" class="fixed">
         <a href="ExpRecordDefault.aspx">试验台帐</a>
-        <a href="setTemplate.aspx" target="_blank">添加模板</a>        
+        <a href="setTemplate.aspx" target="_blank">添加模板</a> 
+        <a href="BindEquipment.aspx">
+            关联设备</a>
         </div>
-    <table id="tb" style="width:90%;">
+    <table id="tb" cellpadding="0" cellspacing="0" style="width:90%; border:0;">
+    <thead>
         <tr>
             <th style="width:50px;">
                 序号</th>
@@ -20,14 +27,17 @@
                 <th>
                     模板名称
                 </th>
+                <th></th>
                 <th style="width:120px;">
                     操作
                 </th>
         </tr>
-        <asp:Repeater ID="rptList" runat="server">
+    </thead>
+        <asp:Repeater ID="rptList" runat="server" 
+            onitemdatabound="rptList_ItemDataBound">
             <ItemTemplate>
                 <tr id="tr_<%#Eval("id") %>">
-                    <td>
+                    <td align="center">
                         <%# Container.ItemIndex+1 %>
                     </td>
                     <td style=" color:#c71;">
@@ -37,8 +47,14 @@
                             <%#Eval("Title") %></a>
                     </td>
                     <td>
-                        <a href="setTemplate.aspx?tid=<%#Eval("id") %>" target="_blank">编辑</a> <a href="javascript:void(0);"
-                            class="delete" key="<%#Eval("id") %>">删除</a>
+                        <asp:HyperLink ID="linkBindEQ" href='<%#Eval("id","BindEquipment.aspx?id={0}") %>'
+                            runat="server" Text="关联设备" Target="_blank" />
+                    </td>
+                    <td>
+                        <asp:HyperLink ID="linkEdit" href='<%#Eval("id","setTemplate.aspx?tid={0}") %>'
+                            runat="server" Text="编辑" Target="_blank" />
+                        <asp:HyperLink ID="linkDel" NavigateUrl="javascript:void(0);" key='<%#Eval("id") %>'
+                            class="delete" runat="server" Text="删除" />
                     </td>
                 </tr>
             </ItemTemplate>
@@ -57,6 +73,6 @@
             op: "del-t"
         });
         //$("#tb tr:gt(0)").hoverColor();
-        //$("#tb tr:gt(0)").alternateColor();
+        $("#tb tr:gt(0)").alternateColor().hoverColor();
     });
 </script>

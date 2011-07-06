@@ -15,9 +15,19 @@
             border: 1px solid #e2e2e2;
             line-height: 22px;
         }
-        td{ cursor:pointer;}
-        .checked{ background:url(../../images/ok.png) no-repeat center;}
-        li{ display:block; margin:3px 5px;}
+        td
+        {
+            cursor: pointer;
+        }
+        .checked
+        {
+            background: url(../../images/ok.png) no-repeat center;
+        }
+        li
+        {
+            display: block;
+            margin: 3px 5px;
+        }
     </style>
 </head>
 <body class="easyui-layout">
@@ -27,14 +37,14 @@
         </ul>
     </div>
     <div region="east" title="角色用户列表" split="true" style="width: 200px">
-            <ul id="employees">
-            </ul>
-            </div>
-    <div region="center">
-    <div id="toolbar">
-    <a href="Default.aspx">用户管理</a>
-    <input type="button" id="btnSave" class="btn" value="保存" style=" float:right; margin-top:3px;" />
+        <ul id="employees">
+        </ul>
     </div>
+    <div region="center">
+        <div id="toolbar">
+            <a href="Default.aspx">用户管理</a>
+            <input type="button" id="btnSave" class="btn" value="保存" style="float: right; margin-top: 3px;" />
+        </div>
         <table id="tbrights" cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse;">
             <thead>
                 <tr>
@@ -139,7 +149,8 @@
             handler: function (e) { $$$.$treeRole.treeHelper.removeItem(); }
         }]
         });
-        $("body").layout("panel", "east").panel({ tools: [
+        $("body").layout("panel", "east").panel({
+            tools: [
     {
         iconCls: 'icon-remove',
         handler: function () {
@@ -200,16 +211,8 @@
             }).get().join(",");
 
             $.post($$$.url, query, function (res) {
-                if (res != "") {
-                    $.messager.show({
-                        title: '系统提示',
-                        msg: '操作权限设置成功',
-                        timeout: 3000,
-                        showType: 'slide'
-                    });
-                } else {
-                    alert(res);
-                }
+                if (res == "") { res = "操作权限设置成功" }
+                $.messager.alert(res);
             });
         });
     });
