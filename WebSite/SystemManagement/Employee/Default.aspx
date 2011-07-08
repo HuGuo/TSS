@@ -12,7 +12,7 @@
 </head>
 <body>
     <form id="form1" runat="server" style="padding-top: 32px;">
-    <div id="toolbar" class="fixed">
+    <div id="toolbar" class="fixed nav">
     <a href="RoleDefault.aspx">角色管理</a>
         <div class="search">
             <asp:TextBox ID="txtKey" runat="server" class="textbox" MaxLength="12"></asp:TextBox>
@@ -36,7 +36,7 @@
         <td><%#Eval("Name") %></td>
         <td><%#((TSS.Models.Specialty)(Eval("Specialty"))).Name%></td>
         <td>
-        <a href="javascript:sss('<%#Eval("Id") %>');">编辑</a>
+        <a href="javascript:sss('<%#Eval("Id") %>');" class="button">编 辑</a>
         </td>
         </tr>
         </ItemTemplate>
@@ -52,14 +52,14 @@
                     <div id="div1"><span id="employeeName" style=" margin-right:10px; font-size:14px; font-weight:bolder;">
                 </span>
                         <label for="spName">
-                            专业：</label><span id="spName" style=" padding:5px 8px; border:1px solid #e2e2e2; font-weight:700;"></span>
-                            <a href="#" id="changeSP" style=" margin-left:8px; text-decoration:none;">更改</a>
+                            专业：</label><a id="spName" class="button"></a> 
+                            <a href="#" id="changeSP" class="button">更改</a>
                             </div>
                     <div id="div2" style="display: none;">
                         <asp:DropDownList ID="ddlSpecialty" runat="server">
                         </asp:DropDownList>
-                        <input type="button" id="btnOk" value="确定" />
-                        <input type="button" id="btnCancel" value="取消" />
+                        <a id="btnOk" class="button">确定</a>
+                        <a id="btnCancel" class="button">取消</a>
                     </div>
                 </td>
             </tr>
@@ -69,10 +69,10 @@
                     </select>
                 </td>
                 <td align="center" width="50px" style="width: 50px;">
-                    <input type="button" id="btnadd" value="《《" />
+                    <a id="btnadd" class="button">《《</a>
                     <br />
                     <br />
-                    <input type="button" id="btnRemove" value="》》" />
+                    <a id="btnRemove" class="button">》》</a>
                 </td>
                 <td align="center">                
                     <asp:DropDownList runat="server" ID="selRight" size="5" Style="width: 200px; height: 180px;">

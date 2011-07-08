@@ -40,8 +40,11 @@
             background-color: #ede;
             cursor: pointer;
         }
-        .tool{ padding:5px; background-color:#efefef;}
-        .checked span.l-btn-text{ font-weight:700; color:#c71;}
+        .tool
+        {
+            padding: 5px;
+            background-color: #efefef;
+        }
     </style>
 </head>
 <body class="easyui-layout">
@@ -54,9 +57,8 @@
         <form id="form1" runat="server">
         <div class="tool" id="splist">
             <asp:Repeater ID="rptlistSpecialty" runat="server">
-                <ItemTemplate>
-                    <a class="easyui-linkbutton" plain="true" id="<%#Eval("Id") %>"><%#Eval("name") %></a>
-                </ItemTemplate>
+                <ItemTemplate><a class="button" id="<%#Eval("Id") %>">
+                        <%#Eval("name") %></a> </ItemTemplate>
             </asp:Repeater>
         </div>
         <ul id="etlist">
@@ -187,9 +189,9 @@
             });
         });
     });
-    
+
     function loadEquipments() {
-        if (opt.et != "" && opt.c!="") {
+        if (opt.et != "" && opt.c != "") {
             var query = { type: "equipments", spid: opt.s, id: opt.c };
             $.getJSON("../../EquipmentCategory.ashx", query, function (res) {
                 var lis = '';
@@ -204,7 +206,7 @@
                 .appendTo($eq.empty())
                 .end()
                 .find(":checkbox").click(function (e) {
-                    e.preventDefault();
+                    e.stopPropagation();
                 });
             });
         }
@@ -215,7 +217,7 @@
         $.getJSON(handlerUrl, query, function (res) {
             var lis = '';
             for (var i = 0; i < res.length; i++) {
-                lis += '<li><input type="checkbox" id="item_'+res[i].id+'" value="' + res[i].id + '" />' + res[i].text + '</li>';
+                lis += '<li><input type="checkbox" id="item_' + res[i].id + '" value="' + res[i].id + '" />' + res[i].text + '</li>';
             }
             $("#bindedlist").empty().append(lis);
         });
@@ -227,8 +229,8 @@
         } else {
             $("#etlist li").show().not("[spid='" + sp + "']").hide();
         }
-        $("#splist a").removeClass("checked");
-        $("#" + sp).addClass("checked");
+        $("#splist a").removeClass("active");
+        $("#" + sp).addClass("active");
     }
 
     function clearSelected() {

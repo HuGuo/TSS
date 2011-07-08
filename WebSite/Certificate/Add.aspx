@@ -19,31 +19,7 @@
             -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
             box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
         }
-        .linkbutton
-        {
-            background: url(../images/bglinkbutton.gif) no-repeat scroll 0 -4px;
-            display: block;
-            width:75px;
-            line-height:26px;
-            padding:0 10px;
-            color:#000;
-            text-align:center;
-        }
-        .linkbutton span
-        {
-            background: url(../images/bglinkbutton.gif) no-repeat scroll -230px -4px;
-            padding:13px 5px;
-            float:right;
-            margin-right:-15px;
-        }
-        .linkbutton:hover
-        {
-            background-position: 0 -32px;
-        }
-        .linkbutton:hover span
-        {
-            background-position: -230px -32px;
-        }
+        
     </style>
 </head>
 <body>
@@ -166,13 +142,13 @@
                 &nbsp;
             </td>
             <td>
-                <asp:Button ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" class="btn" OnClientClick="javascript:return checkNull(['txtReceiveDate', 'txtExpireDate'])" />
+                <asp:LinkButton ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" class="big button"
+                    OnClientClick="javascript:return checkNull(['txtReceiveDate', 'txtExpireDate'])"><span class="check icon"></span> 保 存</asp:LinkButton>
             </td>
             <td>
                 &nbsp;</td>
         </tr>
     </table>
-    <a class="linkbutton" href="#" style=" width:50px; display:none;">保存<span></span></a>
     </form>
 </body>
 </html>

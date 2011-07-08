@@ -5,7 +5,17 @@
 <head runat="server">
     <title>持证管理</title>
     <link href="~/Styles/_base.css" rel="stylesheet" type="text/css" />
-    
+    <style type="text/css">
+        thead th
+        {
+            background-color: #e1e5ee;
+            height: 27px;
+        }
+        td, td a
+        {
+            color: #666;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server" style=" padding-top:32px;">
@@ -17,46 +27,49 @@
                 Text="" />
         </div>
     </div>
-    <table>
+    <table id="tblist" cellpadding="0" cellspacing="0" style="width:100%;">
+    <thead>
         <tr>
-            <td>
+            <th>
                 序号
-            </td>
-            <td>
+            </th>
+            <th>
                 姓名
-            </td>
-            <td>
+            </th>
+            <th>
                 性别
-            </td>
-            <td>
+            </th>
+            <th>
                 作业种类
-            </td>
-            <td>
+            </th>
+            <th>
                 资格项目
-            </td>
-            <td>
+            </th>
+            <th>
                 培训单位
-            </td>
-            <td>
+            </th>
+            <th>
                 取证时间
-            </td>
-            <td>
+            </th>
+            <th>
                 证件有效期
-            </td>
-            <td>
+            </th>
+            <th>
                 证书编号
-            </td>
-            <td>效果图</td>
-            <td>
+            </th>
+            <th>效果图</th>
+            <th>
                 备注
-            </td>
-            <td>
-            </td>
+            </th>
+            <th>
+            </th>
         </tr>
-        <asp:Repeater ID="rptList" runat="server">
+        </thead>
+        <asp:Repeater ID="rptList" runat="server" 
+            onitemdatabound="rptList_ItemDataBound">
             <ItemTemplate>
                 <tr id="tr_<%#Eval("id") %>">
-                    <td>
+                    <td align="center">
                         <%# Container.ItemIndex+1 %>
                     </td>
                     <td>
@@ -89,9 +102,11 @@
                     <td>
                         <%# Eval("Remark")%>
                     </td>
-                    <td>
-                        <a href="Add.aspx?id=<%#Eval("id") %>&s=<%#Eval("SpecialtyId") %>">编辑</a>
-                        <a href="javascript:void(0);" class="delete" key="<%#Eval("id") %>">删除</a>
+                    <td align="center">
+                        <asp:HyperLink ID="linkEdit" href='<%# "Add.aspx?id="+Eval("id").ToString()+"&s="+Eval("SpecialtyId").ToString() %>'
+                            runat="server" class="button" Text="编辑" />
+                        <asp:HyperLink ID="linkDel" NavigateUrl="javascript:void(0)" runat="server" class="delete button negative"
+                            key='<%#Eval("id") %>' Text="删除" />
                     </td>
                 </tr>
             </ItemTemplate>
@@ -110,7 +125,7 @@
             op: "del-certificate",
             onSuccess: function (k) { $("#tr_" + k).remove(); }
         });
-
+        $("#tblist tr:gt(0)").alternateColor();
         $("a.preview").popImage();
     });
 </script>

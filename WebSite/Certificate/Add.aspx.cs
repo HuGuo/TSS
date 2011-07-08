@@ -6,10 +6,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TSS.Models;
 using TSS.BLL;
-public partial class Certificate_Add : System.Web.UI.Page
+public partial class Certificate_Add : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //DefaultAction = Action.CUD;
         if (!IsPostBack) {
             string id = Request.QueryString["id"];
             if (!string.IsNullOrWhiteSpace(id)) {
@@ -63,8 +64,11 @@ public partial class Certificate_Add : System.Web.UI.Page
             string savePath = path + certificate.Id + extension;
             fileUp.SaveAs(savePath);
             certificate.ScanFilePath = configPath+certificate.Id + extension;
-        }        
+        }
         if (string.IsNullOrWhiteSpace(id)) {
+            if (null== certificate.ScanFilePath) {
+                certificate.ScanFilePath = string.Empty;
+            }
             RepositoryFactory<CertificateRepository>.Get().Add(certificate);
         } else {
             RepositoryFactory<CertificateRepository>.Get().Update(certificate.Id,certificate);

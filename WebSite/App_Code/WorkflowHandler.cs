@@ -49,7 +49,9 @@ public class WorkflowHandler:IHttpHandler
                 Name=context.Server.UrlDecode(name),
                 Actives=obj.ToList()
             };
-            WFRepository.Save(workflow);
+            using (WFContext db = new WFContext()) {
+                WFRepository.Save(workflow , db);
+            }
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }

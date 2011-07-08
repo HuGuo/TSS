@@ -5,12 +5,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>设置模板</title>
+    <link href="../../experiment/experiment.css" rel="stylesheet" type="text/css" />
+    <!--jQuery-->
+    <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
+    <!--easyui 1.2.3-->
+    <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <link href="../../scripts/jquery-easyui/themes/gray/menu.css" rel="stylesheet" type="text/css" />
     <link href="../../scripts/jquery-easyui/themes/icon.css" rel="stylesheet" type="text/css" />
-    <link href="../../experiment/experiment.css" rel="stylesheet" type="text/css" />
-    <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
-    <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <!--easyui-menu 1.2.4-->
     <script src="../../scripts/jquery-easyui/plugins/jquery.menu.js" type="text/javascript"></script>
+
     <script src="../../scripts/jquery.simpleExcel.js" type="text/javascript"></script>    
 </head>
 <body>
@@ -24,12 +28,13 @@
         </asp:DropDownList>
         <input type="button" id="btnSave" value="保存模板" />
     </div>
-    <div id="dtb" style="margin-top: 31px;">
+    <!--excel content-->
+    <div id="dtb" style="margin-top: 33px;">
         <asp:Literal ID="ltHTML" runat="server"></asp:Literal></div>
     <input id="txt_hidden_cid" type="hidden" value="<%=Request.QueryString["tid"] %>" />
     <input id="txt_hidden_sp" type="hidden" value="<%=Request.QueryString["s"] %>" />
     </form>
-    
+    <!--context menu-->
     <div id="ct_menu" class="easyui-menu" style="width: 120px;">
         <div onclick="javascript:$.simpleExcel.clearCell()">
             清空</div>

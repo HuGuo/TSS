@@ -32,29 +32,33 @@ public partial class SystemManagement_Workflow_SetWorkflow : System.Web.UI.Page
             //bind workflow
             string id = Request.QueryString["id"];
             if (!string.IsNullOrWhiteSpace(id)) {
+                using (workflow.WFContext db = new workflow.WFContext()) {
 
-                workflow.Workflow wf = workflow.WFRepository.Get(id);
-                if (null != wf) {
-                    wf.DesrializeFromXML();
-                    txtName.Text = wf.Name;
-                    stepsCount.Value = wf.Actives.Count.ToString();
-                    DataTable dt = new DataTable();
-                    dt.Columns.Add("Id");
-                    dt.Columns.Add("hours");
-                    dt.Columns.Add("t");
-                    System.Text.StringBuilder build2 = new System.Text.StringBuilder();
-                    foreach (var item in wf.Actives) {
-                        build2.Clear();
-                        foreach (var signer in item.Signers) {
-                            build2.AppendFormat("<span {0} sid=\"{1}\">{2}</span>" , signer.IsWeight ? " class=\"weight\"" : "" , signer.Id , signer.NameCN);
+                    workflow.Workflow wf = workflow.WFRepository.Get(id , db);
+                    if (null != wf) {
+                        wf.DesrializeFromXML();
+                        txtName.Text = wf.Name;
+                        stepsCount.Value = wf.Actives.Count.ToString();
+                        DataTable dt = new DataTable();
+                        dt.Columns.Add("Id");
+                        dt.Columns.Add("hours");
+                        dt.Columns.Add("t");
+                        System.Text.StringBuilder build2 = new System.Text.StringBuilder();
+                        foreach (var item in wf.Actives) {
+                            build2.Clear();
+                            foreach (var signer in item.Signers) {
+                                build2.AppendFormat("<a class=\"{0} button\" sid=\"{1}\"><span class=\"user icon\"></span>{2}</a> " , signer.IsWeight ? "primary negative" : "" , signer.Id , signer.NameCN);
+                            }
+                            dt.Rows.Add(item.Id , item.IntervalHours , build2.ToString());
                         }
-                        dt.Rows.Add(item.Id,item.IntervalHours , build2.ToString());
-                    }
 
-                    rptlist.DataSource = dt;
-                    rptlist.DataBind();
+                        rptlist.DataSource = dt;
+                        rptlist.DataBind();
+                    }
                 }
+                //end using
             }
+            //end if
         }
     }
 }

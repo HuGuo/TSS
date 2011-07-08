@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TSS.Models;
 using TSS.BLL;
-public partial class Certificate_Default : System.Web.UI.Page
+public partial class Certificate_Default : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -23,5 +23,11 @@ public partial class Certificate_Default : System.Web.UI.Page
         rptList.DataSourceID = "";
         rptList.DataSource = RepositoryFactory<CertificateRepository>.Get().Serach(key, s);
         rptList.DataBind();
+    }
+    protected void rptList_ItemDataBound(object sender , RepeaterItemEventArgs e) {
+        if (e.Item.ItemType== ListItemType.AlternatingItem || e.Item.ItemType== ListItemType.Item) {
+            RControls.Add(new RControl(Action.CUD , e.Item.FindControl("linkEdit")));   
+            RControls.Add(new RControl(Action.CUD , e.Item.FindControl("linkDel")));
+        }
     }
 }

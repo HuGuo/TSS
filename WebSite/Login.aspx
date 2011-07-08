@@ -1,54 +1,70 @@
-﻿<%@ Page Language="C#" EnableViewState="false" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="_Login" %>
+﻿<%@ Page Language="C#" EnableViewState="false" AutoEventWireup="true" CodeFile="Login.aspx.cs"
+    Inherits="_Login" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>系统登录</title>
+    <title>湖北清江隔河岩水力发电厂—技术监督管理系统</title>
     <link href="~/Styles/login.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div id="form_wrapper" class="form_wrapper">
-        <form id="loginForm" class="login active">
-        <h3>
-            用户登录</h3>
-        <div>
-            <label>
-                用户名:</label>
-            <input type="text" id="txt_name" />
-            <span class="error">This is an error</span>
-        </div>
-        <div>
-            <label>
-                密 码:
-            </label>
-            <input type="password" id="txt_pwd" />
-            <span class="error">This is an error</span>
-        </div>
-        <div class="bottom">
-            <div class="remember" style=" display:none;">
-                <input type="checkbox" value="1" id="rememberme" /><span>记住用户名密码</span></div>
-            <%--<asp:Button ID="btnLogin" runat="server" Text="Login" 
-                onclick="btnLogin_Click" />--%>
-                <input type="button" id="btnLogin" value="Login" />
-            <div class="clear">
+    <div style="height: 50px;">
+    </div>
+    <div class="content">
+        <div class="column_left">
+            <div id="logo">
+            </div>
+            <div class="column_left_h80_w160">
+            </div>
+            <div class="column_left_h279">
             </div>
         </div>
-        </form>
-        <form id="InitForm" runat="server" class="register">
-        <h3>
-            第一次登陆，设置信息</h3>
-        <div>
-        <label>
-                专业:<asp:DropDownList ID="ddlSpecialty" runat="server">
-        </asp:DropDownList>
-            </label>
-        
+        <div class="column_center">
+            <div class="column_center_h80">
+            </div>
+            <form id="form1" runat="server" defaultfocus="txtLoginName" defaultbutton="btnLogin">
+            <div class="column_center_h162">
+                <div class="placeholder" style="height: 50px;">
+                <div style=" margin:20px 30px; color:#d11; font-size:90%;">
+                    <asp:Literal ID="ltmsg" runat="server"></asp:Literal></div>
+                </div>
+                <p>
+                    <label for="txtLoginName">
+                        帐 号</label><asp:TextBox ID="txtLoginName" runat="server" class="txt"></asp:TextBox>
+                </p>
+                <p>
+                    <label for="txtPassword">
+                        密 码</label><asp:TextBox 
+                        ID="txtPassword" runat="server" class="txt" TextMode="Password"></asp:TextBox></p>
+            </div>
+            <div class="column_center_h45_w91">
+            </div>
+            <div>
+                <asp:Button ID="btnLogin" runat="server" Text="" class="loginbtn" 
+                    onclick="btnLogin_Click" />
+            </div>
+            <div class="column_center_h45_w65">
+            </div>
+            </form>
+            <div class="column_center_h142">
+                <div class="placeholder">
+                </div>
+                <p>
+                    <b>浏览器要求</b>：IE8.0及以上版本，否则 部分功能或效果将无法使用</p>
+                <p>
+                    <b>推荐浏览器</b>：<a href="http://www.google.com/chrome?brand=CHKZ&hl=zh-CN" target="_blank">Chrome</a></p>
+            </div>
         </div>
-        <div class="bottom">
-        <input type="button" id="btnSet" value="OK" />
-        <%--<div class="clear"/>--%>
+        <div class="column_right">
+            <div class="column_right_h80">
+            </div>
+            <div class="column_right_h279">
+            </div>
         </div>
-        </form>
+        <div class="clear">
+        </div>
+        <div class="footline">
+        </div>
     </div>
 </body>
 </html>
@@ -65,63 +81,5 @@
                 });
             });
         }
-        // set width and height
-        var $form_wrapper = $('#form_wrapper')
-        var $currentForm = $form_wrapper.children('form.active');
-        $form_wrapper.children('form').each(function (i) {
-            var $theForm = $(this);
-            if (!$theForm.hasClass('active'))
-                $theForm.hide();
-            $theForm.data({
-                width: $theForm.width(),
-                height: $theForm.height()
-            });
-        });
-
-        $("#btnLogin").click(function (e) {
-            var query = { op: "login", name: "", pwd: "", remember: $("input:checked").size() };
-            query.name = $("#txt_name").val();
-            query.pwd = $("#txt_pwd").val();
-            if (query.name == "") {
-                alert("用户名不能为空"); return false;
-            }
-            $.post(handlerUrl, query, function (data) {
-                if (data == "FIRSTLOGIN") {
-                    //第一次登陆系统
-                    //var target=$(this).attr("rel")
-                    $currentForm.fadeOut(400, function () {
-                        $currentForm.removeClass('active');
-                        $currentForm = $("#InitForm");
-                        $form_wrapper.stop()
-									 .animate({
-									     width: $currentForm.data('width') + 'px',
-									     height: $currentForm.data('height') + 'px'
-									 }, 500, function () {
-									     $currentForm.addClass('active');
-									     $currentForm.fadeIn(400);
-									 });
-                    });
-                    e.preventDefault();
-                } else if (data == "SUCCESS") {
-                    window.location.href = "default.htm";
-                } else {
-                    alert(data);
-                }
-            });
-        }).ajaxStart(function () {
-            $(this).val("验证中...");
-        }).ajaxComplete(function () { $(this).val("Login"); });
-
-        $("#btnSet").click(function () {
-            var query = { op: "initprofile", name: "", spid: "", remember: $("input:checked").size() };
-            query.spid = $("#ddlSpecialty option:selected").val();
-            query.name = $("#txt_name").val();
-            $.post(handlerUrl, query, function (res) {
-                if (res != "") {
-                    alert(res);
-                }
-                window.location.href = "default.htm";
-            });            
-        });
     });
 </script>

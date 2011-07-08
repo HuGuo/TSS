@@ -41,7 +41,7 @@
         </ul>
     </div>
     <div region="center">
-        <div id="toolbar">
+        <div id="toolbar" class="nav">
             <a href="Default.aspx">用户管理</a>
             <input type="button" id="btnSave" class="btn" value="保存" style="float: right; margin-top: 3px;" />
         </div>

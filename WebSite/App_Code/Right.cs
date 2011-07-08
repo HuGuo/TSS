@@ -26,7 +26,7 @@ public partial class BasePage:System.Web.UI.Page
     /// 页面上需要进行权限控制的控件，
     /// 客户端控件 加上 runat="server" 属性
     /// </summary>
-    public IList<RControl> RControls { get; set; }
+    public ICollection<RControl> RControls { get; set; }
     
     protected override void OnPreRenderComplete(EventArgs e) {
         if (DefaultAction != Action.None) {

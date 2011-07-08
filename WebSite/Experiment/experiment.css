@@ -35,11 +35,12 @@
 #toolbar
 {
     border: solid 1px #ccccd4;
-    height: 30px;
+    height: 27px;
     width: 100%;
     line-height: 130%;
-    background-color: rgb(221, 220, 228);
+    background-color: #F2F2F2;
     top: 0;
     float:left;
     position:fixed;
+    padding:3px 0px;
 }

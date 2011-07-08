@@ -3,6 +3,14 @@
         gloab: false,
         async: false
     });
+    $.extend({
+        toHTML: function (o) {
+            return ((o.replace(/<(.+?)>/gi, "&lt;$1&gt;")).replace(/ /gi, "&nbsp;")).replace(/\n/gi, "<BR>");
+        },
+        toText: function (o) {
+            return (((o.replace(/&nbsp;/gi, " ")).replace(/<[Bb][Rr] \/>/gi, "\n")).replace(/&lt;/gi, "<")).replace(/&gt;/gi, ">");
+        }
+    });
     $.getScript("../scripts/jquery-easyui/easyloader.js", function () {
         easyloader.base = '../scripts/jquery-easyui/';
         easyloader.load(['menu', 'dialog'], function () {
@@ -50,7 +58,7 @@
                 g.dg.find("#gname").text($td.find("b").text());
                 g.t1.val($td.find("span:eq(0)").text());
                 g.t2.val($td.find("span:eq(1)").text());
-                g.t3.val($td.attr("org_title"));
+                g.t3.val($.toText($td.attr("org_title")));
                 g.dg.dialog("open");
             }
             });

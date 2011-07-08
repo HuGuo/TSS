@@ -6,16 +6,28 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
+using TSS.Models;
 public partial class SystemManagement_Experiment_Default : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
             ModuleId = 14;
-            DefaultAction = Action.View;
+            DefaultAction = Action.None;
+            //
+            IList<Specialty> list = RepositoryFactory<Specialties>.Get().GetAll();
+            foreach (var item in list) {
+                item.Name = item.Name + "(" + item.ExpTemlates.Count + ")";
+            }
 
-            rptList.DataSource = RepositoryFactory<ExpTemplateRepository>.Get().GetAll();
+            IList<ExpTemplate> list2 = RepositoryFactory<ExpTemplateRepository>.Get().GetAll();
+
+            list.Insert(0 , new Specialty { Id = "ALL" , Name = "全部(" + list2.Count + ")" });
+            rptList.DataSource = list2;
             rptList.DataBind();
+
+            rptlistSpecialty.DataSource = list;
+            rptlistSpecialty.DataBind();
         }
     }
     protected void rptList_ItemDataBound(object sender , RepeaterItemEventArgs e) {
