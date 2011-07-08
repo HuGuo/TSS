@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TSS.Models;
-using System.Data.Entity;
 namespace TSS.BLL
 {
     public class ExpReocrdRepository:Repository<TSS.Models.ExpRecord>

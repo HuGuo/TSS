@@ -35,6 +35,7 @@
     <Compile Include="Context.cs" />
     <Compile Include="Certificate.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="EquipmentEqualityComparer.cs" />
     <Compile Include="Equipment\Equipment.cs" />
     <Compile Include="Equipment\EquipmentCategory.cs" />
     <Compile Include="Equipment\EquipmentDetail.cs" />

@@ -23,8 +23,8 @@ public partial class Experiment_data : System.Web.UI.Page
         }
         string coord = Request.QueryString["coord"];
         IList<ChartData> list = RepositoryFactory<ExperimentRepository>.Get().GetChartData(coord, stime, etime);
-        string caption = Server.UrlEncode(Server.UrlDecode(Request.QueryString["t"]));
-        string subCaption = "";
+        //string caption = Server.UrlEncode(Server.UrlDecode(Request.QueryString["t"]));
+        //string subCaption = "";
         int numVisiblePlot = 12;
         int showValues = 1;
         string clickURL = Server.UrlEncode("n-experiment.aspx?id=");
@@ -45,8 +45,8 @@ public partial class Experiment_data : System.Web.UI.Page
             new XAttribute("showAlternateVGridColor", 1),
             //new XAttribute("slantLabels", 1),
             new XAttribute("showValues", showValues),
-            new XAttribute("caption", caption),
-            new XAttribute("subCaption", subCaption),
+            //new XAttribute("caption", caption),
+            //new XAttribute("subCaption", subCaption),
             new XElement("categories", from p in list
                                        select new XElement("category",
                                            new XAttribute("label", p.ExpDate.ToString("yyyy/MM/dd"))

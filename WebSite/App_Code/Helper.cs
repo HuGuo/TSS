@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 public class Helper
 {
@@ -40,7 +41,7 @@ public class Helper
         return className;
     }
 }
-
+//扩展字符串方法
 public static class StringExtend
 {
     public static string GetMD5(this string str) {
@@ -59,5 +60,36 @@ public static class StringExtend
 
     public static string GetSHA1(this string str) {
         return System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(str , "SHA1");
+    }
+
+    public static string HtmlDecode(this string str) {
+        StringBuilder sb = new StringBuilder(str);
+        sb.Replace("<br />" , "\n");
+        sb.Replace("<br/>" , "\n");
+        //  sb.Replace("\r", "");
+        sb.Replace("&nbsp;&nbsp;" , "\t");
+        sb.Replace("&nbsp;" , " ");
+        sb.Replace("&#39;" , "\'");
+        sb.Replace("&quot;" , "\"");
+        sb.Replace("&gt;" , ">");
+        sb.Replace("&lt;" , "<");
+        sb.Replace("&amp;" , "&");
+
+
+        return sb.ToString();
+    }
+
+    public static string HtmlEncode(this string str) {
+        StringBuilder sb = new StringBuilder(str);
+        sb.Replace("&" , "&amp;");
+        sb.Replace("<" , "&lt;");
+        sb.Replace(">" , "&gt;");
+        sb.Replace("\"" , "&quot;");
+        sb.Replace("\'", "&#39;");
+        sb.Replace(" " , "&nbsp;");
+        sb.Replace("\t" , "&nbsp;&nbsp;");
+        sb.Replace("\r" , "");
+        sb.Replace("\n" , "<br />");
+        return sb.ToString();
     }
 }

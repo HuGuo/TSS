@@ -39,16 +39,18 @@
         </asp:Repeater>
     </ul>
     </form>
-    <div id="dg_upfile" class="easyui-dialog" title="上传文件" style="width: 500px; height: 300px; top: 150px;
-        margin-left: auto; margin-right: auto; padding: 0;" buttons="#dlg_btn1">
+    <div id="dg_upfile" class="easyui-dialog" title="上传文件" modal="true" style="width: 500px;
+        height: 300px; top: 150px; margin-left: auto; margin-right: auto; padding: 0;"
+        buttons="#dlg_btn1">
         <input type="file" id="upDemo" />
     </div>
     <div id="dlg_btn1">
         <a href="#" class="easyui-linkbutton" onclick="javascript:$('#upDemo').uploadifyUpload()">上传</a>
         <a href="#" id="cancelUpload" class="easyui-linkbutton">关闭</a>
     </div>
-    <div id="dg_newfolder" class="easyui-dialog" title="新建文件夹" style="width: 300px; height: 150px; top: 150px;
-        margin-left: auto; margin-right: auto; padding: 0;" buttons="#dlg_btn2">
+    <div id="dg_newfolder" class="easyui-dialog" modal="true" title="新建文件夹" style="width: 300px;
+        height: 150px; top: 150px; margin-left: auto; margin-right: auto; padding: 0;"
+        buttons="#dlg_btn2">
     <input type="text" value="新建文件夹" id="NN" style=" margin:20px 30px; width:220px; height:25px;" />
     </div>
     <div id="dlg_btn2">

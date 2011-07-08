@@ -9,21 +9,17 @@ using TSS.BLL;
 
 public partial class Experiment_ChartStep1 : System.Web.UI.Page
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        if (!IsPostBack) {
-            string templateId = Request.QueryString["tid"];
-            if (!string.IsNullOrWhiteSpace(templateId)) {
-                ExpTemplate template = RepositoryFactory<ExpTemplateRepository>.Get().Get(new Guid(templateId));
-                if (null !=template) {
+    public string templateTitle = string.Empty;
+    protected void Page_Load(object sender , EventArgs e) {
+        string templateId = Request.QueryString["tid"];
+        if (!string.IsNullOrWhiteSpace(templateId)) {
+            ExpTemplate template = RepositoryFactory<ExpTemplateRepository>.Get().Get(new Guid(templateId));
+            if (null != template) {
 
-                    ltHtml.Text = template.HTML;
-                    ltTitle.Text = template.Title;
-                    //foreach (var item in template.Equipments) {
-                    //    ckblist.Items.Add(new ListItem(item.Name, item.Id.ToString()));
-                    //}
-                }
-
+                ltHtml.Text = template.HTML;
+                templateTitle = template.Title;
+                rptlist.DataSource = template.Equipments;
+                rptlist.DataBind();
             }
         }
     }

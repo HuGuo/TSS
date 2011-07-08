@@ -3,6 +3,7 @@ using System.Web;
 using System.Xml;
 using System.Xml.Xsl;
 using TSS.BLL;
+using System.Linq;
 
 public class EquipmentCategory : IHttpHandler
 {
@@ -22,6 +23,9 @@ public class EquipmentCategory : IHttpHandler
                 break;
             case "xml":
                 ResponseXml(context);
+                break;
+            case "equipments":
+                GetEquipmentsJson(context);
                 break;
             default:
                 context.Response.StatusCode = 404;
@@ -57,4 +61,23 @@ public class EquipmentCategory : IHttpHandler
         XmlTextReader reader = new XmlTextReader(new StringReader(category.GetXml()));
         xsl.Transform(reader, args, context.Response.OutputStream);
     }
+
+    public void GetEquipmentsJson(HttpContext context) {
+        context.Response.ContentType="application/json; charset=UTF-8";
+        string id=context.Request["id"];
+        string specialtyId=context.Request["spid"];
+        System.Text.StringBuilder result = new System.Text.StringBuilder();
+
+        using (var equipmentCategorys = TSS.BLL.RepositoryFactory<TSS.BLL.EquipmentCategories>.Get()) {
+            var equipmentCategory = equipmentCategorys.Get(new System.Guid(id));
+            if (equipmentCategory != null && equipmentCategory.Equipments != null) {
+                foreach (var equipment in equipmentCategory.Equipments.Where(p=>p.SpecialtyId.Equals(specialtyId))) {
+                    result.Append(string.Format("{{\"id\":\"{0}\",\"text\":\"{1}\"}}," , equipment.Id , equipment.Name));
+                }
+            }
+        }
+
+        context.Response.Write(string.Format("[{0}]" , result.ToString().TrimEnd(',')));
+    }
+
 }
