@@ -1,4 +1,4 @@
-﻿$(function () {
+$(function () {
     $.ajaxSetup({
         gloab: false,
         async: false

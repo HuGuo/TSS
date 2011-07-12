@@ -12,11 +12,12 @@ packages.config
 *.cache
 *.user
 *.orig
-.gitconfig
 *.vsmdi
 *.vsp
 *.psess
 *.sql
 *[Tt]est*
-ReferenceAssemblies/workflow.dll
-ReferenceAssemblies/wssmax.dll
+*.BASE
+*.LOCAL
+*.REMOTE
+.gitconfig
