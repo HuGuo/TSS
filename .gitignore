@@ -7,14 +7,11 @@ PrecompiledWeb/
 packages.config
 [Ww]eb.config
 *.sdf
-*.docstates
 *.suo
 *.cache
-*.user
+*.[Uu]ser
 *.orig
-.gitconfig
 *.vsmdi
 *.vsp
 *.psess
-*.sql
 *[Tt]est*

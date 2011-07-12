@@ -27,18 +27,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReferenceAssemblies", "ReferenceAssemblies", "{C15DD871-584C-4259-B22D-5C2508AC6FE7}"
 	ProjectSection(SolutionItems) = preProject
 		ReferenceAssemblies\RightService.dll = ReferenceAssemblies\RightService.dll
-		..\workflow\workflow\bin\Debug\workflow.dll = ..\workflow\workflow\bin\Debug\workflow.dll
-		..\wssmax\wssmax\bin\Debug\wssmax.dll = ..\wssmax\wssmax\bin\Debug\wssmax.dll
+		ReferenceAssemblies\workflow.dll = ReferenceAssemblies\workflow.dll
+		ReferenceAssemblies\wssmax.dll = ReferenceAssemblies\wssmax.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{58DF235E-C529-4255-8469-5C54F32C40F1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA8086FF-62EA-4CD7-8CDB-C3B42E598088}"
-	ProjectSection(SolutionItems) = preProject
-		Local.testsettings = Local.testsettings
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-		TSS1.vsmdi = TSS1.vsmdi
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
