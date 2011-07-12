@@ -22,15 +22,15 @@ namespace TSS.BLL
                         e.SpecialtyId == s.Id)
                         .ToList();
                 }
-            } if (Guid.TryParse(categoryId, out cId)) {
+            } else if (Guid.TryParse(categoryId, out cId)) {
                 var c = Context.EquipmentCategories.Find(cId);
                 if (c != null) {
                     result = Context.Equipments.Where(e =>
                         e.EquipmentCategory.Id == c.Id)
+                        .Include("Specialty")
                         .ToList();
                 }
-            }
-            if (!string.IsNullOrEmpty(specialtyId)) {
+            } else if (!string.IsNullOrEmpty(specialtyId)) {
                 var s = Context.Specialties.Find(specialtyId);
                 if (s != null) {
                     result = Context.Equipments.Where(e =>
@@ -45,7 +45,7 @@ namespace TSS.BLL
                     .Include("Specialty")
                     .ToList();
             }
-            
+
             return result;
         }
 

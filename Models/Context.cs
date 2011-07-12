@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 
 namespace TSS.Models
 {
@@ -37,7 +36,8 @@ namespace TSS.Models
         public IDbSet<IndicatorAnalysis> IndicatorAnalysises { get; set; }
         public IDbSet<Indicator> Indicators { get; set; }
         public Context()
-            : base("TSS") {
+            : base("TSS")
+        {
             Database.SetInitializer<Context>(new DatabaseInitializer());
         }
 
@@ -71,12 +71,12 @@ namespace TSS.Models
             };
 
             var specialtyModules = new List<Module> {
-                    new Module { Name = "设备台帐", Url = "Equipment" },
-                    new Module { Name = "实验报告", Url = "Experiment" },
-                    new Module { Name = "预试周期", Url = "MaintenanceCycle" },
-                    new Module { Name = "监督月报", Url = "Report" },
-                    new Module { Name = "人员资质", Url = "Certificate" },
-                    new Module { Name = "档案资料", Url = "Document" }
+                new Module { Name = "设备台帐", Url = "Equipment" },
+                new Module { Name = "实验报告", Url = "Experiment" },
+                new Module { Name = "预试周期", Url = "MaintenanceCycle" },
+                new Module { Name = "监督月报", Url = "Report" },
+                new Module { Name = "人员资质", Url = "Certificate" },
+                new Module { Name = "档案资料", Url = "Document" }
             };
 
             new List<Module> {
@@ -99,8 +99,7 @@ namespace TSS.Models
                 new Specialty { Id = "GHY-JY", Name = "绝缘" },
                 new Specialty { Id = "GHY-LC", Name = "励磁" },
                 new Specialty { Id = "GHY-RG", Name = "热工" }
-            }.ForEach(s =>
-            {
+            }.ForEach(s => {
                 s.Modules = specialtyModules;
                 context.Specialties.Add(s);
             });

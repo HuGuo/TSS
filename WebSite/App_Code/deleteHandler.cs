@@ -2,7 +2,7 @@
 using System.Web;
 using TSS.BLL;
 
-public class deleteHandler: IHttpHandler
+public class DeleteHandler: IHttpHandler
 {
     #region IHttpHandler Members
 

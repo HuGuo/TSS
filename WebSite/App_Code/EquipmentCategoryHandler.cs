@@ -5,7 +5,7 @@ using System.Xml.Xsl;
 using TSS.BLL;
 using System.Linq;
 
-public class EquipmentCategory : IHttpHandler
+public class EquipmentCategoryHandler : IHttpHandler
 {
     private EquipmentCategories category = RepositoryFactory<EquipmentCategories>.Get();
 

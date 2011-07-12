@@ -1,0 +1,177 @@
+﻿#mylist
+{
+	margin: 0;
+	padding: 0;
+}
+#mylist li
+{
+	float: left;
+	width: 80px;
+	height: 84px;
+	list-style: none;
+	margin: 5px;
+	border-width: 1px;
+}
+
+#mylist li div.ico
+{
+	width: 100%;
+	height: 40px;
+}
+#mylist li a
+{
+	display: block;
+	position: relative;
+	text-decoration:none;
+}
+
+#mylist li a:hover
+{
+	background-color: #efefef;
+	border: solid 1px #dddddd;
+}
+#mylist li a.selected
+{
+	background-color: #ecf4fd;
+	border: solid 1px #b8d6fb;
+}
+
+#mylist li div.filename
+{
+	color: Black;
+	text-align: center;
+	max-height: 38px;
+	overflow: hidden;
+	font: 12px verdana;
+	padding: 3px 3px 6px 3px;
+	 table-layout:fixed; word-break: break-all; 
+}
+/**文件类型*/
+.folder
+{
+	background: url(../images/filetype/folder.gif) no-repeat center center;
+}
+.sharefolder
+{
+	background: url(../images/filetype/folder_shared.gif) no-repeat center center;
+}
+.3gp
+{
+	background: url(../images/filetype/3gp.gif) no-repeat center center;
+}
+.avi
+{
+	background: url(../images/filetype/avi.gif) no-repeat center center;
+}
+.bmp
+{
+	background: url(../images/filetype/bmp.gif) no-repeat center center;
+}
+.chm
+{
+	background: url(../images/filetype/chm.gif) no-repeat center center;
+}
+.dll
+{
+	background: url(../images/filetype/dll.gif) no-repeat center center;
+}
+.doc, .wps
+{
+	background: url(../images/filetype/doc_wps.gif) no-repeat center center;
+}
+.dwf
+{
+	background: url(../images/filetype/dwf.gif) no-repeat center center;
+}
+.exe, .bat
+{
+	background: url(../images/filetype/exe_bat.gif) no-repeat center center;
+}
+.gif
+{
+	background: url(../images/filetype/gif.gif) no-repeat center center;
+}
+.htm, .html
+{
+	background: url(../images/filetype/htm_html.gif) no-repeat center center;
+}
+.jpg, .jepg
+{
+	background: url(../images/filetype/jpg_jpeg.gif) no-repeat center center;
+}
+.js
+{
+	background: url(../images/filetype/js.gif) no-repeat center center;
+}
+.mdb
+{
+	background: url(../images/filetype/mdb.gif) no-repeat center center;
+}
+.mov
+{
+	background: url(../images/filetype/mov.gif) no-repeat center center;
+}
+.mp3
+{
+	background: url(../images/filetype/mp3.gif) no-repeat center center;
+}
+.mpg
+{
+	background: url(../images/filetype/mpg.gif) no-repeat center center;
+}
+.mpp
+{
+	background: url(../images/filetype/mpp.gif) no-repeat center center;
+}
+.pdf
+{
+	background: url(../images/filetype/pdf.gif) no-repeat center center;
+}
+.pps
+{
+	background: url(../images/filetype/pps.gif) no-repeat center center;
+}
+.ppt
+{
+	background: url(../images/filetype/ppt.gif) no-repeat center center;
+}
+.rar
+{
+	background: url(../images/filetype/rar.gif) no-repeat center center;
+}
+.rtf
+{
+	background: url(../images/filetype/rtf.gif) no-repeat center center;
+}
+.txt
+{
+	background: url(../images/filetype/txt.gif) no-repeat center center;
+}
+.unknown
+{
+	background: url(../images/filetype/unknown.gif) no-repeat center center;
+}
+.wav
+{
+	background: url(../images/filetype/wav.gif) no-repeat center center;
+}
+.wma
+{
+	background: url(../images/filetype/wma.gif) no-repeat center center;
+}
+.wmv
+{
+	background: url(../images/filetype/wmv.gif) no-repeat center center;
+}
+.xls, .et
+{
+	background: url(../images/filetype/xls.gif) no-repeat center center;
+}
+.xml
+{
+	background: url(../images/filetype/xml.gif) no-repeat center center;
+}
+.zip,.7z
+{
+	background: url(../images/filetype/zip_7z.gif) no-repeat center center;
+}
