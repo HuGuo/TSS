@@ -1,7 +1,6 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 
 namespace TSS.Models
 {
@@ -68,20 +67,20 @@ namespace TSS.Models
             base.Seed(context);
 
             var systemManagementModules = new List<Module> {
-                new Module { Name = "人员管理", Url = "Employee" },
-                new Module { Name = "设备管理", Url = "Equipment" },
-                new Module { Name = "试验管理", Url = "Experiment" },
-                new Module { Name = "工作流管理", Url = "Workflow" },
-                new Module { Name = "模块管理", Url = "Module" }
+                new Module { Id=12, Name = "人员管理", Url = "Employee" },
+                new Module { Id=13, Name = "设备管理", Url = "Equipment" },
+                new Module { Id=14, Name = "实验管理", Url = "Experiment" },
+                new Module { Id=15, Name = "工作流管理", Url = "Workflow" },
+                new Module { Id=16, Name = "模块管理", Url = "Module" }
             };
 
             var specialtyModules = new List<Module> {
-                    new Module { Name = "设备台帐", Url = "Equipment" },
-                    new Module { Name = "实验报告", Url = "Experiment" },
-                    new Module { Name = "预试周期", Url = "MaintenanceCycle" },
-                    new Module { Name = "监督月报", Url = "ComprehensiveReport" },
-                    new Module { Name = "人员资质", Url = "Certificate" },
-                    new Module { Name = "档案资料", Url = "Document" }
+                new Module { Name = "设备台帐", Url = "Equipment" },
+                new Module { Name = "实验报告", Url = "Experiment" },
+                new Module { Name = "预试周期", Url = "MaintenanceCycle" },
+                new Module { Name = "监督月报", Url = "Report" },
+                new Module { Name = "人员资质", Url = "Certificate" },
+                new Module { Name = "档案资料", Url = "Document" }
             };
 
             new List<Module> {
@@ -90,8 +89,7 @@ namespace TSS.Models
                 new Module { Id = 3, Name = "监督体系" },
                 new Module { Id = 4, Name = "监督管理" },
                 new Module { Id = 5, Name = "系统管理", Url= "SystemManagement", Submodules = systemManagementModules }
-            }.ForEach(m =>
-            {
+            }.ForEach(m => {
                 context.Modules.Add(m);
             });
 
@@ -105,8 +103,7 @@ namespace TSS.Models
                 new Specialty { Id = "GHY-JY", Name = "绝缘" },
                 new Specialty { Id = "GHY-LC", Name = "励磁" },
                 new Specialty { Id = "GHY-RG", Name = "热工" }
-            }.ForEach(s =>
-            {
+            }.ForEach(s => {
                 s.Modules = specialtyModules;
                 context.Specialties.Add(s);
             });
