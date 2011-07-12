@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TSS.Models
 {
+    [Serializable]
     public class SpecialtyAnalysis
     {
         public int Id { get; set; }

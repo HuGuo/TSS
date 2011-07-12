@@ -38,7 +38,9 @@ public partial class MaintenanceCycle_EditMaintenanceExperiment : BasePage
             MaintenanceCycleId = int.Parse(hfMaintenanceCycleId.Value)
         });
         EditConfirm(result, 
-            string.Format("MaintenanceExperiment.aspx?MaintenanceCycleId={0}", Request.QueryString["MaintenanceCycleId"]));
+            string.Format("MaintenanceExperiment.aspx?specialtyId={1}&MaintenanceCycleId={0}",
+            Request.QueryString["MaintenanceCycleId"],
+            Request.QueryString["specialtyId"]));
     }
 
     protected void tbActualTime_TextChanged(object sender, EventArgs e)

@@ -13,23 +13,14 @@ public partial class MaintenanceCycle_AddMaintenanceClass : BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
-            BindData();
-
-    }
-
-    protected void BindData()
-    {
-        ucSpecialtyControl.SpecialtyId = Request.QueryString["specialtyId"];
+            this.MaintenanceClassControl1.SpecialtyId = Request.QueryString["specialtyId"];
     }
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
-        MaintenanceClassRepository repository = new MaintenanceClassRepository();
-        bool result = repository.Add(new MaintenanceClass
-          {
-              equipmentClassName = tbClassNames.Text,
-              SpecialtyId = ucSpecialtyControl.SpecialtyId
-          });
+        bool result = false;
+        using (var repository = RepositoryFactory<MaintenanceClassRepository>.Get())
+            result = repository.Add(this.MaintenanceClassControl1.MaintenanceClass);
         AddConfirm(result, string.Format("MaintenanceClass.aspx?sepcialtyId=", Request.QueryString["specialtyId"]));
     }
 }

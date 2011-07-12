@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace TSS.Models
 {
+    [Serializable]
     public class Specialty
     {
         public string Id { get; set; }

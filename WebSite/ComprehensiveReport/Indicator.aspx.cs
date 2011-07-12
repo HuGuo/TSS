@@ -14,9 +14,6 @@ public partial class ComprehensiveReport_Indicator : BasePage
     {
         if (!IsPostBack)
             BindData();
-        string id = Request.QueryString["id"];
-        if (!string.IsNullOrEmpty(id))
-            Del(int.Parse(id));
     }
 
     public void BindData()
@@ -24,20 +21,43 @@ public partial class ComprehensiveReport_Indicator : BasePage
         rptIndicator.DataSource = new IndicatorRepository()
             .GetBySpecialty(Request.QueryString["specialtyId"]);
         rptIndicator.DataBind();
+        IndicatorControlAdd.SpecialtyId = Request.QueryString["specialtyId"];
+    }
+    protected void lbtnDel_Click(object sender, EventArgs e)
+    {
+        using (var repository = RepositoryFactory<IndicatorRepository>.Get())
+            repository.Delete(int.Parse(((LinkButton)sender).CommandArgument));
+        BindData();
+    }
+    protected void lbtnEdit_Click(object sender, EventArgs e)
+    {
+        using (var repository = RepositoryFactory<IndicatorRepository>.Get())
+            IndicatorControlEdit.Indicator = repository.Get(int.Parse(((LinkButton)sender).CommandArgument));
     }
 
-    public void Del(int indicatorId)
+    protected void btnEdit_Click(object sender, EventArgs e)
     {
-        IndicatorAnalysisRepository repository = new IndicatorAnalysisRepository();
-        if (repository.IsExistOnIndicator(indicatorId))
-        {
-            ExistChildConfirm();
-        }
-        else
-        {
-            bool resutl = new IndicatorRepository().Delete(indicatorId);
-            DelConfirm(resutl);
-        }
+        using (var repository = RepositoryFactory<IndicatorRepository>.Get())
+            repository.Update(IndicatorControlEdit.Indicator);
+        IndicatorControlEdit.ReSet();
         BindData();
+    }
+
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        using (var repository = RepositoryFactory<IndicatorRepository>.Get())
+            repository.Add(IndicatorControlAdd.Indicator);
+        IndicatorControlAdd.ReSet();
+        BindData();
+    }
+
+    protected void btnAddClose_Click(object sender, EventArgs e)
+    {
+        IndicatorControlAdd.ReSet();
+    }
+
+    protected void btnEditClose_Click(object sender, EventArgs e)
+    {
+        IndicatorControlEdit.ReSet();
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TSS.Models
 {
+    [Serializable]
     public class Indicator
     {
         public int Id { get; set; }

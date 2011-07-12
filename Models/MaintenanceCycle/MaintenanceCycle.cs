@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TSS.Models
 {
+    [Serializable]
     public class MaintenanceCycle
     {
         public int Id { get; set; }

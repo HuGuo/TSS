@@ -16,30 +16,27 @@ public partial class UserController_SpecialtyControl : System.Web.UI.UserControl
             BindData();
     }
 
-    public string specialtyId;
+    private string specialtyId;
     public string SpecialtyId
     {
-        get
-        {
-            specialtyId = ddlSpecialty.SelectedValue;
-            return specialtyId;
-        }
+        get { return ddlSpecialty.SelectedValue; }
         set
         {
+            ddlSpecialty.SelectedValue = value;
             specialtyId = value;
         }
     }
 
-    public string specialtyName;
+    private string specialtyName;
     public string SpecialtyName
     {
         get
         {
-            specialtyName = ddlSpecialty.SelectedItem.Text;
-            return specialtyName;
+            return ddlSpecialty.SelectedItem.Text;
         }
         set
         {
+            ddlSpecialty.SelectedItem.Text = value;
             specialtyName = value;
         }
     }

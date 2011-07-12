@@ -5,6 +5,7 @@ using System.Text;
 
 namespace TSS.Models
 {
+    [Serializable]
     public class ComprehensiveReport
     {
         public int Id { get; set; }
