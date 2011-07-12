@@ -42,7 +42,9 @@ public class DeleteHandler: IHttpHandler
     void DeleteWorkflow(HttpContext context) {
         string id = context.Request["id"];
         try {
-            workflow.WFRepository.Delete(id , true);
+            using (workflow.WFContext db = new workflow.WFContext()) {
+                workflow.WFRepository.Delete(id , true,db);
+            }
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
         }
