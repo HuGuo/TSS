@@ -9,9 +9,11 @@
     <link rel="stylesheet" type="text/css" href="~/Styles/_base.css" />
     <script type="text/javascript" src="<%= ResolveUrl("~/scripts/jquery-1.6.1.min.js") %>"></script>
     <script type="text/javascript" src="<%= ResolveUrl("~/scripts/jquery-easyui/jquery.easyui.min.js") %>"></script>
+    <script type="text/javascript" src="<%= ResolveUrl("~/scripts/jquery-easyui/local/easyui-lang-zh_CN.js") %>"></script>
     <script type="text/javascript" src="<%= ResolveUrl("~/scripts/jquery-validation/jquery.validate.js") %>"></script>
     <script type="text/javascript" src="<%= ResolveUrl("~/scripts/jquery-validation/lib/jquery.metadata.js") %>"></script>
-    <script type="text/javascript" src="<%= ResolveUrl("~/scripts/jquery-validation/messages_cn.js") %>"></script>
+     <script type="text/javascript" src="<%= ResolveUrl("~/scripts/jquery-validation/localization/messages_cn.js") %>"></script>
+     <script type="text/javascript" src="<%= ResolveUrl("~/scripts/Local.js") %>"></script>
     <script type="text/javascript" src="<%= ResolveUrl("~/scripts/My97DatePicker/WdatePicker.js") %>"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>

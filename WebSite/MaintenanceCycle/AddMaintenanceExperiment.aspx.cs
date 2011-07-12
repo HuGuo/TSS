@@ -16,9 +16,6 @@ public partial class MaintenanceCycle_AddMaintenanceExperiment : BasePage
 
     }
 
-    protected void BindData()
-    {
-    }
 
     protected void btnAdd_Click(object sender, EventArgs e)
     {
@@ -32,8 +29,9 @@ public partial class MaintenanceCycle_AddMaintenanceExperiment : BasePage
              ActualTime = DateTime.Parse(tbActualTime.Text),
              CurrentCycle = hfCycle.Value
          });
-        AddConfirm(result,
-            string.Format("MaintenanceExperiment.aspx?MaintenanceCycleId={0}", Request.QueryString["MaintenanceCycleId"]));
+        AddConfirm(result,string.Format("MaintenanceExperiment.aspx?specialtyId={1}&MaintenanceCycleId={0}",
+            Request.QueryString["MaintenanceCycleId"],
+            Request.QueryString["specialtyId"]));
     }
 
     protected void tbActualTime_TextChanged(object sender, EventArgs e)

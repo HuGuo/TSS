@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 
 namespace TSS.Models
 {
+    [Serializable]
     public class ComprehensiveReport
     {
         public int Id { get; set; }

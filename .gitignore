@@ -12,10 +12,12 @@ packages.config
 *.cache
 *.user
 *.orig
-.gitconfig
 *.vsmdi
 *.vsp
 *.psess
 *.sql
 *.psd
 *[Tt]est*
+*.BASE
+*.LOCAL
+*.REMOTE

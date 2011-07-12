@@ -17,8 +17,6 @@ public partial class MaintenanceCycle_Default : BasePage
             BindData();
             BindClass();
         }
-        if (!string.IsNullOrEmpty(Request.QueryString["id"]))
-            Del();
     }
 
     protected void BindData()
@@ -39,21 +37,6 @@ public partial class MaintenanceCycle_Default : BasePage
         }
     }
 
-    public void Del()
-    {
-        int maintenanceCycleId = int.Parse(Request.QueryString["id"]);
-        MaintenanceExperimentRepository experimentRepository = new MaintenanceExperimentRepository();
-        if (!experimentRepository.IsExistOnMaintenanceCycle(maintenanceCycleId))
-        {
-            MaintenanceCycleRepository maintenanceCycleRepository = new MaintenanceCycleRepository();
-            bool result = maintenanceCycleRepository.Delete(maintenanceCycleRepository.Get(maintenanceCycleId));
-            DelConfirm(result);
-        }
-        else
-            ExistChildConfirm();
-        BindData();
-    }
-
     protected void btnSearch_Click(object sender, EventArgs e)
     {
         if (string.IsNullOrEmpty(ddlClass.SelectedValue))
@@ -68,5 +51,62 @@ public partial class MaintenanceCycle_Default : BasePage
         IList<MaintenanceCycle> maintenanceCycles = reposittory.GetMuchByMaintenanceClass(int.Parse(ddlClass.SelectedValue));
         rptCycle.DataSource = maintenanceCycles;
         rptCycle.DataBind();
+    }
+
+
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        using (var repository = RepositoryFactory<MaintenanceCycleRepository>.Get())
+            repository.Add(MaintenanceCycleControl1.MaintenanceCycle);
+        MaintenanceCycleControl1.ReSet();
+        BindData();
+    }
+
+    protected void lbtnEdit_Click(object sender, EventArgs e)
+    {
+        using (var repository = RepositoryFactory<MaintenanceCycleRepository>.Get())
+            MaintenanceCycleControl2.MaintenanceCycle = repository.Get(int.Parse(((LinkButton)sender).CommandArgument));
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        using (var repository = RepositoryFactory<MaintenanceCycleRepository>.Get())
+            repository.Update(MaintenanceCycleControl2.MaintenanceCycle);
+        MaintenanceCycleControl2.ReSet();
+        BindData();
+    }
+
+    protected void lbtnDel_Click(object sender, EventArgs e)
+    {
+        using (var repository = RepositoryFactory<MaintenanceCycleRepository>.Get())
+            repository.Delete(int.Parse(((LinkButton)sender).CommandArgument));
+        BindData();
+    }
+
+    protected void btnAddClose_Click(object sender, EventArgs e)
+    {
+        MaintenanceCycleControl1.ReSet();
+    }
+    protected void btnEditClose_Click(object sender, EventArgs e)
+    {
+        MaintenanceCycleControl2.ReSet();
+    }
+
+    public string GetLastExpTime(Object obj)
+    {
+        MaintenanceCycle maintenanceCycle = (MaintenanceCycle)obj;
+        if (maintenanceCycle != null && maintenanceCycle.MaintenanceExperiments.Count > 0)
+            return maintenanceCycle.MaintenanceExperiments.Last().ActualTime.ToString("yyyy-MM-dd");
+        else
+            return "";
+    }
+
+    public string GetNextExpTime(Object obj)
+    {
+        MaintenanceCycle maintenanceCycle = (MaintenanceCycle)obj;
+        if (maintenanceCycle != null && maintenanceCycle.MaintenanceExperiments.Count > 0)
+            return maintenanceCycle.MaintenanceExperiments.Last().ExpectantTime.Value.ToString("yyyy-MM-dd");
+        else
+            return "";
     }
 }

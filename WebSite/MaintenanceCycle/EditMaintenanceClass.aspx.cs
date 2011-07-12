@@ -18,25 +18,15 @@ public partial class MaintenanceCycle_EditMaintenanceClass : BasePage
 
     protected void BindData()
     {
-        ucSpecialtyControl.SpecialtyId = Request.QueryString["specialtyId"];
-        BindMaintenanceClass();
-    }
-
-    protected void BindMaintenanceClass()
-    {
-        MaintenanceClassRepository repository = new MaintenanceClassRepository();
-        MaintenanceClass maintenanceClass = repository.Get(
-            int.Parse(Request.QueryString["id"]));
-        tbClassNames.Text = maintenanceClass.equipmentClassName;
-        ucSpecialtyControl.SpecialtyId = maintenanceClass.SpecialtyId;
+        using (var repository = RepositoryFactory<MaintenanceClassRepository>.Get())
+            this.MaintenanceClassControl1.MaintenanceClass = repository.Get(int.Parse(Request.QueryString["id"]));
     }
 
     protected void btnEdit_Click(object sender, EventArgs e)
     {
-        MaintenanceClassRepository repository = new MaintenanceClassRepository();
-        MaintenanceClass maintenanceClass = repository.Get(int.Parse(Request.QueryString["id"]));
-        maintenanceClass.equipmentClassName = tbClassNames.Text;
-        bool result = repository.Update(maintenanceClass);
+        bool result = false;
+        using (var repository = RepositoryFactory<MaintenanceClassRepository>.Get())
+            repository.Update(this.MaintenanceClassControl1.MaintenanceClass);
         EditConfirm(result, string.Format("MaintenanceClass.aspx?sepcialtyId=", Request.QueryString["specialtyId"]));
     }
 }

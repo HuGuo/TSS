@@ -1,7 +1,9 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 
 namespace TSS.Models
 {
+    [Serializable]
     public class MaintenanceExperiment
     {
         public int Id { get; set; }

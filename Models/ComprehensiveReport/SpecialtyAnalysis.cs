@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
+
 
 namespace TSS.Models
 {
+    [Serializable]
     public class SpecialtyAnalysis
     {
         public int Id { get; set; }

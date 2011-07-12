@@ -28,20 +28,24 @@ namespace TSS.Models
         public IDbSet<MaintenanceClass> MaintenanceClasses { get; set; }
         public IDbSet<MaintenanceCycle> MaintenanceCycles { get; set; }
         public IDbSet<MaintenanceExperiment> MaintenanceExperiments { get; set; }
-        public IDbSet<Role> Roles { get; set; }
-        public IDbSet<Right> Rights { get; set; }
-        public IDbSet<ExpRecord> ExpRecords { get; set; }
         public IDbSet<ComprehensiveReport> ComprehensiveReports { get; set; }
         public IDbSet<SpecialtyAnalysis> SpecialtyAnalysises { get; set; }
         public IDbSet<IndicatorAnalysis> IndicatorAnalysises { get; set; }
         public IDbSet<Indicator> Indicators { get; set; }
+
+        public IDbSet<Role> Roles { get; set; }
+        public IDbSet<Right> Rights { get; set; }
+        public IDbSet<ExpRecord> ExpRecords { get; set; }
+
+
         public Context()
             : base("TSS")
         {
             Database.SetInitializer<Context>(new DatabaseInitializer());
         }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder) {
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
 
             modelBuilder.Entity<ExpData>()
                 .HasKey<int>(p => p.Id)
@@ -56,7 +60,7 @@ namespace TSS.Models
         }
     }
 
-    class DatabaseInitializer : DropCreateDatabaseIfModelChanges<Context>
+    class DatabaseInitializer : CreateDatabaseIfNotExists<Context>
     {
         protected override void Seed(Context context)
         {

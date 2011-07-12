@@ -1,20 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AddMaintenanceExperiment.aspx.cs"
-    MasterPageFile="~/ValidateAndUi.master" Inherits="MaintenanceCycle_AddMaintenanceExperiment" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <script type="text/javascript">
-        $(function () {
-            $("#<%=Page.Form.UniqueID %>").validate();
-        });
-    </script>
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
-<asp:ScriptManager runat="server"></asp:ScriptManager>
-    <div id="toolbar" class="fixed">
-        <a href="MaintenanceExperiment.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>&MaintenanceCycleId=<%= Request.QueryString["MaintenanceCycleId"] %>">
-            返回</a>
-    </div>
-    <table>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="MaintenanceExpControl.ascx.cs" Inherits="UserControl_MaintenanceExpControl" %>
+   <table>
         <tr>
             <td>
                 上次试验时间
@@ -50,11 +35,5 @@
                 </asp:DropDownList>
             </td>
         </tr>
-        <tr>
-            <td colspan="2">
-                <asp:Button runat="server" ID="btnAdd" Text="添加" CssClass="btn" OnClick="btnAdd_Click" />
-            </td>
-        </tr>
     </table>
-    <asp:HiddenField runat="server" ID="hfCycle" />
-</asp:Content>
+    <asp:HiddenField runat="server" ID="hdMaintenanceCycleId" />

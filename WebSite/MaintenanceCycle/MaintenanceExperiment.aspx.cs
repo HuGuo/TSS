@@ -14,24 +14,54 @@ public partial class MaintenanceCycle_MaintenanceExperiment : BasePage
     {
         if (!IsPostBack)
             BindData();
-        if (!string.IsNullOrEmpty(Request.QueryString["id"]))
-            Del();
     }
 
     protected void BindData()
     {
+        MaintenanceExpControl1.MaintenanceCycleId = Request.QueryString["maintenanceExperimentId"];
         MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
-        IList<MaintenanceExperiment> maintenanceExperiment = repository.GetAll();
+        IList<MaintenanceExperiment> maintenanceExperiment = repository.GetByMaintenanceCycle(
+            int.Parse(Request.QueryString["maintenanceExperimentId"]));
         rptExperiment.DataSource = maintenanceExperiment;
         rptExperiment.DataBind();
     }
 
-    //是否删除成功要有提示
-    protected void Del()
+    protected void btnAdd_Click(object sender, EventArgs e)
     {
-        MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
-        bool result = repository.Delete(repository.Get(int.Parse(Request.QueryString["id"])));
-        DelConfirm(result);
+        using (var repository = RepositoryFactory<MaintenanceExperimentRepository>.Get())
+            repository.Add(MaintenanceExpControl1.MaintenanceExperiment);
+        MaintenanceExpControl1.ReSet();
         BindData();
     }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        using (var repository = RepositoryFactory<MaintenanceExperimentRepository>.Get())
+            repository.Update(MaintenanceExpControl2.MaintenanceExperiment);
+        MaintenanceExpControl2.ReSet();
+        BindData();
+    }
+
+    protected void lbtnDel_Click(object sender, EventArgs e)
+    {
+        using (var repository = RepositoryFactory<MaintenanceExperimentRepository>.Get())
+            repository.Delete(int.Parse(((LinkButton)sender).CommandArgument));
+        BindData();
+    }
+    protected void lbtnEdit_Click(object sender, EventArgs e)
+    {
+        using (var repository = RepositoryFactory<MaintenanceExperimentRepository>.Get())
+            MaintenanceExpControl2.MaintenanceExperiment = repository.Get(int.Parse(((LinkButton)sender).CommandArgument));
+    }
+
+    protected void btnAddClose_Click(object sender, EventArgs e)
+    {
+        MaintenanceExpControl1.ReSet();
+    }
+
+    protected void btnEditClose_Click(object sender, EventArgs e)
+    {
+        MaintenanceExpControl2.ReSet();
+    }
+
 }

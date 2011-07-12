@@ -11,7 +11,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
 
     <div id="toolbar" class="fixed">
-        <a href="MaintenanceExperiment.aspx?MaintenanceCycleId=<%= Request.QueryString["MaintenanceCycleId"] %>">
+        <a href="MaintenanceExperiment.aspx?specialtyId=<%= Request.QueryString["specialtyId"] %>&MaintenanceCycleId=<%= Request.QueryString["MaintenanceCycleId"] %>">
             返回</a>
     </div>
     <table>
@@ -34,7 +34,7 @@
             </td>
         </tr>
         <tr>
-            关联试验报告<td>
+            <td>关联试验报告
             </td>
             <td>
                 <asp:DropDownList runat="server" ID="ddlExperiment">

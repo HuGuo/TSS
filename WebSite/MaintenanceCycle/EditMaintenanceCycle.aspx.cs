@@ -18,52 +18,15 @@ public partial class MaintenanceCycle_EditMaintenanceCycle : BasePage
 
     protected void BindData()
     {
-        BindEquipment();
-        BindClass();
-        BindCycle();
+        using (var repository = RepositoryFactory<MaintenanceCycleRepository>.Get())
+            MaintenanceCycleControl1.MaintenanceCycle = repository.Get(int.Parse(Request.QueryString["id"]));
     }
 
-    protected void BindCycle()
-    {
-       MaintenanceCycleRepository repository=new MaintenanceCycleRepository();
-       MaintenanceCycle maintenanceCycle = repository.Get(int.Parse(Request.QueryString["id"]));
-        tbCycle.Text = maintenanceCycle.Cycle;
-        tbType.Text = maintenanceCycle.MaintenanceType;
-        tbModel.Text = maintenanceCycle.EquipmentModel;
-        ddlEquipment.SelectedValue = maintenanceCycle.EquipmentId.ToString();
-        ddlClass.SelectedValue = maintenanceCycle.MaintenanceClassId.ToString();
-        tbInstallTime.Text = !maintenanceCycle.InstallTime.HasValue ? "" :
-            maintenanceCycle.InstallTime.Value.ToShortDateString();
-
-    }
-
-    protected void BindEquipment()
-    {
-        
-    }
-
-    protected void BindClass()
-    {
-        MaintenanceClassRepository repository = new MaintenanceClassRepository();
-        foreach (MaintenanceClass maintenanceClass in repository.GetAll())
-        {
-            ddlClass.Items.Add(new ListItem(
-                maintenanceClass.equipmentClassName, maintenanceClass.Id.ToString()));
-        }
-    }
-
-    //编辑成功与否要有提示框
     protected void btnEdit_Click(object sender, EventArgs e)
     {
-        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
-        bool result = repository.Update(new MaintenanceCycle
-        {
-            Cycle = tbCycle.Text,
-            MaintenanceType = tbType.Text,
-            InstallTime = DateTime.Parse(tbInstallTime.Text),
-            MaintenanceClassId = int.Parse(ddlClass.SelectedValue),
-            EquipmentId = new Guid(ddlEquipment.SelectedValue),
-        });
-        EditConfirm(result, string.Format("MaintenanceClass.aspx?sepcialtyId=", Request.QueryString["specialtyId"]));
+        bool result = false;
+        using (var repository = RepositoryFactory<MaintenanceCycleRepository>.Get())
+            result = repository.Update(MaintenanceCycleControl1.MaintenanceCycle);
+        EditConfirm(result, string.Format("Default.aspx?s={0}", Request.QueryString["specialtyId"]));
     }
 }
