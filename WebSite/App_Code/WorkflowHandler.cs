@@ -21,6 +21,9 @@ public class WorkflowHandler:IHttpHandler
                 case "create":
                     CreateWorkflow(context);
                     break;
+                case "bind":
+                    BindReport(context);
+                    break;
                 default:
                     break;
             }
@@ -71,5 +74,21 @@ public class WorkflowHandler:IHttpHandler
         }
 
         return ss;
+    }
+
+    void BindReport(HttpContext context) {
+        string rptId = context.Request["rpt"];
+        string wfId = context.Request["wf"];
+        try {
+            using (WFContext db=new WFContext()) {
+                ReportDetail obj= db.ReportDetails.Find(rptId);
+                if (null !=obj) {
+                    obj.WorkflowId = wfId;
+                    ReportDetailRepository.Update(obj , db);
+                }
+            }
+        } catch (Exception ex) {
+            context.Response.Write(ex.Message);
+        }
     }
 }

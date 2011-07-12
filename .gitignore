@@ -17,4 +17,5 @@ packages.config
 *.vsp
 *.psess
 *.sql
+*.psd
 *[Tt]est*

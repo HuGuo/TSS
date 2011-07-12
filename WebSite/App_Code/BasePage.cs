@@ -7,6 +7,14 @@ using System.Web.Security;
 
 public partial class BasePage : System.Web.UI.Page
 {
+    /// <summary>
+    /// 分页时 默认每页数据项数
+    /// </summary>
+    public int pageSize = 15;
+
+    /// <summary>
+    /// guid ，非登录帐号
+    /// </summary>
     public string UserID {
         get {
             if (!User.Identity.IsAuthenticated) {
@@ -16,6 +24,9 @@ public partial class BasePage : System.Web.UI.Page
         }
     }
 
+    /// <summary>
+    /// 用户登录帐号(本系统即用户中文姓名)
+    /// </summary>
     public string LoginName {
         get {
             if (!User.Identity.IsAuthenticated) {

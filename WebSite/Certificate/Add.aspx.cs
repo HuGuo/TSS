@@ -36,7 +36,7 @@ public partial class Certificate_Add : BasePage
         if (!string.IsNullOrWhiteSpace(obj.ScanFilePath)) {
             ltimg.Text = "<img width=\"448\" height=\"298\" class=\"rounded-img\" src=\""+ResolveUrl(obj.ScanFilePath)+"\" alt=\"效果图\" />";
         }
-
+        Hscan.Value = obj.ScanFilePath;
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
@@ -57,6 +57,7 @@ public partial class Certificate_Add : BasePage
         } else {
             certificate.Id = System.Guid.NewGuid();
         }
+        certificate.ScanFilePath = Hscan.Value;
         if (fileUp.HasFile) {
             string configPath = System.Configuration.ConfigurationManager.AppSettings["CertificateScan"];
             string path = Server.MapPath(configPath) + "\\";
@@ -65,10 +66,8 @@ public partial class Certificate_Add : BasePage
             fileUp.SaveAs(savePath);
             certificate.ScanFilePath = configPath+certificate.Id + extension;
         }
+        
         if (string.IsNullOrWhiteSpace(id)) {
-            if (null== certificate.ScanFilePath) {
-                certificate.ScanFilePath = string.Empty;
-            }
             RepositoryFactory<CertificateRepository>.Get().Add(certificate);
         } else {
             RepositoryFactory<CertificateRepository>.Get().Update(certificate.Id,certificate);

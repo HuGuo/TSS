@@ -25,7 +25,7 @@
             <form id="form1" runat="server" defaultfocus="txtLoginName" defaultbutton="btnLogin">
             <div class="column_center_h162">
                 <div class="placeholder" style="height: 50px;">
-                <div style=" margin:20px 30px; color:#d11; font-size:90%;">
+                <div id="emsg" style=" margin:20px 30px; color:#d11; font-size:90%; letter-spacing:1px;">
                     <asp:Literal ID="ltmsg" runat="server"></asp:Literal></div>
                 </div>
                 <p>
@@ -40,8 +40,7 @@
             <div class="column_center_h45_w91">
             </div>
             <div>
-                <asp:Button ID="btnLogin" runat="server" Text="" class="loginbtn" 
-                    onclick="btnLogin_Click" />
+                <asp:Button ID="btnLogin" runat="server" Text="" class="loginbtn" OnClick="btnLogin_Click" />
             </div>
             <div class="column_center_h45_w65">
             </div>
@@ -63,7 +62,8 @@
         </div>
         <div class="clear">
         </div>
-        <div class="footline">
+        <div class="footline" style="color:#777;">
+            © 2011 深圳天道数字工程有限公司
         </div>
     </div>
 </body>
@@ -81,5 +81,12 @@
                 });
             });
         }
+
+        $("#btnLogin").click(function () {
+            if ($("#txtLoginName").val() == "") {
+                $("#emsg").text("帐号不能为空")
+                return false;
+            }
+        });
     });
 </script>

@@ -73,13 +73,5 @@ namespace TSS.BLL
         {
             return null != Get(id);
         }
-
-        public virtual IList<TEntity> PageOf(int pageIndex, int pageSize, out int rowCount)
-        {
-            int skipCount = pageSize * (pageIndex - 1);
-            rowCount = Context.Set<TEntity>().Count();
-            var query = Context.Set<TEntity>().AsNoTracking().Skip(skipCount).Take(pageSize);
-            return query.ToList();
-        }
     }
 }

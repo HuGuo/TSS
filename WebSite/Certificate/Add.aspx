@@ -149,6 +149,7 @@
                 &nbsp;</td>
         </tr>
     </table>
+    <asp:HiddenField ID="Hscan" runat="server" />
     </form>
 </body>
 </html>

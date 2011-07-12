@@ -51,6 +51,7 @@
             var l = (win.width() - targetDiv.width()) / 2;
             wrapDiv.width(targetDiv.width())
             .css({
+            "overflow":"scroll",
                 "position": "absolute",
                 "zIndex": 9999,
                 "border": _opt.warpborder
@@ -86,5 +87,5 @@
             $($("#bgdiv").hide().data("did")).hide();
         }
     });
-    $.fn.showdiv.config = { bgcolor: "#ccc", attrName: "href",bgopacity:0.4,warpborder:"8px solid #ccc" };
+    $.fn.showdiv.config = { bgcolor: "#ccc", attrName: "href",bgopacity:0.4,warpborder:"8px solid #ccc",width:500,height:200 };
 })(jQuery);

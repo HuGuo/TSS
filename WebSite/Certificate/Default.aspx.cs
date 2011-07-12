@@ -12,7 +12,17 @@ public partial class Certificate_Default : BasePage
     {
         if (!IsPostBack) {
             string s = Request.QueryString["s"];
-            rptList.DataSource = RepositoryFactory<CertificateRepository>.Get().GetBySpecialty(s);
+            IList<Certificate> list = null;
+            if (string.IsNullOrWhiteSpace(s)) {
+                list=RepositoryFactory<CertificateRepository>.Get().GetAll();
+                
+            } else {
+                list = RepositoryFactory<CertificateRepository>.Get().GetAll(CertificateStatus.All,s);
+                linkAdd.NavigateUrl = "Add.aspx?s=" + s;
+                linkAdd.Visible = true;
+            }
+            
+            rptList.DataSource = list;
             rptList.DataBind();
         }
     }
@@ -29,5 +39,19 @@ public partial class Certificate_Default : BasePage
             RControls.Add(new RControl(Action.CUD , e.Item.FindControl("linkEdit")));   
             RControls.Add(new RControl(Action.CUD , e.Item.FindControl("linkDel")));
         }
+    }
+
+    DateTime now = DateTime.Now;
+    public string SetColor(DateTime dt) {
+        string cls = "normal";
+        if (now.CompareTo(dt) > 0) {
+            cls = "color1";
+        } else {
+            TimeSpan span = dt - now;
+            if (span.Days<30) {
+                cls = "color2";
+            }
+        }
+        return cls;
     }
 }

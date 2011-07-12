@@ -25,3 +25,5 @@ body{background:url(../images/login/bgindex.gif) repeat-x scroll;font-size:12px;
 .placeholder{ display:block; width:267px; height:37px;}
 .column_center_h142 p{ margin:5px 20px; color:#777; font-size:90%;}
 a{ color:#33a6ff; text-decoration:none;}
+
+div.aspNetHidden{ display:none;}

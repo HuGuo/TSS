@@ -8,9 +8,22 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    
-    </div>
+    <table border="0" cellpadding="0" cellspacing="0">
+        <thead>
+        <tr>
+        <td>序号</td>
+        <td>报表名称</td>
+        </tr>
+        </thead>
+        <asp:Repeater runat="server" ID="rptlist">
+            <ItemTemplate>
+            <tr>
+            <td><%# Container.ItemIndex+1 %></td>
+            <td><%#Eval("Name") %></td>
+            </tr>
+            </ItemTemplate>
+        </asp:Repeater>
+    </table>
     </form>
 </body>
 </html>
