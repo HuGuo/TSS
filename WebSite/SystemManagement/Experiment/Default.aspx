@@ -65,7 +65,7 @@
                             </td>
                             <td>
                                 <asp:HyperLink ID="linkBindEQ" href='<%#Eval("id","BindEquipment.aspx?id={0}") %>'
-                                    runat="server" Text="关联设备" Target="_blank" />
+                                    runat="server" Text="关联设备" Target="_blank" class="button" />
                             </td>
                             <td align="center">
                                 <asp:HyperLink ID="linkEdit" href='<%#Eval("id","setTemplate.aspx?tid={0}") %>' runat="server"
@@ -90,7 +90,7 @@
             op: "del-t"
         });
         //$("#tb tr:gt(0)").hoverColor();
-        $("#tb tr:gt(0)").alternateColor();
+        $("#tb tr:gt(0)").alternateColor().hoverColor();
 
         var sps = $("#splist a");
         sps.first().addClass("left").addClass("active").removeClass("middle");

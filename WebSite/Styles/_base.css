@@ -27,7 +27,7 @@ a{ text-decoration:none;}
 #toolbar {
     height: 30px;
     width: 100%;
-    background: url(../images/toolbarbg.gif) repeat-x scroll bottom right;
+    background:#FFF url(../images/toolbarbg.gif) repeat-x scroll bottom right;
     top: 0;
 }
 .fixed 

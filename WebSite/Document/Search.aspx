@@ -7,6 +7,12 @@
     <title>文档搜索</title>
     <link href="listStyle.css" rel="stylesheet" type="text/css" />
     <link href="~/Styles/_base.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        select option
+        {
+            border-width: 5px;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
