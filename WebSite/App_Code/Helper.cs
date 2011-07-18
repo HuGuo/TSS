@@ -69,6 +69,22 @@ public class Helper
             context.Response.Cookies.Add(cookieName);
         }
     }
+
+    public static void ResponseEasyuiTreeHTML(System.Xml.XmlReader reader , System.Web.HttpContext context) {
+        context.Response.ContentType = "text/xml; charset=UTF-8";
+        System.Xml.Xsl.XslCompiledTransform xsl = new System.Xml.Xsl.XslCompiledTransform();
+        xsl.Load(context.Server.MapPath("~/equipmentcategory.xslt"));
+
+        System.Xml.Xsl.XsltArgumentList args = new System.Xml.Xsl.XsltArgumentList();
+        //src 参数值带有?，&时需要在客户端编码
+        string src = context.Request.QueryString["src"];
+        args.AddParam("src" , string.Empty , string.IsNullOrEmpty(src) ? "" : context.Server.UrlDecode(src));
+        args.AddParam("target" , string.Empty , context.Request.QueryString["target"] ?? "");
+
+        args.AddParam("expendDeep" , string.Empty , context.Request.QueryString["dp"] ?? "1");
+
+        xsl.Transform(reader , args , context.Response.OutputStream);
+    }
 }
 //扩展字符串方法
 public static class StringExtend

@@ -22,7 +22,8 @@
 <body>
     <form id="form1" runat="server" style="padding-top: 32px;">
     <div id="toolbar" class="fixed">
-        <a href="ExpRecordDefault.aspx">试验台帐</a> <a href="setTemplate.aspx" target="_blank">
+        <%--<a href="ExpRecordDefault.aspx">试验台帐</a> --%>
+        <a href="setTemplate.aspx" target="_blank">
             添加模板</a> <a href="BindEquipment.aspx">关联设备</a>
     </div>
 

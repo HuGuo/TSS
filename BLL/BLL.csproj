@@ -52,6 +52,7 @@
     <Compile Include="Equipment\Equipments.cs" />
     <Compile Include="DocumentRepository.cs" />
     <Compile Include="Equipment\EquipmentCategories.cs" />
+    <Compile Include="Experiment\ExpCategoryRepository.cs" />
     <Compile Include="Experiment\ExpReocrdRepository.cs" />
     <Compile Include="Modules.cs" />
     <Compile Include="Repository.cs" />

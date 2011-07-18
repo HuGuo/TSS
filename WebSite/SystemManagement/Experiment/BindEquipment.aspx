@@ -196,18 +196,11 @@
             $.getJSON("../../EquipmentCategory.ashx", query, function (res) {
                 var lis = '';
                 for (var i = 0; i < res.length; i++) {
-                    lis += '<li><input type="checkbox" value="' + res[i].id + '" />' + res[i].text + '</li>';
+                    var __id = 'rd_' + res[i].id;
+                    lis += '<li><input id="' + __id + '" type="checkbox" value="' + res[i].id + '" /><label for="' + __id + '">' + res[i].text + '</label></li>';
                 }
-                $(lis).click(function () {
-                    var ckbox = this.childNodes[0];
-                    ckbox.checked = !ckbox.checked;
-                    return false;
-                })
-                .appendTo($eq.empty())
-                .end()
-                .find(":checkbox").click(function (e) {
-                    e.stopPropagation();
-                });
+                $(lis).appendTo($eq.empty());
+
             });
         }
     }
@@ -217,7 +210,7 @@
         $.getJSON(handlerUrl, query, function (res) {
             var lis = '';
             for (var i = 0; i < res.length; i++) {
-                lis += '<li><input type="checkbox" id="item_' + res[i].id + '" value="' + res[i].id + '" />' + res[i].text + '</li>';
+                lis += '<li><input type="checkbox" id="item_' + res[i].id + '" value="' + res[i].id + '" /><label for="item_'+res[i].id+'">' + res[i].text + '</label></li>';
             }
             $("#bindedlist").empty().append(lis);
         });
