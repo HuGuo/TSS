@@ -167,212 +167,214 @@
       </ul>
     </div>
     <div id="right">
-      <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-          <asp:ListView ID="EquipmentListView" runat="server" DataSourceID="EquipmentDataSource" DataKeyNames="Id, EquipmentCategoryId" OnSelectedIndexChanged="EquipmentListView_SelectedIndexChanged">
-            <LayoutTemplate>
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                      编号
-                    </th>
-                    <th>
-                      设备名称
-                    </th>
-                    <th>
-                      设备编号
-                    </th>
-                    <th>
-                      所属专业
-                    </th>
-                    <th>
-                      设备分类
-                    </th>
-                    <th>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <asp:PlaceHolder ID="ItemPlaceHolder" runat="server"></asp:PlaceHolder>
-                </tbody>
-              </table>
-            </LayoutTemplate>
-            <ItemTemplate>
-              <tr>
-                <td>
-                  <%# Container.DataItemIndex + 1 %>
-                </td>
-                <td>
-                  <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Edit" Text='<%# Eval("Name") %>'></asp:LinkButton>
-                </td>
-                <td>
-                  <%# Eval("Code") %>
-                </td>
-                <td>
-                  <%# Eval("Specialty.Name") %>
-                </td>
-                <td>
-                  <%# Eval("EquipmentCategory.Name") %>
-                </td>
-                <td>
-                  <asp:LinkButton ID="LinkButton2" runat="server" CommandName="Select">详情</asp:LinkButton>
-                </td>
-              </tr>
-            </ItemTemplate>
-            <EditItemTemplate>
-              <tr>
-                <td>
-                </td>
-                <td>
-                  <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Name") %>' />
-                </td>
-                <td>
-                  <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Code") %>' />
-                </td>
-                <td>
-                  <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SpecialtyDataSource" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("SpecialtyId") %>' />
-                </td>
-                <td>
-                  <asp:TextBox ID="EditCategoryTextBox" runat="server" ClientIDMode="Static" Text='<%# Bind("EquipmentCategoryId") %>' />
-                </td>
-                <td>
-                  <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Update" Text="保存" />
-                </td>
-              </tr>
-            </EditItemTemplate>
-          </asp:ListView>
-          <div id="DetailDialog" class="dialog">
-            <asp:ListView ID="DetailListView" runat="server" InsertItemPosition="LastItem" DataSourceID="DetailDataSource" DataKeyNames="Id, EquipmentId" OnItemDeleting="DetailListView_ItemDeleting" OnItemEditing="DetailListView_ItemEditing" OnItemUpdating="DetailListView_ItemUpdating" OnItemInserting="DetailListView_ItemInserting">
+      <div id="content">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+          <ContentTemplate>
+            <asp:ListView ID="EquipmentListView" runat="server" DataSourceID="EquipmentDataSource" DataKeyNames="Id, EquipmentCategoryId" OnSelectedIndexChanged="EquipmentListView_SelectedIndexChanged">
               <LayoutTemplate>
                 <table>
                   <thead>
                     <tr>
                       <th>
-                        名称
+                        编号
                       </th>
                       <th>
-                        值
+                        设备名称
+                      </th>
+                      <th>
+                        设备编号
+                      </th>
+                      <th>
+                        所属专业
+                      </th>
+                      <th>
+                        设备分类
                       </th>
                       <th>
                       </th>
+                    </tr>
                   </thead>
                   <tbody>
-                    <asp:PlaceHolder ID="ItemPlaceHolder" runat="server" />
+                    <asp:PlaceHolder ID="ItemPlaceHolder" runat="server"></asp:PlaceHolder>
                   </tbody>
                 </table>
               </LayoutTemplate>
               <ItemTemplate>
                 <tr>
                   <td>
-                    <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Edit" Text='<%# Eval("Lable") %>' />
+                    <%# Container.DataItemIndex + 1 %>
                   </td>
                   <td>
-                    <%# Eval("Value") %>
+                    <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Edit" Text='<%# Eval("Name") %>'></asp:LinkButton>
                   </td>
                   <td>
-                    <asp:LinkButton ID="LinkButton2" runat="server" CommandName="Delete" Text="删除" />
+                    <%# Eval("Code") %>
+                  </td>
+                  <td>
+                    <%# Eval("Specialty.Name") %>
+                  </td>
+                  <td>
+                    <%# Eval("EquipmentCategory.Name") %>
+                  </td>
+                  <td>
+                    <asp:LinkButton ID="LinkButton2" runat="server" CommandName="Select">详情</asp:LinkButton>
                   </td>
                 </tr>
               </ItemTemplate>
-              <InsertItemTemplate>
-                <tr>
-                  <td>
-                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Lable") %>' />
-                  </td>
-                  <td>
-                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Value") %>' />
-                  </td>
-                  <td>
-                    <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Insert" Text="添加" />
-                  </td>
-                </tr>
-              </InsertItemTemplate>
               <EditItemTemplate>
                 <tr>
                   <td>
-                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Lable") %>' />
                   </td>
                   <td>
-                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Value") %>' />
+                    <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Name") %>' />
+                  </td>
+                  <td>
+                    <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Code") %>' />
+                  </td>
+                  <td>
+                    <asp:DropDownList ID="DropDownList1" runat="server" DataSourceID="SpecialtyDataSource" DataTextField="Name" DataValueField="Id" SelectedValue='<%# Bind("SpecialtyId") %>' />
+                  </td>
+                  <td>
+                    <asp:TextBox ID="EditCategoryTextBox" runat="server" ClientIDMode="Static" Text='<%# Bind("EquipmentCategoryId") %>' />
                   </td>
                   <td>
                     <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Update" Text="保存" />
                   </td>
                 </tr>
               </EditItemTemplate>
-              <EmptyDataTemplate>
-                <%= Helper.EmptyData %>
-              </EmptyDataTemplate>
             </asp:ListView>
-          </div>
-        </ContentTemplate>
-      </asp:UpdatePanel>
-      <div id="AddEquipmentDialog" class="dialog">
-        <table>
-          <tr>
-            <th>
-              设备类别
-            </th>
-            <td>
-              <asp:TextBox ID="EquipmentCategoryTextBox" runat="server" ClientIDMode="Static" />
-            </td>
-          </tr>
-          <tr>
-            <th>
-              归属专业
-            </th>
-            <td>
-              <asp:DropDownList ID="SpecialtyDropDownList" runat="server" DataSourceID="SpecialtyDataSource" DataTextField="Name" DataValueField="Id" />
-            </td>
-          </tr>
-          <tr>
-            <th>
-              设备名称
-            </th>
-            <td>
-              <asp:TextBox ID="EquipmentNameTextBox" runat="server" />
-            </td>
-          </tr>
-          <tr>
-            <th>
-              设备编号
-            </th>
-            <td>
-              <asp:TextBox ID="EquipmentCodeTextBox" runat="server" />
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" style="text-align: center">
-              <asp:Button ID="AddEquipmentButton" runat="server" Text="添加" OnClick="AddEquipmentButton_Click" />
-            </td>
-          </tr>
-        </table>
-      </div>
-      <div id="AddCategoryDialog" class="dialog">
-        <table>
-          <tr>
-            <th>
-              父类别
-            </th>
-            <td>
-              <asp:TextBox ID="ParentCategoryTextBox" runat="server" ClientIDMode="Static" />
-            </td>
-          </tr>
-          <tr>
-            <th>
-              类别名称
-            </th>
-            <td>
-              <asp:TextBox ID="CategoryNameTextBox" runat="server" ClientIDMode="Static" />
-            </td>
-          </tr>
-          <tr>
-            <td colspan="2" style="text-align: center">
-              <asp:Button ID="AddCategoryButton" runat="server" Text="添加" OnClick="AddCategoryButton_Click" />
-            </td>
-          </tr>
-        </table>
+            <div id="DetailDialog" class="dialog">
+              <asp:ListView ID="DetailListView" runat="server" InsertItemPosition="LastItem" DataSourceID="DetailDataSource" DataKeyNames="Id, EquipmentId" OnItemDeleting="DetailListView_ItemDeleting" OnItemEditing="DetailListView_ItemEditing" OnItemUpdating="DetailListView_ItemUpdating" OnItemInserting="DetailListView_ItemInserting">
+                <LayoutTemplate>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>
+                          名称
+                        </th>
+                        <th>
+                          值
+                        </th>
+                        <th>
+                        </th>
+                    </thead>
+                    <tbody>
+                      <asp:PlaceHolder ID="ItemPlaceHolder" runat="server" />
+                    </tbody>
+                  </table>
+                </LayoutTemplate>
+                <ItemTemplate>
+                  <tr>
+                    <td>
+                      <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Edit" Text='<%# Eval("Lable") %>' />
+                    </td>
+                    <td>
+                      <%# Eval("Value") %>
+                    </td>
+                    <td>
+                      <asp:LinkButton ID="LinkButton2" runat="server" CommandName="Delete" Text="删除" />
+                    </td>
+                  </tr>
+                </ItemTemplate>
+                <InsertItemTemplate>
+                  <tr>
+                    <td>
+                      <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Lable") %>' />
+                    </td>
+                    <td>
+                      <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Value") %>' />
+                    </td>
+                    <td>
+                      <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Insert" Text="添加" />
+                    </td>
+                  </tr>
+                </InsertItemTemplate>
+                <EditItemTemplate>
+                  <tr>
+                    <td>
+                      <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("Lable") %>' />
+                    </td>
+                    <td>
+                      <asp:TextBox ID="TextBox2" runat="server" Text='<%# Bind("Value") %>' />
+                    </td>
+                    <td>
+                      <asp:LinkButton ID="LinkButton1" runat="server" CommandName="Update" Text="保存" />
+                    </td>
+                  </tr>
+                </EditItemTemplate>
+                <EmptyDataTemplate>
+                  <%= Helper.EmptyData %>
+                </EmptyDataTemplate>
+              </asp:ListView>
+            </div>
+          </ContentTemplate>
+        </asp:UpdatePanel>
+        <div id="AddEquipmentDialog" class="dialog">
+          <table>
+            <tr>
+              <th>
+                设备类别
+              </th>
+              <td>
+                <asp:TextBox ID="EquipmentCategoryTextBox" runat="server" ClientIDMode="Static" />
+              </td>
+            </tr>
+            <tr>
+              <th>
+                归属专业
+              </th>
+              <td>
+                <asp:DropDownList ID="SpecialtyDropDownList" runat="server" DataSourceID="SpecialtyDataSource" DataTextField="Name" DataValueField="Id" />
+              </td>
+            </tr>
+            <tr>
+              <th>
+                设备名称
+              </th>
+              <td>
+                <asp:TextBox ID="EquipmentNameTextBox" runat="server" />
+              </td>
+            </tr>
+            <tr>
+              <th>
+                设备编号
+              </th>
+              <td>
+                <asp:TextBox ID="EquipmentCodeTextBox" runat="server" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center">
+                <asp:Button ID="AddEquipmentButton" runat="server" Text="添加" OnClick="AddEquipmentButton_Click" />
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div id="AddCategoryDialog" class="dialog">
+          <table>
+            <tr>
+              <th>
+                父类别
+              </th>
+              <td>
+                <asp:TextBox ID="ParentCategoryTextBox" runat="server" ClientIDMode="Static" />
+              </td>
+            </tr>
+            <tr>
+              <th>
+                类别名称
+              </th>
+              <td>
+                <asp:TextBox ID="CategoryNameTextBox" runat="server" ClientIDMode="Static" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: center">
+                <asp:Button ID="AddCategoryButton" runat="server" Text="添加" OnClick="AddCategoryButton_Click" />
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>

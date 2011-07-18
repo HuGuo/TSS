@@ -22,7 +22,8 @@
 <body>
     <form id="form1" runat="server" style="padding-top: 32px;">
     <div id="toolbar" class="fixed">
-        <a href="ExpRecordDefault.aspx">试验台帐</a> <a href="setTemplate.aspx" target="_blank">
+        <%--<a href="ExpRecordDefault.aspx">试验台帐</a> --%>
+        <a href="setTemplate.aspx" target="_blank">
             添加模板</a> <a href="BindEquipment.aspx">关联设备</a>
     </div>
 
@@ -65,7 +66,7 @@
                             </td>
                             <td>
                                 <asp:HyperLink ID="linkBindEQ" href='<%#Eval("id","BindEquipment.aspx?id={0}") %>'
-                                    runat="server" Text="关联设备" Target="_blank" />
+                                    runat="server" Text="关联设备" Target="_blank" class="button" />
                             </td>
                             <td align="center">
                                 <asp:HyperLink ID="linkEdit" href='<%#Eval("id","setTemplate.aspx?tid={0}") %>' runat="server"
@@ -90,7 +91,7 @@
             op: "del-t"
         });
         //$("#tb tr:gt(0)").hoverColor();
-        $("#tb tr:gt(0)").alternateColor();
+        $("#tb tr:gt(0)").alternateColor().hoverColor();
 
         var sps = $("#splist a");
         sps.first().addClass("left").addClass("active").removeClass("middle");

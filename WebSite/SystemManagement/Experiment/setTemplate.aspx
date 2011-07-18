@@ -56,7 +56,7 @@
                 <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'right'});">
                     右对齐</div>
                 <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'700'});">
-                    加 粗</div>
+                    <b>加 粗</b></div>
             </div>
         </div>
         <div>
@@ -70,6 +70,21 @@
                     删除 行</div>
                 <div onclick="javascript:$.simpleExcel.removeColumn();">
                     删除 列</div>
+            </div>
+        </div>
+        <div class="menu-sep"></div>
+        <div>
+            <span>Mark</span>
+            <div style="width: 100px;">
+                <div onclick="javascript:$.simpleExcel.mark('{#}');"><b>{#}</b></div>
+                <div onclick="javascript:$.simpleExcel.mark('{##}');">
+                    <b>{##}</b></div>
+                <div onclick="javascript:$.simpleExcel.mark('{d}');">
+                    <b>{d}</b></div>
+                <div onclick="javascript:$.simpleExcel.mark('{time}');">
+                    <b>{time}</b></div>
+                <div onclick="javascript:$.simpleExcel.mark('{t}');">
+                    <b>{t}</b></div>
             </div>
         </div>
     </div>
@@ -115,10 +130,10 @@
                 if (json.msg) {
                     alert(json.msg);
                 } else {
-                    document.location.href = "default.aspx";
-                    //                    document.location.href = "success.aspx?id=" + json.id;
-                    //                    alert("操作成功");
-                    //                    window.close();
+                    //document.location.href = "default.aspx";
+                    //document.location.href = "success.aspx?id=" + json.id;
+                    alert("操作成功");
+                    window.close();
                 }
             });
         });

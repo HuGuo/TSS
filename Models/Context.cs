@@ -37,6 +37,7 @@ namespace TSS.Models
         public IDbSet<Right> Rights { get; set; }
         public IDbSet<ExpRecord> ExpRecords { get; set; }
 
+        public IDbSet<ExpCategory> ExpCategories { get; set; }
 
         public Context()
             : base("TSS")

@@ -24,7 +24,7 @@
 <body>
     <form id="form1" runat="server" style="padding-top:32px;">
     <div id="toolbar" class="fixed">
-    <a href="RecordDefault.aspx?s=<%=Request.QueryString["s"] %>">试验台帐</a>
+    <%--<a href="RecordDefault.aspx?s=<%=Request.QueryString["s"] %>">试验台帐</a>--%>
     <a class="dg" href="#dg_win">填写试验报告</a>
     <a class="dg" href="#dg_win2">数据分析</a>
     </div>
@@ -72,10 +72,10 @@
             </ItemTemplate>
         </asp:Repeater>
     </table>
-    <div id="dg_win" class="easyui-dialog" title="选择试验报告模板" style="width: 500px; height: 300px;
+    <div id="dg_win" class="easyui-dialog" title="选择试验报告模板" style="width: 700px; height: 300px;
         top:100px; margin-left:auto; margin-right:auto; padding:0;" buttons="#dlg_buttons">
         <div class="easyui-layout" style="width:100%; height:100%;">
-        <div region="west" border="true" split="false" style="width:150px; overflow:auto;">
+        <div region="west" border="true" split="false" style="width:180px; overflow:auto;">
         <ul id="eqmlist">
         <asp:Repeater ID="rptEqipmentList" runat="server">
                 <ItemTemplate>

@@ -34,6 +34,9 @@ public class ExpTemplateHandler:IHttpHandler
                 case"unbindequipment":
                     BindEquipment(context , false);
                     break;
+                case "listjson":
+                    ResponseList(context);
+                    break;
             }
         } else {
             context.Response.Write("参数错误");
@@ -113,6 +116,21 @@ public class ExpTemplateHandler:IHttpHandler
             context.Response.Write("[]");
         }
 
+    }
+
+    void ResponseList(HttpContext context) {
+        context.Response.ContentType = "application/json; charset=UTF-8";
+        string s = context.Request.QueryString["s"];
+        System.Collections.Generic.IList<ExpTemplate> list = null;
+        if (!string.IsNullOrWhiteSpace(s)) {
+            list = RepositoryFactory<ExpTemplateRepository>.Get().GetBySpecialty(s);
+        } else {
+            list = RepositoryFactory<ExpTemplateRepository>.Get().GetAll();
+        }
+        var obj = from p in list
+                  select new { text = p.Title , value = p.Id };
+        System.Web.Script.Serialization.JavaScriptSerializer jss = new System.Web.Script.Serialization.JavaScriptSerializer();
+        context.Response.Write(jss.Serialize(obj));
     }
     #endregion
 }

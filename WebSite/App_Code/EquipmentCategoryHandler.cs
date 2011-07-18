@@ -44,22 +44,9 @@ public class EquipmentCategoryHandler : IHttpHandler
     }
 
     private void ResponseXml(HttpContext context)
-    {
-        context.Response.ContentType = "text/xml; charset=UTF-8";
-
-        XslCompiledTransform xsl = new XslCompiledTransform();
-        xsl.Load(context.Server.MapPath("~/equipmentcategory.xslt"));
-
-        XsltArgumentList args = new XsltArgumentList();
-        //src 参数值带有?，&时需要在客户端编码
-        string src = context.Request.QueryString["src"];
-        args.AddParam("src", string.Empty, string.IsNullOrEmpty(src) ? "" : context.Server.UrlDecode(src));
-        args.AddParam("target", string.Empty, context.Request.QueryString["target"] ?? "");
-
-        args.AddParam("expendDeep", string.Empty, context.Request.QueryString["dp"] ?? "1");
-
+    {        
         XmlTextReader reader = new XmlTextReader(new StringReader(category.GetXml()));
-        xsl.Transform(reader, args, context.Response.OutputStream);
+        Helper.ResponseEasyuiTreeHTML(reader , context);
     }
 
     public void GetEquipmentsJson(HttpContext context) {

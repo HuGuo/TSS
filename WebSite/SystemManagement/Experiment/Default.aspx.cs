@@ -23,7 +23,7 @@ public partial class SystemManagement_Experiment_Default : BasePage
             IList<ExpTemplate> list2 = RepositoryFactory<ExpTemplateRepository>.Get().GetAll();
 
             list.Insert(0 , new Specialty { Id = "ALL" , Name = "全部(" + list2.Count + ")" });
-            rptList.DataSource = list2;
+            rptList.DataSource = list2.OrderBy(p => p.SpecialtyId).ThenBy(p => p.Title);
             rptList.DataBind();
 
             rptlistSpecialty.DataSource = list;

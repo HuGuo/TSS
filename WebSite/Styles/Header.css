@@ -1,7 +1,7 @@
-﻿@import "Base.css";
+@import url(Reset.css);
 
 #header {
-    background: url(../images/header.gif) repeat-x;
+    background: url(../images/bg.png) repeat-x;
 }
 
 #header_logo {
@@ -11,7 +11,7 @@
 }
 
 #header_toolbar {
-    background: url(../images/header_toolbar.gif) no-repeat;
+    background: url(../images/header_toolbar.png) no-repeat;
     width: 344px;
     height: 32px;
     position: absolute;

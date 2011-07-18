@@ -15,39 +15,6 @@ namespace TSS.BLL
             }
         }
 
-        public void RemoveAttachment(Guid id,Guid attachment,Action<string> onRemove) {
-            Experiment obj = Context.Experiments.Find(id);
-            if (null !=obj) {
-                ExpAttachment item=obj.Attachments.Single(p => p.Id.Equals(attachment));
-                if (null !=item) {
-                    Context.ExpAttachments.Remove(item);
-                    obj.Attachments.Remove(item);
-                    Context.SaveChanges();
-                    onRemove(item.Id + System.IO.Path.GetExtension(item.FileName));
-                }
-            }
-        }
-
-        public void AddAttachment(Guid id , ICollection<ExpAttachment> items , Action<ICollection<ExpAttachment>> onError) {
-            try {
-                Experiment obj = Context.Experiments.Find(id);
-                if (null != obj) {
-                    foreach (var item in items) {
-                        item.Experiment = obj;
-                        obj.Attachments.Add(item);
-                    }
-                    Context.SaveChanges();
-                }
-            } catch (Exception) {
-                onError(items);
-            }
-        }
-        public Experiment GetLastExperiment(Guid templateId,Guid equipmentId) {
-            return Context.Experiments.Where(p => p.EquipmentID.Equals(equipmentId) && p.ExpTemplateID.Equals(templateId))
-                .OrderByDescending(p => p.ExpDate)
-                .FirstOrDefault();
-        }
-
         public override bool Update(Experiment entity) {
             Experiment experiment = Context.Experiments.Find(entity.Id);
             if (null != experiment) {
@@ -71,60 +38,66 @@ namespace TSS.BLL
         }
 
         /// <summary>
-        /// 指定试验报告模板的试验记录列表
+        /// 删除试验报告附件
         /// </summary>
-        /// <param name="exptemplateId"></param>
-        /// <param name="stime"></param>
-        /// <param name="etime"></param>
-        /// <returns></returns>
-        public IList<Experiment> GetMuch(Guid exptemplateId,DateTime? stime=null,DateTime? etime=null) {
-            return Context.Experiments.Where(p => p.ExpTemplateID.Equals(exptemplateId))
-                    .OrderByDescending(p => p.ExpDate).ToList();
+        /// <param name="id"></param>
+        /// <param name="attachment"></param>
+        /// <param name="onRemove"></param>
+        public void RemoveAttachment(Guid id,Guid attachment,Action<string> onRemove) {
+            Experiment obj = Context.Experiments.Find(id);
+            if (null !=obj) {
+                ExpAttachment item=obj.Attachments.Single(p => p.Id.Equals(attachment));
+                if (null !=item) {
+                    Context.ExpAttachments.Remove(item);
+                    obj.Attachments.Remove(item);
+                    Context.SaveChanges();
+                    onRemove(item.Id + System.IO.Path.GetExtension(item.FileName));
+                }
+            }
         }
 
-        public IList<Experiment> PageOf(int pageIndex , int pageSize , Guid equipmentID , out int rowCount) {
-
-            int skip = pageSize * (pageIndex - 1);
-            rowCount = Context.Experiments.Count(p => p.EquipmentID == equipmentID);
-            var query = Context.Experiments.Where(p => p.EquipmentID == equipmentID)
-                .OrderByDescending(p => p.ExpDate)
-                .Skip(skip)
-                .Take(pageSize);
-            return query.ToList();
-
+        /// <summary>
+        /// 添加试验报告个附件
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="items"></param>
+        /// <param name="onError"></param>
+        public void AddAttachment(Guid id , ICollection<ExpAttachment> items , Action<ICollection<ExpAttachment>> onError) {
+            try {
+                Experiment obj = Context.Experiments.Find(id);
+                if (null != obj) {
+                    foreach (var item in items) {
+                        item.Experiment = obj;
+                        obj.Attachments.Add(item);
+                    }
+                    Context.SaveChanges();
+                }
+            } catch (Exception) {
+                onError(items);
+            }
         }
         
-        /// <summary>
-        /// 指定设备 指定试验报告模板的试验记录列表
-        /// </summary>
-        /// <param name="equipmentID"></param>
-        /// <param name="exptemplateID"></param>
-        /// <returns></returns>
-        public IList<Experiment> GetMuch(Guid equipmentID , Guid exptemplateID) {
-            return Context.Experiments.Where(p => p.EquipmentID == equipmentID && p.ExpTemplateID == exptemplateID)
-                    .OrderByDescending(p => p.ExpDate).ToList();
+        public IList<Experiment> GetMuch(Guid? exptemplateId=null,Guid? equipmentId=null) {
+            var query = Context.Experiments.AsQueryable();
+            if (exptemplateId.HasValue) {
+                query = query.Where(p => p.ExpTemplateID.Equals(exptemplateId.Value));
+            }
+            if (equipmentId.HasValue) {
+                query = query.Where(p => p.EquipmentID.Equals(equipmentId.Value));
+            }
 
+            return query.ToList();
         }
-
-        public IList<Experiment> PageOf(int pageIndex , int pageSize , Guid equipmentID , Guid exptemplateID , out int rowCount) {
-            int skip = pageSize * (pageIndex - 1);
-            rowCount = Context.Experiments.Count(p => p.EquipmentID == equipmentID && p.ExpTemplateID == exptemplateID);
-            return Context.Experiments.Where(p => p.EquipmentID == equipmentID && p.ExpTemplateID == exptemplateID)
-                .OrderByDescending(p => p.ExpDate)
-                .Skip(skip)
-                .Take(pageSize)
-                .ToList();
-
-        }
-
+        
         public IList<Experiment> GetByEquipmentCategory(Guid equipmentCategoryId , string specialtyId) {
 
             return Context.Experiments
-                    .Where(p => p.Equipment.SpecialtyId == specialtyId && p.Equipment.EquipmentCategoryId == equipmentCategoryId)
+                    .Where(p => p.Equipment.SpecialtyId.Equals(specialtyId) && p.Equipment.EquipmentCategoryId.Equals(equipmentCategoryId))
                     .OrderBy(p => p.ExpDate)
                     .ToList();
 
         }
+
 
         public IList<ChartData> GetChartData(string coord , DateTime? startTime , DateTime? endTime , params string[] equipmentId) {
             var query = Context.ExpData.Where(p => p.GUID == coord);
