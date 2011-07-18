@@ -21,7 +21,6 @@ public partial class ComprehensiveReport_Indicator : BasePage
         rptIndicator.DataSource = new IndicatorRepository()
             .GetBySpecialty(Request.QueryString["specialtyId"]);
         rptIndicator.DataBind();
-        IndicatorControlAdd.SpecialtyId = Request.QueryString["specialtyId"];
     }
     protected void lbtnDel_Click(object sender, EventArgs e)
     {
@@ -59,5 +58,9 @@ public partial class ComprehensiveReport_Indicator : BasePage
     protected void btnEditClose_Click(object sender, EventArgs e)
     {
         IndicatorControlEdit.ReSet();
+    }
+    protected void lbtnAdd_Click(object sender, EventArgs e)
+    {
+        IndicatorControlAdd.SpecialtyId = Request.QueryString["specialtyId"];
     }
 }

@@ -15,16 +15,16 @@ public partial class UserControl_MaintenanceExpControl : System.Web.UI.UserContr
 
     }
 
-    public string ActualTime
+    public string LatsTime
     {
-        get { return tbActualTime.Text; }
-        set { tbActualTime.Text = value; }
+        get { return tbLastTime.Text; }
+        set { tbLastTime.Text = value; }
     }
 
-    public string Experiment
+    public string NextTime
     {
-        get { return tbExpectantTime.Text; }
-        set { tbExpectantTime.Text = value; }
+        get { return tbNextTime.Text; }
+        set { tbNextTime.Text = value; }
     }
 
     public MaintenanceExperiment MaintenanceExperiment
@@ -34,17 +34,19 @@ public partial class UserControl_MaintenanceExpControl : System.Web.UI.UserContr
             MaintenanceExperiment maintenanceExperiment = new MaintenanceExperiment();
             if (ViewState["maintenanceExperiment"] != null)
                 maintenanceExperiment = (MaintenanceExperiment)ViewState["maintenanceExperiment"];
-            maintenanceExperiment.ActualTime = DateTime.Parse(tbActualTime.Text);
-            maintenanceExperiment.ExpectantTime = DateTime.Parse(tbExpectantTime.Text);
+
+            maintenanceExperiment.LastExpTime = string.IsNullOrEmpty(tbLastTime.Text) ?
+                (DateTime?)null : DateTime.Parse(tbLastTime.Text);
+            maintenanceExperiment.NextExpTime = DateTime.Parse(tbNextTime.Text);
             maintenanceExperiment.MaintenanceCycleId = int.Parse(hdMaintenanceCycleId.Value);
             maintenanceExperiment.ExperimentId = new Guid();//绑定试验报告，绑定未确定
             return maintenanceExperiment;
         }
         set
         {
-            tbActualTime.Text = value.ActualTime.ToString("yyyy-MM-dd");
+            tbNextTime.Text = value.NextExpTime.ToString("yyyy-MM-dd");
             hdMaintenanceCycleId.Value = value.MaintenanceCycleId.ToString();
-            tbExpectantTime.Text = value.ExpectantTime.HasValue ? value.ExpectantTime.Value.ToString("yyyy-MM-dd") : "";
+            tbLastTime.Text = value.LastExpTime.HasValue ? value.LastExpTime.Value.ToString("yyyy-MM-dd") : "";
             ddlExperiment.SelectedValue = value.ExperimentId.ToString();//绑定试验报告，绑定未确定
             ViewState["maintenanceExperiment"] = value;
         }
@@ -52,8 +54,8 @@ public partial class UserControl_MaintenanceExpControl : System.Web.UI.UserContr
 
     public void ReSet()
     {
-        tbActualTime.Text = "";
-        tbExpectantTime.Text = "";
+        tbLastTime.Text = "";
+        tbNextTime.Text = "";
     }
 
     public string MaintenanceCycleId
@@ -66,8 +68,9 @@ public partial class UserControl_MaintenanceExpControl : System.Web.UI.UserContr
     {
         MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
         MaintenanceCycle maintenaceCycle = repository.Get(int.Parse(hdMaintenanceCycleId.Value));
-        tbExpectantTime.Text = DateTime.Parse(tbActualTime.Text)
-            .AddYears(int.Parse(maintenaceCycle.Cycle))
-            .Date.ToString("yyyy-MM-dd");
+        if (!string.IsNullOrEmpty(tbLastTime.Text))
+            tbNextTime.Text = DateTime.Parse(tbLastTime.Text)
+                .AddYears(int.Parse(maintenaceCycle.Cycle))
+                .Date.ToString("yyyy-MM-dd");
     }
 }

@@ -95,8 +95,10 @@ public partial class MaintenanceCycle_Default : BasePage
     public string GetLastExpTime(Object obj)
     {
         MaintenanceCycle maintenanceCycle = (MaintenanceCycle)obj;
-        if (maintenanceCycle != null && maintenanceCycle.MaintenanceExperiments.Count > 0)
-            return maintenanceCycle.MaintenanceExperiments.Last().ActualTime.ToString("yyyy-MM-dd");
+        if (maintenanceCycle != null &&
+            maintenanceCycle.MaintenanceExperiments.Count > 0 &&
+            maintenanceCycle.MaintenanceExperiments.Last().LastExpTime.HasValue)
+            return maintenanceCycle.MaintenanceExperiments.Last().LastExpTime.Value.ToString("yyyy-MM-dd");
         else
             return "";
     }
@@ -105,7 +107,7 @@ public partial class MaintenanceCycle_Default : BasePage
     {
         MaintenanceCycle maintenanceCycle = (MaintenanceCycle)obj;
         if (maintenanceCycle != null && maintenanceCycle.MaintenanceExperiments.Count > 0)
-            return maintenanceCycle.MaintenanceExperiments.Last().ExpectantTime.Value.ToString("yyyy-MM-dd");
+            return maintenanceCycle.MaintenanceExperiments.Last().NextExpTime.ToString("yyyy-MM-dd");
         else
             return "";
     }

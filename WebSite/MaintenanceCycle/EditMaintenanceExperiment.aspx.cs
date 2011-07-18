@@ -21,7 +21,7 @@ public partial class MaintenanceCycle_EditMaintenanceExperiment : BasePage
         MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
         MaintenanceExperiment maintenanceExperiment = repository.Get(int.Parse(Request.QueryString["id"]));
         tbActualTime.Text = maintenanceExperiment.ActualTime.Date.ToString("yyyy-MM-dd");
-        tbExpectantTime.Text = maintenanceExperiment.ExpectantTime.Value.Date.ToString("yyyy-MM-dd");
+        tbExpectantTime.Text = maintenanceExperiment.NextExpTime.Value.Date.ToString("yyyy-MM-dd");
         hfCycle.Value = maintenanceExperiment.MaintenanceCycle.Cycle;
         hfMaintenanceCycleId.Value = maintenanceExperiment.MaintenanceCycleId.ToString();
     }
@@ -34,7 +34,7 @@ public partial class MaintenanceCycle_EditMaintenanceExperiment : BasePage
             Id = int.Parse(Request.QueryString["id"]),
             CurrentCycle = hfCycle.Value,
             ActualTime = DateTime.Parse(tbActualTime.Text),
-            ExpectantTime = DateTime.Parse(tbExpectantTime.Text),
+            NextExpTime = DateTime.Parse(tbExpectantTime.Text),
             MaintenanceCycleId = int.Parse(hfMaintenanceCycleId.Value)
         });
         EditConfirm(result, 
