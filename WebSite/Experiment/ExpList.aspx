@@ -4,9 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>试验报告</title>
-    <link href="../scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet" type="text/css" />
     <link href="~/Styles/_base.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
+    <!--easyui-->
+    <link href="../scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet" type="text/css" />
     <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <style type="text/css">
     ul{ list-style:none; margin:0; padding:0}

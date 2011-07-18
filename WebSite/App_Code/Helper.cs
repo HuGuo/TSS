@@ -77,11 +77,11 @@ public class Helper
 
         System.Xml.Xsl.XsltArgumentList args = new System.Xml.Xsl.XsltArgumentList();
         //src 参数值带有?，&时需要在客户端编码
-        string src = context.Request.QueryString["src"];
+        string src = context.Request["src"];
         args.AddParam("src" , string.Empty , string.IsNullOrEmpty(src) ? "" : context.Server.UrlDecode(src));
-        args.AddParam("target" , string.Empty , context.Request.QueryString["target"] ?? "");
+        args.AddParam("target" , string.Empty , context.Request["target"] ?? "");
 
-        args.AddParam("expendDeep" , string.Empty , context.Request.QueryString["dp"] ?? "1");
+        args.AddParam("expendDeep" , string.Empty , context.Request["dp"] ?? "0");
 
         xsl.Transform(reader , args , context.Response.OutputStream);
     }
