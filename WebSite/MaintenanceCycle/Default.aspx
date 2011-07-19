@@ -5,49 +5,23 @@
 <%@ Register Src="../UserControl/MaintenanceCycleControl.ascx" TagName="MaintenanceCycleControl"
     TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+ <script type="text/javascript" src="../Scripts/jquery.validatewindow.js"></script>
     <script type="text/javascript">
         $(function () {
-            InitWindow("wAdd");
-            InitWindow("wEdit");
-        });
-        function InitWindow(id) {
-            var dlg = $('#' + id).window({
-                title: '设备类型',
-                width: 300,
-                height: 250,
-                modal: true,
-                shadow: false,
-                closed: true,
-                closable: false,
-                collapsible: false,
-                minimizable: false,
-                maximizable: false     
-            });
-            dlg.parent().appendTo($("form:first"));
-        }
-        function Close(id) {
-            $("#" + id).window("close");
-        }
-        function Open(id) {
-            $("#" + id).window("open");
-        }
-        function Confirm(msg, control) {
-            $.messager.confirm('确认', msg, function (r) {
-                if (r) {
-                    eval(control.toString().slice(11)); //截掉 javascript: 并执行
-                }
-            });
-            return false;
-        }
+            $.Validate("<%=Page.Form.UniqueID %>");
+            $.InitWindow("wAdd", 300, 250);
+            $.InitWindow("wEdit", 300, 250);
+        });       
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
     <div id="toolbar" class="fixed">
-        <a href="#" onclick="Open('wAdd')">添加</a> <a href="MaintenanceClass.aspx?specialtyId=<%= Request.QueryString["s"] %>">
+        <a href="#" onclick="$.Open('wAdd')">添加</a> <a href="MaintenanceClass.aspx?specialtyId=<%= Request.QueryString["s"] %>">
             设备分类</a>
-        <div class="search">
-            <asp:DropDownList ID="ddlClass" AutoPostBack="true" runat="server">
-                <asp:ListItem Value="">请选择</asp:ListItem>
+        <div class="search">查询：
+            <asp:DropDownList ID="ddlClass" AutoPostBack="true" runat="server" 
+                onselectedindexchanged="ddlClass_SelectedIndexChanged">
+                <asp:ListItem Value="">全选</asp:ListItem>
             </asp:DropDownList>
         </div>
     </div>
@@ -78,7 +52,10 @@
                                 安装日期
                             </td>
                             <td>
-                                周期
+                                调整前周期
+                            </td>
+                             <td>
+                                调整后周期
                             </td>
                             <td>
                                 最近试验
@@ -111,6 +88,9 @@
                             <%# Eval("InstallTime", "{0:yyyy-MM-dd}")%>
                         </td>
                         <td>
+                            <%# GetLastExpCycle(Container.DataItem)%>
+                        </td>
+                          <td>
                             <%# Eval("Cycle")%>
                         </td>
                         <td>
@@ -121,10 +101,10 @@
                         </td>
                         <td>
                             <asp:LinkButton runat="server" ID="lbtnDel" OnClick="lbtnDel_Click" CommandArgument='<%# Eval("Id")%>'
-                                OnClientClick="return Confirm('是否删除？',this)">删除</asp:LinkButton>
+                                OnClientClick="return $.Confirm('是否删除？',this)">删除</asp:LinkButton>
                             <asp:LinkButton runat="server" ID="lbtnEdit" CommandArgument='<%# Eval("Id")%>' OnClick="lbtnEdit_Click"
-                                OnClientClick="Open('wEdit')">编辑</asp:LinkButton>
-                            <a href="MaintenanceExperiment.aspx?specialtyId=<%= Request.QueryString["s"]%>&maintenanceExperimentId=<%# Eval("Id")%>">
+                                OnClientClick="$.Open('wEdit')">编辑</asp:LinkButton>
+                            <a href="MaintenanceExperiment.aspx?specialtyId=<%= Request.QueryString["s"]%>&maintenanceCycleId=<%# Eval("Id")%>">
                                 历史记录</a>
                         </td>
                     </tr>
@@ -148,8 +128,8 @@
         <asp:UpdatePanel ID="upAdd" runat="server">
             <ContentTemplate>
                 <uc1:MaintenanceCycleControl ID="MaintenanceCycleControl1" runat="server" />
-                <asp:Button runat="server" ID="btnAdd" Text="添加" OnClientClick="Close('wAdd')" OnClick="btnAdd_Click" />
-                <asp:Button runat="server" ID="btnAddClose" Text="关闭" OnClientClick="Close('wAdd')"
+                <asp:Button runat="server" ID="btnAdd" Text="添加" OnClientClick="return $.Add('wAdd','upAdd')" OnClick="btnAdd_Click" />
+                <asp:Button runat="server" ID="btnAddClose" Text="关闭" OnClientClick="$.Close('wAdd')"
                     OnClick="btnAddClose_Click" />
             </ContentTemplate>
         </asp:UpdatePanel>
@@ -158,9 +138,9 @@
         <asp:UpdatePanel ID="upEdit" runat="server">
             <ContentTemplate>
                 <uc1:MaintenanceCycleControl ID="MaintenanceCycleControl2" runat="server" />
-                <asp:Button runat="server" ID="btnEdit" Text="编辑" OnClientClick="Close('wEdit')"
+                <asp:Button runat="server" ID="btnEdit" Text="编辑" OnClientClick="return $.Edit('wEdit','upEdit')"
                     OnClick="btnEdit_Click" />
-                <asp:Button runat="server" ID="btnEditClose" Text="关闭" OnClientClick="Close('wEdit')"
+                <asp:Button runat="server" ID="btnEditClose" Text="关闭" OnClientClick="$.Close('wEdit')"
                     OnClick="btnEditClose_Click" />
             </ContentTemplate>
         </asp:UpdatePanel>

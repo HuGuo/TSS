@@ -5,8 +5,8 @@
                 上次试验时间
             </td>
             <td>
-                <asp:TextBox runat="server" AutoPostBack="true" onclick="WdatePicker()" validate="{date:true}"
-                    ID="tbActualTime" OnTextChanged="tbActualTime_TextChanged"></asp:TextBox>
+                <asp:TextBox runat="server" AutoPostBack="true" onclick="WdatePicker()"
+                    ID="tbLastTime" OnTextChanged="tbActualTime_TextChanged"></asp:TextBox>
             </td>
         </tr>
         <tr>
@@ -17,10 +17,10 @@
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
                         <asp:TextBox runat="server" onclick="WdatePicker()" validate="{date:true,required:true}"
-                            ID="tbExpectantTime"></asp:TextBox>
+                            ID="tbNextTime"></asp:TextBox>
                     </ContentTemplate>
                     <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="tbActualTime" />
+                        <asp:AsyncPostBackTrigger ControlID="tbLastTime" />
                     </Triggers>
                 </asp:UpdatePanel>
             </td>

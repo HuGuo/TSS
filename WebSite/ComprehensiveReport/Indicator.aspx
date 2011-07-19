@@ -4,54 +4,26 @@
 <%@ Register Src="../UserControl/IndicatorControl.ascx" TagName="IndicatorControl"
     TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+    <script type="text/javascript" src="../Scripts/jquery.validatewindow.js"></script>
     <script type="text/javascript">
         $(function () {
-            Validate();
-            InitWindow("wAdd");
-            InitWindow("wEdit");
-        });
-        function Validate() {
-            $("#<%=Page.Form.UniqueID %>").validate();
-        }
-        function InitWindow(id) {
-            var dlg = $('#' + id).window({
-                title: '设备类型',
-                width: 300,
-                height: 150,
-                modal: true,
-                shadow: false,
-                closed: true,
-                closable: false,
-                collapsible: false,
-                minimizable: false,
-                maximizable: false
-            });
-            dlg.parent().appendTo($("form:first"));
-        }
-        function Close(id) {
-            $("#" + id).window("close");
-        }
-        function Open(id) {
-            $("#" + id).window("open");
-        }
-        function Confirm(msg, control) {
-            $.messager.confirm('确认', msg, function (r) {
-                if (r) {
-                    eval(control.toString().slice(11)); //截掉 javascript: 并执行
-                }
-            });
-            return false;
-        }
-
+            $.Validate("<%=Page.Form.UniqueID %>");
+            $.InitWindow("wAdd", 300, 150);
+            $.InitWindow("wEdit", 300, 150);
+        });       
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
-    <div id="toolbar" class="fixed">
-        <a href="#" onclick="Open('wAdd')">添加</a> <a href="Default.aspx?s=<%= Request.QueryString["specialtyId"] %>">
-            返回</a>
-    </div>
     <asp:ScriptManager runat="server" ID="ScriptManager1">
     </asp:ScriptManager>
+    <div id="toolbar" class="fixed">
+        <asp:UpdatePanel runat="server" ID="upLbtnAdd">
+            <ContentTemplate>
+                <asp:LinkButton runat="server" ID="lbtnAdd" OnClientClick="$.Open('wAdd')" OnClick="lbtnAdd_Click">添加</asp:LinkButton>
+                <a href="Default.aspx?s=<%= Request.QueryString["specialtyId"] %>">返回</a>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
     <asp:UpdatePanel runat="server" UpdateMode="Conditional" ID="upClass">
         <ContentTemplate>
             <asp:Repeater ID="rptIndicator" runat="server">
@@ -91,9 +63,9 @@
                         </td>
                         <td>
                             <asp:LinkButton runat="server" ID="lbtnDel" OnClick="lbtnDel_Click" CommandArgument='<%# Eval("Id")%>'
-                                OnClientClick="return Confirm('是否删除？',this)">删除</asp:LinkButton>
+                                OnClientClick="return $.Confirm('是否删除？',this)">删除</asp:LinkButton>
                             <asp:LinkButton runat="server" ID="lbtnEdit" OnClick="lbtnEdit_Click" CommandArgument='<%# Eval("Id")%>'
-                                OnClientClick="Open('wEdit')">编辑</asp:LinkButton>
+                                OnClientClick="$.Open('wEdit')">编辑</asp:LinkButton>
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -116,8 +88,8 @@
         <asp:UpdatePanel ID="upAdd" runat="server">
             <ContentTemplate>
                 <uc1:IndicatorControl ID="IndicatorControlAdd" runat="server" />
-                <asp:Button runat="server" ID="btnAdd" Text="添加" OnClick="btnAdd_Click"  OnClientClick="Close('wAdd')"/>
-                <asp:Button runat="server" ID="btnAddClose" Text="关闭" OnClientClick="Close('wAdd')"
+                <asp:Button runat="server" ID="btnAdd" Text="添加" OnClick="btnAdd_Click" OnClientClick="return $.Add('wAdd','upAdd')" />
+                <asp:Button runat="server" ID="btnAddClose" Text="关闭" OnClientClick="$.Close('wAdd')"
                     OnClick="btnAddClose_Click" />
             </ContentTemplate>
         </asp:UpdatePanel>
@@ -126,9 +98,9 @@
         <asp:UpdatePanel ID="upEdit" runat="server">
             <ContentTemplate>
                 <uc1:IndicatorControl ID="IndicatorControlEdit" runat="server" />
-                <asp:Button runat="server" ID="btnEdit" Text="编辑" OnClientClick="Close('wEdit')"
+                <asp:Button runat="server" ID="btnEdit" Text="编辑" OnClientClick="return $.Edit('wEdit','upEdit')"
                     OnClick="btnEdit_Click" />
-                <asp:Button runat="server" ID="btnEditClose" Text="关闭" OnClientClick="Close('wEdit')"
+                <asp:Button runat="server" ID="btnEditClose" Text="关闭" OnClientClick="$.Close('wEdit')"
                     OnClick="btnEditClose_Click" />
             </ContentTemplate>
         </asp:UpdatePanel>

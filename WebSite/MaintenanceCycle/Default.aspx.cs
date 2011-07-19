@@ -21,10 +21,17 @@ public partial class MaintenanceCycle_Default : BasePage
 
     protected void BindData()
     {
-        MaintenanceCycleRepository reposittory = new MaintenanceCycleRepository();
-        IList<MaintenanceCycle> maintenanceCycles = reposittory.GetMuchBySpecaity(Request.QueryString["s"]);
-        rptCycle.DataSource = maintenanceCycles;
-        rptCycle.DataBind();
+        BindAll();
+    }
+
+    public void BindAll()
+    {
+        using (var repository = RepositoryFactory<MaintenanceCycleRepository>.Get())
+        {
+            IList<MaintenanceCycle> maintenanceCycles = repository.GetMuchBySpecaity(Request.QueryString["s"]);
+            rptCycle.DataSource = maintenanceCycles;
+            rptCycle.DataBind();
+        }
     }
 
     protected void BindClass()
@@ -95,8 +102,10 @@ public partial class MaintenanceCycle_Default : BasePage
     public string GetLastExpTime(Object obj)
     {
         MaintenanceCycle maintenanceCycle = (MaintenanceCycle)obj;
-        if (maintenanceCycle != null && maintenanceCycle.MaintenanceExperiments.Count > 0)
-            return maintenanceCycle.MaintenanceExperiments.Last().ActualTime.ToString("yyyy-MM-dd");
+        if (maintenanceCycle != null &&
+            maintenanceCycle.MaintenanceExperiments.Count > 0 &&
+            maintenanceCycle.MaintenanceExperiments.Last().LastExpTime.HasValue)
+            return maintenanceCycle.MaintenanceExperiments.Last().LastExpTime.Value.ToString("yyyy-MM-dd");
         else
             return "";
     }
@@ -105,8 +114,35 @@ public partial class MaintenanceCycle_Default : BasePage
     {
         MaintenanceCycle maintenanceCycle = (MaintenanceCycle)obj;
         if (maintenanceCycle != null && maintenanceCycle.MaintenanceExperiments.Count > 0)
-            return maintenanceCycle.MaintenanceExperiments.Last().ExpectantTime.Value.ToString("yyyy-MM-dd");
+            return maintenanceCycle.MaintenanceExperiments.Last().NextExpTime.ToString("yyyy-MM-dd");
         else
             return "";
+    }
+
+    public string GetLastExpCycle(Object obj)
+    {
+        MaintenanceCycle maintenanceCycle = (MaintenanceCycle)obj;
+        if (maintenanceCycle != null &&
+            maintenanceCycle.MaintenanceExperiments.Count > 0)
+            return maintenanceCycle.MaintenanceExperiments.Last().CurrentCycle;
+        else
+            return "";
+    }
+
+    public void BindByMaintenanceCycle()
+    {
+        using (var repository = RepositoryFactory<MaintenanceCycleRepository>.Get())
+        {
+            rptCycle.DataSource = repository.GetMuchByMaintenanceClass(int.Parse(ddlClass.SelectedValue));
+            rptCycle.DataBind();
+        }
+    }
+
+    protected void ddlClass_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(ddlClass.SelectedValue))
+            BindAll();
+        else
+            BindByMaintenanceCycle();
     }
 }

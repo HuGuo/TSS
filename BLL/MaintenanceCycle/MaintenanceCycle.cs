@@ -47,6 +47,8 @@ namespace TSS.BLL
             using (var dbContext = new Context())
                 return dbContext.MaintenanceCycles
                     .Where(maintenanceCycle => maintenanceCycle.MaintenanceClassId == maintenanceClassId)
+                    .Include(m => m.MaintenanceCalss)
+                    .Include(m => m.MaintenanceExperiments)
                     .ToList();
         }
 

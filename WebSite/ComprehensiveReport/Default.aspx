@@ -2,22 +2,12 @@
     CodeFile="Default.aspx.cs" Inherits="ComprehensiveReport_Default" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="Server">
-    <script type="text/javascript">
-        function Del(id, specialtyId) {
-            $.messager.confirm("删除", "是否删除！", function (result) {
-                if (result) {
-                    window.location.href = "SpecialtyAnalysis.aspx?id=" + id + "&specialtyId=" + specialtyId;
-                } else {
-                    return result;
-                }
-            });
-        }
-    </script>
+  <script type="text/javascript" src="../Scripts/jquery.validatewindow.js"></script>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="body" runat="Server">
     <div id="toolbar" class="fixed">
         <a href="AddSpecialtyAnalysis.aspx?specialtyId=<%= Request.QueryString["s"] %>">添加</a>
-        <a href="Indicator.aspx?specialtyId=GHY-JY">指标管理</a>
+        <a href="Indicator.aspx?specialtyId=<%= Request.QueryString["s"] %>">指标管理</a>
     </div>
     <asp:Repeater runat="server" ID="rptSpecialtyAnalysis">
         <HeaderTemplate>
@@ -55,8 +45,10 @@
                 </td>
                 <td>
                     <a href="EditSpecialtyAnalysis.aspx?specialtyId=<%# Request.QueryString["s"] %>&id=<%# Eval("id")%>">
-                        编辑</a> <a onclick="Del(<%# ((TSS.Models.SpecialtyAnalysis)Container.DataItem).Id%>,'<%# Request.QueryString["s"] %>')"
-                            href="#">删除</a> <a href="SpecialtyAnalysisDetail.aspx?id=<%# Eval("id")%>&specialtyId=<%# Request.QueryString["s"] %>">
+                        编辑</a> 
+                     <asp:LinkButton runat="server"  OnClientClick="return $.Confirm('是否删除？',this)" ID="lbtnDel" 
+                     CommandArgument='<%# Eval("id")%>' onclick="lbtnDel_Click">删除</asp:LinkButton>
+                   <a href="SpecialtyAnalysisDetail.aspx?id=<%# Eval("id")%>&specialtyId=<%# Request.QueryString["s"] %>">
                                 详细</a>
                 </td>
             </tr>
