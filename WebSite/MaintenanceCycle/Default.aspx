@@ -18,9 +18,10 @@
     <div id="toolbar" class="fixed">
         <a href="#" onclick="$.Open('wAdd')">添加</a> <a href="MaintenanceClass.aspx?specialtyId=<%= Request.QueryString["s"] %>">
             设备分类</a>
-        <div class="search">
-            <asp:DropDownList ID="ddlClass" AutoPostBack="true" runat="server">
-                <asp:ListItem Value="">请选择</asp:ListItem>
+        <div class="search">查询：
+            <asp:DropDownList ID="ddlClass" AutoPostBack="true" runat="server" 
+                onselectedindexchanged="ddlClass_SelectedIndexChanged">
+                <asp:ListItem Value="">全选</asp:ListItem>
             </asp:DropDownList>
         </div>
     </div>
@@ -51,7 +52,10 @@
                                 安装日期
                             </td>
                             <td>
-                                周期
+                                调整前周期
+                            </td>
+                             <td>
+                                调整后周期
                             </td>
                             <td>
                                 最近试验
@@ -84,6 +88,9 @@
                             <%# Eval("InstallTime", "{0:yyyy-MM-dd}")%>
                         </td>
                         <td>
+                            <%# GetLastExpCycle(Container.DataItem)%>
+                        </td>
+                          <td>
                             <%# Eval("Cycle")%>
                         </td>
                         <td>
@@ -97,7 +104,7 @@
                                 OnClientClick="return $.Confirm('是否删除？',this)">删除</asp:LinkButton>
                             <asp:LinkButton runat="server" ID="lbtnEdit" CommandArgument='<%# Eval("Id")%>' OnClick="lbtnEdit_Click"
                                 OnClientClick="$.Open('wEdit')">编辑</asp:LinkButton>
-                            <a href="MaintenanceExperiment.aspx?specialtyId=<%= Request.QueryString["s"]%>&maintenanceExperimentId=<%# Eval("Id")%>">
+                            <a href="MaintenanceExperiment.aspx?specialtyId=<%= Request.QueryString["s"]%>&maintenanceCycleId=<%# Eval("Id")%>">
                                 历史记录</a>
                         </td>
                     </tr>

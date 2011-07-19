@@ -37,6 +37,8 @@ namespace TSS.Models
         public IDbSet<Right> Rights { get; set; }
         public IDbSet<ExpRecord> ExpRecords { get; set; }
 
+        public IDbSet<SupervisionNewType> SupervisionNewTypes { get; set; }
+        public IDbSet<SupervisionNew> SupervisionNews { get; set; }
 
         public Context()
             : base("TSS")
@@ -107,6 +109,20 @@ namespace TSS.Models
                 s.Modules = specialtyModules;
                 context.Specialties.Add(s);
             });
+
+            new List<SupervisionNewType>{
+                new SupervisionNewType{ Id=1, TypeName="计划总结"},
+                new SupervisionNewType{ Id=1, TypeName="会议纪要"},
+                new SupervisionNewType{ Id=1, TypeName="提示"},
+                new SupervisionNewType{ Id=1, TypeName="技术监督综合信息"},
+                new SupervisionNewType{ Id=1, TypeName="发电营运部提示"},
+                new SupervisionNewType{ Id=1, TypeName="技术中心专业研究提示"},
+                new SupervisionNewType{ Id=1, TypeName="技术监督简报"},
+                new SupervisionNewType{ Id=1, TypeName="技术监督标准与新技术"}
+            }.ForEach(s=>{
+                context.SupervisionNewTypes.Add(s);
+            });
+
 
             context.SaveChanges();
         }

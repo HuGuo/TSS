@@ -5,7 +5,7 @@
 <%@ Register Src="../UserControl/MaintenanceExpControl.ascx" TagName="MaintenanceExpControl"
     TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-<script type="text/javascript" src="../Scripts/jquery.validatewindow.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.validatewindow.js"></script>
     <script type="text/javascript">
         $(function () {
             $.Validate("<%=Page.Form.UniqueID %>");
@@ -37,6 +37,12 @@
                                 这次试验时间
                             </td>
                             <td>
+                                调整前试验周期
+                            </td>
+                            <td>
+                                调整后试验周期
+                            </td>
+                            <td>
                                 关联试验报告
                             </td>
                             <td>
@@ -54,6 +60,12 @@
                         </td>
                         <td>
                             <%# Eval("NextExpTime", "{0:yyyy-MM-dd}")%>
+                        </td>
+                        <td>
+                            <%# Eval("CurrentCycle")%>
+                        </td>
+                        <td>
+                            <%# Eval("MaintenanceCycle.Cycle")%>
                         </td>
                         <td>
                             关联试验报告

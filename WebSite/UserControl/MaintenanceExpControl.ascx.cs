@@ -27,6 +27,8 @@ public partial class UserControl_MaintenanceExpControl : System.Web.UI.UserContr
         set { tbNextTime.Text = value; }
     }
 
+
+
     public MaintenanceExperiment MaintenanceExperiment
     {
         get
@@ -34,7 +36,9 @@ public partial class UserControl_MaintenanceExpControl : System.Web.UI.UserContr
             MaintenanceExperiment maintenanceExperiment = new MaintenanceExperiment();
             if (ViewState["maintenanceExperiment"] != null)
                 maintenanceExperiment = (MaintenanceExperiment)ViewState["maintenanceExperiment"];
-
+            else
+                using (var repository = RepositoryFactory<MaintenanceCycleRepository>.Get())
+                    maintenanceExperiment.CurrentCycle = repository.Get(int.Parse(hdMaintenanceCycleId.Value)).Cycle;
             maintenanceExperiment.LastExpTime = string.IsNullOrEmpty(tbLastTime.Text) ?
                 (DateTime?)null : DateTime.Parse(tbLastTime.Text);
             maintenanceExperiment.NextExpTime = DateTime.Parse(tbNextTime.Text);
@@ -66,11 +70,23 @@ public partial class UserControl_MaintenanceExpControl : System.Web.UI.UserContr
 
     protected void tbActualTime_TextChanged(object sender, EventArgs e)
     {
-        MaintenanceCycleRepository repository = new MaintenanceCycleRepository();
-        MaintenanceCycle maintenaceCycle = repository.Get(int.Parse(hdMaintenanceCycleId.Value));
-        if (!string.IsNullOrEmpty(tbLastTime.Text))
-            tbNextTime.Text = DateTime.Parse(tbLastTime.Text)
-                .AddYears(int.Parse(maintenaceCycle.Cycle))
-                .Date.ToString("yyyy-MM-dd");
+        using (var repository = RepositoryFactory<MaintenanceCycleRepository>.Get())
+        {
+            MaintenanceCycle maintenaceCycle = repository.Get(int.Parse(hdMaintenanceCycleId.Value));
+            if (!string.IsNullOrEmpty(tbLastTime.Text))
+                tbNextTime.Text = DateTime.Parse(tbLastTime.Text)
+                    .AddMonths(ParseYearToMonth(maintenaceCycle.Cycle))
+                    .Date.ToString("yyyy-MM-dd");
+        }
+    }
+
+    public int ParseYearToMonth(string interval)
+    {
+        int monthCount = 0;
+        string[] timeStr = interval.Split('.');
+        monthCount = int.Parse(timeStr[0]) * 12;
+        if (timeStr.Length > 1)
+            monthCount += int.Parse(timeStr[1]);
+        return monthCount;
     }
 }

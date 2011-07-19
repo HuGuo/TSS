@@ -18,10 +18,10 @@ public partial class MaintenanceCycle_MaintenanceExperiment : BasePage
 
     protected void BindData()
     {
-        MaintenanceExpControl1.MaintenanceCycleId = Request.QueryString["maintenanceExperimentId"];
+        MaintenanceExpControl1.MaintenanceCycleId = Request.QueryString["maintenanceCycleId"];
         MaintenanceExperimentRepository repository = new MaintenanceExperimentRepository();
         IList<MaintenanceExperiment> maintenanceExperiment = repository.GetByMaintenanceCycle(
-            int.Parse(Request.QueryString["maintenanceExperimentId"]));
+            int.Parse(Request.QueryString["maintenanceCycleId"]));
         rptExperiment.DataSource = maintenanceExperiment;
         rptExperiment.DataBind();
     }

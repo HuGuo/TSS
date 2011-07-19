@@ -54,7 +54,7 @@ a{ text-decoration:none;}
 #toolbar .search {
     float: right;
     margin-top: 2px;
-    border: 1px solid #d5d5d5;
+    /*border: 1px solid #d5d5d5;*/
     height: 22px;
     line-height: 22px;
 }

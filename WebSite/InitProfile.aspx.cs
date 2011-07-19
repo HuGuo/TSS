@@ -22,6 +22,7 @@ public partial class InitProfile : System.Web.UI.Page
             }
         }
     }
+
     protected void lbtnOk_Click(object sender , EventArgs e) {
         string userCode = Server.UrlDecode(Request.QueryString["uc"]);
         string name = Server.UrlDecode(Request.QueryString["name"]);
