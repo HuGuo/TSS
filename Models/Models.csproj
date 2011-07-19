@@ -41,6 +41,7 @@
     <Compile Include="Equipment\EquipmentDetail.cs" />
     <Compile Include="Experiment\ChartData.cs" />
     <Compile Include="Experiment\ExpAttachment.cs" />
+    <Compile Include="Experiment\ExpCategory.cs" />
     <Compile Include="Experiment\ExpData.cs" />
     <Compile Include="Experiment\Experiment.cs" />
     <Compile Include="Experiment\ExpRecord.cs" />

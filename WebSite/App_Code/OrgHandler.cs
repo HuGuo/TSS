@@ -34,7 +34,7 @@ public class OrgHandler:IHttpHandler
             if (null !=currentNode) {
                 currentNode.Element("b1").Value = context.Server.UrlDecode(b1);
                 currentNode.Element("b2").Value = context.Server.UrlDecode(b2);
-                currentNode.Element("c").ReplaceNodes(new XCData(context.Server.UrlDecode(c)));
+                currentNode.Element("c").ReplaceNodes(new XCData(context.Server.UrlDecode(c).HtmlEncode()));
                 xe.Save(orgxml);
             }
         } catch (Exception ex) {

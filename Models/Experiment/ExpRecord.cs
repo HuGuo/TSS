@@ -2,6 +2,9 @@
 
 namespace TSS.Models
 {
+    /// <summary>
+    /// 试验台帐
+    /// </summary>
     public class ExpRecord
     {
         public Guid Id { get; set; }

@@ -6,10 +6,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TSS.Models;
 using TSS.BLL;
-public partial class Certificate_Add : System.Web.UI.Page
+public partial class Certificate_Add : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //DefaultAction = Action.CUD;
         if (!IsPostBack) {
             string id = Request.QueryString["id"];
             if (!string.IsNullOrWhiteSpace(id)) {
@@ -35,7 +36,7 @@ public partial class Certificate_Add : System.Web.UI.Page
         if (!string.IsNullOrWhiteSpace(obj.ScanFilePath)) {
             ltimg.Text = "<img width=\"448\" height=\"298\" class=\"rounded-img\" src=\""+ResolveUrl(obj.ScanFilePath)+"\" alt=\"效果图\" />";
         }
-
+        Hscan.Value = obj.ScanFilePath;
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
@@ -56,6 +57,7 @@ public partial class Certificate_Add : System.Web.UI.Page
         } else {
             certificate.Id = System.Guid.NewGuid();
         }
+        certificate.ScanFilePath = Hscan.Value;
         if (fileUp.HasFile) {
             string configPath = System.Configuration.ConfigurationManager.AppSettings["CertificateScan"];
             string path = Server.MapPath(configPath) + "\\";
@@ -63,7 +65,8 @@ public partial class Certificate_Add : System.Web.UI.Page
             string savePath = path + certificate.Id + extension;
             fileUp.SaveAs(savePath);
             certificate.ScanFilePath = configPath+certificate.Id + extension;
-        }        
+        }
+        
         if (string.IsNullOrWhiteSpace(id)) {
             RepositoryFactory<CertificateRepository>.Get().Add(certificate);
         } else {

@@ -15,6 +15,9 @@ namespace TSS.Models
         public virtual Specialty Specialty { get; set; }
         public int IsDEL { get; set; }
 
+        public Guid? ExpCategoryId { get; set; }
+        public virtual ExpCategory Expcategory { get; set; }
+
         public virtual ICollection<Experiment> Experiments { get; set; }
         public virtual ICollection<Equipment> Equipments { get; set; }
         public virtual ICollection<ExpRecord> ExpRecords { get; set; }

@@ -2,7 +2,7 @@
 * 肖宏飞 
 * 2011-5-15
 */
-(function ($) {    
+(function ($) {
     $.simpleExcel = {
         _op: { container: $("body"), cellW: 75, cellH: 25, excell: null, rows: 0, columns: 0, selectedCellClass: "selectedCell" },
         create: function (x, y) {
@@ -269,6 +269,9 @@
                 }
             }
             _selectedCell.attr("rowSpan", "1").attr("colSpan", "1");
+        },
+        mark: function (txt) {
+            $.simpleExcel._op.excell.find("td." + $.simpleExcel._op.selectedCellClass).html(txt);
         }
     };
 

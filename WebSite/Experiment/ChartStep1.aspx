@@ -26,7 +26,7 @@
     <div class="layout" style="width:100%;">
     <div region="east" split="true" title="设备(<b style='color:red'>可 选</b>)" style="width: 200px;
         overflow: auto;">
-        <ul>
+        <ul id="eqlist">
             <asp:Repeater ID="rptlist" runat="server">
                 <ItemTemplate>
                 <li>
@@ -96,7 +96,10 @@
     function draw(coord) {
         var stime = document.getElementById("txtStime").value;
         var etime = document.getElementById("txtEtime").value;
-        var dataurl = "data.aspx?coord=" + coord + "&stime=" + stime + "&etime=" + etime + "&t=" + escape(t) + "&eqs=";
+        var eqs = $("#eqlist input:checked").map(function () {
+            return this.value;
+        }).get().join(";");
+        var dataurl = "data.aspx?coord=" + coord + "&stime=" + stime + "&etime=" + etime + "&t=&eqs=" + eqs + "&split=;";
 
         var chart_scrollChart = new FusionCharts("../FusionCharts/ScrollLine2D.swf", "scrollChart", "720", "430", "0", "0");
         chart_scrollChart.setDataURL(escape(dataurl));

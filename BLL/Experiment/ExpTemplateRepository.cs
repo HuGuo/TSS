@@ -27,11 +27,21 @@ namespace TSS.BLL
                     .ToList();
         }
 
+        /// <summary>
+        /// 专业试验报告模板列表
+        /// </summary>
+        /// <param name="specialtyID"></param>
+        /// <returns></returns>
         public IList<ExpTemplate> GetBySpecialty(string specialtyID) {
             return Context.ExpTemplates.Where(p => p.SpecialtyId == specialtyID)
                     .ToList();
         }
 
+        /// <summary>
+        /// 关联设备到试验报告模板
+        /// </summary>
+        /// <param name="exptemplateId"></param>
+        /// <param name="equipmentId"></param>
         public void BindEquipment(Guid exptemplateId,params Guid[] equipmentId) {
             ExpTemplate obj = Context.ExpTemplates.Find(exptemplateId);
             if (null !=obj) {
@@ -49,6 +59,11 @@ namespace TSS.BLL
             }
         }
 
+        /// <summary>
+        /// 解除设备与试验报告关联
+        /// </summary>
+        /// <param name="exptemplateId"></param>
+        /// <param name="equipmentId"></param>
         public void UnBindEquipment(Guid exptemplateId , params Guid[] equipmentId) {
             ExpTemplate obj = Context.ExpTemplates.Find(exptemplateId);
             if (null != obj) {
@@ -60,6 +75,17 @@ namespace TSS.BLL
                 }
                 Context.SaveChanges();
             }
+        }
+
+        /// <summary>
+        /// 根据ID，标题搜索试验报告模板
+        /// </summary>
+        /// <param name="idOrTitle"></param>
+        /// <returns></returns>
+        public IList<ExpTemplate> Search(string idOrTitle) {
+            return Context.ExpTemplates
+                .Where(p => p.Id.ToString().Equals(idOrTitle) || p.Title.Contains(idOrTitle))
+                .ToList();
         }
     }
 }

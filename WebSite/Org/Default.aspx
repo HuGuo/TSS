@@ -11,6 +11,7 @@
     <script src="../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../scripts/Tip/jquery.tipTip.js" type="text/javascript"></script>
     <style type="text/css">
+        body{font-size:12px;margin:0;padding:0; font-family:微软雅黑 Verdana Georgia;}
         .OrgNode
         {
             font-size: 12px;
@@ -25,7 +26,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <cc1:OrgChart ID="OrgChart1" runat="server" ChartStyle="Vertical" ImageFolder="/" />
+    <cc1:OrgChart ID="OrgChart1" runat="server" ChartStyle="Vertical" 
+        ImageFolder="/" LineColor="Black"  />
     </form>
 </body>
 </html>

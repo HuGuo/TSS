@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link rel="Stylesheet" type="text/css" href="~/scripts/jquery-easyui/themes/icon.css" />
+    <link href="~/Styles/Toolbar.css" rel="Stylesheet" type="text/css" />
+    <link href="~/Styles/Content.css" rel="Stylesheet" type="text/css" />
     <script type="text/javascript" src="<%= ResolveUrl("~/Scripts/jquery-1.6.1.min.js") %>"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>

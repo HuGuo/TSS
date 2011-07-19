@@ -7,17 +7,19 @@
     <link rel="stylesheet" type="text/css"  href="~/Styles/_base.css"/>
     <script src="../scripts/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
     <style type="text/css">
-    .rounded-img {
-	display: inline-block;
-	border: solid 1px #000;
-	overflow: hidden;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-	box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
-}
+        .rounded-img
+        {
+            display: inline-block;
+            border: solid 1px #000;
+            overflow: hidden;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            border-radius: 10px;
+            -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+            -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .4);
+        }
+        
     </style>
 </head>
 <body>
@@ -140,12 +142,30 @@
                 &nbsp;
             </td>
             <td>
-                <asp:Button ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" class="btn" />
+                <asp:LinkButton ID="btnSave" runat="server" Text="保存" OnClick="btnSave_Click" class="big button"
+                    OnClientClick="javascript:return checkNull(['txtReceiveDate', 'txtExpireDate'])"><span class="check icon"></span> 保 存</asp:LinkButton>
             </td>
             <td>
                 &nbsp;</td>
         </tr>
     </table>
+    <asp:HiddenField ID="Hscan" runat="server" />
     </form>
 </body>
 </html>
+<script type="text/javascript">
+    function checkNull(o) {
+        for (var i = 0; i < o.length; i++) {
+            var obj = document.getElementById(o[i]);
+            if (obj) {
+                if (obj.value == "") {
+                    obj.style.borderColor = "red";
+                    obj.focus();
+                    alert("信息不完整");
+                    return false;
+                }
+            }
+        }
+    }
+        
+</script>

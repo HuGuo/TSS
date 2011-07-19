@@ -1,4 +1,5 @@
-﻿body {
+﻿@import url("css3button.css");
+body {
     margin: 0;
     font-size: 12px;
     min-height: 100%;
@@ -26,7 +27,7 @@ a{ text-decoration:none;}
 #toolbar {
     height: 30px;
     width: 100%;
-    background: url(../images/toolbarbg.gif) repeat-x scroll bottom right;
+    background:#FFF url(../images/toolbarbg.gif) repeat-x scroll bottom right;
     top: 0;
 }
 .fixed 
@@ -43,7 +44,7 @@ a{ text-decoration:none;}
     line-height: 28px;
     letter-spacing: 2px;
 }
-#toolbar a:hover {
+#toolbar a:hover,#toolbar a.hover {
     background: #33ADDB url(../images/hover.gif) repeat-x;
     border: 1px solid #1E90FF;
     color: #FFFFFF;

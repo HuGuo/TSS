@@ -5,7 +5,6 @@ PrecompiledWeb/
 /packages/
 [Aa]ttachment/
 packages.config
-[Ww]eb.config
 *.sdf
 *.docstates
 *.suo
@@ -16,8 +15,8 @@ packages.config
 *.vsp
 *.psess
 *.sql
+*.psd
 *[Tt]est*
 *.BASE
 *.LOCAL
 *.REMOTE
-.gitconfig

@@ -5,12 +5,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>设置模板</title>
+    <link href="../../experiment/experiment.css" rel="stylesheet" type="text/css" />
+    <!--jQuery-->
+    <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
+    <!--easyui 1.2.3-->
+    <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
     <link href="../../scripts/jquery-easyui/themes/gray/menu.css" rel="stylesheet" type="text/css" />
     <link href="../../scripts/jquery-easyui/themes/icon.css" rel="stylesheet" type="text/css" />
-    <link href="../../experiment/experiment.css" rel="stylesheet" type="text/css" />
-    <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
-    <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <!--easyui-menu 1.2.4-->
     <script src="../../scripts/jquery-easyui/plugins/jquery.menu.js" type="text/javascript"></script>
+
     <script src="../../scripts/jquery.simpleExcel.js" type="text/javascript"></script>    
 </head>
 <body>
@@ -24,12 +28,13 @@
         </asp:DropDownList>
         <input type="button" id="btnSave" value="保存模板" />
     </div>
-    <div id="dtb" style="margin-top: 31px;">
+    <!--excel content-->
+    <div id="dtb" style="margin-top: 33px;">
         <asp:Literal ID="ltHTML" runat="server"></asp:Literal></div>
     <input id="txt_hidden_cid" type="hidden" value="<%=Request.QueryString["tid"] %>" />
     <input id="txt_hidden_sp" type="hidden" value="<%=Request.QueryString["s"] %>" />
     </form>
-    
+    <!--context menu-->
     <div id="ct_menu" class="easyui-menu" style="width: 120px;">
         <div onclick="javascript:$.simpleExcel.clearCell()">
             清空</div>
@@ -51,7 +56,7 @@
                 <div onclick="javascript:$.simpleExcel.setStyle({textAlign:'right'});">
                     右对齐</div>
                 <div onclick="javascript:$.simpleExcel.setStyle({fontWeight:'700'});">
-                    加 粗</div>
+                    <b>加 粗</b></div>
             </div>
         </div>
         <div>
@@ -65,6 +70,21 @@
                     删除 行</div>
                 <div onclick="javascript:$.simpleExcel.removeColumn();">
                     删除 列</div>
+            </div>
+        </div>
+        <div class="menu-sep"></div>
+        <div>
+            <span>Mark</span>
+            <div style="width: 100px;">
+                <div onclick="javascript:$.simpleExcel.mark('{#}');"><b>{#}</b></div>
+                <div onclick="javascript:$.simpleExcel.mark('{##}');">
+                    <b>{##}</b></div>
+                <div onclick="javascript:$.simpleExcel.mark('{d}');">
+                    <b>{d}</b></div>
+                <div onclick="javascript:$.simpleExcel.mark('{time}');">
+                    <b>{time}</b></div>
+                <div onclick="javascript:$.simpleExcel.mark('{t}');">
+                    <b>{t}</b></div>
             </div>
         </div>
     </div>
@@ -110,10 +130,10 @@
                 if (json.msg) {
                     alert(json.msg);
                 } else {
-                    document.location.href = "default.aspx";
-                    //                    document.location.href = "success.aspx?id=" + json.id;
-                    //                    alert("操作成功");
-                    //                    window.close();
+                    //document.location.href = "default.aspx";
+                    //document.location.href = "success.aspx?id=" + json.id;
+                    alert("操作成功");
+                    window.close();
                 }
             });
         });

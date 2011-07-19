@@ -9,11 +9,12 @@ public partial class Experiment_data : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        //试验曲线图数据源
         Response.ContentType = "text/xml;";
         Response.ContentEncoding = System.Text.Encoding.GetEncoding("GB2312");
         DateTime? stime = null;
         DateTime? etime = null;
-        string qStime = Request.QueryString["stime"];
+        string qStime = Request.QueryString["stime"];//
         string qEtime = Request.QueryString["etime"];
         if (!string.IsNullOrWhiteSpace(qStime)) {
             stime = DateTime.Parse(qStime);
@@ -21,19 +22,33 @@ public partial class Experiment_data : System.Web.UI.Page
         if (!string.IsNullOrWhiteSpace(qEtime)) {
             etime = DateTime.Parse(qEtime);
         }
-        string coord = Request.QueryString["coord"];
-        IList<ChartData> list = RepositoryFactory<ExperimentRepository>.Get().GetChartData(coord, stime, etime);
+        //指定设备
+        string eqs = Request.QueryString["eqs"];
+        string[] arry = { };
+        if (!string.IsNullOrWhiteSpace(eqs)) {
+            string _split = Request.QueryString["split"];
+            char split = string.IsNullOrWhiteSpace(_split) ? ';' : _split[0];
+            arry = eqs.Split(split);
+        }
+        
+        string coord = Request.QueryString["coord"];//试验报告模板 坐标ID
+        IList<ChartData> list = RepositoryFactory<ExperimentRepository>.Get().GetChartData(coord, stime, etime,arry);
+        //合格次数
+        int passed = list.Count(p => p.ExpResult == 1);
+        int listCount = list.Count;
         //string caption = Server.UrlEncode(Server.UrlDecode(Request.QueryString["t"]));
         //string subCaption = "";
-        int numVisiblePlot = 12;
+        int numVisiblePlot = 12;//可见点数，超过12显示滚动条
         int showValues = 1;
         string clickURL = Server.UrlEncode("n-experiment.aspx?id=");
         string xAxisName = "试验日期";
         string yAxisName = "";
         string tooltip = "{0}<BR>result:{1} <BR>value:{2}";
-        string[] labelDisplay = { "WRAP", "STAGGER", "ROTATE", "NONE" };
+        string[] labelDisplay = { "WRAP", "STAGGER", "ROTATE", "NONE" };//新坐标 时间显示方式
         
         XElement chart =new XElement("chart",
+            new XAttribute("baseFont" , "Verdana") ,
+            new XAttribute("baseFontSize" , "12") ,
             new XAttribute("numVisiblePlot", numVisiblePlot),
             //new XAttribute("imageSave" , 1) ,
             //new XAttribute("imageSaveURL" , "../FusionCharts/FusionChartsSave.aspx") ,
@@ -52,6 +67,7 @@ public partial class Experiment_data : System.Web.UI.Page
                                            new XAttribute("label", p.ExpDate.ToString("yyyy/MM/dd"))
                                            )),
             new XElement("dataset",
+                new XAttribute("seriesName" , string.Format("合格：{0}，不合格：{1}，试验次数：{2}",passed,listCount-passed,listCount)) ,
                 new XAttribute("color", "FF0080"),
                 new XAttribute("anchorBorderColor", "FF0080"), from p in list
                                                                select new XElement("set",
@@ -67,7 +83,7 @@ public partial class Experiment_data : System.Web.UI.Page
         XElement styleElement = XElement.Parse(style);
         chart.Add(styleElement);
         Response.Write("<?xml version=\"1.0\" encoding=\"gb2312\"?>");
-        Response.Write(chart.ToString().Replace("\"","'"));
+        Response.Write(chart.ToString().Replace("\"","'"));//数据源xml 使用单引号
         Response.End();
     }
 }

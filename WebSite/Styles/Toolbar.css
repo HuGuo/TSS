@@ -1,0 +1,55 @@
+@import url(Reset.css);
+
+#toolbar {
+    background: url(../Images/bg.png) repeat-x 0 -74px;
+    height: 26px;
+    width: 100%;
+}
+
+#toolbar.fixed {
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+}
+
+#toolbar #search {
+    border: 1px solid #d5d5d5;
+    margin-right: 2px;    
+    margin-top: 1px;
+    float: right;
+}
+
+#toolbar #search input {
+    border: none;
+}
+
+#toolbar #search input[type="text"] {
+    background: url(../images/toolbar_search.png) no-repeat;
+    padding-left: 20px;
+    height: 20px;
+    float: left;
+}
+
+#toolbar #search input[type="button"], #toolbar #search input[type="submit"] {
+    background: url(../images/toolbar_search.png) no-repeat 0 -20px;
+    margin-right: -1px;    
+    margin-top: -1px;
+    height: 22px;
+    width: 54px;
+    float: right;
+}
+    
+#toolbar a {
+    line-height: 26px;
+    padding: 5px;
+    letter-spacing: 2px;
+    font-weight: bolder;
+    font-size: 14px;
+    color: #626262;    
+}
+
+#toolbar a:hover {
+    background: url(../images/bg.png) repeat-x 0 -108px;
+    color: #FFFFFF;
+}

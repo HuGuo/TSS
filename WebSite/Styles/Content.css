@@ -1,0 +1,79 @@
+@import url(Reset.css);
+
+#content {
+    padding-left: 5px;
+    padding-top: 5px;
+}
+
+#content.fixed {
+    margin-top: 26px;
+}
+
+#content table {
+    border-left: 1px solid #BBB;
+    border-top: 1px solid #BBB;
+    border-spacing: 0;
+}
+
+#content table.list {
+    width: 98%;
+}
+
+#content td, #content th {
+    border-bottom: 1px solid #BBB;
+    border-right: 1px solid #BBB;
+    border-left: 1px solid #FFF;
+    border-top: 1px solid #FFF;
+    vertical-align: middle;
+    white-space: nowrap;
+    line-height: 20px;
+}
+
+#content th {
+    background: #CBCBCB;
+    font-size: 12px;
+}
+
+#content td {
+    font-size: 14px;
+    padding: 2px;
+}
+
+#content thead th {
+    text-align: center;
+    font-size: 12px;
+}
+
+#content tbody th {
+    padding-right: 5px;
+    padding-left: 10px;
+    text-align: right;
+}
+
+#content tfoot {
+    text-align: center;
+}
+
+#content td > input[type="text"] {
+    border: 1px solid lightGrey;
+    background-color: #EFEFEF;
+    height: 19px;
+    width: 127px;
+}
+
+#content td > select {
+    height: 22px;
+    width: 130px;
+}
+
+#content tfoot input[type="button"], #content tfoot input[type="submit"] {
+    background: url(../Images/button.gif);
+    border: none;
+    height: 22px;
+    width: 73px;
+    margin: 3px;
+}
+
+#content .dialog table {
+    width: 100%;
+}

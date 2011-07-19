@@ -1,9 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using TSS.Models;
-using System;
 
 namespace TSS.BLL
 {
@@ -72,14 +71,6 @@ namespace TSS.BLL
         public bool IsExists(object id)
         {
             return null != Get(id);
-        }
-
-        public virtual IList<TEntity> PageOf(int pageIndex, int pageSize, out int rowCount)
-        {
-            int skipCount = pageSize * (pageIndex - 1);
-            rowCount = Context.Set<TEntity>().Count();
-            var query = Context.Set<TEntity>().AsNoTracking().Skip(skipCount).Take(pageSize);
-            return query.ToList();
         }
     }
 }
