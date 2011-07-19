@@ -22,9 +22,9 @@ public partial class SupervisionNews_SupervisionNewsAdd : System.Web.UI.Page
             {
                 Author = "",
                 ReleaseTime = DateTime.Now,
-                SupervisionNewId = int.Parse(Request.QueryString["s"]),
+                SupervisionNewTypeId = int.Parse(Request.QueryString["s"]),
                 Title = tbTitle.Text,
-                Content = ckeContent.Text
+//                Content = ckeContent.Text
             });
         Response.Redirect("default.aspx");
     }

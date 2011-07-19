@@ -48,7 +48,7 @@ public partial class UserControl_MaintenanceExpControl : System.Web.UI.UserContr
         }
         set
         {
-            tbNextTime.Text = value.NextExpTime.ToString("yyyy-MM-dd");
+            tbNextTime.Text = value.NextExpTime.Value.ToString("yyyy-MM-dd");
             hdMaintenanceCycleId.Value = value.MaintenanceCycleId.ToString();
             tbLastTime.Text = value.LastExpTime.HasValue ? value.LastExpTime.Value.ToString("yyyy-MM-dd") : "";
             ddlExperiment.SelectedValue = value.ExperimentId.ToString();//绑定试验报告，绑定未确定
