@@ -66,7 +66,7 @@ $(document).ready(function () {
         $("#upDemo").uploadify({
             'uploader': '../uploadify/uploadify.swf',
             'cancelImg': '../uploadify/cancel.png',
-            'script': 'upload.ashx',
+            'script': '../upload.ashx',
             'scriptData': { op: "file", s: cfg.s, pid: cfg.pid },
             'multi': true,
             'auto': false,

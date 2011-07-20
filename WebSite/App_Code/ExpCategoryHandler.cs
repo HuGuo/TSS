@@ -25,11 +25,17 @@ public class ExpCategoryHandler:IHttpHandler
                 case "xml":
                     ResponseTreeHTML(context);
                     break;
-                case "delte":
+                case "delete":
                     DeleteCategory(context);
                     break;
                 case "rename":
                     RenameCategory(context);
+                    break;
+                case "add":
+                    Add(context);
+                    break;
+                default:
+                    context.Response.Write("{\"msg\":\"无效参数\"}");
                     break;
             }
         }
@@ -66,12 +72,31 @@ public class ExpCategoryHandler:IHttpHandler
             ExpCategory obj= RepositoryFactory<ExpCategoryRepository>.Get().Get(new Guid(id));
             if (null !=obj) {
                 obj.Name = name;
-                RepositoryFactory<ExpCategoryRepository>.Get().Update(obj);
+                RepositoryFactory<ExpCategoryRepository>.Get().Update(obj.Id,obj);
             } else {
                 context.Response.Write(Helper.NULLOBJECT);
             }
         } catch (Exception ex) {
             context.Response.Write(ex.Message);
+        }
+    }
+
+    void Add(HttpContext context) {
+        context.Response.ContentType = "application/json; charset=utf-8";
+        string pid = context.Request["pid"];
+        string name = context.Request["name"];
+        string s = context.Request["s"];
+        try {
+            ExpCategory obj = new ExpCategory {
+                Id = new Guid() ,
+                Name = context.Server.UrlDecode(name) ,
+                ParentId = string.IsNullOrWhiteSpace(pid) ? null : (Guid?)new Guid(pid) ,
+                SpecialtyId = s
+            };
+            RepositoryFactory<ExpCategoryRepository>.Get().Add(obj);
+            context.Response.Write("{\"id\":\"" + obj.Id.ToString() + "\"}");
+        } catch (Exception ex) {
+            context.Response.Write("{\"msg\":\""+ex.Message+"\"}");
         }
     }
     #endregion
