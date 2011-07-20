@@ -19,6 +19,7 @@
         #tblist tr.color1 td
         {
             background-color: #FFA07A; color:inherit;
+            border-bottom:1px solid #FFF;
         }
         #tblist tr.color2 td
         {

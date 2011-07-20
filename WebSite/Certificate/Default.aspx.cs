@@ -8,10 +8,12 @@ using TSS.Models;
 using TSS.BLL;
 public partial class Certificate_Default : BasePage
 {
-    protected void Page_Load(object sender, EventArgs e)
-    {
+    bool v = false;
+    protected void Page_Load(object sender, EventArgs e) {
+        string s = Request.QueryString["s"];
+        v = !string.IsNullOrEmpty(s);
         if (!IsPostBack) {
-            string s = Request.QueryString["s"];
+            
             IList<Certificate> list = null;
             if (string.IsNullOrWhiteSpace(s)) {
                 list=RepositoryFactory<CertificateRepository>.Get().GetAll();
@@ -22,7 +24,7 @@ public partial class Certificate_Default : BasePage
                 linkAdd.Visible = true;
             }
             
-            rptList.DataSource = list;
+            rptList.DataSource = list.OrderByDescending(P=>P.ReceiveDateTime);
             rptList.DataBind();
         }
     }
@@ -36,8 +38,16 @@ public partial class Certificate_Default : BasePage
     }
     protected void rptList_ItemDataBound(object sender , RepeaterItemEventArgs e) {
         if (e.Item.ItemType== ListItemType.AlternatingItem || e.Item.ItemType== ListItemType.Item) {
-            RControls.Add(new RControl(Action.CUD , e.Item.FindControl("linkEdit")));   
-            RControls.Add(new RControl(Action.CUD , e.Item.FindControl("linkDel")));
+            var edit=e.Item.FindControl("linkEdit");
+            if (null !=edit) {
+                edit.Visible = v;
+            }
+            var del=e.Item.FindControl("linkDel");
+            if (null !=del) {
+                del.Visible = v;
+            }
+            RControls.Add(new RControl(Action.CUD , edit));   
+            RControls.Add(new RControl(Action.CUD , del));
         }
     }
 

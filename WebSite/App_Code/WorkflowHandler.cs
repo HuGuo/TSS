@@ -91,4 +91,29 @@ public class WorkflowHandler:IHttpHandler
             context.Response.Write(ex.Message);
         }
     }
+
+    //audit
+    void Audit(HttpContext context) {
+        if (!context.User.Identity.IsAuthenticated) {
+            context.Response.Write("无操作权限");
+            return;
+        }
+        string signerId = context.User.Identity.Name;
+        string doId = context.Request["todoId"];
+        string tag = context.Request["tag"];
+        string result = context.Request["result"];
+        try {
+            using (WFContext db=new WFContext()) {
+                Signer s = new Signer {
+                    Id = signerId ,
+                    signResult = (SignResult)int.Parse(result) ,
+                    SignTime = DateTime.Now ,
+                    Tag = context.Server.UrlDecode(tag)
+                };
+                RepositoryFactory<WFInstanceRepository>.Get().Sign(doId , s , db);
+            }
+        } catch (Exception ex) {
+            context.Response.Write(ex.Message);
+        }
+    }
 }
