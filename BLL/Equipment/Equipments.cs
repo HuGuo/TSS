@@ -67,5 +67,86 @@ namespace TSS.BLL
                 }
             }
         }
+
+        private Equipment Get(string id)
+        {
+            Equipment result = null;
+
+            Guid equipmentId;
+            if (Guid.TryParse(id, out equipmentId)) {
+                return Get(equipmentId);
+            }
+
+            return result;
+        }
+
+        #region EquipmentDetail
+        public IList<EquipmentDetail> GetDetails(Guid equipmentId)
+        {
+            IList<EquipmentDetail> result = null;
+
+            var e = Get(equipmentId);
+            if (e != null && e.EquipmentDetails != null) {
+                result = e.EquipmentDetails.ToList();
+            }
+
+            return result;
+        }
+
+        public void AddDetail(Guid equipmentId, string lable, string value)
+        {
+            var e = Get(equipmentId);
+            if (e != null) {
+                e.EquipmentDetails.Add(new EquipmentDetail {
+                    Lable = lable,
+                    Value = value
+                });
+
+                Update(e);
+            }
+        }
+
+        public void RemoveDetail(Guid equipmentId, int id)
+        {
+            var e = Get(equipmentId);
+            if (e != null && e.EquipmentDetails != null) {
+                var d = e.EquipmentDetails.SingleOrDefault(o => o.Id == id);
+                if (d != null) {
+                    e.EquipmentDetails.Remove(d);
+
+                    Update(e);
+                }
+            }
+        }
+
+        public void UpdateDetail(Guid equipmentId, int id, string lable, string value)
+        {
+            var e = Get(equipmentId);
+            if (e != null && e.EquipmentDetails != null) {
+                var d = e.EquipmentDetails.SingleOrDefault(o => o.Id == id);
+                if (d != null) {
+                    d.Lable = lable;
+                    d.Value = value;
+
+                    Update(e);
+                }
+            }
+        }
+
+        public string GetDetailValue(string equipmentId, string lable)
+        {
+            string result = string.Empty;
+
+            var e = Get(equipmentId);
+            if (e != null && e.EquipmentDetails != null) {
+                var d = e.EquipmentDetails.FirstOrDefault(o => o.Lable == lable);
+                if (d != null) {
+                    result = d.Value;
+                }
+            }
+
+            return result;
+        }
+        #endregion
     }
 }

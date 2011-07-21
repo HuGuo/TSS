@@ -48,7 +48,6 @@
     <Compile Include="ComprehensiveReport\IndicatorRepository.cs" />
     <Compile Include="ComprehensiveReport\SpecialtyAnalysisRepository.cs" />
     <Compile Include="Employees.cs" />
-    <Compile Include="Equipment\EquipmentDetails.cs" />
     <Compile Include="Equipment\Equipments.cs" />
     <Compile Include="DocumentRepository.cs" />
     <Compile Include="Equipment\EquipmentCategories.cs" />
