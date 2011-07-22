@@ -18,7 +18,12 @@ public partial class SupervisionNews_SupervisionNewsEdit : System.Web.UI.Page
 
     public void BindData()
     {
-
+        using (var repository = RepositoryFactory<SupervisionNewRepository>.Get())
+        {
+            SupervisionNew supervisionNew = repository.Get(int.Parse(Request.QueryString["id"]));
+            tbTitle.Text = supervisionNew.Title;
+            ckeContent.Text = supervisionNew.Content;
+        }
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
@@ -27,7 +32,7 @@ public partial class SupervisionNews_SupervisionNewsEdit : System.Web.UI.Page
         {
             SupervisionNew supervisionNew = repository.Get(int.Parse(Request.QueryString["id"]));
             supervisionNew.Title = tbTitle.Text;
-//            supervisionNew.Content = ckeContent.Text;
+            supervisionNew.Content = ckeContent.Text;
             repository.Update(supervisionNew);
         }
         Response.Redirect("default.aspx");
