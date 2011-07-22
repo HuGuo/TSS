@@ -27,7 +27,7 @@ public partial class SupervisionNews_SupervisionNewsEdit : System.Web.UI.Page
         {
             SupervisionNew supervisionNew = repository.Get(int.Parse(Request.QueryString["id"]));
             supervisionNew.Title = tbTitle.Text;
-            supervisionNew.Content = ckeContent.Text;
+//            supervisionNew.Content = ckeContent.Text;
             repository.Update(supervisionNew);
         }
         Response.Redirect("default.aspx");

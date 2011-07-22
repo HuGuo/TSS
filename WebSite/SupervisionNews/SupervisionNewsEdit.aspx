@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ValidateAndUI.master" AutoEventWireup="true" CodeFile="SupervisionNewsEdit.aspx.cs" Inherits="SupervisionNews_SupervisionNewsEdit" %>
-<%@ Register assembly="CKEditor.NET" namespace="CKEditor.NET" tagprefix="CKEditor" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" Runat="Server">
@@ -16,8 +16,7 @@
 </tr>
 <tr>
 <td colspan="2">
-    <CKEditor:CKEditorControl  ID="ckeContent" runat="server">
-</CKEditor:CKEditorControl>
+
 </td>
 </tr>
 <tr><td colspan="2"><asp:Button runat="server" ID="btnSave" Text="保存" 
