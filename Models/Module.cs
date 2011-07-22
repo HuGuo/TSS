@@ -12,5 +12,7 @@ namespace TSS.Models
         public virtual Module ParentModule { get; set; }
 
         public virtual ICollection<Module> Submodules { get; set; }
+
+        public virtual ICollection<Specialty> Specialties { get; set; }
     }
 }
