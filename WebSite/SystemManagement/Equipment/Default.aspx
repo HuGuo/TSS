@@ -1,4 +1,4 @@
-﻿<%@ Page Title="设备管理" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="SystemManagement_Equipment_Default" %>
+<%@ Page Title="设备管理" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="SystemManagement_Equipment_Default" %>
 
 <asp:Content ContentPlaceHolderID="head" runat="Server">
   <link href="<%= ResolveUrl("~/Scripts/jquery-easyui/themes/gray/easyui.css") %>" rel="Stylesheet" type="text/css" />
@@ -8,7 +8,7 @@
   <script type="text/javascript">
     var toJson;
     $(function () {
-      toJson = Sys.Serialization.JavaScriptSerializer.serialize;
+      var toJson = Sys.Serialization.JavaScriptSerializer.serialize;
 
       common.initLayout("main", "left", "right", "设备类别", "设备列表");
 
@@ -47,7 +47,6 @@
     }
 
     function initDialogs() {
-
       var dialogs = $("#AddEquipmentDialog, #AddCategoryDialog, #DetailDialog");
       dialogs.each(function () {
         if (!$(this).data("dialog")) {
@@ -122,7 +121,7 @@
       }
       else {
         var parent = e.parent();
-        e.show().dialog({ title: title, modal: true, shadow: false }).parent().appendTo(parent);
+        e.show().dialog({ title: title, modal: true, shadow: false, width: 320 }).parent().appendTo(parent);
       }
     }
 
@@ -151,10 +150,6 @@
       width: 100%;
       padding: 0;
     }
-    
-    .dialog {
-      padding: 10px;
-    }
   </style>
 </asp:Content>
 <asp:Content ContentPlaceHolderID="body" runat="Server">
@@ -172,7 +167,7 @@
           <ContentTemplate>
             <asp:ListView ID="EquipmentListView" runat="server" DataSourceID="EquipmentDataSource" DataKeyNames="Id, EquipmentCategoryId" OnSelectedIndexChanged="EquipmentListView_SelectedIndexChanged">
               <LayoutTemplate>
-                <table>
+                <table class="list">
                   <thead>
                     <tr>
                       <th>
@@ -191,6 +186,7 @@
                         设备分类
                       </th>
                       <th>
+                        操作
                       </th>
                     </tr>
                   </thead>
@@ -244,7 +240,7 @@
               </EditItemTemplate>
             </asp:ListView>
             <div id="DetailDialog" class="dialog">
-              <asp:ListView ID="DetailListView" runat="server" InsertItemPosition="LastItem" DataSourceID="DetailDataSource" DataKeyNames="Id, EquipmentId" OnItemDeleting="DetailListView_ItemDeleting" OnItemEditing="DetailListView_ItemEditing" OnItemUpdating="DetailListView_ItemUpdating" OnItemInserting="DetailListView_ItemInserting">
+              <asp:ListView ID="DetailListView" runat="server" InsertItemPosition="LastItem" DataSourceID="DetailDataSource" DataKeyNames="Id" OnItemDeleting="DetailListView_ItemDeleting" OnItemEditing="DetailListView_ItemEditing" OnItemUpdating="DetailListView_ItemUpdating" OnItemInserting="DetailListView_ItemInserting">
                 <LayoutTemplate>
                   <table>
                     <thead>
@@ -303,7 +299,7 @@
                   </tr>
                 </EditItemTemplate>
                 <EmptyDataTemplate>
-                  <%= Helper.EmptyData %>
+                  <%= Helper.EMPTY_DATA %>
                 </EmptyDataTemplate>
               </asp:ListView>
             </div>
@@ -311,68 +307,76 @@
         </asp:UpdatePanel>
         <div id="AddEquipmentDialog" class="dialog">
           <table>
-            <tr>
-              <th>
-                设备类别
-              </th>
-              <td>
-                <asp:TextBox ID="EquipmentCategoryTextBox" runat="server" ClientIDMode="Static" />
-              </td>
-            </tr>
-            <tr>
-              <th>
-                归属专业
-              </th>
-              <td>
-                <asp:DropDownList ID="SpecialtyDropDownList" runat="server" DataSourceID="SpecialtyDataSource" DataTextField="Name" DataValueField="Id" />
-              </td>
-            </tr>
-            <tr>
-              <th>
-                设备名称
-              </th>
-              <td>
-                <asp:TextBox ID="EquipmentNameTextBox" runat="server" />
-              </td>
-            </tr>
-            <tr>
-              <th>
-                设备编号
-              </th>
-              <td>
-                <asp:TextBox ID="EquipmentCodeTextBox" runat="server" />
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2" style="text-align: center">
-                <asp:Button ID="AddEquipmentButton" runat="server" Text="添加" OnClick="AddEquipmentButton_Click" />
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>
+                  设备类别
+                </th>
+                <td>
+                  <asp:TextBox ID="EquipmentCategoryTextBox" runat="server" ClientIDMode="Static" />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  归属专业
+                </th>
+                <td>
+                  <asp:DropDownList ID="SpecialtyDropDownList" runat="server" DataSourceID="SpecialtyDataSource" DataTextField="Name" DataValueField="Id" />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  设备名称
+                </th>
+                <td>
+                  <asp:TextBox ID="EquipmentNameTextBox" runat="server" />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  设备编号
+                </th>
+                <td>
+                  <asp:TextBox ID="EquipmentCodeTextBox" runat="server" />
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2">
+                  <asp:Button ID="AddEquipmentButton" runat="server" Text="添加" OnClick="AddEquipmentButton_Click" />
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
         <div id="AddCategoryDialog" class="dialog">
           <table>
-            <tr>
-              <th>
-                父类别
-              </th>
-              <td>
-                <asp:TextBox ID="ParentCategoryTextBox" runat="server" ClientIDMode="Static" />
-              </td>
-            </tr>
-            <tr>
-              <th>
-                类别名称
-              </th>
-              <td>
-                <asp:TextBox ID="CategoryNameTextBox" runat="server" ClientIDMode="Static" />
-              </td>
-            </tr>
-            <tr>
-              <td colspan="2" style="text-align: center">
-                <asp:Button ID="AddCategoryButton" runat="server" Text="添加" OnClick="AddCategoryButton_Click" />
-              </td>
-            </tr>
+            <tbody>
+              <tr>
+                <th>
+                  父类别
+                </th>
+                <td>
+                  <asp:TextBox ID="ParentCategoryTextBox" runat="server" ClientIDMode="Static" />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  类别名称
+                </th>
+                <td>
+                  <asp:TextBox ID="CategoryNameTextBox" runat="server" ClientIDMode="Static" />
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2">
+                  <asp:Button ID="AddCategoryButton" runat="server" Text="添加" OnClick="AddCategoryButton_Click" />
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
@@ -384,10 +388,19 @@
       <asp:Parameter Name="specialtyId" />
     </SelectParameters>
   </asp:ObjectDataSource>
-  <asp:ObjectDataSource ID="DetailDataSource" runat="server" SelectMethod="GetList" InsertMethod="Add" DeleteMethod="Delete" UpdateMethod="Update" TypeName="TSS.BLL.EquipmentDetails" DataObjectTypeName="TSS.Models.EquipmentDetail">
+  <asp:ObjectDataSource ID="DetailDataSource" runat="server" SelectMethod="GetDetails" InsertMethod="AddDetail" DeleteMethod="RemoveDetail" UpdateMethod="UpdateDetail" TypeName="TSS.BLL.Equipments">
     <SelectParameters>
       <asp:ControlParameter Name="equipmentId" ControlID="EquipmentListView" PropertyName='SelectedDataKey["Id"]' />
     </SelectParameters>
+    <InsertParameters>
+      <asp:ControlParameter Name="equipmentId" ControlID="EquipmentListView" PropertyName='SelectedDataKey["Id"]' />
+    </InsertParameters>
+    <DeleteParameters>
+      <asp:ControlParameter Name="equipmentId" ControlID="EquipmentListView" PropertyName='SelectedDataKey["Id"]' />
+    </DeleteParameters>
+    <UpdateParameters>
+      <asp:ControlParameter Name="equipmentId" ControlID="EquipmentListView" PropertyName='SelectedDataKey["Id"]' />
+    </UpdateParameters>
   </asp:ObjectDataSource>
   <asp:ObjectDataSource ID="SpecialtyDataSource" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Specialties"></asp:ObjectDataSource>
 </asp:Content>

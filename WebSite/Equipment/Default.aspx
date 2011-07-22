@@ -1,4 +1,4 @@
-﻿<%@ Page Title="设备台帐" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Equipment_Default" %>
+<%@ Page Title="设备台帐" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Equipment_Default" %>
 
 <asp:Content ContentPlaceHolderID="head" runat="server">
   <link href="<%= ResolveUrl("~/Scripts/jquery-easyui/themes/gray/easyui.css") %>" rel="Stylesheet" type="text/css" />
@@ -75,7 +75,7 @@
             </tr>
           </ItemTemplate>
           <EmptyDataTemplate>
-            <%= Helper.EmptyData %>
+            <%= Helper.EMPTY_DATA %>
           </EmptyDataTemplate>
         </asp:ListView>
       </div>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TSS.BLL;
@@ -41,9 +41,6 @@ public partial class SystemManagement_Equipment_Default : System.Web.UI.Page
 
     protected void DetailListView_ItemInserting(object sender, ListViewInsertEventArgs e)
     {
-        e.Values.Add("Id", Guid.NewGuid());
-        e.Values.Add("EquipmentId", (Guid)EquipmentListView.SelectedDataKey["Id"]);
-
         OpenDetialDialog();
     }
 

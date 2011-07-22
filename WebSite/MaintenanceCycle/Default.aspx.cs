@@ -114,7 +114,7 @@ public partial class MaintenanceCycle_Default : BasePage
     {
         MaintenanceCycle maintenanceCycle = (MaintenanceCycle)obj;
         if (maintenanceCycle != null && maintenanceCycle.MaintenanceExperiments.Count > 0)
-            return maintenanceCycle.MaintenanceExperiments.Last().NextExpTime.ToString("yyyy-MM-dd");
+            return maintenanceCycle.MaintenanceExperiments.Last().NextExpTime.Value.ToString("yyyy-MM-dd");
         else
             return "";
     }
