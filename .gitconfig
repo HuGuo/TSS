@@ -1,0 +1,15 @@
+[diff]
+	guitool = kdiff3
+[difftool "kdiff3"]
+	path = c:/Program Files/KDiff3/kdiff3.exe
+	cmd = \"c:/Program Files/KDiff3/kdiff3.exe\" \"$LOCAL\" \"$REMOTE\"
+[core]
+	autocrlf = true
+	editor = vi
+[merge]
+	tool = kdiff3
+[mergetool "kdiff3"]
+	path = c:/Program Files/KDiff3/kdiff3.exe
+[user]
+	name = HuGuo
+	email = guohu2003@gmail.com
