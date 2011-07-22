@@ -6,6 +6,16 @@ namespace TSS.BLL
 {
     public class Employees : Repository<Employee>
     {
+        public IList<Employee> GetAll(int pageIndex,int pageSize,out int rowCount) {
+            rowCount = Context.Employees.Count();
+            int skip = GetSkip(pageIndex , pageSize , rowCount);
+            return Context.Employees
+                .OrderBy(p => p.Id)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToList();
+        }
+
         public bool ExistsCode(string code)
         {
             int count = Context.Employees.Count(p => p.Code.Equals(code));

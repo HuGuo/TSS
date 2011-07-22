@@ -1,0 +1,14 @@
+﻿.datasheet{ width:100%; margin:0px auto ;border-left:1px solid #669; border-top:1px solid #669;}
+.datasheet th{background-color:#ddd;border-top:1px solid #eef;border-left:1px solid #eef;border-right:1px solid #999;border-bottom:1px solid #999;color:#003;font-size:0.9em;font-weight:700;text-align:left;padding:3px;}
+.datasheet tr{vertical-align:top;}
+
+.datasheet_row th{width:20px;color:#222; padding-right:5px; text-align:right; vertical-align:middle;}
+.datasheet_row td{padding-left:10px; line-height:23px;border-right:1px solid #999;border-bottom:1px solid #999; background-color:#FFF; text-align:left;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+tr.selected_row td,tr.selected_row th{ background-color:#B7DBFF;}
+tr.selected_row th{ background:#B7DBFF url(../Scripts/jquery-easyui/themes/gray/images/pagination_next.gif) no-repeat scroll -2px 3px;}
+.hover_row td,.hover_row th{ background-color:#FFEFD5;}
+.center_cell{ text-align:center;}
+.right_cell{ text-align:right;}
+.wrap{ width:100%;}
+.wrap_inner{ display:block; margin:10px;}
+.pagination{display: block; background: #efefef; border: 1px solid #ccc; margin-top:3px;}

@@ -7,26 +7,23 @@ namespace TSS.BLL
 {
     public class CertificateRepository : Repository<Certificate>
     {
-        public IList<Certificate> GetAll(CertificateStatus status,string specialtyId=null) {
-            return BuildQuery(status , specialtyId).ToList();
+        public IList<Certificate> GetList(CertificateStatus status,string specialtyId) {
+            return BuildQuery(Context,status , specialtyId).ToList();
         }
 
-        public IList<Certificate> GetAll(CertificateStatus status,int pageNo,int pageSize,out int rowCount,string specialtyId=null) {
-            var query = BuildQuery(status , specialtyId);
+        public IList<Certificate> GetList(CertificateStatus status,string specialtyId,int pageIndex,int pageSize,out int rowCount) {
+            var query = BuildQuery(Context,status , specialtyId);
             rowCount = query.Count();
-            int skip = (pageNo - 1) * pageSize;
-            if (skip<0) {
-                skip = 0;
-            }
-            return query
-                .OrderBy(p=>p.Id)
+            int skip = GetSkip(pageIndex , pageSize , rowCount);
+            return query.OrderByDescending(p => p.ReceiveDateTime)
+                .ThenBy(p => p.Id)
                 .Skip(skip)
                 .Take(pageSize)
                 .ToList();
         }
 
-        IQueryable<Certificate> BuildQuery(CertificateStatus status,string specialtyId) {
-            var query = Context.Certificates.AsQueryable();
+        IQueryable<Certificate> BuildQuery(Context db,CertificateStatus status,string specialtyId) {
+            var query = db.Certificates.AsQueryable();
             if (!string.IsNullOrWhiteSpace(specialtyId)) {
                 query = query.Where(p => p.SpecialtyId.Equals(specialtyId));
             }
@@ -35,13 +32,14 @@ namespace TSS.BLL
                 case CertificateStatus.All:
                     break;
                 case CertificateStatus.Normal:
-                    query = query.Where(p => p.ExpireDateTime.CompareTo(now) >= 0);
+                    query = query.Where(p => p.ExpireDateTime >= now);
                     break;
                 case CertificateStatus.UpComing:
-                    query = query.Where(p => (p.ExpireDateTime - now).Days <= 30);
+                    DateTime t2 = now.AddDays(30);
+                    query = query.Where(p => (p.ExpireDateTime <= t2 && p.ExpireDateTime >=now));
                     break;
                 case CertificateStatus.Expired:
-                    query = query.Where(p => p.ExpireDateTime.CompareTo(now) < 0);
+                    query = query.Where(p => p.ExpireDateTime < now);
                     break;
             }
             return query;

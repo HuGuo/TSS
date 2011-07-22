@@ -29,7 +29,7 @@
 </body>
 </html>
 <script type="text/javascript">
-    var s = '<%=Request.QueryString["s"] %>',
+    var s = '<%=Request.QueryString[Helper.queryParam_specialty] %>',
           href = "explist.aspx";
     $(function () {
         //load tree

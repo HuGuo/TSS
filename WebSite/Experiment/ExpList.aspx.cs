@@ -13,7 +13,7 @@ public partial class Experiment_ExpList : System.Web.UI.Page
         //RegScripts("scripts" , "jquery-1.6.1.min.js" , "jquery-easyui/jquery.easyui.min.js");
         if (!IsPostBack) {
             string categoryId = Request.QueryString["category"];
-            string s = Request.QueryString["s"];
+            string s = Request.QueryString[Helper.queryParam_specialty];
             if (!string.IsNullOrWhiteSpace(categoryId)) {
                 //加载分类下设备
                 rptEqipmentList.DataSource= TSS.BLL.RepositoryFactory<Equipments>.Get().GetList(categoryId, s);
@@ -29,7 +29,7 @@ public partial class Experiment_ExpList : System.Web.UI.Page
             //加载本专业模板
             
             if (!string.IsNullOrWhiteSpace(s)) {
-                IList<TSS.Models.ExpTemplate> list = RepositoryFactory<ExpTemplateRepository>.Get().GetBySpecialty(s);
+                IList<TSS.Models.ExpTemplate> list = RepositoryFactory<ExpTemplateRepository>.Get().GetList(TemplateStatus.Enable , s);
                 rptTmpList.DataSource = list;
                 rptTmpList.DataBind();
                 rptlist2.DataSource = list;

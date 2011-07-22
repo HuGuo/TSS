@@ -13,7 +13,7 @@ namespace TSS.Models
         public string HTML { get; set; }
         public string SpecialtyId { get; set; }
         public virtual Specialty Specialty { get; set; }
-        public int IsDEL { get; set; }
+        public int Enable { get; set; }
 
         public Guid? ExpCategoryId { get; set; }
         public virtual ExpCategory Expcategory { get; set; }

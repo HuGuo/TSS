@@ -25,7 +25,7 @@
 <body>
     <form id="form1" runat="server" style="padding-top:32px;">
     <div id="toolbar" class="fixed">
-    <%--<a href="RecordDefault.aspx?s=<%=Request.QueryString["s"] %>">试验台帐</a>--%>
+    <%--<a href="RecordDefault.aspx?s=<%=Request.QueryString[Helper.queryParam_specialty] %>">试验台帐</a>--%>
     <a class="dg" href="#dg_win">填写试验报告</a>
     <a class="dg" href="#dg_win2">数据分析</a>
     </div>
@@ -137,7 +137,7 @@
 
         $("#tblist tr:gt(0)").alternateColor();
     });
-    var sp = '<%=Request.QueryString["s"] %>';
+    var sp = '<%=Request.QueryString[Helper.queryParam_specialty] %>';
 
     function goFillIn() {
         var tmpId = $("#tmplist :radio:checked").val();

@@ -33,7 +33,7 @@
 </body>
 </html>
 <script type="text/javascript">
-    var s = '<%=Request.QueryString["s"] %>';
+    var s = '<%=Request.QueryString[Helper.queryParam_specialty] %>';
     $(document).ready(function () {
         var query = escape("?s=" + s + "&category=");
         $("#expTree").load("../equipmentcategory.ashx?type=xml&dp=0&target=frm_explist&src=explist.aspx" + query, function (data) {

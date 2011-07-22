@@ -42,7 +42,7 @@
     </div>
     <div region="center">
         <div id="toolbar" class="nav">
-            <a href="Default.aspx">用户管理</a>
+            <a href="Default.aspx" class="active">返回用户管理</a>
             <input type="button" id="btnSave" class="btn" value="保存" style="float: right; margin-top: 3px;" />
         </div>
         <table id="tbrights" cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse;">
