@@ -27,10 +27,10 @@
             <asp:ListItem Value="0">不合格</asp:ListItem>
         </asp:DropDownList>
     </div>
-    <div id="dtb" style="margin-top: 31px;">
+    <div id="dtb" style="margin-top: 37px;">
         <asp:Literal ID="ltHTML" runat="server"></asp:Literal>
     </div>
-    <div style="position: fixed; top: 31px; right: 0; width: 250px; height: 500px">
+    <div style="position: fixed; top: 37px; right: 0; width: 250px; height: 500px">
         <div id="panel_equipmentInfo" title="设备信息" collapsible="true" style="height: 160px;
             overflow: auto;">
             <table cellpadding="0" cellspacing="0" style="width: 100%; border: 0;">

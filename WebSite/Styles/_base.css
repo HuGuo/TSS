@@ -2,16 +2,16 @@
 /* CSSTidy 1.2: Wed, 20 Jul 2011 20:39:07 +0800 */
 body{font-size:12px;min-height:100%;height:auto !important;margin:0;padding:0;}
 ul{list-style:none;margin:0;padding:0;}
-a{text-decoration:none;}
+a{text-decoration:none; color:#8F5700;}
 .btn{background:url(../images/btn_bg_short.gif) no-repeat left top;width:73px;height:22px;border:none;cursor:pointer;}
 .btnlong{background:url(../images/btn_bg.gif) no-repeat left top;width:106px;height:22px;border:none;cursor:pointer;}
 
-#toolbar{height:26px;width:100%;background:#FFF url(../Images/bg.png) repeat-x 0 -74px;top:0;}
+#toolbar{height:24px;width:100%;background:#FFF url(../Images/bg.png) repeat-x 0 -74px;top:0; padding-top:2px;}
 .fixed{position:fixed;z-index:123;}
-#toolbar a{color:#626262;font-weight:600;text-decoration:none;line-height:24px;letter-spacing:2px;margin:0;padding:5px 10px 4px;}
-#toolbar a:hover,#toolbar a.hover,#toolbar a.active{background:#33ADDB url(../images/hover.gif) repeat-x;border:1px solid #1E90FF;color:#FFF;}
+#toolbar a{color:#626262;text-decoration:none;line-height:22px;margin:1px;padding:2px 6px;}
+#toolbar a:hover,#toolbar a.hover,#toolbar a.active{background:#33ADDB url(../images/hover.gif) repeat-x;color:#FFF;}
 #toolbar .search input{background:url(../images/topchannel.png) no-repeat 0 0;}
-#toolbar .search{float:right;margin-top:2px;height:22px;line-height:22px;}
+#toolbar .search{float:right;height:22px;line-height:22px;}
 #toolbar .search .textbox{border:none;background-position:0 -39px;padding-left:20px;height:20px;line-height:20px;float:left;}
 #toolbar .search .searchbtn{background-position:0 -60px;width:54px;float:right;height:23px;margin-top:-1px;border-style:none;}
 .separator{ border-left:1px solid #CCC; border-right:1px solid #FFF; margin:2px 1px; display:inline;}

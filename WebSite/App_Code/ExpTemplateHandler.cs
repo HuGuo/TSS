@@ -53,6 +53,7 @@ public class ExpTemplateHandler:IHttpHandler
             string _title = context.Server.UrlDecode(context.Request["title"]);
             string _html = context.Server.UrlDecode(context.Request["html"]);
             string sp = context.Request["sp"];
+            string category=context.Request["category"];
             Guid guid;
             if (!string.IsNullOrWhiteSpace(_cid)) {
                 guid = new Guid(_cid);
@@ -64,6 +65,7 @@ public class ExpTemplateHandler:IHttpHandler
                 SpecialtyId = sp ,
                 HTML = _html ,
                 Title = _title,
+                ExpCategoryId=string.IsNullOrWhiteSpace(category)?null:(Guid?)new Guid(category)
             };
             bool exists = RepositoryFactory<ExpTemplateRepository>.Get().IsExists(guid);
             if (exists) {

@@ -23,7 +23,7 @@ public partial class UserControl_Pager : System.Web.UI.UserControl
         System.Text.StringBuilder script = new System.Text.StringBuilder();
         UrlManager p = new DefaultUrlManager(RecordCount , PageSize , Helper.queryParam_pagination);
 
-        if (p.PageCount > 1) {
+        if (p.PageCount > 0) {
             script.AppendLine("<script type=\"text/javascript\">");
         
             script.AppendLine("if (!window.jQuery) {\r");

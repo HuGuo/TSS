@@ -1,5 +1,5 @@
 ﻿/**
- * jQuery EasyUI 1.2.3
+ * jQuery EasyUI 1.2.4
  * 
  * Licensed under the GPL terms
  * To use it on other terms please contact us
@@ -84,9 +84,19 @@ function _11(_12){
 var _13=$(_c);
 for(var _14 in _12){
 var val=_12[_14];
+var rr=$("input[name="+_14+"][type=radio]",_13);
+$.fn.prop?rr.prop("checked",false):rr.attr("checked",false);
+var rv=$("input[name="+_14+"][type=radio][value=\""+val+"\"]",_13);
+$.fn.prop?rv.prop("checked",true):rv.attr("checked",true);
+var cc=$("input[name="+_14+"][type=checkbox]",_13);
+$.fn.prop?cc.prop("checked",false):cc.attr("checked",false);
+var cv=$("input[name="+_14+"][type=checkbox][value=\""+val+"\"]",_13);
+$.fn.prop?cv.prop("checked",true):cv.attr("checked",true);
+if(!rr.length&&!cc.length){
 $("input[name="+_14+"]",_13).val(val);
 $("textarea[name="+_14+"]",_13).val(val);
 $("select[name="+_14+"]",_13).val(val);
+}
 var cc=["combo","combobox","combotree","combogrid","datebox","datetimebox"];
 for(var i=0;i<cc.length;i++){
 _15(cc[i],_14,val);

@@ -8,13 +8,10 @@
     <link href="../../experiment/experiment.css" rel="stylesheet" type="text/css" />
     <!--jQuery-->
     <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
-    <!--easyui 1.2.3-->
+    <!--easyui-->
     <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
-    <link href="../../scripts/jquery-easyui/themes/gray/menu.css" rel="stylesheet" type="text/css" />
-    <link href="../../scripts/jquery-easyui/themes/icon.css" rel="stylesheet" type="text/css" />
-    <!--easyui-menu 1.2.4-->
-    <script src="../../scripts/jquery-easyui/plugins/jquery.menu.js" type="text/javascript"></script>
-
+    <link href="../../scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet"
+        type="text/css" />
     <script src="../../scripts/jquery.simpleExcel.js" type="text/javascript"></script>    
 </head>
 <body>
@@ -32,7 +29,7 @@
     <div id="dtb" style="margin-top: 33px;">
         <asp:Literal ID="ltHTML" runat="server"></asp:Literal></div>
     <input id="txt_hidden_cid" type="hidden" value="<%=Request.QueryString["tid"] %>" />
-    <input id="txt_hidden_sp" type="hidden" value="<%=Request.QueryString["s"] %>" />
+    <input id="txt_hidden_sp" type="hidden" value="<%=Request.QueryString[Helper.queryParam_specialty] %>" />
     </form>
     <!--context menu-->
     <div id="ct_menu" class="easyui-menu" style="width: 120px;">
@@ -93,6 +90,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var handlerUrl = "../../Exptemplate.ashx";
+        var category = '<%=Request.QueryString["category"] %>';
         $("#ct_menu").menu();
         $.simpleExcel._op.container = $("#dtb");
         //edit model
@@ -115,7 +113,8 @@
         });
 
         $("#btnSave").click(function () {
-            var q = { op: "save", tid: 0, sp: "", title: "", html: "" };
+            var q = { op: "save", tid: 0, sp: "", category: category, title: "", html: "" };
+
             q.title = $.trim($("#txt_tmpName").val());
             if (q.title == "") {
                 alert("模板名称未设置");
