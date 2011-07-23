@@ -16,7 +16,7 @@ public partial class Experiment_CategoryList : System.Web.UI.Page
             string s = Request.QueryString["s"];
             ExpCategory obj= RepositoryFactory<ExpCategoryRepository>.Get().Get(new Guid(categoryId));
             if (null !=obj) {
-                rptlist.DataSource = obj.ExpTemplates.Where(p=>p.IsDEL==0);
+                rptlist.DataSource = obj.ExpTemplates.Where(p=>p.Enable==1);
                 rptlist.DataBind();
             }
 
