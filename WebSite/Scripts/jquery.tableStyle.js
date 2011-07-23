@@ -1,3 +1,7 @@
+/**
+* 肖宏飞
+* 2011-7-20
+*/
 if (window.jQuery) {
 
     (function ($) {

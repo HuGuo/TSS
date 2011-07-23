@@ -23,8 +23,9 @@ public partial class UserControl_Pager : System.Web.UI.UserControl
         System.Text.StringBuilder script = new System.Text.StringBuilder();
         UrlManager p = new DefaultUrlManager(RecordCount , PageSize , Helper.queryParam_pagination);
 
-        //if (p.PageCount > 1) {
+        if (p.PageCount > 1) {
             script.AppendLine("<script type=\"text/javascript\">");
+        
             script.AppendLine("if (!window.jQuery) {\r");
             script.AppendLine("alert('缺少 jQuery库文件');");
             script.AppendLine("} else {");
@@ -42,12 +43,15 @@ public partial class UserControl_Pager : System.Web.UI.UserControl
             script.AppendLine("});");
 
             script.AppendLine("});}");
+
             script.AppendLine("</script>");
             Type t = Page.GetType();
             if (!Page.ClientScript.IsStartupScriptRegistered(t , "pagination")) {
                 Page.ClientScript.RegisterStartupScript(t , "pagination" , script.ToString());
             }
-        //}
+        } else {
+            ltHtml.Text = "<div class=\"pagination-info\">"+p.DisplayMsg()+"</div><div style=\"clear:both;\"></div>";
+        }
     }
 
     void RenderPager() {

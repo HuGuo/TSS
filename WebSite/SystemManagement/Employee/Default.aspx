@@ -101,19 +101,23 @@
 </body>
 </html>
 <script type="text/javascript">
+    /**
+    * 肖宏飞
+    * 2011-6-2
+    */
     $(function () {
         $(document).ajaxError(function (event, request, settings) {
-            alert("出错页面:" + settings.url );
+            alert("出错页面:" + settings.url);
         });
         var g = {
             handlerUrl: "../../employee.ashx",
             ll: function (o) {
-                var query = $.extend({ op: "ur", act: "d", id: $("#div1").data("employeeId"), rid: "", onSuccess: null }, o);                
+                var query = $.extend({ op: "", act: "d", id: $("#div1").data("employeeId"), rid: "", onSuccess: function () { } }, o);
                 $.get(this.handlerUrl, query, function (res) {
                     if (res == "") {
                         query.onSuccess;
                     } else {
-                        alert(res);
+                        $.messager.alert("系统提示", res);
                     }
                 });
             }
@@ -125,17 +129,32 @@
         //
         var $selL = $("#selLeft");
         var $selR = $("#selRight");
-        $selL.dblclick(function (e) { $("#btnRemove").click(); e.preventDefault(); });
-        $selR.dblclick(function (e) { $("#btnadd").click(); e.preventDefault(); });
+        //$selL.dblclick(function (e) { $("#btnRemove").click(); e.preventDefault(); });
+        //$selR.dblclick(function (e) { $("#btnadd").click(); e.preventDefault(); });
 
         $("#btnadd").click(function () {
             var $option = $selR.find("option:selected");
             if ($option.size() < 1) {
                 return;
             }
-            g.ll({ rid: $option.val(), onSuccess: function () {
-                $selL.append('<option value="' + $option.val() + '">' + $option.text() + '</option>');
+            var _rid = $option.val(),
+                  exists = false;
+            $("#selLeft option").each(function () {
+                if (this.value == _rid) {
+                    this.selected = true;
+                    exists = true;
+                    return false;
+                }
+            });
+            if (exists) {
+                return false;
             }
+            g.ll({
+                op: "addrole",
+                rid: _rid,
+                onSuccess: function () {
+                    $selL.append('<option value="' + _rid + '">' + $option.text() + '</option>');
+                }
             });
         });
 
@@ -144,9 +163,12 @@
             if ($option.size() < 1) {
                 return;
             }
-            g.ll({ rid: $option.val(), onSuccess: function () {
-                $option.remove();
-            }
+            g.ll({
+                op: "removerole",
+                rid: $option.val(),
+                onSuccess: function () {
+                    $option.remove();
+                }
             });
         });
 
@@ -167,7 +189,7 @@
                         $.messager.show({
                             title: '系统提示',
                             msg: '专业更新成功',
-                            timeout: 3000,
+                            timeout: 5000,
                             showType: 'slide'
                         });
                     }
