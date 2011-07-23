@@ -5,20 +5,29 @@
   <div id="toolbar">
   </div>
   <div id="content">
-  <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>
-    </ContentTemplate>
-  </asp:UpdatePanel>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+      <ContentTemplate>
+        <asp:ListView ID="ListView1" runat="server" DataSourceID="ObjectDataSource1">
+          <LayoutTemplate>
+            <ul>
+              <asp:PlaceHolder ID="ItemPlaceHolder" runat="server" />
+            </ul>
+          </LayoutTemplate>
+          <ItemTemplate>
+            <li>
+              <ul>
+                <li>
+                  <%# modules.GetFullName(Convert.ToInt32(Eval("Id")))  %>
+                </li>
+                <li>
+                  <%# modules.GetFullPath(Convert.ToInt32(Eval("Id"))) %>
+                </li>
+              </ul>
+            </li>
+          </ItemTemplate>
+        </asp:ListView>
+      </ContentTemplate>
+    </asp:UpdatePanel>
+    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Modules"></asp:ObjectDataSource>
   </div>
-  <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAll" TypeName="TSS.BLL.Specialties"></asp:ObjectDataSource>
-  <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="GetModules" TypeName="TSS.BLL.Specialties">
-    <SelectParameters>
-      <asp:ControlParameter ControlID="DropDownList1" Name="specialtyId" PropertyName="SelectedValue" Type="String" />
-    </SelectParameters>
-  </asp:ObjectDataSource>
-  <asp:ObjectDataSource ID="ObjectDataSource3" runat="server" SelectMethod="GetNotHasModules" TypeName="TSS.BLL.Specialties">
-    <SelectParameters>
-      <asp:ControlParameter ControlID="DropDownList1" Name="spcialtyId" PropertyName="SelectedValue" Type="String" />
-    </SelectParameters>
-  </asp:ObjectDataSource>
 </asp:Content>

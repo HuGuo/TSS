@@ -44,7 +44,7 @@
                 <asp:PlaceHolder ID="PlaceHolder3" runat="server" />
               </LayoutTemplate>
               <ItemTemplate>
-                <li><a href="<%# ((HashSet<TSS.Models.Module>)Eval("Submodules")).Count == 0 && Eval("Url") != null ? ResolveUrl(string.Format("~/{0}/", Eval("Url"))) : "#" %>">
+                <li><a href="<%# ((HashSet<TSS.Models.Module>)Eval("Submodules")).Count == 0 && Eval("Path") != null ? ResolveUrl(string.Format("~/{0}/", Eval("Path"))) : "#" %>">
                   <%# Eval("Name") %></a>
                   <asp:ListView ID="ListView4" runat="server" DataSource='<%# Eval("Submodules") %>' ItemPlaceholderID="PlaceHolder4">
                     <LayoutTemplate>
@@ -53,7 +53,7 @@
                       </ul>
                     </LayoutTemplate>
                     <ItemTemplate>
-                      <li><a href="<%# ((HashSet<TSS.Models.Module>)Eval("Submodules")).Count == 0 ? ResolveUrl(string.Format("~/{0}/{1}/", DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Url"), Eval("Url"))) : "#" %>">
+                      <li><a href="<%# ((HashSet<TSS.Models.Module>)Eval("Submodules")).Count == 0 ? ResolveUrl(string.Format("~/{0}/{1}/", DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Path"), Eval("Path"))) : "#" %>">
                         <%# Eval("Name") %></a>
                         <asp:ListView ID="ListView5" runat="server" DataSource='<%# Eval("Submodules") %>' ItemPlaceholderID="PlaceHolder5">
                           <LayoutTemplate>
@@ -62,7 +62,7 @@
                             </ul>
                           </LayoutTemplate>
                           <ItemTemplate>
-                            <li><a href="<%# ResolveUrl(string.Format("~/{0}/{1}/{2}/", DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer.Parent.DataItemContainer).DataItem, "Url"), DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Url"), Eval("Url"))) %>">
+                            <li><a href="<%# ResolveUrl(string.Format("~/{0}/{1}/{2}/", DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer.Parent.DataItemContainer).DataItem, "Path"), DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Path"), Eval("Path"))) %>">
                               <%# Eval("Name") %></a></li>
                           </ItemTemplate>
                         </asp:ListView>
@@ -77,22 +77,22 @@
         <ItemTemplate>
           <li><a href="#">
             <%# Eval("Name") %></a>
-            <asp:ListView ID="ListView2" runat="server" DataSource='<%# Eval("Modules") %>' ItemPlaceholderID="Placeholder2">
+            <asp:ListView ID="ListView2" runat="server" DataSource='<%# Eval("Submodules") %>' ItemPlaceholderID="Placeholder2">
               <LayoutTemplate>
                 <ul>
                   <asp:PlaceHolder ID="Placeholder2" runat="server" />
                 </ul>
               </LayoutTemplate>
               <ItemTemplate>
-                <li><a href="<%# ResolveUrl(string.Format("~/{0}/?s={1}", Eval("Url"), DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Id"))) %>">
+                <li><a href="<%# ResolveUrl(string.Format("~/{0}/?s={1}", Eval("Path"), DataBinder.Eval(((ListViewDataItem)Container.Parent.DataItemContainer).DataItem, "Path"))) %>">
                   <%# Eval("Name") %></a></li>
               </ItemTemplate>
             </asp:ListView>
           </li>
         </ItemTemplate>
       </asp:ListView>
-      <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetAllWithModules" TypeName="TSS.BLL.Specialties"></asp:ObjectDataSource>
-      <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="GetRootModules" TypeName="TSS.BLL.Modules" />
+      <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetSpecialtyModules" TypeName="TSS.BLL.Modules"></asp:ObjectDataSource>
+      <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="GetRootModulesWithoutSpecialty" TypeName="TSS.BLL.Modules" />
     </div>
     </form>
   </body>

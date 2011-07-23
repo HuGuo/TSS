@@ -9,5 +9,7 @@ using TSS.BLL;
 
 public partial class SystemManagement_Module_Default : System.Web.UI.Page
 {
-    
+    protected Modules modules = RepositoryFactory<Modules>.Get();
+
+
 }
