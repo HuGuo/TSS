@@ -89,7 +89,7 @@ public class UploadHandler : IHttpHandler
     }
 
     Document Build(HttpContext context) {
-        string specialtyId = context.Request["s"];
+        string specialtyId = context.Request[Helper.queryParam_specialty];
         string pid = context.Request["pid"];
 
         Document doc = new Document {

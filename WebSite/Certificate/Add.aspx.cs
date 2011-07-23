@@ -50,7 +50,7 @@ public partial class Certificate_Add : BasePage
         certificate.ReceiveDateTime = DateTime.Parse(txtReceiveDate.Text);
         certificate.Remark = txtRemark.Text;
         certificate.Type = txtType.Text;
-        certificate.SpecialtyId = Request.QueryString["s"];
+        certificate.SpecialtyId = Request.QueryString[Helper.queryParam_specialty];
         string id = Request.QueryString["id"];
         if (!string.IsNullOrWhiteSpace(id)) {
             certificate.Id = new Guid(id);

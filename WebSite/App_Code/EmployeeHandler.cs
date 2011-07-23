@@ -27,10 +27,33 @@ public class EmployeeHandler:IHttpHandler
                 case "us":
                     ChangeSpecialty(context);
                     break;
-                case "ur":
-                    UpdateRoles(context);
+                case "addrole":
+                    AddUserToRole(context);
+                    break;
+                case "removerole":
+                    RemoveUserFromRole(context);
                     break;
             }
+        }
+    }
+
+    private void RemoveUserFromRole(HttpContext context) {
+        string id = context.Request["id"];
+        string rid = context.Request["rid"];
+        try {
+            RepositoryFactory<Employees>.Get().RemoveUserFromRole(new Guid(id) , new Guid(rid));
+        } catch (Exception ex) {
+            context.Response.Write(ex.Message);
+        }
+    }
+
+    private void AddUserToRole(HttpContext context) {
+        string id = context.Request["id"];
+        string rid = context.Request["rid"];
+        try {
+            RepositoryFactory<Employees>.Get().AddUserToRole(new Guid(id) , new Guid(rid));
+        } catch (Exception ex) {
+            context.Response.Write(ex.Message);
         }
     }
 
@@ -87,24 +110,6 @@ public class EmployeeHandler:IHttpHandler
         }
         if (!string.IsNullOrEmpty(msg)) {
             context.Response.Write("error:" + msg + "");
-        }
-    }
-
-    void UpdateRoles(HttpContext context) {
-        string id = context.Request["id"];
-        string rid = context.Request["rid"];
-        string msg = string.Empty;
-        try {
-
-            Employee obj = new Employee { Id = new Guid(id) };
-            obj.Roles = new List<Role>();
-            obj.Roles.Add(new Role { Id = new Guid(rid) });
-            RepositoryFactory<Employees>.Get().UpdateRoles(obj);
-        } catch (Exception ex) {
-            msg = ex.Message;
-        }
-        if (!string.IsNullOrEmpty(msg)) {
-            context.Response.Write("{\"msg\":\"" + msg + "\"}");
         }
     }
     #endregion

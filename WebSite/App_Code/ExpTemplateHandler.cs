@@ -63,12 +63,13 @@ public class ExpTemplateHandler:IHttpHandler
                 Id = guid ,
                 SpecialtyId = sp ,
                 HTML = _html ,
-                Title = _title
+                Title = _title,
             };
             bool exists = RepositoryFactory<ExpTemplateRepository>.Get().IsExists(guid);
             if (exists) {
                 RepositoryFactory<ExpTemplateRepository>.Get().Update(template.Id , template);
             } else {
+                template.Enable = 1;
                 RepositoryFactory<ExpTemplateRepository>.Get().Add(template);
             }
             context.Response.Write("{\"id\":\"" + template.Id + "\"}");
@@ -120,10 +121,10 @@ public class ExpTemplateHandler:IHttpHandler
 
     void ResponseList(HttpContext context) {
         context.Response.ContentType = "application/json; charset=UTF-8";
-        string s = context.Request.QueryString["s"];
+        string s = context.Request.QueryString[Helper.queryParam_specialty];
         System.Collections.Generic.IList<ExpTemplate> list = null;
         if (!string.IsNullOrWhiteSpace(s)) {
-            list = RepositoryFactory<ExpTemplateRepository>.Get().GetBySpecialty(s);
+            list = RepositoryFactory<ExpTemplateRepository>.Get().GetList(TemplateStatus.Enable , s);
         } else {
             list = RepositoryFactory<ExpTemplateRepository>.Get().GetAll();
         }

@@ -48,7 +48,6 @@
     <Compile Include="ComprehensiveReport\IndicatorRepository.cs" />
     <Compile Include="ComprehensiveReport\SpecialtyAnalysisRepository.cs" />
     <Compile Include="Employees.cs" />
-    <Compile Include="Equipment\EquipmentDetails.cs" />
     <Compile Include="Equipment\Equipments.cs" />
     <Compile Include="DocumentRepository.cs" />
     <Compile Include="Equipment\EquipmentCategories.cs" />
@@ -65,6 +64,8 @@
     <Compile Include="RepositoryFactory.cs" />
     <Compile Include="RolesRepository.cs" />
     <Compile Include="Specialties.cs" />
+    <Compile Include="SupervisionNewRepository.cs" />
+    <Compile Include="SupervisionNewTypeRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

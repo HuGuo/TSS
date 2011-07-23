@@ -182,7 +182,7 @@ public class ExpHandler : IHttpHandler
             string[] fields = columns.Split(',');
             //if (null != json) {
             System.Web.Script.Serialization.JavaScriptSerializer jss = new System.Web.Script.Serialization.JavaScriptSerializer();
-            IList<Experiment> list = RepositoryFactory<ExperimentRepository>.Get().GetMuch(new Guid(eqId) , new Guid(tmpId));
+            IList<Experiment> list = RepositoryFactory<ExperimentRepository>.Get().GetList(new Guid(eqId) , new Guid(tmpId));
             Equipment obj = RepositoryFactory<Equipments>.Get().Get(new Guid(eqId));
             var datas = from p in list
                         select new {

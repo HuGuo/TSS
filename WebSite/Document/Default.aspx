@@ -62,7 +62,7 @@
 <script src="../scripts/jquery.FF.js" type="text/javascript"></script>
 <script type="text/javascript">
     $.extend(cfg,{
-        s: '<%=Request.QueryString["s"] %>',
+        s: '<%=Request.QueryString[Helper.queryParam_specialty] %>',
         pid: '<%=Request.QueryString["pid"] %>'
     });
 </script>

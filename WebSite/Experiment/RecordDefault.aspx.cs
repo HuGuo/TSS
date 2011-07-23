@@ -11,7 +11,7 @@ public partial class Experiment_RecordDefault : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
-            string s = Server.UrlDecode(Request.QueryString["s"]);
+            string s = Server.UrlDecode(Request.QueryString[Helper.queryParam_specialty]);
             rptlist.DataSource = RepositoryFactory<ExpReocrdRepository>.Get().GetAll(s);
             rptlist.DataBind();
         }

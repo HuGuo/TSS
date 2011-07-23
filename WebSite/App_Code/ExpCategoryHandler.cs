@@ -45,14 +45,14 @@ public class ExpCategoryHandler:IHttpHandler
 
     #region methods
     void ResponseTreeHTML(HttpContext context) {
-        string s = context.Request["s"];
+        string s = context.Request[Helper.queryParam_specialty];
         XmlTextReader reader = new XmlTextReader(new StringReader(RepositoryFactory<ExpCategoryRepository>.Get().GetRoots(s, Formate.Xml)));
         Helper.ResponseEasyuiTreeHTML(reader , context);
     }
 
     void ResponseTreeJson(HttpContext context) {
         context.Response.ContentType = "application/json; charset=utf-8";
-        string s = context.Request["s"];
+        string s = context.Request[Helper.queryParam_specialty];
         context.Response.Write(RepositoryFactory<ExpCategoryRepository>.Get().GetRoots(s , Formate.Json));
     }
 

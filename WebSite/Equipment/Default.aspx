@@ -1,4 +1,4 @@
-﻿<%@ Page Title="设备台帐" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Equipment_Default" %>
+<%@ Page Title="设备台帐" Language="C#" MasterPageFile="~/Default.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Equipment_Default" %>
 
 <asp:Content ContentPlaceHolderID="head" runat="server">
   <link href="<%= ResolveUrl("~/Scripts/jquery-easyui/themes/gray/easyui.css") %>" rel="Stylesheet" type="text/css" />
@@ -33,44 +33,52 @@
       </ul>
     </div>
     <div id="right">
-      <asp:ListView ID="ListView1" runat="server" ItemPlaceholderID="PlaceHolder1" DataSourceID="ObjectDataSource1">
-        <LayoutTemplate>
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  设备名称
-                </th>
-                <th>
-                  设备编号
-                </th>
-                <th>
-                  生产厂家
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <asp:PlaceHolder ID="PlaceHolder1" runat="server" />
-            </tbody>
-          </table>
-        </LayoutTemplate>
-        <ItemTemplate>
-          <tr>
-            <td>
-              <%# Eval("Name") %>
-            </td>
-            <td>
-            <%# Eval("Code") %>
-            </td>
-            <td>
-            <%# Helper.GetEquipmentField(Eval("Id"), "生产厂家") %>
-            </td>
-          </tr>
-        </ItemTemplate>
-        <EmptyDataTemplate>
-          <%= Helper.EmptyData %>
-        </EmptyDataTemplate>
-      </asp:ListView>
+      <div id="toolbar">
+        <div id="search">
+          <input type="text" maxlength="12" />
+          <input type="button" />
+        </div>
+      </div>
+      <div id="content">
+        <asp:ListView ID="ListView1" runat="server" ItemPlaceholderID="PlaceHolder1" DataSourceID="ObjectDataSource1">
+          <LayoutTemplate>
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    设备名称
+                  </th>
+                  <th>
+                    设备编号
+                  </th>
+                  <th>
+                    生产厂家
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <asp:PlaceHolder ID="PlaceHolder1" runat="server" />
+              </tbody>
+            </table>
+          </LayoutTemplate>
+          <ItemTemplate>
+            <tr>
+              <td>
+                <%# Eval("Name") %>
+              </td>
+              <td>
+                <%# Eval("Code") %>
+              </td>
+              <td>
+                <%# Helper.GetEquipmentField(Eval("Id"), "生产厂家") %>
+              </td>
+            </tr>
+          </ItemTemplate>
+          <EmptyDataTemplate>
+            <%= Helper.EMPTY_DATA %>
+          </EmptyDataTemplate>
+        </asp:ListView>
+      </div>
     </div>
   </div>
   <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetList" TypeName="TSS.BLL.Equipments">

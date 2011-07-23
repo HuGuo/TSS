@@ -9,6 +9,8 @@ public partial class BasePage:System.Web.UI.Page
 {
     protected static string cackeKeyPrefix = "CACHE_";
     public BasePage() {
+        PageSize = 17;
+
         DefaultAction = Action.None;
         RControls = new List<RControl>();
     }

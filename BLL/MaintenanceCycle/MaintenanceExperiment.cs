@@ -10,10 +10,12 @@ namespace TSS.BLL
         public override IList<MaintenanceExperiment> GetAll()
         {
             using (var dbContext = new Context())
-                return dbContext.MaintenanceExperiments.ToList();
+                return dbContext.MaintenanceExperiments
+                    .Include(m => m.MaintenanceCycle.MaintenanceCalss)
+                    .ToList();
         }
 
-        public  MaintenanceExperiment Get(int maintenanceExperimentId)
+        public MaintenanceExperiment Get(int maintenanceExperimentId)
         {
             using (var dbContext = new Context())
                 return dbContext.MaintenanceExperiments
@@ -28,6 +30,7 @@ namespace TSS.BLL
             using (var dbContext = new Context())
                 return dbContext.MaintenanceExperiments
                     .Where(o => o.MaintenanceCycleId == maintenanceCycleId)
+                     .Include(m => m.MaintenanceCycle.MaintenanceCalss)
                     .ToList();
         }
 

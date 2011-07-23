@@ -7,7 +7,14 @@ public class Helper
 {
     private static readonly string[] FileTypeClass;
     public static readonly string[] LoginResult = { "SUCCESS" , "口令错误" , "用户不存在" , "用户帐号被禁用" , "FIRSTLOGIN" };
-
+    /// <summary>
+    /// QueryString 分页默认名称
+    /// </summary>
+    public static readonly string queryParam_pagination = "p";
+    /// <summary>
+    /// QueryString 专业默认名称
+    /// </summary>
+    public static readonly string queryParam_specialty = "s";
     static Helper() {
         System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(System.Web.HttpContext.Current.Server.MapPath("~/images/filetype/"));
         var query = from p in dir.EnumerateFiles()
@@ -19,12 +26,12 @@ public class Helper
 
     public static readonly string NULLOBJECT = "对象不存在";
 
-    public static readonly string EmptyData = "No Data";
+    public static readonly string EMPTY_DATA = "No Data";
 
     public static string GetEquipmentField(object equipmentId , string fieldName) {
-        using (var equipmentDetails =
-            TSS.BLL.RepositoryFactory<TSS.BLL.EquipmentDetails>.Get()) {
-            return equipmentDetails.GetValue(equipmentId.ToString() , fieldName);
+        using (var equipments =
+            TSS.BLL.RepositoryFactory<TSS.BLL.Equipments>.Get()) {
+            return equipments.GetDetailValue(equipmentId.ToString() , fieldName);
         }
     }
 
@@ -84,6 +91,19 @@ public class Helper
         args.AddParam("expendDeep" , string.Empty , context.Request["dp"] ?? "0");
 
         xsl.Transform(reader , args , context.Response.OutputStream);
+    }
+
+
+    public static int GetRealPageIndex(int pagesize,int recordcount,int pageindex) {
+        if (pagesize<1 || recordcount <1 || pagesize<1) {
+            return pageindex < 1 ? 1 : pageindex;
+        }
+
+        //calculate pagecount
+        double pagesizef = Convert.ToDouble(pagesize);
+
+        int pagecount = Convert.ToInt32(Math.Ceiling(recordcount / pagesizef));
+        return Math.Min(pagecount , pageindex);
     }
 }
 //扩展字符串方法

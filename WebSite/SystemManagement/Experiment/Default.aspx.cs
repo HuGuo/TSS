@@ -12,6 +12,10 @@ public partial class SystemManagement_Experiment_Default : BasePage
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
+            string s = Request.QueryString[Helper.queryParam_specialty]; //专业id
+            int p=PageIndex;
+            int rowcount=0;
+
             ModuleId = 14;
             DefaultAction = Action.None;
             //
@@ -20,10 +24,17 @@ public partial class SystemManagement_Experiment_Default : BasePage
                 item.Name = item.Name + "(" + item.ExpTemlates.Count + ")";
             }
 
-            IList<ExpTemplate> list2 = RepositoryFactory<ExpTemplateRepository>.Get().GetAll();
+            IList<ExpTemplate> list2 = RepositoryFactory<ExpTemplateRepository>.Get()
+                .GetList(TemplateStatus.All , s , p , PageSize , out rowcount);
+            
+            list.Insert(0 , new Specialty { Id = "" , Name = "全部(" + rowcount + ")" });
 
-            list.Insert(0 , new Specialty { Id = "ALL" , Name = "全部(" + list2.Count + ")" });
-            rptList.DataSource = list2.OrderBy(p => p.SpecialtyId).ThenBy(p => p.Title);
+            Pagination.PageSize = PageSize;
+            Pagination.RecordCount = rowcount;
+
+            PageIndex = Helper.GetRealPageIndex(PageSize , rowcount , p);
+
+            rptList.DataSource = list2.OrderBy(o => o.SpecialtyId).ThenBy(o => o.Title);
             rptList.DataBind();
 
             rptlistSpecialty.DataSource = list;

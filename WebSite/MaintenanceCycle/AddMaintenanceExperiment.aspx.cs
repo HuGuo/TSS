@@ -24,7 +24,7 @@ public partial class MaintenanceCycle_AddMaintenanceExperiment : BasePage
          {
              ExperimentId = Guid.NewGuid(),
              MaintenanceCycleId = int.Parse(Request.QueryString["maintenanceCycleId"]),
-             ExpectantTime = string.IsNullOrEmpty(tbExpectantTime.Text) ?
+             NextExpTime = string.IsNullOrEmpty(tbExpectantTime.Text) ?
                 (DateTime?)null : DateTime.Parse(tbExpectantTime.Text),
              ActualTime = DateTime.Parse(tbActualTime.Text),
              CurrentCycle = hfCycle.Value
