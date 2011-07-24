@@ -23,11 +23,14 @@ public partial class Nav : BasePage
         if (currentItem != null) {
             var module = currentItem.DataItem as Module;
             if (module != null) {
-                e.Item.Visible = HasRight(module.Id, Action.View);
-
-                if (module.Submodules.Count > 0 &&
-                    module.Submodules.All(m => !HasRight(m.Id, Action.View))) {
+                if (module.Submodules.Count > 0 && module.Submodules.All(m =>
+                    !HasRight(m.Id, Action.View))) {
                     e.Item.Visible = false;
+                } else if (module.Submodules.Any(m =>
+                    HasRight(m.Id, Action.View))) {
+                    e.Item.Visible = true;
+                } else {
+                    e.Item.Visible = HasRight(module.Id, Action.View);
                 }
             }
         }
@@ -44,6 +47,7 @@ public partial class Nav : BasePage
                 result = System.Text.RegularExpressions.Regex.Replace(
                     modules.GetFullPath(module.Id),
                     @"^Specialty/([\w-]*)/(\w*)", @"$2/?s=$1");
+                result = result.TrimStart('/');
             }
         }
 

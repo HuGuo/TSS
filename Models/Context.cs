@@ -55,8 +55,8 @@ namespace TSS.Models
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
             modelBuilder.Entity<Document>().Ignore(p => p.Childs);
-            modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
-            modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
+            //modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
+            //modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
             modelBuilder.Entity<Right>().HasKey(p => p.Id).Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<ExpAttachment>().HasKey(p => p.Id).Property(p => p.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
