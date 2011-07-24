@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace TSS.Models
 {
@@ -12,7 +12,5 @@ namespace TSS.Models
         public virtual Module ParentModule { get; set; }
 
         public virtual ICollection<Module> Submodules { get; set; }
-
-     
     }
 }

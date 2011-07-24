@@ -9,18 +9,10 @@ namespace TSS.BLL
 {
     public class Modules : Repository<Module>
     {
-        public IList<Module> GetSpecialtyModules()
+        public IList<Module> GetRootModules()
         {
             return Context.Modules.Where(m =>
-                m.ParentModuleId == 1)
-                .Include("Submodules")
-                .ToList();
-        }
-
-        public IList<Module> GetRootModulesWithoutSpecialty()
-        {
-            return Context.Modules.Where(m =>
-                m.ParentModuleId == null && m.Id != 1)
+                m.ParentModuleId == null)
                 .Include("Submodules.Submodules")
                 .ToList();
         }
