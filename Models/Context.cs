@@ -110,11 +110,11 @@ namespace TSS.Models
             };
 
             new List<Module> {
-                new Module { Id = 1, Name = "专业监督", Submodules = specialtyModules },
+                new Module { Id = 1, Name = "专业监督", Path = "Specialty", Submodules = specialtyModules },
                 new Module { Id = 2, Name = "监督动态" },
                 new Module { Id = 3, Name = "监督体系" },
                 new Module { Id = 4, Name = "监督管理" },
-                new Module { Id = 5, Name = "系统管理", Path= "SystemManagement", Submodules = systemManagementModules }
+                new Module { Id = 5, Name = "系统管理", Path = "SystemManagement", Submodules = systemManagementModules }
             }.ForEach(m => {
                 context.Modules.Add(m);
             });
