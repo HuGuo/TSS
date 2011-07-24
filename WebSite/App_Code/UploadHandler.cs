@@ -61,9 +61,14 @@ public class UploadHandler : IHttpHandler
                 doc.Path = obj.Path+ doc.Id + fileExtension;
                 upload.SaveAs(configPath + doc.Path);
                 RepositoryFactory<DocumentRepository>.Get().Add(doc);
+
+                //log
+                AppLog.Write("上传文件："+doc.Name, AppLog.LogMessageType.Info,"path="+doc.Path,this.GetType());
+
                 context.Response.Write("{" + string.Format(res, doc.Id.ToString(), doc.Name, fileExtension.Replace(".",""), "") + "}");
             }
         } catch(Exception ex) {
+            AppLog.Write("上传文件 出错", AppLog.LogMessageType.Error,"",ex,this.GetType());
             context.Response.Write("{" + string.Format(res, "", "", "", ex.Message) + "}");
         }
         context.Response.End();
@@ -81,9 +86,14 @@ public class UploadHandler : IHttpHandler
             if (!System.IO.Directory.Exists(configPath+doc.Path)) {
                 System.IO.Directory.CreateDirectory(configPath + doc.Path);
                 RepositoryFactory<DocumentRepository>.Get().Add(doc);
+
+                //log
+                AppLog.Write("新建文件夹："+name, AppLog.LogMessageType.Info,"path="+doc.Path,this.GetType());
+
                 context.Response.Write("{" + string.Format(res, doc.Id.ToString(), doc.Name, "folder", "") + "}");
             }            
         } catch (Exception ex) {
+            AppLog.Write("新建文件夹 出错", AppLog.LogMessageType.Error,"",ex,this.GetType());
             context.Response.Write("{" + string.Format(res, "", "", "", ex.Message) + "}");
         }
     }
@@ -117,9 +127,11 @@ public class UploadHandler : IHttpHandler
             string id = context.Request["id"];
             
             if (!string.IsNullOrWhiteSpace(id)) {
-                RepositoryFactory<DocumentRepository>.Get().Delete(new Guid(id) , onDelete);                
+                RepositoryFactory<DocumentRepository>.Get().Delete(new Guid(id) , onDelete);
+                AppLog.Write("删除文件（文件夹）", AppLog.LogMessageType.Info,"id="+id,this.GetType());
             }
         } catch (Exception ex) {
+            AppLog.Write("删除文件（文件夹） 出错" , AppLog.LogMessageType.Info , "",ex , this.GetType());
             context.Response.Write(ex.Message);
         }
     }

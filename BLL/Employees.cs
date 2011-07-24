@@ -51,7 +51,7 @@ namespace TSS.BLL
                 if (null !=item) {
                     obj.Roles.Remove(item);
                     if (obj.Roles.Count==0) {
-                        throw new Exception("最少保留一个角色，否则用户无法登录");
+                        throw new Exception("用户最少需要一个角色，否则用户无法登录");
                     }
                     Context.SaveChanges();
                 }

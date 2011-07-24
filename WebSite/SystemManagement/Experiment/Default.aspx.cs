@@ -23,11 +23,12 @@ public partial class SystemManagement_Experiment_Default : BasePage
             foreach (var item in list) {
                 item.Name = item.Name + "(" + item.ExpTemlates.Count + ")";
             }
+            list.Insert(0 , new Specialty { Id = "" , Name = "全部" });
+            rptlistSpecialty.DataSource = list;
+            rptlistSpecialty.DataBind();
 
             IList<ExpTemplate> list2 = RepositoryFactory<ExpTemplateRepository>.Get()
                 .GetList(TemplateStatus.All , s , p , PageSize , out rowcount);
-            
-            list.Insert(0 , new Specialty { Id = "" , Name = "全部(" + rowcount + ")" });
 
             Pagination.PageSize = PageSize;
             Pagination.RecordCount = rowcount;
@@ -36,9 +37,6 @@ public partial class SystemManagement_Experiment_Default : BasePage
 
             rptList.DataSource = list2.OrderBy(o => o.SpecialtyId).ThenBy(o => o.Title);
             rptList.DataBind();
-
-            rptlistSpecialty.DataSource = list;
-            rptlistSpecialty.DataBind();
         }
     }
     protected void rptList_ItemDataBound(object sender , RepeaterItemEventArgs e) {

@@ -88,7 +88,7 @@
                         <th>
                             备注
                         </th>
-                        <th>
+                        <th style="width:60px;">
                         </th>
                     </tr>
                 </thead>

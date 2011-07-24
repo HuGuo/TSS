@@ -13,6 +13,6 @@ namespace TSS.Models
 
         public virtual ICollection<Module> Submodules { get; set; }
 
-        public virtual ICollection<Specialty> Specialties { get; set; }
+     
     }
 }

@@ -115,7 +115,12 @@ public class RoleHandler:IHttpHandler
                 Role obj = new Role { Id =id, Name = context.Server.UrlDecode(name),Rights=query.ToList() };
                 RepositoryFactory<RolesRepository>.Get().Add(obj);
                 context.Response.Write("{\"id\":\"" + obj.Id.ToString() + "\"}");
+
+                AppLog.Write("创建角色", AppLog.LogMessageType.Info,"name="+obj.Name,this.GetType());
             } catch (Exception ex) {
+
+                AppLog.Write("创建角色 出错" , AppLog.LogMessageType.Error , "name=" + name , ex , this.GetType());
+
                 msg = ex.Message;
             }
         } else {
@@ -133,7 +138,11 @@ public class RoleHandler:IHttpHandler
         try {
             RepositoryFactory<RolesRepository>.Get().Delete(new Guid(id));
             //context.Response.Write("{}");
+
+            //log
+            AppLog.Write("删除角色" , AppLog.LogMessageType.Info , "id="+id , this.GetType());
         } catch (Exception ex) {
+            AppLog.Write("删除角色 出错" , AppLog.LogMessageType.Error , "id=" + id , ex , this.GetType());
             msg = ex.Message;            
         }
         if (!string.IsNullOrWhiteSpace(msg)) {
@@ -149,12 +158,16 @@ public class RoleHandler:IHttpHandler
             try {
                 Role obj = RepositoryFactory<RolesRepository>.Get().Get(new Guid(id));
                 if (null !=obj) {
+                    string log_oldName = obj.Name;
                     obj.Name = context.Server.UrlDecode(name);
                     RepositoryFactory<RolesRepository>.Get().Update(obj.Id , obj);
+
+                    AppLog.Write(string.Format("更新角色 \"{0}\" 为 \"{1}\"" , log_oldName , obj.Name) , AppLog.LogMessageType.Info , "id=" + id , this.GetType());
                 } else {
                     msg = Helper.NULLOBJECT;
                 }
             } catch (Exception ex) {
+                AppLog.Write("更新角色名称 出错", AppLog.LogMessageType.Error,"id="+id,ex,this.GetType());
                 msg = ex.Message;
             }
         } else {
@@ -181,12 +194,17 @@ public class RoleHandler:IHttpHandler
                         obj.Rights.First(p => p.ModuleId.Equals(int.Parse(arry2[0]))).Permission =int.Parse(arry2[1]);
                     }
                     RepositoryFactory<RolesRepository>.Get().Update(obj.Id, obj);
+                    //log
+                    AppLog.Write("更新角色权限", AppLog.LogMessageType.Info,"id="+id,this.GetType());
+
                     context.Response.End();
                 }
             } else {
                 msg = Helper.NULLOBJECT;
             }
         } catch (Exception ex) {
+            AppLog.Write("更新角色权限 出错" , AppLog.LogMessageType.Error , "id=" + id , ex , this.GetType());
+
             msg = ex.Message;
         }
         if (!string.IsNullOrWhiteSpace(msg)) {

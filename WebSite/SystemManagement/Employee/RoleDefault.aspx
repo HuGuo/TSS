@@ -39,7 +39,7 @@
     <div region="center">
       <div id="toolbar" class="nav">
             <a href="Default.aspx" class="active">返回用户管理</a>
-        <input type="button" id="btnSave" class="btn" value="保存" style="float: right; margin-top: 3px;" />
+        <input type="button" id="btnSave" class="btn" value="保存" style="float: right; margin-top: 1px;" />
       </div>
       <table id="tbrights" cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse;">
         <thead>
@@ -86,130 +86,106 @@
 </html>
 <script src="../../scripts/jquery.easyui-tree-helper.js" type="text/javascript"></script>
 <script type="text/javascript">
-  $(function () {
-    var $$$ = {
-      url: "../../role.ashx",
-      $treeRole: $("#roleTree"),
-      clearRight: function () {
-        $("#employees").removeData("rid").empty();
-        $("#tbrights td.checked").removeClass("checked");
-      }
-    };
-
-    $$$.$treeRole.treeHelper({
-      handlerUrl: $$$.url,
-      opStr: { "data": "list", "add": "add", "del": "delete", "edit": "update-n" },
-      enableContextMenu: false,
-      onclick: function (o) {
-        if (o.id == "" || o.id == $("#employees").data("rid")) {
-          return false;
-        }
-        $$$.clearRight();
-        $("#employees").data("rid", o.id);
-        var query = { op: "right", id: o.id, rand: Math.random() };
-        $.getJSON(this.handlerUrl, query, function (data) {
-          if (!data.msg) {
-            var items = [];
-            for (var i = 0; i < data.employees.length; i++) {
-              items.push('<li><input type="checkbox" value="' + data.employees[i].id + '"/>' + data.employees[i].name + '</li>');
+    $(function () {
+        var $$$ = {
+            url: "../../role.ashx",
+            $treeRole: $("#roleTree"),
+            clearRight: function () {
+                $("#employees").removeData("rid").empty();
+                $("#tbrights td.checked").removeClass("checked");
             }
-            $("#employees").append(items.join(""));
-            for (var j = 0; j < data.mvs.length; j++) {
-              var $tr = $("#" + data.mvs[j].id);
-              var k = data.mvs[j].name.length;
-              var m = 0;
-              for (var i = (k - 1); i >= 0; i--) {
-                if (data.mvs[j].name[i] == "1") {
-                  $tr.find("td:eq(" + m + ")").addClass("checked");
-                  m++;
+        };
+
+        $$$.$treeRole.treeHelper({
+            handlerUrl: $$$.url,
+            opStr: { "data": "list", "add": "add", "del": "delete", "edit": "update-n" },
+            enableContextMenu: false,
+            onclick: function (o) {
+                if (o.id == "" || o.id == $("#employees").data("rid")) {
+                    return false;
                 }
-              }
+                $$$.clearRight();
+                $("#employees").data("rid", o.id);
+                var query = { op: "right", id: o.id, rand: Math.random() };
+                $.getJSON(this.handlerUrl, query, function (data) {
+                    if (!data.msg) {
+                        var items = [];
+                        for (var i = 0; i < data.employees.length; i++) {
+                            items.push('<li id="_items_' + data.employees[i].id + '"><a class="button"><span class="icon user"></span> ' + data.employees[i].name + ' </a></li>');
+                        }
+                        $("#employees").append(items.join(""));
+                        for (var j = 0; j < data.mvs.length; j++) {
+                            var $tr = $("#" + data.mvs[j].id);
+                            var k = data.mvs[j].name.length;
+                            var m = 0;
+                            for (var i = (k - 1); i >= 0; i--) {
+                                if (data.mvs[j].name[i] == "1") {
+                                    $tr.find("td:eq(" + m + ")").addClass("checked");
+                                    m++;
+                                }
+                            }
+                        }
+                    } else {
+                        alert(data.msg);
+                    }
+                });
+            },
+            onAfterRemove: function (node) {
+                $$$.clearRight();
             }
-          } else {
-            alert(data.msg);
-          }
         });
-      },
-      onAfterRemove: function (node) {
-        $$$.clearRight();
-      }
-    });
 
-    $("body").layout("panel", "west").panel({
-      tools: [{
-        iconCls: 'icon-add',
-        handler: function (e) { $$$.$treeRole.treeHelper.addChildItem($$$.$treeRole.tree("getRoot")); }
-      },
+        $("body").layout("panel", "west").panel({
+            tools: [{
+                iconCls: 'icon-add',
+                handler: function (e) { $$$.$treeRole.treeHelper.addChildItem($$$.$treeRole.tree("getRoot")); }
+            },
         {
-          iconCls: 'icon-remove',
-          handler: function (e) { $$$.$treeRole.treeHelper.removeItem(); }
+            iconCls: 'icon-remove',
+            handler: function (e) { $$$.$treeRole.treeHelper.removeItem(); }
         }]
-    });
-    $("body").layout("panel", "east").panel({
-      tools: [
-    {
-      iconCls: 'icon-remove',
-      handler: function () {
-        var query = { op: "del-employee", id: $("#employees").data("rid"), emps: "" };
-        var sels = $("#employees :checkbox:checked");
-        if (sels.size() < 1) {
-          return false;
-        }
-        query.emps = sels.map(function () {
-          return this.value;
-        }).get().join(",");
-        $.messager.confirm("系统提示", "确定移除用户", function (r) {
-          if (r) {
-            $.post($$$.url, query, function (response) {
-              if (response == "") {
-                sels.parent("li").remove();
-              } else {
-                alert(response);
-              }
+        });
+        $("body").layout("panel", "east").panel({
+            tools: []
+        });
+
+        $("#tbrights td").click(function (e) {
+            if ($("#employees").data("rid") == null) {
+                return;
+            }
+            $(this).toggleClass("checked");
+        });
+        $("#tbrights th[p]").click(function () {
+            if ($("#employees").data("rid") == null) {
+                return;
+            }
+            var $this = $(this);
+            if ($this.hasClass("aa")) {
+                $("#tbrights td[p='" + this.getAttribute("p") + "']").removeClass("checked");
+            } else {
+                $("#tbrights td[p='" + this.getAttribute("p") + "']").addClass("checked");
+            }
+            $this.toggleClass("aa");
+        });
+        $("#btnSave").click(function (e) {
+            var query = { op: "update-r", id: "", mvs: "" };
+            if ($("#employees").data("rid") == null) {
+                return false;
+            }
+            query.id = $("#employees").data("rid");
+            query.mvs = $("#tbrights tr:gt(1)").map(function () {
+                var mid = this.id;
+                var v = 0;
+                $(this).find("td.checked").each(function (i, td) {
+                    v = v + parseInt(td.getAttribute("p"));
+                });
+                return mid + "=" + v;
+            }).get().join(",");
+
+            $.post($$$.url, query, function (res) {
+                if (res == "") { res = "操作权限设置成功" }
+                $.messager.alert(res);
             });
-          }
         });
-      }
-    }]
     });
-
-    $("#tbrights td").click(function (e) {
-      if ($("#employees").data("rid") == null) {
-        return;
-      }
-      $(this).toggleClass("checked");
-    });
-    $("#tbrights th[p]").click(function () {
-      if ($("#employees").data("rid") == null) {
-        return;
-      }
-      var $this = $(this);
-      if ($this.hasClass("aa")) {
-        $("#tbrights td[p='" + this.getAttribute("p") + "']").removeClass("checked");
-      } else {
-        $("#tbrights td[p='" + this.getAttribute("p") + "']").addClass("checked");
-      }
-      $this.toggleClass("aa");
-    });
-    $("#btnSave").click(function (e) {
-      var query = { op: "update-r", id: "", mvs: "" };
-      if ($("#employees").data("rid") == null) {
-        return false;
-      }
-      query.id = $("#employees").data("rid");
-      query.mvs = $("#tbrights tr:gt(1)").map(function () {
-        var mid = this.id;
-        var v = 0;
-        $(this).find("td.checked").each(function (i, td) {
-          v = v + parseInt(td.getAttribute("p"));
-        });
-        return mid + "=" + v;
-      }).get().join(",");
-
-      $.post($$$.url, query, function (res) {
-        if (res == "") { res = "操作权限设置成功" }
-        $.messager.alert(res);
-      });
-    });
-  });
 </script>

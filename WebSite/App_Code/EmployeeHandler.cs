@@ -42,7 +42,10 @@ public class EmployeeHandler:IHttpHandler
         string rid = context.Request["rid"];
         try {
             RepositoryFactory<Employees>.Get().RemoveUserFromRole(new Guid(id) , new Guid(rid));
+            //log
+            AppLog.Write("移除用户角色" , AppLog.LogMessageType.Info , string.Format("userid={0},roleid={1}" , id , rid) , this.GetType());
         } catch (Exception ex) {
+            AppLog.Write("移除用户角色 出错" , AppLog.LogMessageType.Error , string.Format("userid={0},roleid={1}" , id , rid) , ex , this.GetType());
             context.Response.Write(ex.Message);
         }
     }
@@ -52,7 +55,10 @@ public class EmployeeHandler:IHttpHandler
         string rid = context.Request["rid"];
         try {
             RepositoryFactory<Employees>.Get().AddUserToRole(new Guid(id) , new Guid(rid));
+            //log
+            AppLog.Write("为用户添加角色" , AppLog.LogMessageType.Info , string.Format("userid={0},roleid={1}" , id , rid) , this.GetType());
         } catch (Exception ex) {
+            AppLog.Write("为用户添加角色 出错" , AppLog.LogMessageType.Error , string.Format("userid={0},roleid={1}" , id , rid) , ex , this.GetType());
             context.Response.Write(ex.Message);
         }
     }
@@ -102,10 +108,14 @@ public class EmployeeHandler:IHttpHandler
             if (obj != null) {
                 obj.SpecialtyId = sp;
                 RepositoryFactory<Employees>.Get().Update(obj.Id,obj);
+                //log
+                AppLog.Write("更新用户专业" , AppLog.LogMessageType.Info , string.Format("userid={0},specialtyId={1}" , id , sp) , this.GetType());
             } else {
                 msg = "对象不存在";
             }
         } catch (Exception ex) {
+            //log
+            AppLog.Write("更新用户专业 出错" , AppLog.LogMessageType.Error , string.Format("userid={0},specialtyId={1}" , id , sp) , ex , this.GetType());
             msg = ex.Message;
         }
         if (!string.IsNullOrEmpty(msg)) {

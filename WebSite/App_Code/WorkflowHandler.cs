@@ -54,8 +54,10 @@ public class WorkflowHandler:IHttpHandler
             };
             using (WFContext db = new WFContext()) {
                 WFRepository.Save(workflow , db);
+                AppLog.Write("创建流程："+workflow.Name , AppLog.LogMessageType.Info , "id="+workflow.Id , this.GetType());
             }
         } catch (Exception ex) {
+            AppLog.Write("创建流程 出错", AppLog.LogMessageType.Error,"",ex,this.GetType());
             context.Response.Write(ex.Message);
         }
     }

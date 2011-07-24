@@ -36,8 +36,11 @@ public class OrgHandler:IHttpHandler
                 currentNode.Element("b2").Value = context.Server.UrlDecode(b2);
                 currentNode.Element("c").ReplaceNodes(new XCData(context.Server.UrlDecode(c).HtmlEncode()));
                 xe.Save(orgxml);
+                //log
+                AppLog.Write("更新技术监督网络结构" , AppLog.LogMessageType.Error , "id=" + id , this.GetType());
             }
         } catch (Exception ex) {
+            AppLog.Write("更新技术监督网络结构 出错" , AppLog.LogMessageType.Error , "id=" + id , ex , this.GetType());
             context.Response.Write(ex.Message);
         }        
     }
