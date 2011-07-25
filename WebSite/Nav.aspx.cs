@@ -4,6 +4,8 @@ using System.Web.UI.WebControls;
 
 using TSS.BLL;
 using TSS.Models;
+using System.Configuration;
+using System.Collections.Generic;
 
 public partial class Nav : BasePage
 {
@@ -23,17 +25,22 @@ public partial class Nav : BasePage
         if (currentItem != null) {
             var module = currentItem.DataItem as Module;
             if (module != null) {
-                if (module.Submodules.Count > 0 && module.Submodules.All(m =>
-                    !HasRight(m.Id, Action.View))) {
-                    e.Item.Visible = false;
-                } else if (module.Submodules.Any(m =>
-                    HasRight(m.Id, Action.View))) {
-                    e.Item.Visible = true;
-                } else {
-                    e.Item.Visible = HasRight(module.Id, Action.View);
-                }
+                e.Item.Visible = HasRight(module);
             }
         }
+    }
+
+    private bool HasRight(Module module)
+    {
+        if (module.Submodules.Count == 0) {
+            return HasRight(module.Id, Action.View);
+        } else {
+            foreach (var m in module.Submodules) {
+               return HasRight(m);
+            }
+        }
+
+        return false;
     }
 
     protected string GetUrl(int moduleId)
@@ -44,9 +51,14 @@ public partial class Nav : BasePage
         if (module != null) {
             if (module.Submodules.Count == 0 &&
                 !string.IsNullOrEmpty(module.Path)) {
-                result = System.Text.RegularExpressions.Regex.Replace(
-                    modules.GetFullPath(module.Id),
-                    @"^Specialty/([\w-]*)/(\w*)", @"$2/?s=$1");
+                foreach (string rule in
+                    ConfigurationManager.AppSettings["UrlRules"].Split(';')) {
+                    result = System.Text.RegularExpressions.Regex.Replace(
+                        modules.GetFullPath(module.Id),
+                        rule.Split(',')[0],
+                        rule.Split(',')[1]);
+                }
+
                 result = result.TrimStart('/');
             }
         }
