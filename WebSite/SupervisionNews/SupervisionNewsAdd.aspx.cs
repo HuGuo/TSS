@@ -20,12 +20,12 @@ public partial class SupervisionNews_SupervisionNewsAdd : System.Web.UI.Page
         using (var repository = RepositoryFactory<SupervisionNewRepository>.Get())
             repository.Add(new SupervisionNew
             {
-                Author = "",
+                Author = "admin",
                 ReleaseTime = DateTime.Now,
                 SupervisionNewTypeId = int.Parse(Request.QueryString["s"]),
                 Title = tbTitle.Text,
                 Content = ckeContent.Text
             });
-        Response.Redirect("default.aspx");
+        Response.Redirect("default.aspx/?s="+Request.QueryString["s"]);
     }
 }

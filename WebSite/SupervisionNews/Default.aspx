@@ -2,11 +2,11 @@
     CodeFile="Default.aspx.cs" Inherits="SupervisionNews_Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-
+<script type="text/javascript" src="../Scripts/jquery.validatewindow.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="Server">
     <div id="toolbar" class="fixed">
-    <a href="SupervisionNewsAdd.aspx">添加</a>
+    <a href="SupervisionNewsAdd.aspx?s=<%= Request.QueryString["s"] %>">添加</a>
     </div>
     <asp:Repeater ID="rptNews" runat="server">
         <HeaderTemplate>
@@ -46,8 +46,8 @@
                 <td>
                     <asp:LinkButton runat="server" ID="lbtnDel" OnClick="lbtnDel_Click" CommandArgument='<%# Eval("Id")%>'
                         OnClientClick="return $.Confirm('是否删除？',this)">删除</asp:LinkButton>
-                    <a href="SupervisionNewsEdit.aspx?id=<%# Eval("id") %>">编辑</a>
-                    <a href="SupervisionNewsDetail.aspx?id=<%# Eval("id") %>">详细</a>
+                    <a href="SupervisionNewsEdit.aspx?s=<%= Request.QueryString["s"] %>&id=<%# Eval("id") %>">编辑</a>
+                    <a href="SupervisionNewsDetail.aspx?s=<%= Request.QueryString["s"] %>&id=<%# Eval("id") %>">详细</a>
                 </td>
             </tr>
         </ItemTemplate>

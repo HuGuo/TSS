@@ -19,7 +19,7 @@
 </tr>
 <tr>
 <td colspan="2">
-<CKEditor:CKEditorControl ID="ckeContent" runat="server">
+<CKEditor:CKEditorControl ID="ckeContent" ResizeEnabled="false"  runat="server">
     </CKEditor:CKEditorControl>
 </td>
 </tr>

@@ -23,7 +23,8 @@ public partial class SupervisionNews_SupervisionNewsDetail : System.Web.UI.Page
             SupervisionNew supervisionNew = repository.Get(int.Parse(Request.QueryString["id"]));
             lbTitle.Text = supervisionNew.Title;
             lbReleaseTime.Text = supervisionNew.ReleaseTime.ToString();
-            plContent.GroupingText = supervisionNew.Content;
+            lbAuthor.Text=supervisionNew.Author;
+            plContent.InnerHtml = supervisionNew.Content;
         }
     }
 }

@@ -35,6 +35,6 @@ public partial class SupervisionNews_SupervisionNewsEdit : System.Web.UI.Page
             supervisionNew.Content = ckeContent.Text;
             repository.Update(supervisionNew);
         }
-        Response.Redirect("default.aspx");
+        Response.Redirect("default.aspx?s="+Request.QueryString["s"]);
     }
 }

@@ -19,7 +19,7 @@ public partial class SupervisionNews_Default : System.Web.UI.Page
     protected void BindData()
     {
         using (var repository = RepositoryFactory<SupervisionNewRepository>.Get())
-            rptNews.DataSource = repository.Get(Request.QueryString["id"]);
+            rptNews.DataSource = repository.GetByNewType(int.Parse(Request.QueryString["s"]));
         rptNews.DataBind();
     }
 

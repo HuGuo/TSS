@@ -86,13 +86,35 @@ namespace TSS.Models
                 new Module { Name = "档案资料", Url = "Document" }
             };
 
+            new List<SupervisionNewType>{
+                new SupervisionNewType{ Id=1, TypeName="计划总结"},
+                new SupervisionNewType{ Id=2, TypeName="会议纪要"},
+                new SupervisionNewType{ Id=3, TypeName="提示"},
+                new SupervisionNewType{ Id=4, TypeName="技术监督综合信息"},
+                new SupervisionNewType{ Id=5, TypeName="发电营运部提示"},
+                new SupervisionNewType{ Id=6, TypeName="技术中心专业研究提示"},
+                new SupervisionNewType{ Id=7, TypeName="技术监督简报"},
+                new SupervisionNewType{ Id=8, TypeName="技术监督标准与新技术"}
+            }.ForEach(s =>
+            {
+                context.SupervisionNewTypes.Add(s);
+            });
+
+            var supervisionNewsModules = new List<Module>
+            {
+                new Module{ Id=21, Name="本厂监督动态", Url="SupervisionNews"},
+                new Module{ Id=23, Name="行业监督动态", Url="SupervisionNews"},
+                new Module{ Id=22, Name="清江公司监督动态", Url="SupervisionNews"}
+            };
+
             new List<Module> {
                 new Module { Id = 1, Name = "专业监督", Submodules = specialtyModules },
-                new Module { Id = 2, Name = "监督动态" },
+                new Module { Id = 2, Name = "监督动态", Submodules = supervisionNewsModules },
                 new Module { Id = 3, Name = "监督体系" },
                 new Module { Id = 4, Name = "监督管理" },
                 new Module { Id = 5, Name = "系统管理", Url= "SystemManagement", Submodules = systemManagementModules }
-            }.ForEach(m => {
+            }.ForEach(m =>
+            {
                 context.Modules.Add(m);
             });
 
@@ -106,24 +128,11 @@ namespace TSS.Models
                 new Specialty { Id = "GHY-JY", Name = "绝缘" },
                 new Specialty { Id = "GHY-LC", Name = "励磁" },
                 new Specialty { Id = "GHY-RG", Name = "热工" }
-            }.ForEach(s => {
+            }.ForEach(s =>
+            {
                 s.Modules = specialtyModules;
                 context.Specialties.Add(s);
             });
-
-            new List<SupervisionNewType>{
-                new SupervisionNewType{ Id=1, TypeName="计划总结"},
-                new SupervisionNewType{ Id=1, TypeName="会议纪要"},
-                new SupervisionNewType{ Id=1, TypeName="提示"},
-                new SupervisionNewType{ Id=1, TypeName="技术监督综合信息"},
-                new SupervisionNewType{ Id=1, TypeName="发电营运部提示"},
-                new SupervisionNewType{ Id=1, TypeName="技术中心专业研究提示"},
-                new SupervisionNewType{ Id=1, TypeName="技术监督简报"},
-                new SupervisionNewType{ Id=1, TypeName="技术监督标准与新技术"}
-            }.ForEach(s=>{
-                context.SupervisionNewTypes.Add(s);
-            });
-
 
             context.SaveChanges();
         }

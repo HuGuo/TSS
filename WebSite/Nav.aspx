@@ -39,6 +39,30 @@
                 <asp:PlaceHolder ID="Placeholder1" runat="server" />
               </ul>
             </li>
+                                <li><a href="#">监督动态</a>
+                        <ul>
+                            <li><a href="#">本厂监督动态</a>
+                                <ul>
+                                    <li><a href="SupervisionNews/?s=1">计划总结</a></li>
+                                    <li><a href="SupervisionNews/?s=2">会议纪要</a></li>
+                                    <li><a href="SupervisionNews/?s=3">监督提示</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">行业监督动态</a>
+                                <ul>
+                                    <li><a href="SupervisionNews/?s=4">技术监督综合信息</a></li>
+                                    <li><a href="SupervisionNews/?s=5">发电营运部提示</a></li>
+                                    <li><a href="SupervisionNews/?s=6">技术中心专业研究提示</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">清江公司监督动态</a>
+                                <ul>
+                                    <li><a href="SupervisionNews/?s=7">技术监督简报</a></li>
+                                    <li><a href="SupervisionNews/?s=8">技术监督标准与新技术</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
             <asp:ListView ID="ListView3" runat="server" DataSourceID="ObjectDataSource2" ItemPlaceholderID="PlaceHolder3">
               <LayoutTemplate>
                 <asp:PlaceHolder ID="PlaceHolder3" runat="server" />
