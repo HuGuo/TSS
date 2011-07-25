@@ -18,8 +18,27 @@ namespace TSS.BLL
                 }
                 
                 Context.Entry(old).CurrentValues.SetValues(entity);
-                foreach (var item in old.Rights) {
-                    item.Permission = entity.Rights.First(p => p.Id.Equals(item.Id)).Permission;
+                //foreach (var item in old.Rights) {
+                //    var right = entity.Rights.FirstOrDefault(p => p.Id.Equals(item.Id));
+                //    if (null!=right) {
+                //        item.Permission = right.Permission;
+                //    }
+                //}
+                if (null != entity.Rights) {
+                    foreach (var item in entity.Rights) {
+                        var right = old.Rights.FirstOrDefault(p => p.Id.Equals(item.Id));
+                        if (null != right) {
+                            right.Permission = item.Permission;
+                        } else {
+                            var newitem = new Right {
+                                ModuleId = item.Id ,
+                                Permission = item.Permission ,
+                                Role = old
+                            };
+                            Context.Rights.Add(newitem);
+                            old.Rights.Add(newitem);
+                        }
+                    }
                 }
                 Context.SaveChanges();
                 

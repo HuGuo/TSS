@@ -26,6 +26,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "WebSite", "WebSite\", "{949
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReferenceAssemblies", "ReferenceAssemblies", "{C15DD871-584C-4259-B22D-5C2508AC6FE7}"
 	ProjectSection(SolutionItems) = preProject
+		ReferenceAssemblies\log4net.dll = ReferenceAssemblies\log4net.dll
 		ReferenceAssemblies\RightService.dll = ReferenceAssemblies\RightService.dll
 		ReferenceAssemblies\workflow.dll = ReferenceAssemblies\workflow.dll
 		ReferenceAssemblies\wssmax.dll = ReferenceAssemblies\wssmax.dll
