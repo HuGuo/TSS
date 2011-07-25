@@ -85,7 +85,5 @@ namespace TSS.BLL
             }
             return Context.Employees.Where(p => p.Name.Contains(key)).ToList();
         }
-
-        
     }
 }
