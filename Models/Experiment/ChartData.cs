@@ -19,7 +19,7 @@
         /// <summary>
         /// 设备ID
         /// </summary>
-        public Guid EquipmentId { get; set; }
+        public Guid? EquipmentId { get; set; }
         /// <summary>
         /// 实验报告模板坐标
         /// </summary>
