@@ -181,10 +181,10 @@
                 });
                 return mid + "=" + v;
             }).get().join(",");
-
+            
             $.post($$$.url, query, function (res) {
-                if (res == "") { res = "操作权限设置成功" }
-                $.messager.alert(res);
+                if (res == "") { res = "操作权限设置成功，角色所有用户下次登录生效！" }
+                $.messager.alert("系统提示",res);
             });
         });
     });

@@ -191,7 +191,10 @@ public class RoleHandler:IHttpHandler
                     //string[] arry2 = new string[2];
                     foreach (var item in arry1) {
                         string[] arry2 = item.Split('=');
-                        obj.Rights.First(p => p.ModuleId.Equals(int.Parse(arry2[0]))).Permission =int.Parse(arry2[1]);
+                        var right= obj.Rights.FirstOrDefault(p => p.ModuleId.Equals(int.Parse(arry2[0])));
+                        if (null !=right) {
+                            right.Permission = int.Parse(arry2[1]);
+                        }
                     }
                     RepositoryFactory<RolesRepository>.Get().Update(obj.Id, obj);
                     //log
