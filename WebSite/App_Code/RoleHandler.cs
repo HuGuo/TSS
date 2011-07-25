@@ -184,27 +184,24 @@ public class RoleHandler:IHttpHandler
         string mvs = context.Request["mvs"];
         string msg = string.Empty;
         try {
+            Role obj = new Role {
+                Id = new Guid(id) ,
+                Rights = new List<Right>()
+            };
             string[] arry1 = mvs.Split(',');
-            Role obj = RepositoryFactory<RolesRepository>.Get().Get(new Guid(id));
-            if (null !=obj) {
-                if (null != obj.Rights) {
-                    //string[] arry2 = new string[2];
-                    foreach (var item in arry1) {
-                        string[] arry2 = item.Split('=');
-                        var right= obj.Rights.FirstOrDefault(p => p.ModuleId.Equals(int.Parse(arry2[0])));
-                        if (null !=right) {
-                            right.Permission = int.Parse(arry2[1]);
-                        }
-                    }
-                    RepositoryFactory<RolesRepository>.Get().Update(obj.Id, obj);
-                    //log
-                    AppLog.Write("更新角色权限", AppLog.LogMessageType.Info,"id="+id,this.GetType());
-
-                    context.Response.End();
-                }
-            } else {
-                msg = Helper.NULLOBJECT;
+            foreach (var item in arry1) {
+                string[] arry2 = item.Split('=');
+                var newitem = new Right {
+                    ModuleId = int.Parse(arry2[0]) ,
+                    Permission = int.Parse(arry2[1])
+                };
+                obj.Rights.Add(newitem);
             }
+            RepositoryFactory<RolesRepository>.Get().UpdateRight(obj);
+            //log
+            AppLog.Write("更新角色权限" , AppLog.LogMessageType.Info , "id=" + id , this.GetType());
+
+            context.Response.End();
         } catch (Exception ex) {
             AppLog.Write("更新角色权限 出错" , AppLog.LogMessageType.Error , "id=" + id , ex , this.GetType());
 

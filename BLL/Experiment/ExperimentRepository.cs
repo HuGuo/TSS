@@ -126,7 +126,7 @@ namespace TSS.BLL
                 List<Guid> equipments = (from v in equipmentId
                                          select new Guid(v)).ToList();
                 if (equipments.Count > 0) {
-                    query = query.Where(p => equipments.Contains(p.Experiment.EquipmentID));
+                    query = query.Where(p => equipments.Contains(p.Experiment.EquipmentID.Value));
                 }
             }
             if (startTime.HasValue && endTime.HasValue) {

@@ -18,28 +18,7 @@ namespace TSS.BLL
                 }
                 
                 Context.Entry(old).CurrentValues.SetValues(entity);
-                //foreach (var item in old.Rights) {
-                //    var right = entity.Rights.FirstOrDefault(p => p.Id.Equals(item.Id));
-                //    if (null!=right) {
-                //        item.Permission = right.Permission;
-                //    }
-                //}
-                if (null != entity.Rights) {
-                    foreach (var item in entity.Rights) {
-                        var right = old.Rights.FirstOrDefault(p => p.Id.Equals(item.Id));
-                        if (null != right) {
-                            right.Permission = item.Permission;
-                        } else {
-                            var newitem = new Right {
-                                ModuleId = item.Id ,
-                                Permission = item.Permission ,
-                                Role = old
-                            };
-                            Context.Rights.Add(newitem);
-                            old.Rights.Add(newitem);
-                        }
-                    }
-                }
+                
                 Context.SaveChanges();
                 
             }
@@ -47,6 +26,22 @@ namespace TSS.BLL
         public override bool Update(Role entity) {
             Update(entity.Id , entity);
             return true;
+        }
+
+        public void UpdateRight(Role entity) {
+            Role old = Context.Roles.Find(entity.Id);
+            if (old != null) {
+                int c = old.Rights.Count-1;
+                for (int i = c; i >= 0; i--) {
+                    Context.Rights.Remove(old.Rights.ElementAt(i));
+                }
+                old.Rights.Clear();
+                foreach (var item in entity.Rights) {
+                    item.Role = old;
+                    old.Rights.Add(item);
+                }
+                Context.SaveChanges();
+            }
         }
         public override bool Delete(object id) {
             Role entity = Get(id);
