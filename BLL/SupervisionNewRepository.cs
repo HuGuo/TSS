@@ -10,7 +10,7 @@ namespace TSS.BLL
         public override SupervisionNew Get(object id)
         {
             using (var dbContext = new Context()) {
-                int tempId = (int)id;
+                int tempId = int.Parse(id.ToString());
                 return dbContext.SupervisionNews
                     .Where(s => s.Id == tempId)
                     .Include(s => s.SupervisionNewType)

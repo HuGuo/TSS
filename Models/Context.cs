@@ -55,8 +55,8 @@ namespace TSS.Models
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
             modelBuilder.Entity<Document>().Ignore(p => p.Childs);
-            //modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
-            //modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
+            modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
+            modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
             modelBuilder.Entity<Right>().HasKey(p => p.Id).Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<ExpAttachment>().HasKey(p => p.Id).Property(p => p.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
@@ -109,29 +109,18 @@ namespace TSS.Models
                 new Module { Name = "模块管理", Path = "Module" }
             };
 
+            
+
             new List<Module> {
                 new Module { Id = 1, Name = "专业监督", Path = "Specialty", Submodules = specialtyModules },
                 new Module { Id = 2, Name = "监督动态" },
                 new Module { Id = 3, Name = "监督体系" },
                 new Module { Id = 4, Name = "监督管理" },
                 new Module { Id = 5, Name = "系统管理", Path = "SystemManagement", Submodules = systemManagementModules }
-            }.ForEach(m => {
+            }.ForEach(m =>
+            {
                 context.Modules.Add(m);
             });
-
-            new List<SupervisionNewType>{
-                new SupervisionNewType{ Id=1, TypeName="计划总结"},
-                new SupervisionNewType{ Id=1, TypeName="会议纪要"},
-                new SupervisionNewType{ Id=1, TypeName="提示"},
-                new SupervisionNewType{ Id=1, TypeName="技术监督综合信息"},
-                new SupervisionNewType{ Id=1, TypeName="发电营运部提示"},
-                new SupervisionNewType{ Id=1, TypeName="技术中心专业研究提示"},
-                new SupervisionNewType{ Id=1, TypeName="技术监督简报"},
-                new SupervisionNewType{ Id=1, TypeName="技术监督标准与新技术"}
-            }.ForEach(s => {
-                context.SupervisionNewTypes.Add(s);
-            });
-
 
             context.SaveChanges();
         }
