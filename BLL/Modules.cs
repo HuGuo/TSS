@@ -21,7 +21,13 @@ namespace TSS.BLL
         {
             return Context.Modules.Where(m =>
                 !m.Submodules.Any(_m => _m.ParentModuleId == m.Id))
+                .OrderBy(m => m.ParentModuleId)
                 .ToList();
+        }
+
+        public IList<Module> GetAllWithOrder()
+        {
+            return GetAll().OrderBy(m => m.Id).ToList();
         }
 
         public string GetFullName(int id)
@@ -42,15 +48,15 @@ namespace TSS.BLL
             return result.ToString();
         }
 
-        private void Walking(Module m, Func<Module, string> accessor, string separator, StringBuilder output)
+        private void Walking(Module module, Func<Module, string> selector, string separator, StringBuilder output)
         {
-            if (m.ParentModule == null) {
+            if (module.ParentModule == null) {
                 output.Append(string.Format("{0}",
-                    accessor(m)));
+                    selector(module)));
             } else {
-                Walking(m.ParentModule, accessor, separator, output);
+                Walking(module.ParentModule, selector, separator, output);
                 output.Append(string.Format("{0}{1}",
-                    separator, accessor(m)));
+                    separator, selector(module)));
             }
         }
     }
