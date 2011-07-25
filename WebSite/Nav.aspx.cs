@@ -1,11 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 
 using TSS.BLL;
 using TSS.Models;
-using System.Configuration;
-using System.Collections.Generic;
 
 public partial class Nav : BasePage
 {
@@ -25,22 +24,22 @@ public partial class Nav : BasePage
         if (currentItem != null) {
             var module = currentItem.DataItem as Module;
             if (module != null) {
-                e.Item.Visible = HasRight(module);
+                IList<bool> rights = new List<bool>();
+                GetRights(module, rights);
+                e.Item.Visible = rights.Contains(true);
             }
         }
     }
 
-    private bool HasRight(Module module)
+    private void GetRights(Module module, IList<bool> rights)
     {
         if (module.Submodules.Count == 0) {
-            return HasRight(module.Id, Action.View);
+            rights.Add(HasRight(module.Id, Action.View));
         } else {
             foreach (var m in module.Submodules) {
-               return HasRight(m);
+                GetRights(m, rights);
             }
         }
-
-        return false;
     }
 
     protected string GetUrl(int moduleId)
@@ -51,15 +50,15 @@ public partial class Nav : BasePage
         if (module != null) {
             if (module.Submodules.Count == 0 &&
                 !string.IsNullOrEmpty(module.Path)) {
-                foreach (string rule in
-                    ConfigurationManager.AppSettings["UrlRules"].Split(';')) {
+                result = modules.GetFullPath(module.Id).TrimStart('/');
+
+                foreach (string rule in System.Configuration
+                    .ConfigurationManager.AppSettings["UrlRules"].Split(';')) {
                     result = System.Text.RegularExpressions.Regex.Replace(
-                        modules.GetFullPath(module.Id),
+                        result,
                         rule.Split(',')[0],
                         rule.Split(',')[1]);
                 }
-
-                result = result.TrimStart('/');
             }
         }
 
