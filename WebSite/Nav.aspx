@@ -32,30 +32,6 @@
           <ul>
             <asp:PlaceHolder ID="PlaceHolder1" runat="server" />
           </ul>
-                                <li><a href="#">????</a>
-                        <ul>
-                            <li><a href="#">??????</a>
-                                <ul>
-                                    <li><a href="SupervisionNews/?s=1">????</a></li>
-                                    <li><a href="SupervisionNews/?s=2">????</a></li>
-                                    <li><a href="SupervisionNews/?s=3">????</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">??????</a>
-                                <ul>
-                                    <li><a href="SupervisionNews/?s=4">????????</a></li>
-                                    <li><a href="SupervisionNews/?s=5">???????</a></li>
-                                    <li><a href="SupervisionNews/?s=6">??????????</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">????????</a>
-                                <ul>
-                                    <li><a href="SupervisionNews/?s=7">??????</a></li>
-                                    <li><a href="SupervisionNews/?s=8">??????????</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
         </LayoutTemplate>
         <ItemTemplate>
           <li><a href="<%# GetUrl((int)Eval("Id")) ?? "javascript:void(0)" %>">
