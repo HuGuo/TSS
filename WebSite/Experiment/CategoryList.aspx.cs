@@ -13,7 +13,7 @@ public partial class Experiment_CategoryList : System.Web.UI.Page
     {
         if (!IsPostBack) {
             string categoryId = Request.QueryString["category"];
-            string s = Request.QueryString["s"];
+            string s = Request.QueryString[Helper.queryParam_specialty];
             ExpCategory obj= RepositoryFactory<ExpCategoryRepository>.Get().Get(new Guid(categoryId));
             if (null !=obj) {
                 rptlist.DataSource = obj.ExpTemplates.Where(p=>p.Enable==1);

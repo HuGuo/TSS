@@ -5,38 +5,50 @@
 <head runat="server">
     <title>试验报告模板列表</title>
     <link href="../Styles/_base.css" rel="stylesheet" type="text/css" />
+    <link href="../Styles/datasheet.css" rel="stylesheet" type="text/css" />
     <script src="../Scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server">
     <div id="toolbar">
-    <a runat="server" id="linkAdd" target="_blank">新建试验报告模板</a>
+        <a runat="server" id="linkAdd" target="_blank">新建试验报告模板</a>
     </div>
-    <table id="tblist" cellpadding="0" cellspacing="0" style="width: 100%;">
-        <asp:Repeater runat="server" ID="rptlist">
-            <ItemTemplate>
-                <tr>
-                    <td align="center" style="width: 30px;">
-                        <%#Container.ItemIndex+1 %>
-                    </td>
-                    <td>
-                        <a href="explist.aspx?id=<%#Eval("Id") %>&s=<%#Eval("specialtyId") %>">
-                            <%#Eval("Title") %></a>
-                            <span style=" color:#e74;">(<%#((TSS.Models.ExpTemplate)(Container.DataItem)).Experiments.Count %>)</span>
-                    </td>
-                    <td align="center">
-                        <a href="ChartStep1.aspx?tid=<%#Eval("Id") %>" target="_blank" class="button">数据分析</a>
-                    </td>
-                </tr>
-            </ItemTemplate>
-        </asp:Repeater>
-    </table>
+    <div class="wrap">
+        <div class="wrap_inner">
+            <table id="tblist" class="datasheet" cellpadding="0" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="width: 20px;">
+                        </th>
+                        <th>
+                            试验报告模板名称
+                        </th>
+                        <th style="width: 80px;">
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <asp:Repeater runat="server" ID="rptlist">
+                        <ItemTemplate>
+                            <tr>
+                                <th>
+                                    <%#Container.ItemIndex+1 %>
+                                </th>
+                                <td>
+                                    <a href="explist.aspx?id=<%#Eval("Id") %>&s=<%#Eval("specialtyId") %>&category=<%=Request.QueryString["category"] %>">
+                                        <%#Eval("Title") %></a> <span style="color: #e74;">(<%#((TSS.Models.ExpTemplate)(Container.DataItem)).Experiments.Count %>)</span>
+                                </td>
+                                <td align="center">
+                                    <a href="ChartStep1.aspx?tid=<%#Eval("Id") %>" target="_blank">数据分析</a>
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </tbody>
+            </table>
+        </div>
+    </div>
     </form>
 </body>
 </html>
-<script src="../Scripts/jquery.delete.js" type="text/javascript"></script>
-<script type="text/javascript">
-    $(function () {
-        $("#tblist tr").alternateColor();
-    });
-</script>
+<script src="../Scripts/jquery.tableStyle.js" type="text/javascript"></script>

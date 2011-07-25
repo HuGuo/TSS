@@ -12,9 +12,15 @@ public partial class SystemManagement_Experiment_setTemplate : System.Web.UI.Pag
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
+            string specalty = Request.QueryString[Helper.queryParam_specialty];
+
             IList<TSS.Models.Specialty> list = new TSS.BLL.Specialties().GetAll();
             foreach (TSS.Models.Specialty item in list) {
-                ddlSpecialty.Items.Add(new ListItem(item.Name, item.Id));
+                ListItem li = new ListItem(item.Name , item.Id);
+                ddlSpecialty.Items.Add(li);
+                if (item.Id==specalty) {
+                    li.Selected = true;
+                }
             }
 
             string tid = Request.QueryString["tid"];

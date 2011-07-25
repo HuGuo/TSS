@@ -6,35 +6,27 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using TSS.Models;
 using TSS.BLL;
-public partial class Experiment_ExpList : System.Web.UI.Page
+public partial class Experiment_ExpList : BasePage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         //RegScripts("scripts" , "jquery-1.6.1.min.js" , "jquery-easyui/jquery.easyui.min.js");
+        int p = PageIndex;
+        int rowcount=0;
         if (!IsPostBack) {
-            string categoryId = Request.QueryString["category"];
-            string s = Request.QueryString[Helper.queryParam_specialty];
-            if (!string.IsNullOrWhiteSpace(categoryId)) {
-                //加载分类下设备
-                rptEqipmentList.DataSource= TSS.BLL.RepositoryFactory<Equipments>.Get().GetList(categoryId, s);
-                rptEqipmentList.DataBind();
+            string tid = Request.QueryString["id"]; //模板id
+            string s = Request.QueryString[Helper.queryParam_specialty]; //专业
 
-                //加载分类下所有设备所做过的试验
-                Guid id = new Guid(categoryId);
-                IList<Experiment> list = RepositoryFactory<ExperimentRepository>.Get().GetByEquipmentCategory(id, s);
-                rptList.DataSource = list.OrderByDescending(p => p.ExpDate);
-                rptList.DataBind();
-            }
+            IList<Experiment> list = RepositoryFactory<ExperimentRepository>.Get().GetList(new Guid(tid) , null , p , PageSize , out rowcount);
+            PageIndex = Helper.GetRealPageIndex(PageSize , rowcount , p);
+            Pagination.PageSize = PageSize;
+            Pagination.RecordCount = rowcount;
 
-            //加载本专业模板
-            
-            if (!string.IsNullOrWhiteSpace(s)) {
-                IList<TSS.Models.ExpTemplate> list = RepositoryFactory<ExpTemplateRepository>.Get().GetList(TemplateStatus.Enable , s);
-                rptTmpList.DataSource = list;
-                rptTmpList.DataBind();
-                rptlist2.DataSource = list;
-                rptlist2.DataBind();
-            }
+            rptList.DataSource = list;
+            rptList.DataBind();
+
+            goback.HRef = string.Format("categorylist.aspx?s={0}&category={1}" , s , Request.QueryString["category"]);
+            linkAdd.HRef = string.Format("FillExperimentReport.aspx?s={0}&tid={1}&eqmId=" , s , tid);
         }
     }
 }
