@@ -12,7 +12,7 @@ namespace TSS.BLL
             if (null != entity) {
                 int exps = Context.Experiments.Count(p => p.ExpTemplateID == entity.Id);
                 if (exps > 0) {
-                    entity.IsDEL = 1;
+                    entity.Enable = 0;
                 } else {
                     Context.ExpTemplates.Remove(entity);
                 }
@@ -22,19 +22,55 @@ namespace TSS.BLL
         }
 
         public override IList<ExpTemplate> GetAll() {
-            return Context.ExpTemplates.Where(p => p.IsDEL == 0)
-                    .OrderBy(p => p.SpecialtyId)
-                    .ToList();
+            return GetList(TemplateStatus.All);
         }
 
-        /// <summary>
-        /// 专业试验报告模板列表
-        /// </summary>
-        /// <param name="specialtyID"></param>
-        /// <returns></returns>
-        public IList<ExpTemplate> GetBySpecialty(string specialtyID) {
-            return Context.ExpTemplates.Where(p => p.SpecialtyId == specialtyID)
+        public IList<ExpTemplate> GetList(TemplateStatus status) {
+            return GetList(status , null);
+        }
+
+        public IList<ExpTemplate> GetList(TemplateStatus status , int pageIndex , int pageSize , out int rowCount) {
+            return GetList(status , null , pageIndex , pageSize , out rowCount);
+        }
+
+        public IList<ExpTemplate> GetList(TemplateStatus status,string specialtyId) {
+            int rowcount = 0;
+            return GetList(status , specialtyId , -1 , 0 , out rowcount);
+        }
+
+        public IList<ExpTemplate> GetList(TemplateStatus status,string specialtyId,int pageIndex,int pageSize,out int rowCount) {
+            
+            var query = BuildQuery(Context , status , specialtyId);
+            rowCount = query.Count();
+            int skip = GetSkip(pageIndex , pageSize , rowCount);
+            if (pageIndex<0) {
+                return query.ToList();
+            } else {
+                return query
+                    .OrderBy(p => p.Id)
+                    .Skip(skip)
+                    .Take(pageSize)
                     .ToList();
+            }
+        }
+
+        //help method
+        private IQueryable<ExpTemplate> BuildQuery(Context db,TemplateStatus status,string specialtyId) {
+            var query = db.ExpTemplates.AsQueryable();
+            if (!string.IsNullOrEmpty(specialtyId)) {
+                query = query.Where(p=>p.SpecialtyId.Equals(specialtyId));
+            }
+            switch (status) {
+                case TemplateStatus.All:
+                    break;
+                case TemplateStatus.Enable:
+                    query = query.Where(p=>p.Enable==1);
+                    break;
+                case TemplateStatus.Disabled:
+                    query = query.Where(p => p.Enable == 0);
+                    break;
+            }
+            return query;
         }
 
         /// <summary>
@@ -87,5 +123,21 @@ namespace TSS.BLL
                 .Where(p => p.Id.ToString().Equals(idOrTitle) || p.Title.Contains(idOrTitle))
                 .ToList();
         }
+    }
+
+    public enum TemplateStatus
+    {
+        /// <summary>
+        /// 全部
+        /// </summary>
+        All,
+        /// <summary>
+        /// 正常启用
+        /// </summary>
+        Enable,
+        /// <summary>
+        /// 不可用
+        /// </summary>
+        Disabled
     }
 }

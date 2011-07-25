@@ -12,7 +12,7 @@ public partial class document_Search : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack) {
-            string s = Request.QueryString["s"];
+            string s = Request.QueryString[Helper.queryParam_specialty];
             string key = Server.UrlDecode(Request.QueryString["key"]);
             if (!string.IsNullOrWhiteSpace(key)) {
                 txtKey.Text = key;
@@ -23,7 +23,7 @@ public partial class document_Search : System.Web.UI.Page
 
     void BindList(string key) 
     {
-        IList<Document> result=RepositoryFactory<DocumentRepository>.Get().Search(key , Request.QueryString["s"]);
+        IList<Document> result = RepositoryFactory<DocumentRepository>.Get().Search(key , Request.QueryString[Helper.queryParam_specialty]);
         rptlist.DataSource = result;
         rptlist.DataBind();
         if (result.Count==0) {

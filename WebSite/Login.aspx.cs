@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using TSS.BLL;
-using TSS.Models;
-using System.Web.Security;
 public partial class _Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
@@ -28,11 +22,17 @@ public partial class _Login : System.Web.UI.Page
         int result= server.Login(loginName , loginPwd.GetMD5());
         if (result == 0) {
             UserDetail user = server.GetUserCompleteDetail(loginName);
+            //log
+            AppLog.Write(string.Format("[login] {0} 登录成功" , loginName) , AppLog.LogMessageType.Info);
             bool existsCode = RepositoryFactory<Employees>.Get().ExistsCode(user.EmployeeCode);
             string redirectUrl = Request.QueryString["ReturnUrl"] ?? "default.htm";
             if (existsCode) {
                 //授权 登录
                 Helper.SetAuthCookie(user.EmployeeCode , false , HttpContext.Current);
+
+                //log
+                //AppLog.Write(string.Format("[login] {0} 登录成功" , loginName) , AppLog.LogMessageType.Info);
+
                 Response.Redirect(redirectUrl , true);
             } else {
                 //第一次登陆，跳转设置专业信息

@@ -5,12 +5,14 @@
 	background:#eee url('images/panel_title.gif') repeat-x;
 	padding:5px;
 	border:1px solid #D3D3D3;
+	border-radius:5px;
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
 }
 .window-shadow{
 	position:absolute;
 	background:#ddd;
+	border-radius:5px;
 	-moz-border-radius:5px;
 	-webkit-border-radius: 5px;
 	-moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
@@ -25,6 +27,9 @@
 	background:#fff;
 	border:1px solid #D3D3D3;
 	border-top-width:0px;
+}
+.window .window-body-noheader{
+	border-top-width:1px;
 }
 .window .window-header .panel-icon{
 	left:1px;

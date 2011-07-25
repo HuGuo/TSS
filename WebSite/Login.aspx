@@ -71,6 +71,10 @@
 <script src="scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
 <script src="scripts/jquery-easyui/easyloader.js" type="text/javascript"></script>
 <script type="text/javascript">
+    if (!(window.parent == window)) {
+        //如果当前页在框架中自动跳出框架集
+        parent.location.replace("<%= Request.ApplicationPath%>/login.aspx?out=out");
+    }
     var handlerUrl = "login.ashx";
     $(document).ready(function () {
         //check browser version

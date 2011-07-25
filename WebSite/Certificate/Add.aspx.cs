@@ -50,7 +50,7 @@ public partial class Certificate_Add : BasePage
         certificate.ReceiveDateTime = DateTime.Parse(txtReceiveDate.Text);
         certificate.Remark = txtRemark.Text;
         certificate.Type = txtType.Text;
-        certificate.SpecialtyId = Request.QueryString["s"];
+        certificate.SpecialtyId = Request.QueryString[Helper.queryParam_specialty];
         string id = Request.QueryString["id"];
         if (!string.IsNullOrWhiteSpace(id)) {
             certificate.Id = new Guid(id);
@@ -69,8 +69,11 @@ public partial class Certificate_Add : BasePage
         
         if (string.IsNullOrWhiteSpace(id)) {
             RepositoryFactory<CertificateRepository>.Get().Add(certificate);
+            //log
+            AppLog.Write("添加资质证书" , AppLog.LogMessageType.Info , "Number="+certificate.Number , typeof(CertificateRepository));
         } else {
             RepositoryFactory<CertificateRepository>.Get().Update(certificate.Id,certificate);
+            AppLog.Write("更新资质证书" , AppLog.LogMessageType.Info , "id="+certificate.Id.ToString() , typeof(CertificateRepository));
         }
         ltmsg.Text = "<div class='success'>操作成功!</div>";
     }

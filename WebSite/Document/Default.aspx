@@ -13,11 +13,14 @@
     <script src="../uploadify/jquery.uploadify.v2.1.4.min.js" type="text/javascript"></script>
     <script src="../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
 </head>
-<body><div id="toolbar" class="fixed">
-<a runat="server" id="backto" href="javascript:void(0);">上级目录</a>
-        <a href="#dg_upfile" id="upload">上传文件</a>
-        <a href="#dg_newfolder" id="new_folder">新建文件夹</a>
-        <a href="javascript:delItem();" id="A1">删除</a>
+<body>
+    <div id="toolbar" class="fixed">
+        <a runat="server" id="backto" href="javascript:void(0);">上级目录</a>
+        <a href="#dg_upfile"
+            id="upload">上传文件</a>
+            <a href="#dg_newfolder" id="new_folder">新建文件夹</a>
+            <a href="javascript:delItem();"
+                id="A1">删除</a>
         <div class="search">
             <input type="text" id="txtKey" class="textbox" maxlength="12" />
             <input type="button" id="goSearch" class="searchbtn" />
@@ -62,7 +65,7 @@
 <script src="../scripts/jquery.FF.js" type="text/javascript"></script>
 <script type="text/javascript">
     $.extend(cfg,{
-        s: '<%=Request.QueryString["s"] %>',
+        s: '<%=Request.QueryString[Helper.queryParam_specialty] %>',
         pid: '<%=Request.QueryString["pid"] %>'
     });
 </script>

@@ -55,8 +55,8 @@ namespace TSS.Models
                 .Property<int>(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity).IsRequired();
 
             modelBuilder.Entity<Document>().Ignore(p => p.Childs);
-            modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
-            modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
+            //modelBuilder.Entity<ExpTemplate>().Property(p => p.HTML).HasColumnType("text");
+            //modelBuilder.Entity<Experiment>().Property(p => p.HTML).HasColumnType("text");
             modelBuilder.Entity<Right>().HasKey(p => p.Id).Property(p => p.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<ExpAttachment>().HasKey(p => p.Id).Property(p => p.Id)
                 .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
@@ -69,21 +69,44 @@ namespace TSS.Models
         {
             base.Seed(context);
 
-            var systemManagementModules = new List<Module> {
-                new Module { Id=12, Name = "人员管理", Url = "Employee" },
-                new Module { Id=13, Name = "设备管理", Url = "Equipment" },
-                new Module { Id=14, Name = "实验管理", Url = "Experiment" },
-                new Module { Id=15, Name = "工作流管理", Url = "Workflow" },
-                new Module { Id=16, Name = "模块管理", Url = "Module" }
+            var specialties = new List<Specialty> {
+                new Specialty { Id = "GHY-JS", Name = "金属" },
+                new Specialty { Id = "GHY-HX", Name = "化学" },
+                new Specialty { Id = "GHY-DQ", Name = "电气设备性能" },
+                new Specialty { Id = "GHY-DC", Name = "电测计量" },
+                new Specialty { Id = "GHY-RG", Name = "热工" },
+                new Specialty { Id = "GHY-SG", Name = "水工" },
+                new Specialty { Id = "GHY-JN", Name = "节能与环保" },
+                new Specialty { Id = "GHY-BH", Name = "保护与控制系统" },
+                new Specialty { Id = "GHY-ZDH", Name = "自动化与信息及电力通讯" },
+                new Specialty { Id = "GHY-DN", Name = "电能质量" },
             };
+            specialties.ForEach(s => {
+                context.Specialties.Add(s);
+            });
 
-            var specialtyModules = new List<Module> {
-                new Module { Name = "设备台帐", Url = "Equipment" },
-                new Module { Name = "实验报告", Url = "Experiment" },
-                new Module { Name = "预试周期", Url = "MaintenanceCycle" },
-                new Module { Name = "监督月报", Url = "Report" },
-                new Module { Name = "人员资质", Url = "Certificate" },
-                new Module { Name = "档案资料", Url = "Document" }
+            var specialtyModules = new List<Module>();
+            specialties.ForEach(s => {
+                specialtyModules.Add(new Module {
+                    Name = s.Name,
+                    Path = s.Id,
+                    Submodules = new List<Module> {
+                        new Module { Name = "设备台帐", Path = "Equipment" },
+                        new Module { Name = "实验报告", Path = "Experiment" },
+                        new Module { Name = "预试周期", Path = "MaintenanceCycle" },
+                        new Module { Name = "监督月报", Path = "Report" },
+                        new Module { Name = "人员资质", Path = "Certificate" },
+                        new Module { Name = "档案资料", Path = "Document" }
+                    }
+                });
+            });
+
+            var systemManagementModules = new List<Module> {
+                new Module { Name = "人员管理", Path = "Employee" },
+                new Module { Name = "设备管理", Path = "Equipment" },
+                new Module { Name = "实验管理", Path = "Experiment" },
+                new Module { Name = "工作流管理", Path = "Workflow" },
+                new Module { Name = "模块管理", Path = "Module" }
             };
 
             new List<SupervisionNewType>{
@@ -108,31 +131,18 @@ namespace TSS.Models
             };
 
             new List<Module> {
-                new Module { Id = 1, Name = "专业监督", Submodules = specialtyModules },
+                new Module { Id = 1, Name = "专业监督", Path = "Specialty", Submodules = specialtyModules },
                 new Module { Id = 2, Name = "监督动态", Submodules = supervisionNewsModules },
                 new Module { Id = 3, Name = "监督体系" },
                 new Module { Id = 4, Name = "监督管理" },
-                new Module { Id = 5, Name = "系统管理", Url= "SystemManagement", Submodules = systemManagementModules }
+                new Module { Id = 5, Name = "系统管理", Path = "SystemManagement", Submodules = systemManagementModules }
             }.ForEach(m =>
             {
                 context.Modules.Add(m);
             });
 
-            new List<Specialty> {
-                new Specialty { Id = "GHY-DC", Name = "电测计量" },
-                new Specialty { Id = "GHY-DN", Name = "电能" },
-                new Specialty { Id = "GHY-HX", Name = "化学" },
-                new Specialty { Id = "GHY-JDBH", Name = "继电保护" },
-                new Specialty { Id = "GHY-JN", Name = "节能" },
-                new Specialty { Id = "GHY-JS", Name = "金属" },
-                new Specialty { Id = "GHY-JY", Name = "绝缘" },
-                new Specialty { Id = "GHY-LC", Name = "励磁" },
-                new Specialty { Id = "GHY-RG", Name = "热工" }
-            }.ForEach(s =>
             {
-                s.Modules = specialtyModules;
-                context.Specialties.Add(s);
-            });
+            }.ForEach(s => {
 
             context.SaveChanges();
         }

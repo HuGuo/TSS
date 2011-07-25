@@ -72,5 +72,22 @@ namespace TSS.BLL
         {
             return null != Get(id);
         }
+
+        protected int GetSkip(int pageIndex,int pageSize,int rowCount) {
+            if (rowCount < 1) {
+                return 0;
+            } else {
+                int skip = (pageIndex - 1) * pageSize;
+                if (skip < 0) {
+                    skip = 0;
+                }
+                if (skip > rowCount) {
+                    skip = rowCount - (rowCount % pageSize);
+                } else if (skip == rowCount) {
+                    skip = rowCount - pageSize;
+                }
+                return skip;
+            }
+        }
     }
 }

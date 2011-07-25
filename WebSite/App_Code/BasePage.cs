@@ -10,8 +10,28 @@ public partial class BasePage : System.Web.UI.Page
     /// <summary>
     /// 分页时 默认每页数据项数
     /// </summary>
-    public int pageSize = 15;
-
+    public int PageSize {get;set;}
+    private int pageIndex;
+    public int PageIndex { 
+        get {
+        if (pageIndex<1) {
+            string p = Request.QueryString[Helper.queryParam_pagination];
+            if (!string.IsNullOrWhiteSpace(p)) {
+                int pageindex = 0;
+                int.TryParse(p , out pageindex);
+                pageIndex = pageindex < 1 ? 1 : pageindex;
+            }
+        }
+        return pageIndex;
+        }
+        set {
+            if (value < 1) {
+                pageIndex = 1;
+            } else {
+                pageIndex = value;
+            }
+        }
+    }
     /// <summary>
     /// guid ，非登录帐号
     /// </summary>

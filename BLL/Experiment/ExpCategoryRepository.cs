@@ -1,10 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TSS.Models;
+using System;
 namespace TSS.BLL
 {
     public class ExpCategoryRepository:Repository<ExpCategory>
     {
+        public override bool Delete(object id) {
+            ExpCategory obj = Context.ExpCategories.Find(id);
+            if (null !=obj) {
+                if (obj.ExpTemplates.Count()>0) {
+                    throw new Exception("分类“"+obj.Name+"”下存在试验报告模版，无法删除");
+                }
+                Context.ExpCategories.Remove(obj);
+                Context.SaveChanges();
+            }
+            return true;
+        }
         public IList<ExpCategory> GetRoots(string specialtyId) {
             //IList<ExpCategory> list = Context.ExpCategories
             //    .Where(p => p.SpecialtyId.Equals(specialtyId))

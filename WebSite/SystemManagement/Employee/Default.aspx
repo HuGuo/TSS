@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="SystemManagement_Employee_Default" %>
 
+<%@ Register src="../../UserControl/Pager.ascx" tagname="Pager" tagprefix="uc1" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -7,8 +9,10 @@
     <link href="../../Styles/_base.css" rel="stylesheet" type="text/css" />
     <link href="../../scripts/jquery-easyui/themes/gray/easyui.css" rel="stylesheet"
         type="text/css" />
+    <link href="../../Styles/datasheet.css" rel="stylesheet" type="text/css" />
     <script src="../../scripts/jquery-1.6.1.min.js" type="text/javascript"></script>
     <script src="../../scripts/jquery-easyui/jquery.easyui.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.tableStyle.js" type="text/javascript"></script>
 </head>
 <body>
     <form id="form1" runat="server" style="padding-top: 32px;">
@@ -20,28 +24,36 @@
                 Text="" />
         </div>
     </div>
-    <table>
+    <div class="wrap">
+        <div class="wrap_inner">
+    <table class="datasheet">
         <thead>
             <tr>
-            <th></th>
+            <th style="width:20px;"></th>
             <th>登录帐号</th>
-            <th>专业</th>
-            <th>操作</th>
+            <th style="width:80px;">专业</th>
+            <th style="width:50px; text-align:center;">操作</th>
             </tr>
         </thead>
+        <tbody>
         <asp:repeater runat="server" ID="rptlist">
         <ItemTemplate>
         <tr>
-        <td><%#Container.ItemIndex+1 %></td>
+        <th><%# (PageIndex-1)*PageSize+Container.ItemIndex+1 %></th>
         <td><%#Eval("Name") %></td>
         <td><%#((TSS.Models.Specialty)(Eval("Specialty"))).Name%></td>
         <td>
-        <a href="javascript:sss('<%#Eval("Id") %>');" class="button">编 辑</a>
+        <a href="javascript:sss('<%#Eval("Id") %>');" >编 辑</a>
         </td>
         </tr>
         </ItemTemplate>
         </asp:repeater>
+        </tbody>
     </table>
+<uc1:Pager ID="Pager1" runat="server" />
+    </div>
+    </div>
+    <!--dialog-->
     <div id="dg_win" class="easyui-dialog" modal="true" title="设置用户信息" style="width: 500px;
         height: 300px; top: 100px; margin-left: auto; margin-right: auto; padding: 0;"
         buttons="#dlg_buttons">
@@ -89,19 +101,23 @@
 </body>
 </html>
 <script type="text/javascript">
+    /**
+    * 肖宏飞
+    * 2011-6-2
+    */
     $(function () {
         $(document).ajaxError(function (event, request, settings) {
-            alert("出错页面:" + settings.url );
+            alert("出错页面:" + settings.url);
         });
         var g = {
             handlerUrl: "../../employee.ashx",
             ll: function (o) {
-                var query = $.extend({ op: "ur", act: "d", id: $("#div1").data("employeeId"), rid: "", onSuccess: null }, o);                
+                var query = $.extend({ op: "", act: "d", id: $("#div1").data("employeeId"), rid: "", onSuccess: function () { } }, o);
                 $.get(this.handlerUrl, query, function (res) {
                     if (res == "") {
                         query.onSuccess;
                     } else {
-                        alert(res);
+                        $.messager.alert("系统提示", res);
                     }
                 });
             }
@@ -113,17 +129,32 @@
         //
         var $selL = $("#selLeft");
         var $selR = $("#selRight");
-        $selL.dblclick(function (e) { $("#btnRemove").click(); e.preventDefault(); });
-        $selR.dblclick(function (e) { $("#btnadd").click(); e.preventDefault(); });
+        //$selL.dblclick(function (e) { $("#btnRemove").click(); e.preventDefault(); });
+        //$selR.dblclick(function (e) { $("#btnadd").click(); e.preventDefault(); });
 
         $("#btnadd").click(function () {
             var $option = $selR.find("option:selected");
             if ($option.size() < 1) {
                 return;
             }
-            g.ll({ rid: $option.val(), onSuccess: function () {
-                $selL.append('<option value="' + $option.val() + '">' + $option.text() + '</option>');
+            var _rid = $option.val(),
+                  exists = false;
+            $("#selLeft option").each(function () {
+                if (this.value == _rid) {
+                    this.selected = true;
+                    exists = true;
+                    return false;
+                }
+            });
+            if (exists) {
+                return false;
             }
+            g.ll({
+                op: "addrole",
+                rid: _rid,
+                onSuccess: function () {
+                    $selL.append('<option value="' + _rid + '">' + $option.text() + '</option>');
+                }
             });
         });
 
@@ -132,9 +163,12 @@
             if ($option.size() < 1) {
                 return;
             }
-            g.ll({ rid: $option.val(), onSuccess: function () {
-                $option.remove();
-            }
+            g.ll({
+                op: "removerole",
+                rid: $option.val(),
+                onSuccess: function () {
+                    $option.remove();
+                }
             });
         });
 
@@ -155,7 +189,7 @@
                         $.messager.show({
                             title: '系统提示',
                             msg: '专业更新成功',
-                            timeout: 3000,
+                            timeout: 5000,
                             showType: 'slide'
                         });
                     }

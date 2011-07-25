@@ -16,15 +16,7 @@ public partial class Experiment_FillExperimentReport : System.Web.UI.Page
             string templateID = Request.QueryString["tid"];
             string id = Request.QueryString["id"];
             string eqId=Request.QueryString["eqmId"];
-            //设备信息
-            if (!string.IsNullOrWhiteSpace(eqId)) {
-                Equipment obj = RepositoryFactory<Equipments>.Get().Get(new Guid(eqId));
-                if (null !=obj) {
-                    rptEquipment.DataSource = obj.EquipmentDetails;
-                    rptEquipment.DataBind();
-                }
-
-            }
+            
             if (!string.IsNullOrWhiteSpace(id)) {
                 //edit model ,load data                
                 Experiment experiment = RepositoryFactory<ExperimentRepository>.Get().Get(System.Guid.Parse(id));

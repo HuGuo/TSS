@@ -18,7 +18,8 @@
     <style type="text/css">
     ul{ list-style:none; margin:0; padding:0;}
     ul li{ display:block; margin:2px 10px; line-height:25px;}
-    .tool{ padding:5px; background-color:#efefef;}
+    .tool{ padding:10px; background-color:#efefef;}
+    .tool p{ margin:1px; padding:2px; margin-left:10px ;display:inline; color:#8F5700; }
     </style>
 </head>
 <body>
@@ -36,8 +37,11 @@
         </ul>
     </div>
     <div region="center" style="margin: 0; padding: 0; overflow: auto;" title="<%=templateTitle %>">
-        <div class="tool" style=" text-align:right;">
-            <a class="easyui-linkbutton" id="step2">画图</a>
+        <div class="tool">&nbsp;
+        <div class="icon-tip" style="  float:left;;padding-left:18px; display:inline-block;">操作提示:
+        <p>1 从试验报告模板中选择数字单元格即标记为 {d}的单元格 </p>
+        <p>2 可选操作，从右边选定设备</p> </div>
+            <a class="easyui-linkbutton" id="step2" style=" float:right;">画图</a>
         </div>
         <div id="dtb">
             <asp:Literal ID="ltHtml" runat="server"></asp:Literal>

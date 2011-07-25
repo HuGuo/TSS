@@ -1,11 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using TSS.Models;
+using System;
 
 namespace TSS.BLL
 {
     public class Employees : Repository<Employee>
     {
+        public IList<Employee> GetAll(int pageIndex,int pageSize,out int rowCount) {
+            rowCount = Context.Employees.Count();
+            int skip = GetSkip(pageIndex , pageSize , rowCount);
+            return Context.Employees
+                .OrderBy(p => p.Id)
+                .Skip(skip)
+                .Take(pageSize)
+                .ToList();
+        }
+
         public bool ExistsCode(string code)
         {
             int count = Context.Employees.Count(p => p.Code.Equals(code));
@@ -28,24 +39,44 @@ namespace TSS.BLL
             return Context.SaveChanges()>0;
         }
 
-        public void UpdateRoles(Employee entity) {
-            Employee obj = Context.Employees.Find(entity.Id);
-                if (null !=obj) {
-                    foreach (var item in entity.Roles) {
-                        Role r= obj.Roles.FirstOrDefault(p => p.Id.Equals(item.Id));
-                        if (null !=r) {
-                            obj.Roles.Remove(r);
-                            r.Employees.Remove(obj);
-                        } else {
-                            r = Context.Roles.Find(item.Id);
-                            if (null !=r) {
-                                r.Employees.Add(obj);
-                                obj.Roles.Add(r);
-                            }
-                        }
+        /// <summary>
+        /// 移除用户角色（从角色中移除用户）
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="roleid"></param>
+        public void RemoveUserFromRole(System.Guid userid , System.Guid roleid) {
+            Employee obj = Context.Employees.Find(userid);
+            if (null !=obj) {
+                Role item = obj.Roles.FirstOrDefault(p => p.Id.Equals(roleid));
+                if (null !=item) {
+                    obj.Roles.Remove(item);
+                    if (obj.Roles.Count==0) {
+                        throw new Exception("用户最少需要一个角色，否则用户无法登录");
                     }
                     Context.SaveChanges();
                 }
+            }
+        }
+
+        /// <summary>
+        /// 为用户添加角色（把用户加入角色）
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <param name="roleid"></param>
+        public void AddUserToRole(System.Guid userid , System.Guid roleid) {
+            Employee obj = Context.Employees.Find(userid);
+            
+            if (null != obj) {
+                Role item = obj.Roles.FirstOrDefault(p => p.Id.Equals(roleid));
+                if (null ==item) { //角色中不包含用户
+
+                    item = Context.Roles.Find(roleid);
+                    if (null !=item) {
+                        obj.Roles.Add(item);
+                        Context.SaveChanges();
+                    }
+                }
+            }
         }
 
         public IList<Employee> Search(string key) {
@@ -54,7 +85,5 @@ namespace TSS.BLL
             }
             return Context.Employees.Where(p => p.Name.Contains(key)).ToList();
         }
-
-        
     }
 }

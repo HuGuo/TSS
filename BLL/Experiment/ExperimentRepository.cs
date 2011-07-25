@@ -8,6 +8,7 @@ namespace TSS.BLL
     public class ExperimentRepository : Repository<Experiment>
     {
         public ExperimentRepository() { }
+
         public void Add(Experiment entity,Action<Experiment> onAdd=null) {
             base.Add(entity);
             if (null !=onAdd) {
@@ -77,7 +78,27 @@ namespace TSS.BLL
             }
         }
         
-        public IList<Experiment> GetMuch(Guid? exptemplateId=null,Guid? equipmentId=null) {
+        public IList<Experiment> GetList(Guid? exptemplateId,Guid? equipmentId) {
+            int rowcount=0;
+            return GetList(exptemplateId , equipmentId , -1 , 0 , out rowcount);
+        }
+
+        public IList<Experiment> GetList(Guid? exptemplateId , Guid? equipmentId,int pageIndex,int pageSize,out   int rowCount) {
+            
+            var query = BuildQuery(Context , exptemplateId , equipmentId);
+            rowCount = query.Count();
+            int skip = GetSkip(pageIndex , pageSize , rowCount);
+            query = query.OrderByDescending(p => p.ExpDate);
+            if (pageIndex<0) {
+                return query.ToList();
+            } else {
+                return query
+                    .OrderBy(p => p.Id).Skip(skip).Take(pageSize).ToList();
+            }
+        }
+
+        //help method
+        private IQueryable<Experiment> BuildQuery(Context db , Guid? exptemplateId, Guid? equipmentId) {
             var query = Context.Experiments.AsQueryable();
             if (exptemplateId.HasValue) {
                 query = query.Where(p => p.ExpTemplateID.Equals(exptemplateId.Value));
@@ -86,9 +107,9 @@ namespace TSS.BLL
                 query = query.Where(p => p.EquipmentID.Equals(equipmentId.Value));
             }
 
-            return query.ToList();
+            return query;
         }
-        
+
         public IList<Experiment> GetByEquipmentCategory(Guid equipmentCategoryId , string specialtyId) {
 
             return Context.Experiments

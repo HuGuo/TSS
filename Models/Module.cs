@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 namespace TSS.Models
 {
@@ -6,13 +6,11 @@ namespace TSS.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Url { get; set; }
+        public string Path { get; set; }
 
         public int? ParentModuleId { get; set; }
         public virtual Module ParentModule { get; set; }
 
         public virtual ICollection<Module> Submodules { get; set; }
-
-        public virtual ICollection<Specialty> Specialties { get; set; }
     }
 }

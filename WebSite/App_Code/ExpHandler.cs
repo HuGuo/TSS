@@ -50,23 +50,25 @@ public class ExpHandler : IHttpHandler
             context.Response.Write("参数错误");
         }
     }
+    #endregion
 
     #region 实验报告，模板，附件
 
     //试验报告数据
     void SaveData(HttpContext context) {
+        string _id = context.Request["id"];
+        string _tid = context.Request["tid"];
+        string date = context.Request["date"];
+        string emID = context.Request["eqmId"];
+        string result = context.Request["result"];
+        Guid newID = string.IsNullOrWhiteSpace(_id) ? System.Guid.NewGuid() : new Guid(_id);
         try {
-            string _id = context.Request["id"];
-            string _tid = context.Request["tid"];
-            string date = context.Request["date"];
-            string emID = context.Request["eqmId"];
-            string result = context.Request["result"];
+            
             string remark = context.Server.UrlDecode(context.Request["remark"]);
             string title = context.Server.UrlDecode(context.Request["title"]);
             string html = context.Server.UrlDecode(context.Request["html"]);
             string data = context.Server.UrlDecode(context.Request["data"]);
             Guid templateID = new Guid(_tid);
-            Guid newID = string.IsNullOrWhiteSpace(_id) ? System.Guid.NewGuid() : new Guid(_id);
 
             ICollection<ExpData> datas = null;
             if (!string.IsNullOrWhiteSpace(data)) {
@@ -93,11 +95,16 @@ public class ExpHandler : IHttpHandler
             };
             if (!string.IsNullOrWhiteSpace(_id)) {
                 RepositoryFactory<ExperimentRepository>.Get().Update(experiment.Id , experiment);
+                AppLog.Write("修改试验报告" , AppLog.LogMessageType.Info , "id=" + experiment.Id.ToString() , this.GetType());
             } else {
                 RepositoryFactory<ExperimentRepository>.Get().Add(experiment);
+                AppLog.Write("填写试验报告" , AppLog.LogMessageType.Info , "id=" + experiment.Id.ToString() , this.GetType());
             }
             context.Response.Write("{\"id\":\"" + experiment.Id + "\"}");
         } catch (Exception ex) {
+            //log
+            AppLog.Write("保存实验报告出错" , AppLog.LogMessageType.Error , "id=" + newID , ex , this.GetType());
+
             context.Response.Write("{\"msg\":\"错误：" + ex.Message + "\"");
         }
     }
@@ -142,7 +149,11 @@ public class ExpHandler : IHttpHandler
         string attachment = context.Request["att"];
         try {
             RepositoryFactory<ExperimentRepository>.Get().RemoveAttachment(new Guid(id) , new Guid(attachment) , onRemove);
+            //log
+            AppLog.Write("删除试验报告附件" , AppLog.LogMessageType.Info , string.Format("id={0},attachment={1}",id,attachment) , this.GetType());
         } catch (Exception ex) {
+            AppLog.Write("删除试验报告附件 出错" , AppLog.LogMessageType.Error , string.Format("id={0},attachment={1}" , id , attachment) , ex , this.GetType());
+
             context.Response.Write(ex.Message);
         }
 
@@ -162,7 +173,11 @@ public class ExpHandler : IHttpHandler
     void DeleteExperiment(HttpContext context) {
         try {
             RepositoryFactory<ExperimentRepository>.Get().Delete(new Guid(context.Request["id"]));
+            //log
+            AppLog.Write("删除试验报告" , AppLog.LogMessageType.Info , "id=" + context.Request["id"] , this.GetType());
         } catch (Exception ex) {
+            AppLog.Write("删除试验报告 出错" , AppLog.LogMessageType.Error , "id=" + context.Request["id"] , ex , this.GetType());            
+
             context.Response.Write(ex.Message);
         }
         context.Response.End();
@@ -182,7 +197,7 @@ public class ExpHandler : IHttpHandler
             string[] fields = columns.Split(',');
             //if (null != json) {
             System.Web.Script.Serialization.JavaScriptSerializer jss = new System.Web.Script.Serialization.JavaScriptSerializer();
-            IList<Experiment> list = RepositoryFactory<ExperimentRepository>.Get().GetMuch(new Guid(eqId) , new Guid(tmpId));
+            IList<Experiment> list = RepositoryFactory<ExperimentRepository>.Get().GetList(new Guid(eqId) , new Guid(tmpId));
             Equipment obj = RepositoryFactory<Equipments>.Get().Get(new Guid(eqId));
             var datas = from p in list
                         select new {
@@ -250,6 +265,5 @@ public class ExpHandler : IHttpHandler
             context.Response.Write(ex.Message);
         }
     }
-    #endregion
     #endregion
 }

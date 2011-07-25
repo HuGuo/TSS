@@ -17,7 +17,7 @@
 <body>
     <form id="form1" runat="server">
     <div id="toolbar" class="fixed">
-    <a href="Default.aspx?s=<%=Request.QueryString["s"] %>">返回</a>
+    <a href="Default.aspx?s=<%=Request.QueryString[Helper.queryParam_specialty] %>">返回</a>
         <div class="search">
             <asp:TextBox ID="txtKey" runat="server" class="textbox"></asp:TextBox>
             <asp:Button ID="btnSearch" runat="server" Text="" class="searchbtn" 

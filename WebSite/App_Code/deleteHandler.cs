@@ -33,7 +33,18 @@ public class DeleteHandler: IHttpHandler
         string id = context.Request.QueryString["id"];
         try {
             RepositoryFactory<CertificateRepository>.Get().Delete(new Guid(id));
+            //log
+            AppLog.Write("删除资质证书" , 
+                AppLog.LogMessageType.Info ,
+                "id="+id, 
+                this.GetType());
         } catch (Exception ex) {
+            //log
+            AppLog.Write("删除资质证书 出错" ,
+                AppLog.LogMessageType.Error ,
+                "id="+id,
+                ex ,
+                this.GetType());
             context.Response.Write(ex.Message);
         }
         context.Response.End();
@@ -44,8 +55,12 @@ public class DeleteHandler: IHttpHandler
         try {
             using (workflow.WFContext db = new workflow.WFContext()) {
                 workflow.WFRepository.Delete(id , true,db);
+                //log
+                AppLog.Write("删除流程", AppLog.LogMessageType.Info,"id="+id, this.GetType());
             }
         } catch (Exception ex) {
+            //log
+            AppLog.Write("删除流程出错" , AppLog.LogMessageType.Error , "id=" + id , ex , this.GetType());
             context.Response.Write(ex.Message);
         }
     }

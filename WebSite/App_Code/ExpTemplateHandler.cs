@@ -48,31 +48,43 @@ public class ExpTemplateHandler:IHttpHandler
     #region 实验模板
     //保存试验报告模板
     void SaveTemplate(HttpContext context) {
+        string _cid = context.Request["tid"];
+        Guid guid;
+        if (!string.IsNullOrWhiteSpace(_cid)) {
+            guid = new Guid(_cid);
+        } else {
+            guid = System.Guid.NewGuid();
+        }
         try {
-            string _cid = context.Request["tid"];
             string _title = context.Server.UrlDecode(context.Request["title"]);
             string _html = context.Server.UrlDecode(context.Request["html"]);
             string sp = context.Request["sp"];
-            Guid guid;
-            if (!string.IsNullOrWhiteSpace(_cid)) {
-                guid = new Guid(_cid);
-            } else {
-                guid = System.Guid.NewGuid();
-            }
+            string category=context.Request["category"];
+            
             ExpTemplate template = new ExpTemplate {
                 Id = guid ,
                 SpecialtyId = sp ,
                 HTML = _html ,
-                Title = _title
+                Title = _title,
+                ExpCategoryId=string.IsNullOrWhiteSpace(category)?null:(Guid?)new Guid(category)
             };
             bool exists = RepositoryFactory<ExpTemplateRepository>.Get().IsExists(guid);
             if (exists) {
                 RepositoryFactory<ExpTemplateRepository>.Get().Update(template.Id , template);
+                //log
+                AppLog.Write("修改实验报告模板:" + template.Title , AppLog.LogMessageType.Info , "id=" + guid.ToString() , this.GetType());
             } else {
+                template.Enable = 1;
                 RepositoryFactory<ExpTemplateRepository>.Get().Add(template);
+                //log
+                AppLog.Write("新建实验报告模板:" + template.Title , AppLog.LogMessageType.Info , "id=" + guid.ToString() , this.GetType());
             }
+            
+
             context.Response.Write("{\"id\":\"" + template.Id + "\"}");
         } catch (Exception ex) {
+            AppLog.Write("保存试验报告模板 出错" , AppLog.LogMessageType.Error , "id=" + guid.ToString() , ex , this.GetType());
+
             context.Response.Write("{\"msg\":\"错误：" + ex.Message + "\"");
         }
     }
@@ -80,7 +92,12 @@ public class ExpTemplateHandler:IHttpHandler
     void DeleteTemplate(HttpContext context) {
         try {
             RepositoryFactory<ExpTemplateRepository>.Get().Delete(new Guid(context.Request["id"]));
+            // log
+            AppLog.Write("删除试验报告模板" , AppLog.LogMessageType.Info , "id="+context.Request["id"] , this.GetType());
+
         } catch (Exception ex) {
+            AppLog.Write("删除试验报告模板 出错" , AppLog.LogMessageType.Error , "id=" + context.Request["id"] , ex , this.GetType());
+
             context.Response.Write(ex.Message);
         }
         context.Response.End();
@@ -120,10 +137,10 @@ public class ExpTemplateHandler:IHttpHandler
 
     void ResponseList(HttpContext context) {
         context.Response.ContentType = "application/json; charset=UTF-8";
-        string s = context.Request.QueryString["s"];
+        string s = context.Request.QueryString[Helper.queryParam_specialty];
         System.Collections.Generic.IList<ExpTemplate> list = null;
         if (!string.IsNullOrWhiteSpace(s)) {
-            list = RepositoryFactory<ExpTemplateRepository>.Get().GetBySpecialty(s);
+            list = RepositoryFactory<ExpTemplateRepository>.Get().GetList(TemplateStatus.Enable , s);
         } else {
             list = RepositoryFactory<ExpTemplateRepository>.Get().GetAll();
         }

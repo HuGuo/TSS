@@ -26,3 +26,9 @@
 	width: 262px;
 	border:1px solid #ccc;
 }
+.messager-progress{
+	padding:10px;
+}
+.messager-p-msg{
+	margin-bottom:5px;
+}
